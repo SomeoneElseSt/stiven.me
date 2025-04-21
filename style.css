@@ -1,6 +1,7 @@
+
 body {
   background: black;
-  color: #aaaaaa;
+  color: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   margin: 0;
@@ -18,7 +19,7 @@ p {
 }
 
 a {
-  color: #aaaaaa;
+  color: white;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
