@@ -1,1 +1,9 @@
+# Miscellaneous
 node_modules/
+.env
+
+# Replit
+.replit
+.replit.backup
+attached_assets/
+generated-icon.png
