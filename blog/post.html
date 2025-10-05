@@ -12,6 +12,8 @@
 <body>
     <div class="post-header">
         <div>
+            <div class="post-skeleton-title"></div>
+            <div class="post-skeleton-date"></div>
             <h1 id="post-title"></h1>
             <time id="post-date" class="post-date"></time>
         </div>
@@ -54,7 +56,10 @@
             const contentEl = document.getElementById('post-content');
             if (titleEl) titleEl.textContent = title || '';
             if (dateEl) dateEl.textContent = date || '';
-            if (contentEl && typeof html === 'string') contentEl.innerHTML = html;
+            if (contentEl && typeof html === 'string') {
+                contentEl.innerHTML = html;
+                document.body.classList.add('content-ready');
+            }
         }
 
         function isSafari() {
@@ -103,7 +108,6 @@
                 }
                 
                 document.title = post.title;
-                renderPost(post.title, post.date);
                 
                 const cacheKey = MARKDOWN_CACHE_PREFIX + post.file;
                 const cachedMd = getCachedMarkdown(cacheKey);
