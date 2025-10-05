@@ -155,14 +155,6 @@ async function fetchBlogPosts() {
   }
 }
 
-function getSkeletonCount() {
-  const container = document.getElementById('blog-list');
-  if (!container) return MAX_POSTS_TO_SHOW;
-  const skeletons = container.querySelectorAll('.blog-skeleton');
-  if (skeletons && skeletons.length) return skeletons.length;
-  return MAX_POSTS_TO_SHOW;
-}
-
 function hideBlogSection() {
   const header = document.querySelector('.blog-header');
   const container = document.getElementById('blog-list');
@@ -232,8 +224,7 @@ function renderBlogList(posts, page) {
   const postsToShow = posts.slice(startIndex, endIndex);
   
   const fragment = document.createDocumentFragment();
-  const visibleCount = Math.min(postsToShow.length, getSkeletonCount());
-  for (let i = 0; i < visibleCount; i++) {
+  for (let i = 0; i < postsToShow.length; i++) {
     const item = createBlogListItem(postsToShow[i]);
     fragment.appendChild(item);
   }
@@ -249,22 +240,6 @@ function renderBlogList(posts, page) {
   if (pagination) {
     addPaginationListeners(posts);
   }
-  showSocialLinks();
-}
-
-function renderSkeletonList(count) {
-  const blogContainer = document.getElementById('blog-list');
-  if (!blogContainer) return;
-  const fragment = document.createDocumentFragment();
-  for (let i = 0; i < count; i++) {
-    const skel = document.createElement('div');
-    skel.className = 'blog-skeleton';
-    const bar = document.createElement('div');
-    bar.className = 'blog-skeleton-title';
-    skel.appendChild(bar);
-    fragment.appendChild(skel);
-  }
-  blogContainer.replaceChildren(fragment);
   showSocialLinks();
 }
 
@@ -332,13 +307,9 @@ async function initBlogList() {
   const posts = await fetchBlogPosts();
 
   if (posts && posts.length > 0) {
-    const skeletonCount = Math.min(posts.length, MAX_POSTS_TO_SHOW);
-    
-    renderSkeletonList(skeletonCount);
-    
     renderBlogList(posts, 1);
   } else {
-      hideBlogSection();
+    hideBlogSection();
   }
 
   revalidateAndUpdateList(); 
