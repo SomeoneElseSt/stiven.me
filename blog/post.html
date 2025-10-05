@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Blog Post</title>
+    <link rel="stylesheet" href="../style.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <div class="post-header">
+        <h1 id="post-title">Loading...</h1>
+        <a href="/" class="back-button">← Back</a>
+    </div>
+    <time id="post-date" class="post-date"></time>
+    
+    <article id="post-content">
+        <div class="post-skeleton-line"></div>
+        <div class="post-skeleton-line"></div>
+        <div class="post-skeleton-line short"></div>
+    </article>
+
+    <script>
+        const MARKDOWN_CACHE_PREFIX = 'blog_md_cache_v1_';
+
+        function getCachedMarkdown(key) {
+            const raw = localStorage.getItem(key);
+            if (!raw) return null;
+            
+            try {
+                const parsed = JSON.parse(raw);
+                return parsed.markdown || null;
+            } catch (error) {
+                console.error('Error parsing cached markdown:', error);
+                return null;
+            }
+        }
+
+        function setCachedMarkdown(key, markdown) {
+            try {
+                localStorage.setItem(key, JSON.stringify({ markdown }));
+            } catch (error) {
+                console.error('Error caching markdown:', error);
+            }
+        }
+
+        function renderPost(title, date, html) {
+            const titleEl = document.getElementById('post-title');
+            const dateEl = document.getElementById('post-date');
+            const contentEl = document.getElementById('post-content');
+            if (titleEl) titleEl.textContent = title || '';
+            if (dateEl) dateEl.textContent = date || '';
+            if (contentEl && typeof html === 'string') contentEl.innerHTML = html;
+        }
+
+        async function loadPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            
+            if (!postId) {
+                renderPost('','', '<p>No post specified.</p>');
+                return;
+            }
+
+            try {
+                const postsResponse = await fetch('/blog/posts.json', { cache: 'no-store' });
+                if (!postsResponse.ok) {
+                    renderPost('','', '<p>Error loading posts.</p>');
+                    return;
+                }
+                
+                const posts = await postsResponse.json();
+                const post = posts.find(p => p.id === postId);
+                
+                if (!post) {
+                    renderPost('','', '<p>Post not found.</p>');
+                    return;
+                }
+                
+                document.title = post.title;
+                renderPost(post.title, post.date);
+                
+                const cacheKey = MARKDOWN_CACHE_PREFIX + post.filename;
+                const cachedMd = getCachedMarkdown(cacheKey);
+                if (cachedMd) {
+                    const html = marked.parse(cachedMd);
+                    renderPost(post.title, post.date, `<div class=\"post-body\">${html}</div>`);
+                }
+                
+                const markdownResponse = await fetch(`/blog/posts/${post.filename}`, { cache: 'no-store' });
+                if (!markdownResponse.ok) {
+                    if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
+                    return;
+                }
+                
+                const markdown = await markdownResponse.text();
+                setCachedMarkdown(cacheKey, markdown);
+                const html = marked.parse(markdown);
+                renderPost(post.title, post.date, `<div class=\"post-body\">${html}</div>`);
+            } catch (error) {
+                renderPost('','', '<p>Error loading post.</p>');
+                console.error('Error:', error);
+            }
+        }
+
+        loadPost();
+    </script>
+</body>
+</html>
+
