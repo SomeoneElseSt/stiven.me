@@ -172,11 +172,39 @@ async function main() {
 
   try {
     const template = await fs.readFile(HTML_TEMPLATE_PATH, 'utf-8');
-    const blogListRegex = /<div id="blog-list">[\s\S]*?<\/div>/;
-    const finalHtml = template.replace(
-      blogListRegex,
-      `<div id="blog-list">${blogListHTML}</div>`
-    );
+    const startMarker = '<div id="blog-list">';
+    const startIdx = template.indexOf(startMarker);
+    if (startIdx === -1) {
+      console.error('Error: Could not find <div id="blog-list"> in template');
+      process.exit(1);
+    }
+
+    let i = startIdx + startMarker.length;
+    let depth = 1; // we are inside #blog-list
+    while (i < template.length && depth > 0) {
+      const nextOpen = template.indexOf('<div', i);
+      const nextClose = template.indexOf('</div>', i);
+      if (nextClose === -1) {
+        break; 
+      }
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth += 1;
+        i = nextOpen + 4;
+      } else {
+        depth -= 1;
+        i = nextClose + 6;
+      }
+    }
+
+    if (depth !== 0) {
+      console.error('Error: Could not find matching </div> for #blog-list');
+      process.exit(1);
+    }
+
+    const before = template.slice(0, startIdx);
+    const after = template.slice(i);
+    const finalHtml = `${before}${startMarker}${blogListHTML}</div>${after}`;
+
     await fs.writeFile(HTML_OUTPUT_PATH, finalHtml, 'utf-8');
     console.log(`Successfully injected blog list into ${HTML_OUTPUT_PATH}`);
   } catch (error) {
