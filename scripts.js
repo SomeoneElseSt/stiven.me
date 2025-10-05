@@ -4,19 +4,8 @@ const IDLE_TIMEOUT_MS = 1500;
 const IDLE_CALLBACK_TIMEOUT_MS = 2000;
 const CLICK_FEEDBACK_DURATION_MS = 500;
 const CLICKED_CLASS = 'clicked';
-const MAX_POSTS_TO_SHOW = 10;
-const POSTS_JSON_PATH = '/public/blog-data.json';
-const POSTS_CACHE_KEY = 'blog_posts_cache_v2'; 
-const POSTS_CACHE_TTL_MS = 1000 * 60 * 10; 
 
 let prefetchDone = false;
-let postsPrefetchDone = false;
-
-function computePostsSignature(posts) {
-  if (!Array.isArray(posts)) return '';
-  const parts = posts.map((p) => `${p.id}|${p.file}|${p.date}`).join('::');
-  return `${posts.length}::${parts}`;
-}
 
 function findResumeLink() {
   return document.querySelector(`a[href="${RESUME_PATH}"]`);
@@ -58,36 +47,6 @@ function initPrefetch() {
   if (!anchor) return;
   scheduleIdlePrefetch();
   addInteractionListeners(anchor);
-}
-
-function createPostsPrefetchTag() {
-  if (postsPrefetchDone) return;
-  
-  const existingTag = document.querySelector(`link[href="${POSTS_JSON_PATH}"]`);
-  if (existingTag) return;
-  
-  const tag = document.createElement('link');
-  tag.rel = 'prefetch';
-  tag.href = POSTS_JSON_PATH;
-  tag.as = 'fetch';
-  tag.crossOrigin = 'anonymous';
-  document.head.appendChild(tag);
-  postsPrefetchDone = true;
-}
-
-function schedulePostsPrefetch() {
-  const hasIdleCallback = 'requestIdleCallback' in window;
-  if (hasIdleCallback) {
-    requestIdleCallback(createPostsPrefetchTag, { timeout: IDLE_CALLBACK_TIMEOUT_MS });
-    return;
-  }
-  setTimeout(createPostsPrefetchTag, IDLE_TIMEOUT_MS);
-}
-
-function initPostsPrefetch() {
-  const blogContainer = document.getElementById('blog-list');
-  if (!blogContainer) return;
-  schedulePostsPrefetch();
 }
 
 function handleSocialLinkClick(event) {
