@@ -267,12 +267,15 @@ article h1 {
     display: none; 
 }
 
-
 .post-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start; 
   max-width: 600px;
+}
+
+.post-header > div {
+  padding-top: 10px;
 }
 
 .post-header h1 {
