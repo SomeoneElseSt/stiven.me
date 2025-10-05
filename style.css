@@ -278,3 +278,12 @@ article h1 {
     font-size: 28px;
   }
 }
+
+#nprogress .bar {
+  background: white !important;
+  height: 2px !important;
+}
+
+#nprogress .spinner {
+  display: none !important;
+}
