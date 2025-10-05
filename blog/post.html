@@ -3,39 +3,54 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Blog Post</title>
-    <link rel="stylesheet" href="../style.css?v=1.2"/>
+    <title>%%POST_TITLE%%</title>
+    <style>
+        /* Critical CSS inlined */
+        body { background: black; color: white; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid #333; padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: white; }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: white; }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: baseline; max-width: 600px; margin-bottom: 24px; }
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 8px; font-size: 24px; font-weight: 600; line-height: 1.2; }
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; }
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: white; line-height: 1.2; }
+        article { max-width: 600px; }
+        article a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        #nprogress .bar { background: white !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px white, 0 0 5px white; }
+        #nprogress .spinner { display: none !important; }
+    </style>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <link rel="preload" href="../style.css?v=1.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../style.css?v=1.2"></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
 </head>
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title"></h1>
-            <time id="post-date" class="post-date"></time>
+            <h1 id="post-title">%%POST_TITLE%%</h1>
+            <time id="post-date" class="post-date">%%POST_DATE%%</time>
         </div>
         <a href="/" class="back-button">← Back</a>
     </div>
     
-    <article id="post-content"></article>
-
+    <article id="post-content">%%POST_CONTENT%%</article>
+    
     <script>
-        const POSTS_DATA_PATH = '/public/blog-data.json';
-
-        function renderPost(title, date, html) {
-            document.title = title || 'Blog Post';
-            const titleEl = document.getElementById('post-title');
-            const dateEl = document.getElementById('post-date');
-            const contentEl = document.getElementById('post-content');
-
-            if (titleEl) titleEl.textContent = title || '';
-            if (dateEl) dateEl.textContent = date || '';
-            if (contentEl && typeof html === 'string') {
-                contentEl.innerHTML = `<div class="post-body">${html}</div>`;
-            }
-        }
-
         function isSafari() {
             return typeof safari !== 'undefined';
         }
@@ -50,48 +65,23 @@
             return isSafari() || isPhone();
         }
 
-        async function loadPost() {
-            if (!shouldDisableNProgress()) {
-                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
-                NProgress.start();
-            }
-            const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get('id');
-            
-            if (!postId) {
-                renderPost('','', '<p>No post specified.</p>');
-                if (!shouldDisableNProgress()) NProgress.done();
-                return;
-            }
-
-            try {
-                const response = await fetch(POSTS_DATA_PATH, { cache: 'no-store' });
-                if (!response.ok) {
-                    renderPost('','', '<p>Error loading post data.</p>');
-                    if (!shouldDisableNProgress()) NProgress.done();
-                    return;
-                }
-                
-                const blogData = await response.json();
-                const post = blogData.postsById[postId];
-                
-                if (post) {
-                    renderPost(post.title, post.date, post.htmlContent);
-                } else {
-                    renderPost('','', '<p>Post not found.</p>');
-                }
-
-            } catch (error) {
-                renderPost('','', '<p>Error loading post.</p>');
-                console.error('Error:', error);
-            } finally {
-                if (!shouldDisableNProgress()) NProgress.done();
+        function finishProgress() {
+            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
+                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+                NProgress.set(0.7);
+                setTimeout(function() {
+                    NProgress.done();
+                }, 100);
             }
         }
 
-        loadPost();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
 
-        document.querySelectorAll('a').forEach(link => {
+        document.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function(event) {
                 if (shouldDisableNProgress()) {
                     return;
@@ -100,7 +90,11 @@
                 if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                     return;
                 }
-                NProgress.start();
+                if (typeof NProgress !== 'undefined') {
+                    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+                    NProgress.start();
+                    NProgress.set(0.4);
+                }
             });
         });
     </script>

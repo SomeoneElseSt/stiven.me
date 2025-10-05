@@ -57,14 +57,6 @@ function handleSocialLinkClick(event) {
   }, CLICK_FEEDBACK_DURATION_MS);
 }
 
-function showSocialLinks() {
-  const socialHeader = document.querySelector('.social-header');
-  if (socialHeader) socialHeader.style.display = 'block';
-  
-  const socialLinks = document.querySelector('.social-links');
-  if (socialLinks) socialLinks.style.display = 'flex';
-}
-
 function findSocialLinks() {
   return document.querySelectorAll('.social-links a');
 }
@@ -92,11 +84,10 @@ function shouldDisableNProgress() {
 
 function initializeApp() {
   if (!shouldDisableNProgress()) {
-    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
+    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
   }
   initPrefetch();
   addSocialLinkClickListeners();
-  showSocialLinks();
 
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function(event) {
@@ -107,7 +98,9 @@ function initializeApp() {
       if (isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
         return;
       }
+      NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
       NProgress.start();
+      NProgress.set(0.4);
     });
   });
 }
