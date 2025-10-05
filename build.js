@@ -7,6 +7,8 @@ const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const OUTPUT_DIR = path.join(__dirname, 'public');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'blog-data.json');
+const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
+const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
 
 async function readPostsMetadata() {
   const exists = await fs.pathExists(POSTS_JSON_PATH);
@@ -60,6 +62,21 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
   return combinedPosts;
 }
 
+function generateBlogListHTML(posts) {
+  return posts
+    .map(
+      (post) => `
+    <div class="blog-post-item">
+      <a href="/blog/post.html?id=${post.id}" class="blog-post-link" data-title-length="${post.title.length}">
+        <span class="blog-post-title">${post.title}</span>
+        <span class="blog-post-date">${post.date}</span>
+      </a>
+    </div>
+  `
+    )
+    .join('');
+}
+
 function structureFinalData(posts) {
   posts.sort(function(a, b) {
     return new Date(b.date) - new Date(a.date);
@@ -105,6 +122,21 @@ async function main() {
 
   if (writeError) {
     console.error(writeError.message);
+    process.exit(1);
+  }
+
+  const blogListHTML = generateBlogListHTML(processedPosts);
+
+  try {
+    const template = await fs.readFile(HTML_TEMPLATE_PATH, 'utf-8');
+    const finalHtml = template.replace(
+      '<div id="blog-list"></div>',
+      `<div id="blog-list">${blogListHTML}</div>`
+    );
+    await fs.writeFile(HTML_OUTPUT_PATH, finalHtml, 'utf-8');
+    console.log(`Successfully injected blog list into ${HTML_OUTPUT_PATH}`);
+  } catch (error) {
+    console.error(`Error processing HTML template: ${error.message}`);
     process.exit(1);
   }
 }
