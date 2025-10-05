@@ -39,6 +39,10 @@ a {
   text-decoration: none;
 }
 
+.social-links a.clicked {
+  opacity: 0.7;
+}
+
 .social-icon {
   width: 20px;
   height: 20px;
