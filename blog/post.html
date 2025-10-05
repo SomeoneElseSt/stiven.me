@@ -61,8 +61,16 @@
             return typeof safari !== 'undefined';
         }
 
+        function isTouchDevice() {
+            return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isTouchDevice();
+        }
+
         async function loadPost() {
-            if (!isSafari()) {
+            if (!shouldDisableNProgress()) {
                 NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
                 NProgress.start();
             }
@@ -71,7 +79,7 @@
             
             if (!postId) {
                 renderPost('','', '<p>No post specified.</p>');
-                if (!isSafari()) NProgress.done();
+                if (!shouldDisableNProgress()) NProgress.done();
                 return;
             }
 
@@ -79,7 +87,7 @@
                 const postsResponse = await fetch('/blog/posts.json', { cache: 'no-store' });
                 if (!postsResponse.ok) {
                     renderPost('','', '<p>Error loading posts.</p>');
-                    if (!isSafari()) NProgress.done();
+                    if (!shouldDisableNProgress()) NProgress.done();
                     return;
                 }
                 
@@ -88,7 +96,7 @@
                 
                 if (!post) {
                     renderPost('','', '<p>Post not found.</p>');
-                    if (!isSafari()) NProgress.done();
+                    if (!shouldDisableNProgress()) NProgress.done();
                     return;
                 }
                 
@@ -105,7 +113,7 @@
                 const markdownResponse = await fetch(`/blog/posts/${post.file}`, { cache: 'no-store' });
                 if (!markdownResponse.ok) {
                     if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
-                    if (!isSafari()) NProgress.done();
+                    if (!shouldDisableNProgress()) NProgress.done();
                     return;
                 }
                 
@@ -117,7 +125,7 @@
                 renderPost('','', '<p>Error loading post.</p>');
                 console.error('Error:', error);
             } finally {
-                if (!isSafari()) NProgress.done();
+                if (!shouldDisableNProgress()) NProgress.done();
             }
         }
 
@@ -125,7 +133,7 @@
 
         document.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function(event) {
-                if (isSafari()) {
+                if (shouldDisableNProgress()) {
                     return;
                 }
                 const isExternal = link.hostname && link.hostname !== window.location.hostname;

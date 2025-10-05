@@ -311,7 +311,7 @@ function addPaginationListeners(posts) {
 async function initBlogList() {
   const blogContainer = document.getElementById('blog-list');
   if (!blogContainer) {
-    if (!isSafari() && NProgress.isStarted()) NProgress.done();
+    if (!shouldDisableNProgress() && NProgress.isStarted()) NProgress.done();
     return;
   }
   
@@ -323,15 +323,23 @@ async function initBlogList() {
   }
   
   await revalidateAndUpdateList();
-  if (!isSafari() && NProgress.isStarted()) NProgress.done();
+  if (!shouldDisableNProgress() && NProgress.isStarted()) NProgress.done();
 }
 
 function isSafari() {
   return typeof safari !== 'undefined';
 }
 
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+function shouldDisableNProgress() {
+  return isSafari() || isTouchDevice();
+}
+
 function initializeApp() {
-  if (!isSafari()) {
+  if (!shouldDisableNProgress()) {
     NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
   }
   initPrefetch();
@@ -341,7 +349,7 @@ function initializeApp() {
 
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function(event) {
-      if (isSafari()) {
+      if (shouldDisableNProgress()) {
         return;
       }
       const isExternal = link.hostname && link.hostname !== window.location.hostname;
