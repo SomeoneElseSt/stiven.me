@@ -175,7 +175,7 @@ function createBlogListItem(post) {
   const item = document.createElement('div');
   item.className = 'blog-post-item';
   item.innerHTML = `
-    <a href="/blog/post.html?id=${post.id}" class="blog-post-link">
+    <a href="/blog/post.html?id=${post.id}" class="blog-post-link" data-title-length="${post.title.length}">
       <span class="blog-post-title">${post.title}</span>
       <span class="blog-post-date">${post.date}</span>
     </a>
@@ -244,6 +244,7 @@ function renderBlogList(posts, page) {
   }
 
   blogContainer.replaceChildren(fragment);
+  addPostLinkListeners();
   
   if (pagination) {
     addPaginationListeners(posts);
@@ -304,6 +305,18 @@ function addPaginationListeners(posts) {
       const page = parseInt(link.dataset.page);
       renderBlogList(posts, page);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
+function addPostLinkListeners() {
+  document.querySelectorAll('.blog-post-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const postId = new URL(link.href).searchParams.get('id');
+      const titleLength = link.dataset.titleLength;
+      if (postId && titleLength) {
+        sessionStorage.setItem(`post-title-length-${postId}`, titleLength);
+      }
     });
   });
 }

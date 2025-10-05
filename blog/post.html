@@ -83,6 +83,17 @@
             }
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
+            const titleLength = sessionStorage.getItem(`post-title-length-${postId}`);
+
+            if (titleLength) {
+                const skeletonTitle = document.querySelector('.post-skeleton-title');
+                if (skeletonTitle) {
+                    const estimatedWidth = Math.min(100, titleLength * 1.5);
+                    skeletonTitle.style.width = `${estimatedWidth}%`;
+                }
+
+                sessionStorage.removeItem(`post-title-length-${postId}`);
+            }
             
             if (!postId) {
                 renderPost('','', '<p>No post specified.</p>');
