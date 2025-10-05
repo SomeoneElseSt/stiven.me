@@ -2,7 +2,6 @@
 const RESUME_PATH = '/resume.pdf';
 const IDLE_TIMEOUT_MS = 1500;
 const IDLE_CALLBACK_TIMEOUT_MS = 2000;
-const BLUR_DELAY_MS = 300;
 
 let prefetchDone = false;
 
@@ -50,9 +49,7 @@ function initPrefetch() {
 
 function blurSocialLink(event) {
   const link = event.currentTarget;
-  setTimeout(() => {
-    link.blur();
-  }, BLUR_DELAY_MS);
+  link.blur();
 }
 
 function findSocialLinks() {
@@ -62,8 +59,8 @@ function findSocialLinks() {
 function addSocialLinkBlurListeners() {
   const socialLinks = findSocialLinks();
   socialLinks.forEach((link) => {
-    link.addEventListener('click', blurSocialLink);
-    link.addEventListener('touchend', blurSocialLink);
+    link.addEventListener('mousedown', blurSocialLink);
+    link.addEventListener('touchstart', blurSocialLink);
   });
 }
 
