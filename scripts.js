@@ -6,7 +6,7 @@ const CLICK_FEEDBACK_DURATION_MS = 500;
 const CLICKED_CLASS = 'clicked';
 const MAX_POSTS_TO_SHOW = 10;
 const POSTS_JSON_PATH = '/public/blog-data.json';
-const POSTS_CACHE_KEY = 'blog_posts_cache_v2'; // Cache key updated for new data structure
+const POSTS_CACHE_KEY = 'blog_posts_cache_v2'; 
 const POSTS_CACHE_TTL_MS = 1000 * 60 * 10; 
 
 let prefetchDone = false;
@@ -328,23 +328,15 @@ async function initBlogList() {
     if (!shouldDisableNProgress() && NProgress.isStarted()) NProgress.done();
     return;
   }
-  
-  const cached = getCachedPosts();
-  if (cached && cached.posts && cached.posts.length) {
-    renderBlogList(cached.posts, 1);
-  } else {
-   
-    renderSkeletonList(3);
-  }
-  
-  
+
   const posts = await fetchBlogPosts();
+
   if (posts && posts.length > 0) {
-      if (!cached || cached.posts.length === 0) {
-          const skeletonCount = Math.min(posts.length, MAX_POSTS_TO_SHOW);
-          renderSkeletonList(skeletonCount);
-      }
-      renderBlogList(posts, 1);
+    const skeletonCount = Math.min(posts.length, MAX_POSTS_TO_SHOW);
+    
+    renderSkeletonList(skeletonCount);
+    
+    renderBlogList(posts, 1);
   } else {
       hideBlogSection();
   }
