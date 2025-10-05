@@ -310,7 +310,10 @@ function addPaginationListeners(posts) {
 
 async function initBlogList() {
   const blogContainer = document.getElementById('blog-list');
-  if (!blogContainer) return;
+  if (!blogContainer) {
+    if (NProgress.isStarted()) NProgress.done();
+    return;
+  }
   
   const cached = getCachedPosts();
   if (cached && cached.posts && cached.posts.length) {
@@ -320,13 +323,25 @@ async function initBlogList() {
   }
   
   await revalidateAndUpdateList();
+  if (NProgress.isStarted()) NProgress.done();
 }
 
 function initializeApp() {
+  NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
   initPrefetch();
   initPostsPrefetch();
   addSocialLinkClickListeners();
   initBlogList();
+
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', function(event) {
+      const isExternal = link.hostname && link.hostname !== window.location.hostname;
+      if (isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+        return;
+      }
+      NProgress.start();
+    });
+  });
 }
 
 function startWhenReady() {

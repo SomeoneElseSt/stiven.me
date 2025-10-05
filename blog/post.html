@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Blog Post</title>
     <link rel="stylesheet" href="../style.css?v=1.1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
 </head>
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title">Loading...</h1>
+            <h1 id="post-title"></h1>
             <time id="post-date" class="post-date"></time>
         </div>
         <a href="/" class="back-button">← Back</a>
@@ -56,11 +58,14 @@
         }
 
         async function loadPost() {
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
+            NProgress.start();
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
             
             if (!postId) {
                 renderPost('','', '<p>No post specified.</p>');
+                NProgress.done();
                 return;
             }
 
@@ -68,6 +73,7 @@
                 const postsResponse = await fetch('/blog/posts.json', { cache: 'no-store' });
                 if (!postsResponse.ok) {
                     renderPost('','', '<p>Error loading posts.</p>');
+                    NProgress.done();
                     return;
                 }
                 
@@ -76,6 +82,7 @@
                 
                 if (!post) {
                     renderPost('','', '<p>Post not found.</p>');
+                    NProgress.done();
                     return;
                 }
                 
@@ -86,26 +93,39 @@
                 const cachedMd = getCachedMarkdown(cacheKey);
                 if (cachedMd) {
                     const html = marked.parse(cachedMd);
-                    renderPost(post.title, post.date, `<div class=\"post-body\">${html}</div>`);
+                    renderPost(post.title, post.date, `<div class="post-body">${html}</div>`);
                 }
                 
                 const markdownResponse = await fetch(`/blog/posts/${post.file}`, { cache: 'no-store' });
                 if (!markdownResponse.ok) {
                     if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
+                    NProgress.done();
                     return;
                 }
                 
                 const markdown = await markdownResponse.text();
                 setCachedMarkdown(cacheKey, markdown);
                 const html = marked.parse(markdown);
-                renderPost(post.title, post.date, `<div class=\"post-body\">${html}</div>`);
+                renderPost(post.title, post.date, `<div class="post-body">${html}</div>`);
             } catch (error) {
                 renderPost('','', '<p>Error loading post.</p>');
                 console.error('Error:', error);
+            } finally {
+                NProgress.done();
             }
         }
 
         loadPost();
+
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                const isExternal = link.hostname && link.hostname !== window.location.hostname;
+                if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+                    return;
+                }
+                NProgress.start();
+            });
+        });
     </script>
 </body>
 </html>
