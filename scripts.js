@@ -2,6 +2,7 @@
 const RESUME_PATH = '/resume.pdf';
 const IDLE_TIMEOUT_MS = 1500;
 const IDLE_CALLBACK_TIMEOUT_MS = 2000;
+const BLUR_DELAY_MS = 300;
 
 let prefetchDone = false;
 
@@ -47,22 +48,28 @@ function initPrefetch() {
   addInteractionListeners(anchor);
 }
 
-function handleVisibilityChange() {
-  if (document.visibilityState !== 'hidden') return;
-  const activeElement = document.activeElement;
-  if (!activeElement) return;
-  const isSocialLink = activeElement.closest('.social-links');
-  if (!isSocialLink) return;
-  activeElement.blur();
+function blurSocialLink(event) {
+  const link = event.currentTarget;
+  setTimeout(() => {
+    link.blur();
+  }, BLUR_DELAY_MS);
 }
 
-function addVisibilityListener() {
-  document.addEventListener('visibilitychange', handleVisibilityChange);
+function findSocialLinks() {
+  return document.querySelectorAll('.social-links a');
+}
+
+function addSocialLinkBlurListeners() {
+  const socialLinks = findSocialLinks();
+  socialLinks.forEach((link) => {
+    link.addEventListener('click', blurSocialLink);
+    link.addEventListener('touchend', blurSocialLink);
+  });
 }
 
 function initializeApp() {
   initPrefetch();
-  addVisibilityListener();
+  addSocialLinkBlurListeners();
 }
 
 function startWhenReady() {
