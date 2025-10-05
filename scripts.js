@@ -47,35 +47,13 @@ function initPrefetch() {
   addInteractionListeners(anchor);
 }
 
-function blurSocialLink(event) {
-  const link = event.currentTarget;
-  link.blur();
-}
-
-function findSocialLinks() {
-  return document.querySelectorAll('.social-links a');
-}
-
-function addSocialLinkBlurListeners() {
-  const socialLinks = findSocialLinks();
-  socialLinks.forEach((link) => {
-    link.addEventListener('mousedown', blurSocialLink);
-    link.addEventListener('touchstart', blurSocialLink);
-  });
-}
-
-function initializeApp() {
-  initPrefetch();
-  addSocialLinkBlurListeners();
-}
-
 function startWhenReady() {
   const isLoading = document.readyState === 'loading';
   if (isLoading) {
-    document.addEventListener('DOMContentLoaded', initializeApp);
+    document.addEventListener('DOMContentLoaded', initPrefetch);
     return;
   }
-  initializeApp();
+  initPrefetch();
 }
 
 startWhenReady();
