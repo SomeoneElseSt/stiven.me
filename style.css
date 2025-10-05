@@ -48,3 +48,10 @@ a {
   height: 20px;
   opacity: 1;
 }
+
+@media (max-width: 600px) {
+  body {
+    padding: 50px 20px;
+    text-align: left;
+  }
+}
