@@ -12,6 +12,10 @@ h1 {
   margin-bottom: 24px;
 }
 
+.blog-header {
+  padding-top: 5px;
+}
+
 p {
   margin: 16px 0;
   max-width: 600px;
@@ -30,7 +34,7 @@ a {
 }
 
 .social-links {
-  margin-top: 40px;
+  margin-top: 5px;
   display: flex;
   gap: 24px;
 }
@@ -41,6 +45,10 @@ a {
 
 .social-links a.clicked {
   opacity: 0.7;
+}
+
+.social-header {
+  padding-top: 5px;
 }
 
 .social-icon {
