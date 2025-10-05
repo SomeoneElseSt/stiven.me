@@ -1,0 +1,15 @@
+{
+  "name": "stiven.me",
+  "version": "1.0.0",
+  "description": "Personal website",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "11.2.0",
+    "glob": "10.4.2",
+    "marked": "11.1.1"
+  }
+}
