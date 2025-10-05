@@ -330,12 +330,14 @@ function isSafari() {
   return typeof safari !== 'undefined';
 }
 
-function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+function isPhone() {
+  const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  return isMobileSize && isTouchDevice;
 }
 
 function shouldDisableNProgress() {
-  return isSafari() || isTouchDevice();
+  return isSafari() || isPhone();
 }
 
 function initializeApp() {
