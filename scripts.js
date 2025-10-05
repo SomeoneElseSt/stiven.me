@@ -47,13 +47,31 @@ function initPrefetch() {
   addInteractionListeners(anchor);
 }
 
+function handleVisibilityChange() {
+  if (document.visibilityState !== 'hidden') return;
+  const activeElement = document.activeElement;
+  if (!activeElement) return;
+  const isSocialLink = activeElement.closest('.social-links');
+  if (!isSocialLink) return;
+  activeElement.blur();
+}
+
+function addVisibilityListener() {
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+}
+
+function initializeApp() {
+  initPrefetch();
+  addVisibilityListener();
+}
+
 function startWhenReady() {
   const isLoading = document.readyState === 'loading';
   if (isLoading) {
-    document.addEventListener('DOMContentLoaded', initPrefetch);
+    document.addEventListener('DOMContentLoaded', initializeApp);
     return;
   }
-  initPrefetch();
+  initializeApp();
 }
 
 startWhenReady();
