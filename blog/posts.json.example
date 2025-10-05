@@ -1,0 +1,24 @@
+[
+  {
+    // Unique identifier for the post (used in URL)
+    "id": "my-first-post",
+    
+    // Title that appears in the blog list and post header
+    "title": "My First Blog Post",
+    
+    // Display date (can be any format you prefer)
+    "date": "October 6, 2025",
+    
+    // Filename of the markdown file in blog/posts/ directory
+    "filename": "my-first-post.md"
+  },
+  {
+    "id": "another-post",
+    "title": "Another Interesting Post",
+    "date": "October 5, 2025",
+    "filename": "another-post.md"
+  }
+  // Add more posts here...
+  // Posts are displayed in the order listed (top = newest)
+]
+
