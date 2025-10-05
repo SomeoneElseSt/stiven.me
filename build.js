@@ -6,7 +6,7 @@ const { glob } = require('glob');
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const OUTPUT_DIR = path.join(__dirname, 'public');
-const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog/generated');
+const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'blog-data.json');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
@@ -69,7 +69,7 @@ function generateBlogListHTML(posts) {
     .map(
       (post) => `
     <div class="blog-post-item">
-      <a href="/blog/generated/${post.id}.html" class="blog-post-link" data-title-length="${post.title.length}">
+      <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}">
         <span class="blog-post-title">${post.title}</span>
         <span class="blog-post-date">${post.date}</span>
       </a>
@@ -115,7 +115,9 @@ async function generatePostPages(posts) {
     for (const post of posts) {
       const postHtml = fillPostTemplate(postTemplate, post);
       
-      const outputFilePath = path.join(BLOG_OUTPUT_DIR, `${post.id}.html`);
+      const postDir = path.join(BLOG_OUTPUT_DIR, post.id);
+      await fs.ensureDir(postDir);
+      const outputFilePath = path.join(postDir, 'index.html');
       await fs.writeFile(outputFilePath, postHtml, 'utf-8');
     }
     
