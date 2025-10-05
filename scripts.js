@@ -14,7 +14,7 @@ let postsPrefetchDone = false;
 
 function computePostsSignature(posts) {
   if (!Array.isArray(posts)) return '';
-  const parts = posts.map((p) => `${p.id}|${p.filename}|${p.date}`).join('::');
+  const parts = posts.map((p) => `${p.id}|${p.file}|${p.date}`).join('::');
   return `${posts.length}::${parts}`;
 }
 

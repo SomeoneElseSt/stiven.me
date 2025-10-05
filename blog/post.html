@@ -82,14 +82,14 @@
                 document.title = post.title;
                 renderPost(post.title, post.date);
                 
-                const cacheKey = MARKDOWN_CACHE_PREFIX + post.filename;
+                const cacheKey = MARKDOWN_CACHE_PREFIX + post.file;
                 const cachedMd = getCachedMarkdown(cacheKey);
                 if (cachedMd) {
                     const html = marked.parse(cachedMd);
                     renderPost(post.title, post.date, `<div class=\"post-body\">${html}</div>`);
                 }
                 
-                const markdownResponse = await fetch(`/blog/posts/${post.filename}`, { cache: 'no-store' });
+                const markdownResponse = await fetch(`/blog/posts/${post.file}`, { cache: 'no-store' });
                 if (!markdownResponse.ok) {
                     if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
                     return;
