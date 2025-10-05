@@ -5,8 +5,8 @@ const IDLE_CALLBACK_TIMEOUT_MS = 2000;
 const CLICK_FEEDBACK_DURATION_MS = 500;
 const CLICKED_CLASS = 'clicked';
 const MAX_POSTS_TO_SHOW = 10;
-const POSTS_JSON_PATH = '/blog/posts.json';
-const POSTS_CACHE_KEY = 'blog_posts_cache_v1';
+const POSTS_JSON_PATH = '/public/blog-data.json';
+const POSTS_CACHE_KEY = 'blog_posts_cache_v2'; // Cache key updated for new data structure
 const POSTS_CACHE_TTL_MS = 1000 * 60 * 10; 
 
 let prefetchDone = false;
@@ -146,9 +146,9 @@ async function fetchBlogPosts() {
   try {
     const response = await fetch(POSTS_JSON_PATH, { cache: 'no-store' });
     if (!response.ok) return cache ? cache.posts : null;
-    const posts = await response.json();
-    setCachedPosts(posts);
-    return posts;
+    const blogData = await response.json();
+    setCachedPosts(blogData.posts);
+    return blogData.posts;
   } catch (error) {
     console.error('Error fetching blog posts:', error);
     return cache ? cache.posts : null;
@@ -252,11 +252,11 @@ function renderBlogList(posts, page) {
   showSocialLinks();
 }
 
-function renderSkeletonList() {
+function renderSkeletonList(count) {
   const blogContainer = document.getElementById('blog-list');
   if (!blogContainer) return;
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < MAX_POSTS_TO_SHOW; i++) {
+  for (let i = 0; i < count; i++) {
     const skel = document.createElement('div');
     skel.className = 'blog-skeleton';
     const bar = document.createElement('div');
@@ -278,7 +278,8 @@ async function revalidateAndUpdateList() {
   try {
     const response = await fetch(POSTS_JSON_PATH, { cache: 'no-store' });
     if (!response.ok) return;
-    const posts = await response.json();
+    const blogData = await response.json();
+    const posts = blogData.posts;
     if (!posts || posts.length === 0) {
       setCachedPosts([]);
       hideBlogSection();
@@ -332,10 +333,23 @@ async function initBlogList() {
   if (cached && cached.posts && cached.posts.length) {
     renderBlogList(cached.posts, 1);
   } else {
-    renderSkeletonList();
+   
+    renderSkeletonList(3);
   }
   
-  await revalidateAndUpdateList();
+  
+  const posts = await fetchBlogPosts();
+  if (posts && posts.length > 0) {
+      if (!cached || cached.posts.length === 0) {
+          const skeletonCount = Math.min(posts.length, MAX_POSTS_TO_SHOW);
+          renderSkeletonList(skeletonCount);
+      }
+      renderBlogList(posts, 1);
+  } else {
+      hideBlogSection();
+  }
+
+  revalidateAndUpdateList(); 
   if (!shouldDisableNProgress() && NProgress.isStarted()) NProgress.done();
 }
 

@@ -12,53 +12,27 @@
 <body>
     <div class="post-header">
         <div>
-            <div class="post-skeleton-title"></div>
-            <div class="post-skeleton-date"></div>
             <h1 id="post-title"></h1>
             <time id="post-date" class="post-date"></time>
         </div>
         <a href="/" class="back-button">← Back</a>
     </div>
     
-    <article id="post-content">
-        <div class="post-skeleton-line"></div>
-        <div class="post-skeleton-line"></div>
-        <div class="post-skeleton-line short"></div>
-    </article>
+    <article id="post-content"></article>
 
     <script>
-        const MARKDOWN_CACHE_PREFIX = 'blog_md_cache_v1_';
-
-        function getCachedMarkdown(key) {
-            const raw = localStorage.getItem(key);
-            if (!raw) return null;
-            
-            try {
-                const parsed = JSON.parse(raw);
-                return parsed.markdown || null;
-            } catch (error) {
-                console.error('Error parsing cached markdown:', error);
-                return null;
-            }
-        }
-
-        function setCachedMarkdown(key, markdown) {
-            try {
-                localStorage.setItem(key, JSON.stringify({ markdown }));
-            } catch (error) {
-                console.error('Error caching markdown:', error);
-            }
-        }
+        const POSTS_DATA_PATH = '/public/blog-data.json';
 
         function renderPost(title, date, html) {
+            document.title = title || 'Blog Post';
             const titleEl = document.getElementById('post-title');
             const dateEl = document.getElementById('post-date');
             const contentEl = document.getElementById('post-content');
+
             if (titleEl) titleEl.textContent = title || '';
             if (dateEl) dateEl.textContent = date || '';
             if (contentEl && typeof html === 'string') {
-                contentEl.innerHTML = html;
-                document.body.classList.add('content-ready');
+                contentEl.innerHTML = `<div class="post-body">${html}</div>`;
             }
         }
 
@@ -83,17 +57,6 @@
             }
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
-            const titleLength = sessionStorage.getItem(`post-title-length-${postId}`);
-
-            if (titleLength) {
-                const skeletonTitle = document.querySelector('.post-skeleton-title');
-                if (skeletonTitle) {
-                    const estimatedWidth = Math.min(100, titleLength * 1.5);
-                    skeletonTitle.style.width = `${estimatedWidth}%`;
-                }
-
-                sessionStorage.removeItem(`post-title-length-${postId}`);
-            }
             
             if (!postId) {
                 renderPost('','', '<p>No post specified.</p>');
@@ -102,42 +65,22 @@
             }
 
             try {
-                const postsResponse = await fetch('/blog/posts.json', { cache: 'no-store' });
-                if (!postsResponse.ok) {
-                    renderPost('','', '<p>Error loading posts.</p>');
+                const response = await fetch(POSTS_DATA_PATH, { cache: 'no-store' });
+                if (!response.ok) {
+                    renderPost('','', '<p>Error loading post data.</p>');
                     if (!shouldDisableNProgress()) NProgress.done();
                     return;
                 }
                 
-                const posts = await postsResponse.json();
-                const post = posts.find(p => p.id === postId);
+                const blogData = await response.json();
+                const post = blogData.postsById[postId];
                 
-                if (!post) {
+                if (post) {
+                    renderPost(post.title, post.date, post.htmlContent);
+                } else {
                     renderPost('','', '<p>Post not found.</p>');
-                    if (!shouldDisableNProgress()) NProgress.done();
-                    return;
                 }
-                
-                document.title = post.title;
-                
-                const cacheKey = MARKDOWN_CACHE_PREFIX + post.file;
-                const cachedMd = getCachedMarkdown(cacheKey);
-                if (cachedMd) {
-                    const html = marked.parse(cachedMd);
-                    renderPost(post.title, post.date, `<div class="post-body">${html}</div>`);
-                }
-                
-                const markdownResponse = await fetch(`/blog/posts/${post.file}`, { cache: 'no-store' });
-                if (!markdownResponse.ok) {
-                    if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
-                    if (!shouldDisableNProgress()) NProgress.done();
-                    return;
-                }
-                
-                const markdown = await markdownResponse.text();
-                setCachedMarkdown(cacheKey, markdown);
-                const html = marked.parse(markdown);
-                renderPost(post.title, post.date, `<div class="post-body">${html}</div>`);
+
             } catch (error) {
                 renderPost('','', '<p>Error loading post.</p>');
                 console.error('Error:', error);
