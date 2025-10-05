@@ -327,7 +327,7 @@ async function initBlogList() {
 }
 
 function isSafari() {
-  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  return typeof safari !== 'undefined';
 }
 
 function initializeApp() {
