@@ -6,8 +6,10 @@ const { glob } = require('glob');
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const OUTPUT_DIR = path.join(__dirname, 'public');
+const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog/generated');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'blog-data.json');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
+const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
 
 async function readPostsMetadata() {
@@ -67,7 +69,7 @@ function generateBlogListHTML(posts) {
     .map(
       (post) => `
     <div class="blog-post-item">
-      <a href="/blog/post.html?id=${post.id}" class="blog-post-link" data-title-length="${post.title.length}">
+      <a href="/blog/generated/${post.id}.html" class="blog-post-link" data-title-length="${post.title.length}">
         <span class="blog-post-title">${post.title}</span>
         <span class="blog-post-date">${post.date}</span>
       </a>
@@ -88,6 +90,40 @@ function structureFinalData(posts) {
   }, {});
 
   return { posts, postsById };
+}
+
+function fillPostTemplate(template, post) {
+  if (!post || !template) {
+    return '';
+  }
+  return template
+    .replaceAll('%%POST_TITLE%%', post.title)
+    .replaceAll('%%POST_DATE%%', post.date)
+    .replaceAll('%%POST_CONTENT%%', post.htmlContent);
+}
+
+async function generatePostPages(posts) {
+  const templateExists = await fs.pathExists(POST_TEMPLATE_PATH);
+  if (!templateExists) {
+    return [null, new Error('Error: blog/post.html template not found.')];
+  }
+
+  try {
+    const postTemplate = await fs.readFile(POST_TEMPLATE_PATH, 'utf-8');
+    await fs.ensureDir(BLOG_OUTPUT_DIR);
+
+    for (const post of posts) {
+      const postHtml = fillPostTemplate(postTemplate, post);
+      
+      const outputFilePath = path.join(BLOG_OUTPUT_DIR, `${post.id}.html`);
+      await fs.writeFile(outputFilePath, postHtml, 'utf-8');
+    }
+    
+    console.log(`Generated ${posts.length} blog pages.`);
+    return [true, null];
+  } catch (error) {
+    return [null, new Error(`Error generating post pages: ${error.message}`)];
+  }
 }
 
 async function writeCombinedData(data) {
@@ -118,6 +154,13 @@ async function main() {
 
   const processedPosts = await combineAllPostData(postsMetadata, markdownFiles);
   const finalData = structureFinalData(processedPosts);
+
+  const [, postPagesError] = await generatePostPages(finalData.posts);
+  if (postPagesError) {
+    console.error(postPagesError.message);
+    process.exit(1);
+  }
+
   const [, writeError] = await writeCombinedData(finalData);
 
   if (writeError) {
@@ -125,12 +168,13 @@ async function main() {
     process.exit(1);
   }
 
-  const blogListHTML = generateBlogListHTML(processedPosts);
+  const blogListHTML = generateBlogListHTML(finalData.posts);
 
   try {
     const template = await fs.readFile(HTML_TEMPLATE_PATH, 'utf-8');
+    const blogListRegex = /<div id="blog-list">[\s\S]*?<\/div>/;
     const finalHtml = template.replace(
-      '<div id="blog-list"></div>',
+      blogListRegex,
       `<div id="blog-list">${blogListHTML}</div>`
     );
     await fs.writeFile(HTML_OUTPUT_PATH, finalHtml, 'utf-8');
