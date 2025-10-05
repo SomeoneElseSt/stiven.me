@@ -57,15 +57,21 @@
             if (contentEl && typeof html === 'string') contentEl.innerHTML = html;
         }
 
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+
         async function loadPost() {
-            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
-            NProgress.start();
+            if (!isSafari()) {
+                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
+                NProgress.start();
+            }
             const urlParams = new URLSearchParams(window.location.search);
             const postId = urlParams.get('id');
             
             if (!postId) {
                 renderPost('','', '<p>No post specified.</p>');
-                NProgress.done();
+                if (!isSafari()) NProgress.done();
                 return;
             }
 
@@ -73,7 +79,7 @@
                 const postsResponse = await fetch('/blog/posts.json', { cache: 'no-store' });
                 if (!postsResponse.ok) {
                     renderPost('','', '<p>Error loading posts.</p>');
-                    NProgress.done();
+                    if (!isSafari()) NProgress.done();
                     return;
                 }
                 
@@ -82,7 +88,7 @@
                 
                 if (!post) {
                     renderPost('','', '<p>Post not found.</p>');
-                    NProgress.done();
+                    if (!isSafari()) NProgress.done();
                     return;
                 }
                 
@@ -99,7 +105,7 @@
                 const markdownResponse = await fetch(`/blog/posts/${post.file}`, { cache: 'no-store' });
                 if (!markdownResponse.ok) {
                     if (!cachedMd) renderPost(post.title, post.date, '<p>Error loading post content.</p>');
-                    NProgress.done();
+                    if (!isSafari()) NProgress.done();
                     return;
                 }
                 
@@ -111,7 +117,7 @@
                 renderPost('','', '<p>Error loading post.</p>');
                 console.error('Error:', error);
             } finally {
-                NProgress.done();
+                if (!isSafari()) NProgress.done();
             }
         }
 
@@ -119,6 +125,9 @@
 
         document.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function(event) {
+                if (isSafari()) {
+                    return;
+                }
                 const isExternal = link.hostname && link.hostname !== window.location.hostname;
                 if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                     return;
