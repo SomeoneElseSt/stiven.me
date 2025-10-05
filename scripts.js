@@ -311,7 +311,7 @@ function addPaginationListeners(posts) {
 async function initBlogList() {
   const blogContainer = document.getElementById('blog-list');
   if (!blogContainer) {
-    if (NProgress.isStarted()) NProgress.done();
+    if (!isSafari() && NProgress.isStarted()) NProgress.done();
     return;
   }
   
@@ -323,11 +323,17 @@ async function initBlogList() {
   }
   
   await revalidateAndUpdateList();
-  if (NProgress.isStarted()) NProgress.done();
+  if (!isSafari() && NProgress.isStarted()) NProgress.done();
+}
+
+function isSafari() {
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
 function initializeApp() {
-  NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
+  if (!isSafari()) {
+    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 300 });
+  }
   initPrefetch();
   initPostsPrefetch();
   addSocialLinkClickListeners();
@@ -335,6 +341,9 @@ function initializeApp() {
 
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function(event) {
+      if (isSafari()) {
+        return;
+      }
       const isExternal = link.hostname && link.hostname !== window.location.hostname;
       if (isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
         return;
