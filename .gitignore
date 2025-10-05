@@ -1,7 +1,7 @@
 # Miscellaneous
 node_modules/
+pnpm-lock.yaml
 .env
-.pnpm-lock.yaml
 
 # Replit
 .replit
