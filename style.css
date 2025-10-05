@@ -28,7 +28,11 @@ a {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  a:hover {
+  a:not(.blog-post-link):hover {
+    opacity: 0.7;
+  }
+
+  .blog-post-link:hover .blog-post-title {
     opacity: 0.7;
   }
 }
@@ -53,6 +57,11 @@ a {
 
 .social-header {
   padding-top: 5px;
+}
+
+.social-header,
+.social-links {
+  display: none;
 }
 
 .social-icon {
@@ -90,7 +99,9 @@ a {
 
 .blog-post-link {
   text-decoration: none;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .blog-post-title {
@@ -101,6 +112,13 @@ a {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.blog-post-date {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-left: 16px;
+  white-space: nowrap;
 }
 
 .blog-pagination {
@@ -131,9 +149,10 @@ a {
 
 .back-button {
   display: inline-block;
-  margin-bottom: 40px;
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
+  white-space: nowrap;
+  margin-left: 6px;
 }
 
 article {
@@ -231,7 +250,7 @@ article h1 {
 .post-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: baseline;
   max-width: 600px;
 }
 
@@ -242,11 +261,7 @@ article h1 {
 
 #post-date.post-date {
   display: block;
-  margin-bottom: 12px;
-}
-
-.back-button {
-  margin-left: 6px;
+  margin-bottom: 10px;
 }
 
 .post-body p {
