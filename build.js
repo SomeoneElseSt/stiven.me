@@ -5,9 +5,7 @@ const { glob } = require('glob');
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
-const OUTPUT_DIR = path.join(__dirname, 'public');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
-const OUTPUT_FILE = path.join(OUTPUT_DIR, 'blog-data.json');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
@@ -128,17 +126,6 @@ async function generatePostPages(posts) {
   }
 }
 
-async function writeCombinedData(data) {
-  try {
-    await fs.ensureDir(OUTPUT_DIR);
-    await fs.writeJson(OUTPUT_FILE, data, { spaces: 2 });
-    console.log(`\nSuccessfully built blog data to ${OUTPUT_FILE}`);
-    return [true, null];
-  } catch (error) {
-    return [false, new Error(`Error writing output file: ${error.message}`)];
-  }
-}
-
 async function main() {
   console.log('Starting blog build process...');
 
@@ -160,13 +147,6 @@ async function main() {
   const [, postPagesError] = await generatePostPages(finalData.posts);
   if (postPagesError) {
     console.error(postPagesError.message);
-    process.exit(1);
-  }
-
-  const [, writeError] = await writeCombinedData(finalData);
-
-  if (writeError) {
-    console.error(writeError.message);
     process.exit(1);
   }
 
