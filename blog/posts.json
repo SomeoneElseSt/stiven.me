@@ -1,5 +1,11 @@
 [
   {
+    "id": "cities",
+    "title": "Cities",
+    "date": "October 9, 2025",
+    "file": "cities.md"
+  },
+  {
   "id": "hello-world",
   "title": "Hello World",
   "date": "October 5, 2025",
