@@ -57,15 +57,15 @@ Without this kind of person, SF would be an unjustifiably expensive seaside town
 
 Compared to Tokyo, it's clear why San Francisco would win. 
 
-Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win that can be seen reflected (or not) in the people who visit them.
+Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city win that can be seen reflected (or not) in the people who visit them.
 
-Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *L'art de vivre*. 
+Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *[L'art de vivre](https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/)*.  
 
 These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common that stemmed from a local circumstance or feature (although they probably won't be about technology).
 
 So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don't want to live in Bogota (at least not right now) or Paris if you want to build a billion dollar startup. This is not to say you can't do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.
 
-I originally chose to write on this because, having lived in the Bay Area for close to a year, Tokyo came as quite the cultural shock. Generally, people visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.
+I originally chose to write this because, having lived in the Bay Area for close to a year, Tokyo came as quite the cultural shock. People visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.
 
 While places like Tokyo are necessary for balance, we need more places like SF, where just about anyone with a computer and internet connection is **encouraged** to find a way to change the world and their lives. These hubs for risk have been historically more responsible for societal advancement than aesthetic hubs; right now, the world — especially emerging economies — needs far more of one than the other.
 
