@@ -57,9 +57,9 @@ Without this kind of person, SF would be an unjustifiably expensive seaside town
 
 Compared to Tokyo, it's clear why San Francisco would win. 
 
-Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city win that can be seen reflected (or not) in the people who visit them.
+Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.
 
-Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *[L'art de vivre](https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/)*.  
+Tokyo would not have tourists visiting for its beauty if its people didn't believe in *Monozukuri* as Paris would not have tourists visiting to relax if its people didn't believe in *[L'art de vivre](https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/)*. 
 
 These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common that stemmed from a local circumstance or feature (although they probably won't be about technology).
 
