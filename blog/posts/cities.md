@@ -12,7 +12,7 @@ Most people would consider the Alps beautiful for their own sake — we don't ha
 
 Tokyo is different in this sense. Many of the things the city is known for (e.g., Shibuya Square, Shrines, Anime, Japanese food) all share one thing in common: it was made by someone for someone with what they'd think in mind. 
 
-They carry a deeply intentional weight, and aren't trivial or sprung out. It took lifetimes for Japanese calligraphy to be distinct; shrines have been re-made methodically for centuries to preserve their essence and background. 
+They carry a deeply intentional weight, and aren't trivial or sprung out. It took lifetimes for Japanese calligraphy to be distinct; shrines have been remade methodically for centuries to preserve their essence and background. 
 
 This reflects on the people who visit the city. If you had to describe Tokyo tourists at first glance, it would average out nicely to say they would feel more at home in a fashion show or museum than in a high-rise office. 
 
@@ -49,23 +49,23 @@ Tokyo is one of many cities one could visit to have a good time. San Francisco i
 
 This is why talking about San Francisco is not really talking about SF, the city — it's talking about the people and organizations in the city that have made it the north star for two major tech revolutions within the last 40 years.  
 
-Indeed, People who visit San Francisco generally believe it is the north star to some aspect of their lives. In fact, it's important enough that they're willing to sleep in inflatable mattresses and eat ramen for the off-change of being in the next big thing. 
+Indeed, people who visit San Francisco generally believe it is the north star to some aspect of their lives. In fact, it's important enough that they're willing to sleep in inflatable mattresses and eat ramen for the off-chance of being part of the next big thing. 
 
 This tells a lot about the type that goes to San Francisco: they hope to be part of something that will change the world as we know it, get rich in the process, and find other people who want to do the same thing to do it with. People visiting — SF's tourists — are generally drawn to the city for the same values. 
 
-Without this kind of person, SF would be an unjustifiably expensive sea-side town with a cool bridge and a couple of decent parks. 
+Without this kind of person, SF would be an unjustifiably expensive seaside town with a cool bridge and a couple of decent parks. 
 
 By our measure of success, it's clear why San Francisco would win. 
 
 Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.
 
-Tokyo would not be beautiful if it's people didn't believe in *Monozukuri* and Paris would not be frugal if it's people didn't believe in *L'art de vivre*. 
+Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *L'art de vivre*. 
 
 These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common related to a local circumstance or feature (except they probably won't be about technology).
 
-So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don't want to live in Bogota (at least not right now) or Paris if you want to build the next billion dollar startup. This is not to say you can't do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.
+So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don't want to live in Bogota (at least not right now) or Paris if you want to build a billion dollar startup. This is not to say you can't do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.
 
-I originally chose to write on this because, having lived in the bay area for close to a year, Tokyo came as quite the cultural shock. Generally, people visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.
+I originally chose to write on this because, having lived in the Bay Area for close to a year, Tokyo came as quite the cultural shock. Generally, people visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.
 
 While places like Tokyo are necessary for balance, we need more places like SF, where just about anyone with a computer and internet connection is **encouraged** to find a way to change the world and their lives. These hubs for risk have been historically more responsible for societal advancement than aesthetic hubs; right now, the world — especially emerging economies — needs far more of one than the other.
 
