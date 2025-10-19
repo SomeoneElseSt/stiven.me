@@ -51,17 +51,17 @@ This is why talking about San Francisco is not really talking about SF, the city
 
 Indeed, people who visit San Francisco generally believe it is the north star to some aspect of their lives. In fact, it's important enough that they're willing to sleep in inflatable mattresses and eat ramen for the off-chance of being part of the next big thing. 
 
-This tells a lot about the type that goes to San Francisco: they hope to be part of something that will change the world as we know it, get rich in the process, and find other people who want to do the same thing to do it with. People visiting — SF's tourists — are generally drawn to the city for the same values. 
+This tells a lot about the type that goes to San Francisco: they hope to be part of something that will change the world as we know it, get rich in the process, and find other people who want to do the same thing to do it with. Why? Because people in San Francisco believe achieving something great is the best way they could be spending their time.
 
 Without this kind of person, SF would be an unjustifiably expensive seaside town with a cool bridge and a couple of decent parks. 
 
-By our measure of success, it's clear why San Francisco would win. 
+Compared to Tokyo, it's clear why San Francisco would win. 
 
 Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.
 
 Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *L'art de vivre*. 
 
-These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common related to a local circumstance or feature (except they probably won't be about technology).
+These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common that stemmed from a local circumstance or feature (although they probably won't be about technology).
 
 So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don't want to live in Bogota (at least not right now) or Paris if you want to build a billion dollar startup. This is not to say you can't do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.
 
