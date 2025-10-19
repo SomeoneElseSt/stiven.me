@@ -26,7 +26,7 @@ This is not true of cities that don't carry an intrinsic meaning are more genera
 
 Coming back to the question above, one could argue that a Tokyo composed by its tourists would be a high-quality of life center where people appreciate beauty and want the world around them to reflect that. 
 
-The statement above may or may not be true, and it is certainly biased on a brief generalization of the tourists I've seen in the city. However, it still draws parallels with Japanese culture and Tokyo that are non-negligible. 
+This statement may or may not be true, and it is certainly biased on a brief generalization of the tourists I've seen in the city. However, it still draws parallels with Japanese culture and Tokyo that are non-negligible. 
 
 Japanese culture is highly interested in the precise creation of things that are beautiful, crafted over time, and held to a very high standard. This is referred to as [*Monozukuri*](https://japanintercultural.com/free-resources/articles/monozukuri-another-look-at-a-key-japanese-principle/) — the art of making, where what one is making is infused with the self.
 
@@ -57,11 +57,11 @@ Without this kind of person, SF would be an unjustifiably expensive sea-side tow
 
 By our measure of success, it's clear why San Francisco would win. 
 
-Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension country — win.
+Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.
 
-Tokyo would not be beautiful without *Monozukuri* and Paris would not be frugal without *L'art de vivre*. 
+Tokyo would not be beautiful if it's people didn't believe in *Monozukuri* and Paris would not be frugal if it's people didn't believe in *L'art de vivre*. 
 
-These type of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common related to a local circumstance or feature (except they probably won't be about technology).
+These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common related to a local circumstance or feature (except they probably won't be about technology).
 
 So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don't want to live in Bogota (at least not right now) or Paris if you want to build the next billion dollar startup. This is not to say you can't do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.
 
