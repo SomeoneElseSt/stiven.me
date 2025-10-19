@@ -10,7 +10,7 @@ Tokyo is a beautiful city. Everything in it, from the architecture to the food (
 
 Most people would consider the Alps beautiful for their own sake — we don't have a way to make a copy of the Alps or to move them somewhere else, and the Alps wouldn't be the Alps if they were in Wyoming or Australia. They are uniquely European and Mediterranean as Yosemite is Californian and the Pyramids are Egyptian. 
 
-Tokyo is different in this sense. Many of the things the city is known for (e.g., Shibuya Square, Shrines, Anime, Japanese food) all share one thing in common: it was made by someone for someone for a reason. 
+Tokyo is different in this sense. Many of the things the city is known for (e.g., Shibuya Square, Shrines, Anime, Japanese food) all share one thing in common: it was made by someone for someone with what they'd think in mind. 
 
 They carry a deeply intentional weight, and aren't trivial or sprung out. It took lifetimes for Japanese calligraphy to be distinct; shrines have been re-made methodically for centuries to preserve their essence and background. 
 
@@ -34,7 +34,7 @@ So, the people that visit a city do to some extent reflect what characterizes th
 
 People who care about beauty will likely visit beautiful cities. People who care about power will likely visit powerful cities, and people who care about culture or spirituality will likely go to places with some intrinsic value.
 
-If cities became the people who visited them, I'd expect two phenomena:
+Following this line of thought, if cities became the people who visited them, I'd expect two phenomena:
 
 1. There would be bigger deltas between measurements of cities that compare quality of life, income, and education. 
 2. Cities would become highly specialized and niche, with radically different norms and expectations. 
