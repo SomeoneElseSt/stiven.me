@@ -57,7 +57,7 @@ Without this kind of person, SF would be an unjustifiably expensive seaside town
 
 Compared to Tokyo, it's clear why San Francisco would win. 
 
-Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.
+Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don't choose to deprioritize risk-taking), it's clear that there is an undeniable intentionality in what makes a city — and by extension a country — win that can be seen reflected (or not) in the people who visit them.
 
 Tokyo would not be beautiful if its people didn't believe in *Monozukuri* and Paris would not be frugal if its people didn't believe in *L'art de vivre*. 
 
