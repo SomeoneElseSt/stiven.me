@@ -1,4 +1,4 @@
-import { isMobile } from './is_phone';
+import { isMobile } from './utils';
 
 // Disabled in Safari because it already shows a loading indicator that ends faster than NProgress. Looks better without it.
 

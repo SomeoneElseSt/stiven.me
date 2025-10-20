@@ -1,7 +1,7 @@
 import { shouldDisableNProgress } from './disable_np';
 import { initPrefetch } from './prefetch';
 import { addSocialLinkClickListeners } from './listeners';
-import { addNpProgressListeners } from './np_config';
+import { addNpProgressListeners } from './nprogress';
 
 function initializeApp(): void {
     if (!shouldDisableNProgress()) {
