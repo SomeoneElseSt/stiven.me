@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Personal website",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "tsc": "tsc",
+    "tsc:watch": "tsc --watch",
+    "tsc:check": "tsc --noEmit",
+    "build:all": "npm run tsc && npm run build"
   },
   "author": "",
   "license": "ISC",

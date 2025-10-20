@@ -6,6 +6,7 @@ pnpm-lock.yaml
 # Generated files
 blog/generated/
 public/
+dist/
 
 # Replit
 .replit
