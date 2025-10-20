@@ -20,7 +20,7 @@ function findAllLinks(): NodeListOf<HTMLAnchorElement> {
     return links;
 }
 
-export function addNpProgressListeners() {
+export function addNpProgressListeners(): void {
     const links = findAllLinks();
     links.forEach((link) => {
         link.addEventListener('click', function(event) {

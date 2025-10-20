@@ -9,7 +9,7 @@ function tagExists(): HTMLLinkElement | null {
     return element instanceof HTMLLinkElement ? element : null;
 }
 
-function createPrefetchTag() {
+function createPrefetchTag(): void {
     if (prefetchDone) return;
     if (tagExists()) return;
 
@@ -26,7 +26,7 @@ function findResumeLink(): HTMLAnchorElement | null {
     return element instanceof HTMLAnchorElement ? element : null;
 }
 
-function scheduleIdlePrefetch() {
+function scheduleIdlePrefetch(): void {
     const hasIdleCallback = 'requestIdleCallback' in window;
     if (hasIdleCallback) {
         requestIdleCallback(createPrefetchTag, { timeout: IDLE_CALLBACK_TIMEOUT_MS });
@@ -35,7 +35,7 @@ function scheduleIdlePrefetch() {
     setTimeout(createPrefetchTag, IDLE_TIMEOUT_MS);
 }
 
-function addInteractionListeners(anchor: HTMLAnchorElement | null) {
+function addInteractionListeners(anchor: HTMLAnchorElement | null): void {
     if (!anchor) {
         console.warn("Error: Anchor not found in addInteractionListeners");
         return;
@@ -44,7 +44,7 @@ function addInteractionListeners(anchor: HTMLAnchorElement | null) {
     anchor.addEventListener('touchstart', createPrefetchTag, { once: true });
 }
 
-export function initPrefetch() {
+export function initPrefetch(): void {
     if (prefetchDone) {
         return;
     }
