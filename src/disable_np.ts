@@ -1,5 +1,7 @@
 import { isMobile } from './is_phone';
 
+// Disabled in Safari because it already shows a loading indicator that ends faster than NProgress. Looks better without it.
+
 function isSafari(): boolean {
     return typeof (globalThis as any).safari !== 'undefined';
 }
