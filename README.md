@@ -9,3 +9,13 @@ Compile blog posts with:
 ```
 node build.js
 ```
+
+Check for TypeScript errors
+```
+npx tsc --noEmit
+```
+
+Compile TypeScript to JavaScript
+```
+npx tsc
+```
