@@ -1,10 +1,8 @@
 import { findResumeLink, scheduleIdlePrefetch, addInteractionListeners, isPrefetchDone } from './prefetch';
-
+import { addSocialLinkClickListeners } from './listeners';
 
 const CLICK_FEEDBACK_DURATION_MS = 500;
 const CLICKED_CLASS = 'clicked';
-
-let prefetchDone = false;
 
 function initPrefetch() {
     if (isPrefetchDone()) {
