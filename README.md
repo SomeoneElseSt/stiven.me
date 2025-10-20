@@ -22,7 +22,7 @@ Check for TS errors
 pnpm check
 ```
 
-Or alternatively use oen of the following standalone commands:
+Or alternatively use one of the following standalone commands:
 
 Compile TS only 
 ```
