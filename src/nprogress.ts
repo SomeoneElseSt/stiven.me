@@ -1,3 +1,5 @@
+import { findLinks } from './utils';
+
 declare const NProgress: {
     configure(options: {
         showSpinner?: boolean;
@@ -11,18 +13,13 @@ declare const NProgress: {
     remove(): void;
 };
 
-function findAllLinks(): NodeListOf<HTMLAnchorElement> {
-    const links = document.querySelectorAll('a');
-    if (links.length === 0) {
-        console.warn("Error: No links found in findAllLinks");
-        return [] as unknown as NodeListOf<HTMLAnchorElement>;
-    }
-    return links;
-}
-
 export function addNpProgressListeners(): void {
-    const links = findAllLinks();
-    links.forEach((link) => {
+    const links = findLinks('a', true) as NodeListOf<HTMLAnchorElement> | null;
+    if (!links) {
+        console.warn("Error: No links found in addNpProgressListeners");
+        return;
+    }
+    links.forEach((link: HTMLAnchorElement) => {
         link.addEventListener('click', function(event) {
             const isExternal = link.hostname && link.hostname !== window.location.hostname;
             if (isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
