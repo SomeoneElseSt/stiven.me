@@ -1,4 +1,15 @@
-
+declare const NProgress: {
+    configure(options: {
+        showSpinner?: boolean;
+        minimum?: number;
+        speed?: number;
+        trickleSpeed?: number;
+    }): void;
+    start(): void;
+    set(progress: number): void;
+    done(): void;
+    remove(): void;
+};
 
 function findAllLinks(): NodeListOf<HTMLAnchorElement> {
     const links = document.querySelectorAll('a');
