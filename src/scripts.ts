@@ -3,7 +3,7 @@ import { initPrefetch } from './prefetch';
 import { addSocialLinkClickListeners } from './listeners';
 import { addNpProgressListeners } from './np_config';
 
-function initializeApp() {
+function initializeApp(): void {
     if (!shouldDisableNProgress()) {
         addNpProgressListeners();
     }
@@ -11,7 +11,7 @@ function initializeApp() {
     addSocialLinkClickListeners();
 }
 
-function startWhenReady() {
+function startWhenReady(): void {
     const isLoading = document.readyState === 'loading';
     if (isLoading) {
         document.addEventListener('DOMContentLoaded', initializeApp);

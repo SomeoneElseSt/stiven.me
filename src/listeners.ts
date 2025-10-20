@@ -1,7 +1,7 @@
 const CLICK_FEEDBACK_DURATION_MS = 500;
 const CLICKED_CLASS = 'clicked';
 
-export function handleLinkClick(event: MouseEvent) {
+export function handleLinkClick(event: MouseEvent): void {
     const link = event.currentTarget as HTMLAnchorElement;
     if (!link) {
         console.warn("Error: Link not found in handleLinkClick");
@@ -17,7 +17,7 @@ function findAllSocialLinks(): NodeListOf<HTMLAnchorElement> {
     return document.querySelectorAll('.social-links a');
 }
 
-export function addSocialLinkClickListeners() {
+export function addSocialLinkClickListeners(): void {
     const socialLinks = findAllSocialLinks();
     socialLinks.forEach((link) => {
         link.addEventListener('click', handleLinkClick);
