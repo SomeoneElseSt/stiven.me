@@ -20,7 +20,7 @@ pkill -f ngrok
 
 ---
 
-##TypeScript
+## TypeScript
 
 Compile Typescript + build blog:
 ```
@@ -36,8 +36,6 @@ Check for TS errors:
 ```
 pnpm check
 ```
-
----
 
 Or alternatively use one of the following standalone commands.
 
