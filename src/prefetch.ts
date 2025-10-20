@@ -21,16 +21,12 @@ function createPrefetchTag() {
     prefetchDone = true;
 }
 
-export function isPrefetchDone(): boolean {
-    return prefetchDone;
-}
-
-export function findResumeLink(): HTMLAnchorElement | null {
+function findResumeLink(): HTMLAnchorElement | null {
     const element = document.querySelector(`a[href="${RESUME_PATH}"]`);
     return element instanceof HTMLAnchorElement ? element : null;
 }
 
-export function scheduleIdlePrefetch() {
+function scheduleIdlePrefetch() {
     const hasIdleCallback = 'requestIdleCallback' in window;
     if (hasIdleCallback) {
         requestIdleCallback(createPrefetchTag, { timeout: IDLE_CALLBACK_TIMEOUT_MS });
@@ -39,7 +35,7 @@ export function scheduleIdlePrefetch() {
     setTimeout(createPrefetchTag, IDLE_TIMEOUT_MS);
 }
 
-export function addInteractionListeners(anchor: HTMLAnchorElement | null) {
+function addInteractionListeners(anchor: HTMLAnchorElement | null) {
     if (!anchor) {
         console.warn("Error: Anchor not found in addInteractionListeners");
         return;
@@ -48,3 +44,15 @@ export function addInteractionListeners(anchor: HTMLAnchorElement | null) {
     anchor.addEventListener('touchstart', createPrefetchTag, { once: true });
 }
 
+export function initPrefetch() {
+    if (prefetchDone) {
+        return;
+    }
+    const anchor = findResumeLink();
+    if (!anchor) {
+        console.warn("Error: Resume link not found in initPrefetch");
+        return;
+    }
+    scheduleIdlePrefetch();
+    addInteractionListeners(anchor);
+}
