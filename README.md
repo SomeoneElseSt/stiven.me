@@ -5,17 +5,36 @@ Run locally with:
 python3 -m http.server 8000
 ```
 
-TypeScript development:
+TypeScript:
+
+Compile Typescript + build blog
 ```
-# Quick commands
-pnpm compile         # Compile TypeScript + build blog
-pnpm dev             # Watch mode for development
-pnpm check           # Check for TypeScript errors
+pnpm compile
 ```
 
+Watch mode for development
 ```
-# Individual commands 
-pnpm tsc             # Compile TypeScript only
-pnpm tsc:watch       # Watch mode
-pnpm tsc:check       # Type check only
+pnpm dev
+```
+
+Check for TS errors
+```
+pnpm check
+```
+
+Or alternatively use oen of the following standalone commands:
+
+Compile TS only 
+```
+pnpm tsc
+```
+
+Watch mode
+```
+pnpm tsc:watch
+```
+
+Type check only
+```
+pnpm tsc:check 
 ```
