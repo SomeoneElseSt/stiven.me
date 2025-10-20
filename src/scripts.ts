@@ -1,19 +1,23 @@
-import { findResumeLink, scheduleIdlePrefetch, addInteractionListeners, isPrefetchDone } from './prefetch';
+import { shouldDisableNProgress } from './disable_np';
+import { initPrefetch } from './prefetch';
 import { addSocialLinkClickListeners } from './listeners';
+import { addProgressListeners } from './np_config';
 
-const CLICK_FEEDBACK_DURATION_MS = 500;
-const CLICKED_CLASS = 'clicked';
-
-function initPrefetch() {
-    if (isPrefetchDone()) {
-        return;
+function initializeApp() {
+    if (!shouldDisableNProgress()) {
+        addProgressListeners();
     }
-    const anchor = findResumeLink();
-    if (!anchor) {
-        console.warn("Error: Resume link not found in initPrefetch");
-        return;
-    }
-    scheduleIdlePrefetch();
-    addInteractionListeners(anchor);
+    initPrefetch();
+    addSocialLinkClickListeners();
 }
 
+function startWhenReady() {
+    const isLoading = document.readyState === 'loading';
+    if (isLoading) {
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        return;
+    }
+    initializeApp();
+}
+
+startWhenReady();
