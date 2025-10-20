@@ -5,14 +5,14 @@ Run locally with:
 python3 -m http.server 8000
 ```
 
-Run online in a temporary url with ngrok
+After starting the server locally you can expose it through a temporary url with ngrok in a separate terminal:
 ```
-python3 -m http.server 8000 && ngrok http 8000
+ngrok http 8000
 ```
 
-The "Forwarding" url exposes the local build 
+The "Forwarding" url exposes the local build. 
 
-If you recieve a ngrok unavailable ports error, you can kill existing ngrok ports with this command 
+If you recieve a ngrok unavailable ports error, you can kill existing ngrok ports with this command: 
 
 ```
 pkill -f ngrok
@@ -20,38 +20,38 @@ pkill -f ngrok
 
 ---
 
-TypeScript:
+##TypeScript
 
-Compile Typescript + build blog
+Compile Typescript + build blog:
 ```
 pnpm compile
 ```
 
-Watch mode for development
+Watch mode for development:
 ```
 pnpm dev
 ```
 
-Check for TS errors
+Check for TS errors:
 ```
 pnpm check
 ```
 
 ---
 
-Or alternatively use one of the following standalone commands:
+Or alternatively use one of the following standalone commands.
 
-Compile TS only 
+Compile TS only:
 ```
 pnpm tsc
 ```
 
-Watch mode
+Watch mode:
 ```
 pnpm tsc:watch
 ```
 
-Type check only
+Type check only:
 ```
 pnpm tsc:check 
 ```
