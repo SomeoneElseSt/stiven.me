@@ -1,4 +1,4 @@
-import { findLinks } from './utils';
+import { findLinks } from './utils.js';
 
 const RESUME_PATH = '/resume.pdf';
 const IDLE_TIMEOUT_MS = 1500;

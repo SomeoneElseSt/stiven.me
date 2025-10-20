@@ -1,4 +1,4 @@
-import { findLinks } from './utils';
+import { findLinks } from './utils.js';
 
 declare const NProgress: {
     configure(options: {

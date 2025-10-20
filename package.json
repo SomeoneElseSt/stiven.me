@@ -4,10 +4,9 @@
   "description": "Personal website",
   "scripts": {
     "build": "node build.js",
-    "tsc": "tsc",
-    "tsc:watch": "tsc --watch",
-    "tsc:check": "tsc --noEmit",
-    "build:all": "npm run tsc && npm run build"
+    "compile": "pnpm exec tsc && pnpm run build",
+    "dev": "pnpm exec tsc --watch",
+    "check": "pnpm exec tsc --noEmit"
   },
   "author": "",
   "license": "ISC",
