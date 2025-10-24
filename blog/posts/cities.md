@@ -22,7 +22,7 @@ From uniforms of Western brands to Japanese anime tees and exotic dark outfits, 
 
 People go to the Himalayas, Delhi, Jerusalem, and the Mecca because they expect to be different after they've gone. Climbed the highest peak in the world? That probably makes you a better founder. Connected with religion and god? It may just help out in the afterlife. 
 
-This is not true of cities that don't carry an intrinsic meaning are more generally known more for how they look. Although, this is not to say how somewhere looks doesn't carry its own weight (then Paris would not be the city of romance).
+This is not true of cities that don't carry an intrinsic meaning are more generally known more for how they look. Although, this is not to say that how a city looks doesn't carry its own weight (then Paris would not be the city of romance).
 
 Coming back to the question above, one could argue that a Tokyo composed by its tourists would be a high-quality of life center where people appreciate beauty and want the world around them to reflect that. 
 
@@ -73,4 +73,7 @@ This is not to dismerit Tokyo and other high-rise cities, though. Without some b
 
 ![San Francisco — Courtesy of X](/blog/assets/san-francisco.jpeg "Downtown San Francisco")
 
-<small>This is partly inspired by Paul Graham's Cities and Ambition, which you can read [here](https://www.paulgraham.com/cities.html).</small>
+<small>1. This is partly inspired by Paul Graham's Cities and Ambition, which you can read [here](https://www.paulgraham.com/cities.html).</small>
+
+<small>2. I later jotted down a sentence I think encapsulates what I was trying to convey: Visiting Tokyo is like going to heaven. There are few places as beautiful. Living in Tokyo is realizing you wish you could go back to keep fighting. Nothing quite feels like it, but it can't make up for the other places you could be and the work you could be doing there.
+</small>
