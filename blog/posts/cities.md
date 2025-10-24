@@ -69,7 +69,9 @@ I originally chose to write this because, having lived in the Bay Area for close
 
 While places like Tokyo are necessary for balance, we need more places like SF, where just about anyone with a computer and internet connection is **encouraged** to find a way to change the world and their lives. These hubs for risk have been historically more responsible for societal advancement than aesthetic hubs; right now, the world — especially emerging economies — needs far more of one than the other.
 
-This is not to dismerit Tokyo and other high-rise cities, though. Without some balance between hubs for risk and hubs for rest, the former would lose a meaningful reason to fight for.
+This is not to dismerit Tokyo and other high-rise cities, though. Without some balance between hubs for risk and hubs for rest, the former would lose a meaningful reason to fight for. 
+
+While I have thoroughly enjoyed my time here, a subtle nudge began to settle in after some time: discomfort brings growth, and Tokyo happens to be very comfortable. Right city, wrong chapter.
 
 ![San Francisco — Courtesy of X](/blog/assets/san-francisco.jpeg "Downtown San Francisco")
 
