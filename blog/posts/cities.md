@@ -71,7 +71,7 @@ While places like Tokyo are necessary for balance, we need more places like SF, 
 
 This is not to dismerit Tokyo and other high-rise cities, though. Without some balance between hubs for risk and hubs for rest, the former would lose a meaningful reason to fight for. 
 
-While I have thoroughly enjoyed my time here, a subtle nudge began to settle in after some time: discomfort brings growth, and Tokyo happens to be very comfortable. Right city, wrong chapter.
+While I have thoroughly enjoyed my time here, a subtle nudge began to settle in after some time: discomfort brings growth, and Tokyo happens to be very comfortable. It's the right city, just for a different chapter.
 
 ![San Francisco — Courtesy of X](/blog/assets/san-francisco.jpeg "Downtown San Francisco")
 
