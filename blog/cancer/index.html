@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Cancer</title>
+    <style>
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZJhiI2B.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZthiI2B.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZNhiI2B.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZxhiI2B.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZBhiI2B.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZJhiI2B.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZthiI2B.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZNhiI2B.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZxhiI2B.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZBhiI2B.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 106.5%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+        body { background: black; color: white; font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid #333; padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: white; }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: white; }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px;} /* Modify margin-bottom to move text up/down */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: white; line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
+        article { max-width: 600px; }
+        article a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        #nprogress .bar { background: white !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px white, 0 0 5px white; }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .post-header { margin-top: 20px; } /* Change margin top to modify the padding between the title and empty space above */
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">Cancer</h1>
+            <time id="post-date" class="post-date">November 3, 2025</time>
+        </div>
+        <a href="/" class="back-button">← Back</a>
+    </div>
+    
+    <article id="post-content"><p>I&#39;ve been listening to a book called <a href="https://press.uchicago.edu/ucp/books/book/chicago/D/bo45084244.html">The demons in the machine</a> by Paul Davies. </p>
+<p>It talks about how information itself plays a role in evolution, thermodynamics, and biology. </p>
+<p>In one of its chapters it talks about cancer. It&#39;s rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary &#39;overdrive&#39; as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. </p>
+<p>This is a specially acute problem given that one of the key biological contracts within the body is that individual cells are OK with cyclically dying and being replaced by newer cells, because doing so increases the overall strength of the body and with it the chances it will reproduce and their genome will be carried on. </p>
+<p>There&#39;s some irony in this failure of biology. When a single rogue cell decides to pursue its best outcome the body won&#39;t be able to reproduce (if it successfully kills the cells that maintain its host), ruling out the possibility for that cell&#39;s genome to be passed down or spread. </p>
+<p>When I was talking to a friend this week, he brought up an idea I hadn&#39;t heard before: &#39;Every problem in humanity stems from that someone thinks they&#39;re better than someone else&#39;. He argued that, in economic terms, due to the individual maximization of utility by some individuals in a social system, very many people who are capable of obtaining good outcomes end up not doing so, as it&#39;s of greater benefit for said individuals to keep some people, for example, underpaid or overworked. </p>
+<p>This aligns well with what we see in countries like China and the general mechanics of manufacturing countries with the West. The Western world is much better off economically by the abuse of workers in the east than it would be if it produced its goods at home or everyone worked the service jobs immigrants do for lower wages. </p>
+<p>As to my friend&#39;s argument, I found it interestingly in unison with Davies&#39;s description of cancer. </p>
+<p>I think most people would agree that if we could all just work together to provide education and safety to those who don&#39;t have it, they would eventually end up in better positions than where they currently are. This is only common sense. Similarly with the body&#39;s contract with its cells: if we could all get along, it dramatically increases the chances that our race will endure the many challenges to its survival. </p>
+<p>Yet, our society is all but egalitarian, in the sense that most people focus their efforts into how they could be making their own life better off than working directly to benefit others. Whether you agree with this or not is largely individual, but logically, if everyone was indeed working towards egalitarianism, we would expect no government to purposefully suppress and exploit racial and cultural minorities, which isn&#39;t true of most big economies. </p>
+<p>Therein lies the great contradiction.</p>
+<p>Natural selection found that the best way for a system to maximize its long term survival is for all pieces within it to accept their own mortality and cooperate in favor of the greater good. We seem to not have learned this just yet.  </p>
+<p>In fact, our societal description above is more akin to the description of cancer cells. Cultural individualism led to some of the great exploitations of history. Like cancer, colonizers saw new parts of their system and decided the best way they could shape it was to replace the local culture, language, and religion with their own, exploiting the resources of its previous inhabitants for their own benefit.</p>
+<p>There&#39;s something striking about this. Modern life is pretty much fully based around maximizing how you are better than others. A certificate or award is your way of signaling to the world out of everyone else who thought they could compete in a task, you&#39;re better than them. Attractiveness is biology&#39;s decoder of healthy genetics, so we&#39;ve found ways to look better so that others know we stand better odds at survival.</p>
+<p>Everything is a competitive task. And competitive tasks are generally bound by some system that&#39;s hackable. That is, there is a clear metric to maximize and some blueprint to do so. </p>
+<p>The issue lies with that, if everyone could maximize how well off they are there wouldn&#39;t be enough for everyone. Nobody would work the construction jobs that are needed to make great architecture or the grueling work that innovative products need to come out to market. Desire is bound by production, and you can&#39;t have production if there aren&#39;t people willing to work the shitty and hard jobs of the world. </p>
+<p>So, it would be reasonable to expect that only few people can maximize how well off they are if they need a large set of others to achieve their desired outcomes, which is a paraphrased way to say that in a society where each individual operates for its own benefit, we expect some inequality to happen and some people to naturally be delegated as the workers or lesser than. </p>
+<p>It&#39;s unreasonable to expect that we will ever have an equal world if our untold definition of normal is that each person is off for themselves. That&#39;s not to say we haven&#39;t gotten some good results out of that (and I aren&#39;t one to criticize the free markets) but if we want to get the best result, we need to be more like the body and work towards a common goal. </p>
+<p>This should be concerning to us not just for guaranteeing long-term survival, but also because, if cancer could only get so far as to temporarily possess some parts of its host and then die out, we might analogously also be better off to extents we haven&#39;t seen yet if we work together to &#39;reproduce&#39; by colonizing other planets</p>
+<p>And if we don&#39;t, history will unfold itself, and we won&#39;t go much further than cancer ever did, and die in this beautiful yet small earth. </p>
+</article>
+    
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
+                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+                NProgress.set(0.7);
+                setTimeout(function() {
+                    NProgress.done();
+                }, 100);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        document.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                if (shouldDisableNProgress()) {
+                    return;
+                }
+                const isExternal = link.hostname && link.hostname !== window.location.hostname;
+                if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+                    return;
+                }
+                if (typeof NProgress !== 'undefined') {
+                    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+                    NProgress.start();
+                    NProgress.set(0.4);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
