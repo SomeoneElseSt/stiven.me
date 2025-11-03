@@ -1,5 +1,11 @@
 [
   {
+    "id": "cancer",
+    "title": "Cancer",
+    "date": "November 3, 2025",
+    "file": "cancer.md"
+  },
+  {
     "id": "cities",
     "title": "Cities",
     "date": "October 20, 2025",
