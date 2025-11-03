@@ -1,6 +1,6 @@
 I've been listening to a book called <a href="https://press.uchicago.edu/ucp/books/book/chicago/D/bo45084244.html" target="_blank" rel="noopener noreferrer">The Demon in the Machine</a> by Paul Davies. 
 
-It talks about how information itself plays a role in evolution, thermodynamics, and biology. 
+It talks about how information plays a role in evolution, thermodynamics, and biology. 
 
 In one of its chapters it talks about cancer. It's rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary 'overdrive' as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. 
 
