@@ -2,7 +2,7 @@ I've been listening to a book called <a href="https://press.uchicago.edu/ucp/boo
 
 It talks about how information itself plays a role in evolution, thermodynamics, and biology. 
 
-In one of its chapters it talks about cancer. It's rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary 'overdrive' as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. 
+In one of its chapters it talks about cancer <sup><a href="#footnote1" id="ref1">[1]</a></sup>. It's rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary 'overdrive' as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. 
 
 This is a specially acute problem given that one of the key biological contracts within the body is that individual cells are OK with cyclically dying and being replaced by newer cells, because doing so increases the overall strength of the body and with it the chances it will reproduce and their genome will be carried on. 
 
@@ -37,3 +37,5 @@ It's unreasonable to expect that we will ever have an equal world if our untold 
 This should be concerning to us not just for guaranteeing long-term survival, but also because, if cancer could only get so far as to temporarily possess some parts of its host and then die out, we might analogously also be better off to extents we haven't seen yet if we work together to 'reproduce' by colonizing other planets — or however else we might maximize our chances of survival.
 
 And if we don't, history will unfold itself, and we won't go much further than cancer ever did, and die in this beautiful yet small earth. 
+
+<small>1. The chapter of the book is #4: Darwinism 2.0.</small>
