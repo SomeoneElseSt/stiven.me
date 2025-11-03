@@ -32,7 +32,7 @@ The issue lies with that, if everyone could maximize how well off they are there
 
 So it would be reasonable to expect that only few people can maximize how well off they are if they need a large set of others to achieve their desired outcomes, which is just a different way to say that in a society where each individual operates for its own benefit, we expect some inequality to happen and some people to naturally be delegated as the workers or lesser than. 
 
-It's unreasonable to expect that we will ever have an equal world if our untold definition of normal is that each person is off for themselves. That's not to say we haven't gotten some good results out of that (and I aren't one to criticize the free markets) but if we want to get the best result, we need to be more like the body and work towards a common goal. 
+It's illogical to expect that we will ever have an equal world if our untold definition of normal is that each person is off for themselves. That's not to say we haven't gotten some good results out of that (and I aren't one to criticize the free markets) but if we want to get the best result, we need to be more like the body and work towards a common goal. 
 
 This should be concerning to us not just for guaranteeing long-term survival, but also because, if cancer could only get so far as to temporarily possess some parts of its host and then die out, we might analogously also be better off to extents we haven't seen yet if we work together to 'reproduce' by colonizing other planets — or however else we might maximize our chances of survival.
 
