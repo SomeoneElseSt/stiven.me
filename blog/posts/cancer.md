@@ -2,7 +2,7 @@ I've been listening to a book called <a href="https://press.uchicago.edu/ucp/boo
 
 It talks about how information itself plays a role in evolution, thermodynamics, and biology. 
 
-In one of its chapters it talks about cancer <sup><a href="#footnote1" id="ref1">[1]</a></sup>. It's rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary 'overdrive' as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. 
+In one of its chapters it talks about cancer. It's rather fascinating. Cancer — at the cellular level — is what happens when a cell goes into some type of evolutionary 'overdrive' as it feels threatened due to a pressure in its environment. The cell breaks down into its most basic impulse: to guarantee its individual survival, by reproducing into nearby tissues and organs at the highest rate possible. 
 
 This is a specially acute problem given that one of the key biological contracts within the body is that individual cells are OK with cyclically dying and being replaced by newer cells, because doing so increases the overall strength of the body and with it the chances it will reproduce and their genome will be carried on. 
 
