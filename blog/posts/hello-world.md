@@ -1,1 +1,0 @@
-I've noticed that many people whose ideas I like have blogs, so I decided to make my own. 

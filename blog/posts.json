@@ -10,11 +10,5 @@
     "title": "Cities",
     "date": "October 20, 2025",
     "file": "cities.md"
-  },
-  {
-  "id": "hello-world",
-  "title": "Hello World",
-  "date": "October 5, 2025",
-  "file": "hello-world.md"
   }
 ]
