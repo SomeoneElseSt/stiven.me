@@ -1,5 +1,11 @@
 [
   {
+    "id": "intelligence",
+    "title": "Intelligence",
+    "date": "November 14, 2025",
+    "file": "intelligence.md"
+  },
+  {
     "id": "cancer",
     "title": "Cancer",
     "date": "November 3, 2025",
