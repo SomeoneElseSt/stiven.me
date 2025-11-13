@@ -158,6 +158,10 @@
         article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
         article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
         article img { max-width: 100%; height: auto; margin: 24px 0; }
+        .footnotes { font-size: 0.875em; margin-top: 48px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
         #nprogress .bar { background: white !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px white, 0 0 5px white; }
         #nprogress .spinner { display: none !important; }
@@ -222,7 +226,9 @@
                     return;
                 }
                 const isExternal = link.hostname && link.hostname !== window.location.hostname;
-                if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+                const href = link.getAttribute('href') || '';
+                const isHashLink = href.startsWith('#');
+                if (link.classList.contains('back-button') || isExternal || isHashLink || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                     return;
                 }
                 if (typeof NProgress !== 'undefined') {

@@ -22,7 +22,10 @@ export function addNpProgressListeners(): void {
     links.forEach((link: HTMLAnchorElement) => {
         link.addEventListener('click', function(event) {
             const isExternal = link.hostname && link.hostname !== window.location.hostname;
-            if (isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+            const href = link.getAttribute('href') || '';
+            const isHashLink = href.startsWith('#');
+            // Avoids adding NP to footnotes and same-page anchors
+            if (isExternal || isHashLink || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                 return;
             }
             NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
