@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Intelligence</title>
+    <style>
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZJhiI2B.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZthiI2B.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZNhiI2B.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZxhiI2B.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZBhiI2B.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZJhiI2B.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZthiI2B.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZNhiI2B.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZxhiI2B.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZBhiI2B.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 106.5%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+        body { background: black; color: white; font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid #333; padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: white; }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: white; }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px;} /* Modify margin-bottom to move text up/down */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: white; line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
+        article { max-width: 600px; }
+        article a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: white !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px white, 0 0 5px white; }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .post-header { margin-top: 20px; } /* Change margin top to modify the padding between the title and empty space above */
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">Intelligence</h1>
+            <time id="post-date" class="post-date">November 14, 2025</time>
+        </div>
+        <a href="/" class="back-button">← Back</a>
+    </div>
+    
+    <article id="post-content"><p>I stumbled across <a href="https://www.youtube.com/watch?v=1mXUFweWOug">this</a> video recently. I highly recommend you watch it before reading this. </p>
+<p>It&#39;s a bit hard to describe, but essentially it talks about how you might have two very different model architectures generate the same output yet be quite different under the hood.</p>
+<p>One — the good network — encodes generalizable features of the output. In the video (which is a discussion of a paper you can find <a href="https://arxiv.org/abs/2505.11581">here</a>) this is shown with a skull as an example. The good network&#39;s weights would encode features of the skull, such as the two circle areas where the eyes go or the circle that encompasses the outline of the skull.</p>
+<p><img src="/blog/assets/picbreeder-unified-representation.png" alt="Picbreeder Unified Representations" title="Picbreeder Unified Representations">
+<small>
+<em>The &#39;good&#39; network. The rectangles in the image show different weights at separate layers.</em> 
+</small></p>
+<p>The &#39;bad&#39; network didn&#39;t learn this. Its weights encoded far-apart, convoluted representations that captured some of the rough shapes of the skull. Yet they were both able to output the exact same target image they were originally trained to make. </p>
+<p><img src="/blog/assets/picbreeder-fractured-representation.png" alt="Picbreeder Fractured Representations" title="Picbreeder Fractured Representations">
+<small>
+<em>The &#39;bad&#39; network. Its weights are blurry, disparate, and individually hold no meaningful information or features of the skull.</em>
+</small></p>
+<p>When each network was tasked with creating a mutation of the skull, varying the size of the eyes or the width of its jaw, the first network generalized well, while the second network distorted its outputs and didn&#39;t adapt well to the new changes. </p>
+<p><img src="/blog/assets/unified-vs-factored-representations.png" alt="Unified vs. Factored Representations Output To Skull Variations" title="Unified vs. Factored Representations Output To Skull Variations">
+<small><em>The left side of the image shows the first &#39;good&#39; network&#39;s output when varying the skull features. The right side of the image shows the second &#39;bad&#39; network, where the edges especially are heavily distorted and unrecognizable.</em>
+</small></p>
+<p>Later on, the video shows how large language models exhibit similar behaviors — failing to generalize to very similar yet slightly modified problems from those they were trained to solve because they are trained to average out or &#39;mimic&#39; what they observed in their training distribution.</p>
+<p>Since the underlying architecture is based on brute-force pattern recognition and heuristics, they do not acquire the same logical and mathematical skills that help humans generalize similar problems.</p>
+<p>This got me thinking. What is intelligence, really? </p>
+<p>First, let&#39;s define a common language around intelligence. As I see it, intelligence is the ability to solve problems given a goal and objective constraints. </p>
+<p>Second, defining most things requires answering some basic questions around where, why, how, and what. </p>
+<p>I&#39;ll be talking more around the &#39;what&#39; and &#39;how&#39; here. Finding out where intelligence came from is a job I will be leaving to the anthropologists and evolutionary biologists. The &#39;why&#39; will come from the arguments for the what and how later down the line. </p>
+<p>Since the &#39;what&#39; is already (sort of) answered above, I want to touch on the &#39;how&#39;, as I think it&#39;s more related to the very deep questions around the emergent properties that characterize biological systems. </p>
+<p>I believe talking about intelligence inherently is talking about a question of nature vs. nurture. If we were to say that intelligence is a matter of nurture, it is implied that intelligence is a deterministic algorithm that each of us comes pre-loaded with. </p>
+<p>Say, if I said that any one person placed in the right economical and educational circumstances can achieve some specific outcome — or in other words, that intelligence is distributed equally yet opportunity is not — the biological backdrop for this argument is that there is a blueprint for intelligence that is universally shared in the genome of the human species. </p>
+<p>In machine learning terms, there are weights (presumably at the biological level, in our genome) decoded into the way that the human body is made that are universally shared and only need the right circumstances to be cultivated and made to perform at very high levels of performance. </p>
+<p>In constrast, if we were to say that intelligence is a matter of nature, perhaps unintuitively, we would be saying that it is a stochastic process (although this doesn&#39;t imply it is outside of our control, as I&#39;ll elaborate more on later). This would seem to be supported by the fact that there is a general tendency that, for any population, there will emerge a 1% with individuals from very poor and disadvantaged backgrounds, going against the argument above on nurture as a necessary condition for intelligence. Some people regardless of circumstances might just be better-able than others (discounting for luck).<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
+<p>These individuals generally aren&#39;t the norm, but their existence would prove that despite the hereditary advantages of being born in a position for nurture, some variations in the genetic blueprint will find their way to being successful regardless. Arguably, these would be much better variations than their nurtured counterparts, given that they met or surpassed the systems in place despite being disadvantaged.</p>
+<p>I believe that, as with many other binary arguments, the truth lies in the middle. </p>
+<p>There is some basic degree of intelligence within any member of the human species. Severe under-nurture of it (e.g., the deprivation of language or education at an early age) can hamper it, and at worst create changes in the underlying biological wiring of the individual to do away with it, whilst over-nurture of it (e.g., enriched early childhood environments) can potentiate it and lead to social mobility. </p>
+<p>But there is also some uncontrollable pre-birth and semi-controllable post-birth randomness to intelligence due to how genome sequencing works. When a baby is born, copying errors occur naturally during the DNA replication process from parent to child. On average, each person acquires roughly 60 to 70 of these genetic errors according to <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3548427/">Kong et al. (2012)</a>.</p>
+<p>While these errors might seem infinitesimal relative to the 3 Billion base pairs of the human genome, they imply that even if there is some shared baseline that can be under/over-nurtured, the inherent stochasticity of DNA sequencing means over a long enough horizon, natural variations in intelligence and most biological systems will occur naturally. </p>
+<p>The good news is that the human body actively reshapes how its genome is read and accessed based on its experiences to remain competitive, especially those that have a particularly strong psychological or biological impact. This is the science and study of <a href="https://developingchild.harvard.edu/resources/infographics/what-is-epigenetics-and-how-does-it-relate-to-child-development/">epigenetics</a>, and it means that while one may not get to choose which genetic mutations affect intelligence, it is possible to cultivate or otherwise nurture experiences that reshape nature downstream. </p>
+<p>As to whether one has the circumstances or means to do so is a different question and having made the argument above, it&#39;s clearer how you could justify saying talent is equally distributed but opportunity isn&#39;t. </p>
+<p>You might be wondering now how does this relate to the unified vs. fractured representation of concepts in neural networks from before.</p>
+<p>If we look at the exercise in networks through these assumptions about intelligence, I think it&#39;s fairly clear that there are some components missing to achieving a general purpose unified representation system (AKA AGI). </p>
+<p>First, as noted above, there is some deterministic aspect to how intelligence <em>starts</em> out. Nature has elegantly figured out a combination in the arrangement of neurons and organs in the human body that results in intelligent beings. This is the biological foundation where our oldest ancestor must&#39;ve started: &#39;ground-zero&#39; intelligence.</p>
+<p>Ground-zero intelligence was characterized by the comprehension of only the most basic things. For example, line segmentation for internal representations of different types of objects. The type of things that a baby can process mentally but not articulate or put to meaningful use. </p>
+<p>Arguably, ground-zero type intelligences still exist today amongst animals, as they are the basic building block for non-intelligent, semi-intelligent, and intelligent life (e.g., bacteria -&gt; animals -&gt; humans). </p>
+<p>Here, I first thought of intuitively writing that I at some point nature &#39;found&#39; the right starting primitive and stuck with it. However, this attributes nature agency, which isn&#39;t right. Instead, it&#39;s more appropriate to say ground-zero intelligences evolved out of being the best for the <em>constraints for survival</em> at the time. </p>
+<p>Paraphrased, steps in the evolutionary ladder weren&#39;t climbed, they were found thanks to natural selection. </p>
+<p>This is important because it&#39;s the opposite of how AI systems are being made as of 2025. They&#39;re trained from a top-down approach, reinforcing directly the behaviors or pattern recognition needed to solve specific, trackable problems, when originally these problems were solved from the bottom-up, as the result of naturally emergent systems of cognition that were simply responding to the realities and pressures of their environments. </p>
+<p>I believe that to make AGI we 1) will not be working in pro of an optimization problem, with clearly defined correct and incorrect answers, and instead 2) will need to replicate the environments and constraints that led to intelligence emerging biologically and instead find ways to make minimum viable systems (i.e., the earliest forms of life) live eons of years inside of them, evolving naturally as we did until they reach our level of intelligence. </p>
+<p>Interestingly, some semblances of this scenario have been floated as a way of how we might come to end ourselves, hypothesizing if we let an agent run for thousands of years in one day of human time it will make a plot for human dominance due to a misinformed objective function and execute it from there on out.</p>
+<p>I think 2) above could actually be far worse. If we created environments that replicated our world and let them run for longer than our society has developed (assuming these environments model fully the physics of the world and work carefully around the constraints of information theory), it&#39;s very hard to tell what we might find.</p>
+<p>I would argue that if we did indeed figure out how to make stateful replicas of our world that run faster than we do, that might be the highest technological peak humanity can reach. Inside, we&#39;d find that these societies would all converge into the same technologies and theories, recursively creating their own replicas until we shut the original one down. </p>
+<p>The above opens many interesting questions about entropy and the order that would arise if things were to be let run for long enough, but for the purposes here, I&#39;ll tidy up concluding that our current frameworks for the creation of intelligence are misaligned and merely &#39;convenient&#39;. </p>
+<p>When the scaling laws &#39;clicked&#39; back in the days of AlexNet, we rode the compute wave focusing on how data aggregation and data expression could be used to create intelligent systems. Now, I think we need to re-think from first principles what are the constraints that led to the emergence of intelligence and simulate those environments and circumstances. </p>
+<p>As mentioned in the video, if we don&#39;t make the underlying model architectures learn from the bottom up they won&#39;t form the right internal representations of concepts needed to generalize across domains. This seems to be part of the underlying intelligence algorithm, and I think it&#39;s an exciting road to see how it will be developed. I&#39;d bet it won&#39;t be thought out by a mathematician or AI person, though. It&#39;s too abstract for that. I place better odds at that it will be some group of generalists from a different field solving a similar problem. I just hope we&#39;ll get to see it within our lifetimes.  </p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>It is worth noting that depending on how one defines intelligence, this argument can be twisted plenty. I remember a quote from Naval Ravikant that read &#39;The only true test of intelligence is if you get what you want out of life&#39;. By this definition, we might argue that intelligence is indeed a matter of nurture, as the emerging 1% example doesn&#39;t clarify if these 1% are entrepreneurs or scientists. Anyone with enough business context and perseverance can eventually become an entrepreneur. Is this applicable for scientists as well? I believe yes, but to be precise when evaluating Naval&#39;s argument we&#39;d want to look at how many in the 1% did something intellectually taxing and how many simply were focused or disciplined enough to make something that people wanted. I would still argue that given the sheer amount of problems that need solving to get to the 1% from a disadvantaged position, anyone who can do so is intelligent. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+    
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
+                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+                NProgress.set(0.7);
+                setTimeout(function() {
+                    NProgress.done();
+                }, 100);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+    </script>
+</body>
+</html>
+
