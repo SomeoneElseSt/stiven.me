@@ -18,7 +18,7 @@ I think most people would agree that if we could all work together to provide ed
 
 Yet, our society is all but egalitarian, in the sense that most people focus their efforts into how they could be making their own life better off than working directly to benefit others. Whether you agree with this or not is largely individual, but logically, if everyone was indeed working with others in mind, we would expect no government to purposefully suppress and exploit racial and cultural minorities, which isn't true of most big economies. 
 
-Therein lies the great contradiction.
+Therein lies an interesting contradiction.
 
 Natural selection found that the best way for a system to maximize its long term survival is for all pieces within it to accept their own mortality and cooperate in favor of the greater good. We seem to not have learned this just yet.  
 
