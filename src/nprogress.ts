@@ -24,8 +24,9 @@ export function addNpProgressListeners(): void {
             const isExternal = link.hostname && link.hostname !== window.location.hostname;
             const href = link.getAttribute('href') || '';
             const isHashLink = href.startsWith('#');
-            // Avoids adding NP to footnotes and same-page anchors
-            if (isExternal || isHashLink || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+            const isBackButton = link.classList.contains('back-button');
+            // Avoids adding NP to footnotes, same-page anchors, and back button
+            if (isExternal || isHashLink || isBackButton || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                 return;
             }
             NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
