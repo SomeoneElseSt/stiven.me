@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const { marked } = require('marked');
+const markedFootnote = require('marked-footnote');
 const { glob } = require('glob');
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
@@ -9,6 +10,8 @@ const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
+
+marked.use(markedFootnote());
 
 async function readPostsMetadata() {
   const exists = await fs.pathExists(POSTS_JSON_PATH);
