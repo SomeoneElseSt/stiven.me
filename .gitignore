@@ -5,6 +5,7 @@ pnpm-lock.yaml
 
 # Generated files
 blog/generated/
+blog/assets/.DS_Store
 public/
 dist/
 
