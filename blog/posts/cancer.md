@@ -8,7 +8,7 @@ This is a specially acute problem given that one of the key biological contracts
 
 There's some irony in this failure of biology. When a single rogue cell decides to pursue its best outcome, the body won't be able to reproduce (if it successfully kills the cells that maintain its host), ruling out the possibility for that cell's genome to be passed down or spread. 
 
-When I was talking to a friend this week, he brought up an idea I hadn't heard before: 'Every problem in humanity stems from that someone thinks they're better than someone else'. He argued that, in economic terms, due to the individual maximization of utility by some individuals in a social system, very many people who are capable of obtaining good outcomes end up not doing so, as it's of greater benefit for said individuals to keep some people, for example, underpaid or overworked. 
+When I was talking to a friend this week, he brought up an idea I hadn't heard before: 'Every problem in humanity stems from somebody thinking they're better than someone else'. He argued that, in economic terms, due to the individual maximization of utility by some individuals in a social system, very many people who are capable of obtaining good outcomes end up not doing so, as it's of greater benefit for said individuals to keep some people, for example, underpaid or overworked. 
 
 This aligns well with what we see in countries like China and the general mechanics of manufacturing countries with the West. Western society is better off economically by the abuse of workers in the east than it would be if it produced its goods at home or if it worked the service jobs immigrants do for lower wages. 
 
