@@ -53,3 +53,7 @@ Type check only:
 ```
 pnpm tsc:check 
 ```
+
+---
+
+Originally inspired by https://github.com/dianalokada/portfolio
