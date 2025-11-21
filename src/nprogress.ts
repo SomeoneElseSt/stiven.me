@@ -31,7 +31,6 @@ export function addNpProgressListeners(): void {
             }
             NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
             NProgress.start();
-            // NProgress.set(0.4);
         });
     });
 }
