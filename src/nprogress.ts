@@ -24,9 +24,10 @@ export function addNpProgressListeners(): void {
             const isExternal = link.hostname && link.hostname !== window.location.hostname;
             const href = link.getAttribute('href') || '';
             const isHashLink = href.startsWith('#');
+            const isMailtoLink = href.startsWith('mailto:');
             const isBackButton = link.classList.contains('back-button');
-            // Avoids adding NP to footnotes, same-page anchors, and back button
-            if (isExternal || isHashLink || isBackButton || link.target === '_blank' || event.ctrlKey || event.metaKey) {
+            // Avoids adding NP to footnotes, same-page anchors, mailto links, and back button
+            if (isExternal || isHashLink || isMailtoLink || isBackButton || link.target === '_blank' || event.ctrlKey || event.metaKey) {
                 return;
             }
             NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
