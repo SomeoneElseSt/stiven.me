@@ -4,6 +4,23 @@ export function isMobile(): boolean {
     return isMobileSize && isTouchDevice;
 }
 
+export function isIPad(): boolean {
+    if (navigator.platform === 'iPad') {
+        return true;
+    }
+    
+    const ua = navigator.userAgent;
+    const isMacintosh = /Macintosh/i.test(ua);
+    const isSafariUA = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS/i.test(ua);
+    const hasTouchSupport = navigator.maxTouchPoints > 1;
+    
+    if (isMacintosh && isSafariUA && hasTouchSupport && !/iPhone/i.test(ua)) {
+        return true;
+    }
+    
+    return /iPad/i.test(ua);
+}
+
 export function findLinks(linkQuery: string, findAll: boolean = false): HTMLAnchorElement | NodeListOf<HTMLAnchorElement> | null {
     if (findAll) {
         const links = document.querySelectorAll(linkQuery);
