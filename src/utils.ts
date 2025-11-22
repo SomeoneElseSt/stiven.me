@@ -10,15 +10,21 @@ export function isIPad(): boolean {
     }
     
     const ua = navigator.userAgent;
-    const isMacintosh = /Macintosh/i.test(ua);
-    const isSafariUA = /Safari/i.test(ua) && !/Chrome|CriOS|FxiOS|EdgiOS/i.test(ua);
-    const hasTouchSupport = navigator.maxTouchPoints > 1;
     
-    if (isMacintosh && isSafariUA && hasTouchSupport && !/iPhone/i.test(ua)) {
+    if (/iPad/i.test(ua)) {
         return true;
     }
     
-    return /iPad/i.test(ua);
+    const isMacintosh = /Macintosh/i.test(ua);
+    const hasTouchSupport = navigator.maxTouchPoints > 0;
+    const isNotiPhone = !/iPhone/i.test(ua);
+    const isLargeScreen = window.screen.width >= 768 || window.matchMedia('(min-width: 768px)').matches;
+    
+    if (isMacintosh && hasTouchSupport && isNotiPhone && isLargeScreen) {
+        return true;
+    }
+    
+    return false;
 }
 
 export function findLinks(linkQuery: string, findAll: boolean = false): HTMLAnchorElement | NodeListOf<HTMLAnchorElement> | null {
