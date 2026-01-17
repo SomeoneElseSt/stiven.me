@@ -1,5 +1,11 @@
 [
   {
+	"id": "faulty-genes",
+	"title": "Faulty Genes",
+	"date": "January 18, 2026", 
+	"file": "faulty-genes.md"
+  },
+  {
     "id": "intelligence",
     "title": "Intelligence",
     "date": "November 14, 2025",
