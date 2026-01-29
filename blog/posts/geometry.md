@@ -5,17 +5,9 @@ I think technical blogs are an essential source of knowledge, because in order f
 
 This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I'm taking this semester. 
 
-Picture a fair headed coin. There are two outcomes to this coin: heads or tails, each with a 50% chance, ceteris paribus. 
+Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. 
 
-If you wanted to know what are the chances that this coin lands on heads **N** times consecutively, you can use the formula for conditional probability:
-
-$$
-P(A \mid B) = \frac{P(A \cap B)}{P(B)}
-$$
-
-Where $A \cap B$ is the likelihood of both events happening together, and $P(B)$ is the chance of that single event happening, i.e., a coin toss falling in heads.
-
-If the coin is fair and coin tosses do not influence each other, the probability of getting heads $N$ times in a row is:
+If you wanted to know the chances that this coin lands on heads **N** times consecutively, and each flip is independent, you can just multiply:
 
 $$
 P(\text{heads } N \text{ times}) = \left(\frac{1}{2}\right)^N
@@ -23,7 +15,7 @@ $$
 
 Now, you probably already know these formulas if you took a probability class in college or high-school. 
 
-What you might not know is that probability is, fundamentally, a language for the describing specific geometrical overlaps of a set **A** with all the outcomes of interest. 
+What you might not have learnt there is that geometry is a powerful way of describing probability, specifically when partitioning a set **A** with all the outcomes of interest. 
 
 3Blue1Brown's video on Bayes theorem does a great job of visualizing how one can consider all the possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes theorem can be derived. You can watch it [here](https://www.youtube.com/watch?v=HZGCoVF3YvM).
 
@@ -50,11 +42,11 @@ The Y-axis gives the probability for each single path to happen according to its
 <<< blog/assets/code/coin-sample-space-consecutive.py
 </details>
 
-Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It also makes questions like how likely is it to get tails if you've gotten heads three consecutive times much easier to answer; just trace the graph!  
+Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like 'HTHHTHH' much easier to answer; just trace the graph!  
 
 So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn't really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing lenght.
 
-But something is hidding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. 
+But something is hiding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. 
 
 ![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
 
@@ -67,13 +59,21 @@ But something is hidding in plain sight: a normal distribution. If we plot the p
 
 Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more **N** we'd end up seeing a completely straight line. 
 
-What's interesting is that at N < 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smooting out to a bell. 
+What's interesting is that at N < 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell. 
 
 We can explain this intuitively by looking at the previous figure overlayed and mirrored on the sample space distribution plot: 
 
 ![Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.](/blog/assets/coin-sample-space-overlay.png "Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.")
 
-The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying **the biggest proportion** along the center correspondigly line up with the center of the bell, showing that the Central Limit Theorem holds analitically when outcomes follow an inverse staircase pattern in a binomial sample space that splits evenly. Zooming out from the coin-toss example, this is applicable to any binomial process. 
+<details>
+<summary>Show visualization code</summary>
 
-Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome a manner that we're accustomed to and that fits nicely within analyitical frameworks.
+<<< blog/assets/code/coin-sample-space-overlay.py
+</details>
 
+The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying **the biggest proportion** along the center correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. Zooming out from the coin-toss example, this is applicable to any binomial process. 
+
+Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. 
+
+
+<small>1. I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool.</small>
