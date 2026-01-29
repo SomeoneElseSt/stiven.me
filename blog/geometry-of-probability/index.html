@@ -195,14 +195,11 @@
     <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s Demons. They are both very throughrough and I recommend you read them.</p>
 <p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
 <p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
-<p>Picture a fair headed coin. There are two outcomes to this coin: heads or tails, each with a 50% chance, ceteris paribus. </p>
-<p>If you wanted to know what are the chances that this coin lands on heads <strong>N</strong> times consecutively, you can use the formula for conditional probability:</p>
-<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∩</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
-<p>Where <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∩</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span> is the likelihood of both events happening together, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span> is the chance of that single event happening, i.e., a coin toss falling in heads.</p>
-<p>If the coin is fair and coin tosses do not influence each other, the probability of getting heads <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> times in a row is:</p>
+<p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
+<p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
 <span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
 <p>Now, you probably already know these formulas if you took a probability class in college or high-school. </p>
-<p>What you might not know is that probability is, fundamentally, a language for the describing specific geometrical overlaps of a set <strong>A</strong> with all the outcomes of interest. </p>
+<p>What you might not have learnt there is that geometry is an powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
 <p>3Blue1Brown&#39;s video on Bayes theorem does a great job of visualizing how one can consider all the possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
 <p>Applying this to the coin toss question, we can visualize all the possible head and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In our example, the coin toss. </p>
 <p><img src="/blog/assets/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
@@ -331,7 +328,7 @@ plt.show()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It also makes questions like how likely is it to get tails if you&#39;ve gotten heads three consecutive times much easier to answer; just trace the graph!  </p>
+<p>Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; much easier to answer; just trace the graph!  </p>
 <p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing lenght.</p>
 <p>But something is hidding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. </p>
 <p><img src="/blog/assets/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
@@ -438,8 +435,148 @@ plt.show()
 <p>What&#39;s interesting is that at N &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smooting out to a bell. </p>
 <p>We can explain this intuitively by looking at the previous figure overlayed and mirrored on the sample space distribution plot: </p>
 <p><img src="/blog/assets/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
-<p>The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying <strong>the biggest proportion</strong> along the center correspondigly line up with the center of the bell, showing that the Central Limit Theorem holds analitically when outcomes follow an inverse staircase pattern. Zooming out from the coin-toss example, this is applicable to any binomial process. </p>
-<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome a manner that we&#39;re accustomed to and that fits nicely within analyitical frameworks.</p>
+<details>
+<summary>Show visualization code</summary>
+
+<pre><code class="language-py">from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+from scipy.special import comb
+
+NUM_FLIPS = 100
+STAIRCASE_FLIPS = 6
+BASE_FILENAME = &#39;coin-sample-space-proportion-heads-clean.png&#39;
+STAIRCASE_FILENAME = &#39;coin-sample-space-shaded-staircase-clean.png&#39;
+OUTPUT_FILENAME = &#39;coin-sample-space-overlay.png&#39;
+ALPHA_SCALE = 0.5
+
+
+def generate_distribution_base(output_path):
+    fig, ax = plt.subplots(figsize=(20, 14), facecolor=&#39;black&#39;)
+    ax.set_facecolor(&#39;black&#39;)
+
+    for flip in range(1, NUM_FLIPS + 1):
+        max_prob = comb(flip, flip // 2, exact=True) * (0.5 ** flip)
+        marker_size = max(5, 200 / np.sqrt(flip))
+
+        for num_heads in range(flip + 1):
+            prob = comb(flip, num_heads, exact=True) * (0.5 ** flip)
+            relative_prob = prob / max_prob
+            color = plt.cm.RdYlBu_r(relative_prob)
+            y_proportion = num_heads / flip
+
+            ax.scatter(
+                flip,
+                y_proportion,
+                c=[color],
+                s=marker_size,
+                marker=&#39;s&#39;,
+                edgecolors=&#39;none&#39;,
+                alpha=0.95,
+                rasterized=True
+            )
+
+    ax.set_xlim(0, NUM_FLIPS + 2)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches=&#39;tight&#39;, facecolor=&#39;black&#39;)
+    plt.close(fig)
+
+
+def generate_staircase_overlay(output_path):
+    fig, ax = plt.subplots(figsize=(14, 8), facecolor=&#39;black&#39;)
+    ax.set_facecolor(&#39;black&#39;)
+
+    colors = plt.cm.Blues(np.linspace(0.3, 0.9, STAIRCASE_FLIPS + 1))
+
+    for flip in range(STAIRCASE_FLIPS + 1):
+        total_outcomes = 2**flip
+        height = 1 / total_outcomes
+
+        for outcome in range(total_outcomes):
+            y_position = outcome * height
+            is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
+
+            if is_staircase:
+                facecolor = colors[-1]
+                alpha = 1.0
+                edgecolor = &#39;white&#39;
+            else:
+                facecolor = colors[flip]
+                alpha = 0.15
+                edgecolor = &#39;black&#39;
+
+            rect = plt.Rectangle(
+                (flip, y_position),
+                0.8,
+                height,
+                linewidth=1,
+                edgecolor=edgecolor,
+                facecolor=facecolor,
+                alpha=alpha
+            )
+            ax.add_patch(rect)
+
+    ax.set_xlim(-0.5, STAIRCASE_FLIPS + 0.5)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches=&#39;tight&#39;, facecolor=&#39;black&#39;)
+    plt.close(fig)
+
+
+def overlay_images(base_path, overlay_path, output_path):
+    if not base_path.exists():
+        print(f&#39;Missing base image: {base_path}&#39;)
+        return
+    if not overlay_path.exists():
+        print(f&#39;Missing overlay image: {overlay_path}&#39;)
+        return
+
+    base = Image.open(base_path).convert(&#39;RGBA&#39;)
+    overlay = Image.open(overlay_path).convert(&#39;RGBA&#39;)
+
+    overlay_flipped = overlay.transpose(Image.FLIP_LEFT_RIGHT)
+    overlay_resized = overlay_flipped.resize(base.size, Image.LANCZOS)
+
+    r, g, b, a = overlay_resized.split()
+    a = a.point(lambda v: int(v * ALPHA_SCALE))
+    overlay_transparent = Image.merge(&#39;RGBA&#39;, (r, g, b, a))
+
+    combined = Image.alpha_composite(base, overlay_transparent)
+    combined.save(output_path)
+
+
+def main():
+    assets_dir = Path(__file__).resolve().parent.parent
+    base_path = assets_dir / BASE_FILENAME
+    staircase_path = assets_dir / STAIRCASE_FILENAME
+    output_path = assets_dir / OUTPUT_FILENAME
+
+    generate_distribution_base(base_path)
+    generate_staircase_overlay(staircase_path)
+    overlay_images(base_path, staircase_path, output_path)
+
+
+main()
+</code></pre>
+</details>
+
+<p>The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying <strong>the biggest proportion</strong> along the center correspondigly line up with the center of the bell, showing that the Central Limit Theorem emerges when outcomes follow an inverse staircase pattern in a binomial sample space that splits evenly. Zooming out from the coin-toss example, this is applicable to any binomial process. </p>
+<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. </p>
 </article>
     
     <script>
