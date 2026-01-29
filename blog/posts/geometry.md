@@ -42,7 +42,7 @@ Rightmost, each block doubles in its number of outcomes, which makes sense intui
 
 The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they're the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, respective to their very low probabilities as shown below.
 
-![Consecutive tails or heads shaded staircase.](/blog/assets/coin-sample-space-shaded-staircase.png "Consecutive outcomes - shaded staircase")
+![Consecutive tails or heads shaded staircase.](/blog/assets/coin-sample-space-shaded-staircase.png "Consecutive tails or heads shaded staircase.")
 
 <details>
 <summary>Show visualization code</summary>
@@ -52,13 +52,17 @@ The Y-axis gives the probability for each single path to happen according to its
 
 Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It also makes questions like how likely is it to get tails if you've gotten heads three consecutive times much easier to answer; just trace the graph!  
 
-
-
 So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, both are bound to be 50/50. The above graph doesn't really make this intuitive, though. After all, it seems sequences simply collapse into blobs of increasing lenght.
 
 But something is hidding there in plain sight. A normal distribution. The below figure of the probability of getting heads from N=0 to N=100 coin tosses shows 1) the natural emergence of a normal distribution at the earliest **N** counts, where outcomes are spread according to ??? and 2) the expected convergence by the law of large numbers to a 50% chance of 
 
+![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
 
+<details>
+<summary>Show visualization code</summary>
+
+<<< blog/assets/code/coin-sample-space-distribution.py
+</details>
 
 
 
