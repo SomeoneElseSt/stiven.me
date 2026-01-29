@@ -85,3 +85,5 @@ I will have to research further the math-y bits, but it was cool to spend an eve
 If you found this useful or interesting, I'm glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. 
 
 <small>1. I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields.</small>
+
+<small>2. If you're curious about the aforementioned chat I had with Claude with my thinking process, you can read it [here](https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8).</small>
