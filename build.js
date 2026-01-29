@@ -11,12 +11,56 @@ const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
+const IMPORT_REGEX = /<<<\s+([^\s]+)/g;
 
 marked.use(markedFootnote());
 marked.use(markedKatex({
   throwOnError: false,
   output: 'html'
 }));
+
+async function readTextFile(filePath) {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8');
+    return [content, null];
+  } catch (error) {
+    return [null, error];
+  }
+}
+
+async function buildImportReplacement(relativeImportPath) {
+  const absoluteImportPath = path.join(__dirname, relativeImportPath);
+  const [fileContent, readError] = await readTextFile(absoluteImportPath);
+  if (readError) {
+    return [null, new Error(`Error reading import ${relativeImportPath}: ${readError.message}`)];
+  }
+
+  const extension = path.extname(relativeImportPath).slice(1);
+  const fence = `\`\`\`${extension}\n${fileContent}\n\`\`\``;
+  return [fence, null];
+}
+
+async function applyCodeImports(markdownContent, fileName) {
+  const matches = [...markdownContent.matchAll(IMPORT_REGEX)];
+  if (matches.length === 0) {
+    return markdownContent;
+  }
+
+  let updatedContent = markdownContent;
+  for (const match of matches) {
+    const fullMatch = match[0];
+    const relativeImportPath = match[1];
+
+    const [replacement, replacementError] = await buildImportReplacement(relativeImportPath);
+    if (replacementError) {
+      console.warn(`- Warning: ${replacementError.message} in ${fileName}`);
+      continue;
+    }
+
+    updatedContent = updatedContent.replace(fullMatch, replacement);
+  }
+  return updatedContent;
+}
 
 async function readPostsMetadata() {
   const exists = await fs.pathExists(POSTS_JSON_PATH);
@@ -56,15 +100,15 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
       continue;
     }
 
-    let markdownContent;
-    try {
-      markdownContent = await fs.readFile(filePath, 'utf-8');
-    } catch (error) {
-      console.error(`- Error reading ${fileName}, skipping: ${error.message}`);
+    const [markdownContent, markdownError] = await readTextFile(filePath);
+    if (markdownError) {
+      console.error(`- Error reading ${fileName}, skipping: ${markdownError.message}`);
       continue;
     }
 
-    const htmlContent = marked.parse(markdownContent);
+    const processedMarkdownContent = await applyCodeImports(markdownContent, fileName);
+
+    const htmlContent = marked.parse(processedMarkdownContent);
     combinedPosts.push({ ...postMeta, htmlContent });
   }
   return combinedPosts;
