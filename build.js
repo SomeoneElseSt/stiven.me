@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
+const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
@@ -12,6 +13,10 @@ const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
 
 marked.use(markedFootnote());
+marked.use(markedKatex({
+  throwOnError: false,
+  output: 'html'
+}));
 
 async function readPostsMetadata() {
   const exists = await fs.pathExists(POSTS_JSON_PATH);
