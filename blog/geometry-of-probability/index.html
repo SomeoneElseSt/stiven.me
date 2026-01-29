@@ -155,6 +155,8 @@
         article { max-width: 600px; }
         article a { color: white; text-decoration: underline; text-underline-offset: 4px; }
         article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid rgba(255, 255, 255, 0.65); }
+        article blockquote p { margin: 8px 0; }
         article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
         article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
         article img { max-width: 100%; height: auto; margin: 24px 0; }
@@ -192,16 +194,16 @@
         <a href="/" class="back-button">← Back</a>
     </div>
     
-    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s Demons. They are both very throughrough and I recommend you read them.</p>
+    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
 <p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
 <p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
 <p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
 <p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
 <span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
-<p>Now, you probably already know these formulas if you took a probability class in college or high-school. </p>
-<p>What you might not have learnt there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
-<p>3Blue1Brown&#39;s video on Bayes theorem does a great job of visualizing how one can consider all the possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
-<p>Applying this to the coin toss question, we can visualize all the possible head and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In our example, the coin toss. </p>
+<p>Now, you probably already know these formulas if you took a probability class in college or high school. </p>
+<p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
+<p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all the possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
+<p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
 <p><img src="/blog/assets/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
 <details>
 <summary>Show visualization code</summary>
@@ -258,9 +260,9 @@ plt.show()
 </code></pre>
 </details>
 
-<p>The first block on the left shows the 0-th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
-<p>Rightmost, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
-<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, respective to their very low probabilities as shown below.</p>
+<p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
+<p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
+<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
 <p><img src="/blog/assets/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
 <details>
 <summary>Show visualization code</summary>
@@ -328,8 +330,8 @@ plt.show()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; much easier to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing lenght.</p>
+<p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
+<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
 <p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. </p>
 <p><img src="/blog/assets/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
 <details>
@@ -433,7 +435,7 @@ plt.show()
 
 <p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line. </p>
 <p>What&#39;s interesting is that at N &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell. </p>
-<p>We can explain this intuitively by looking at the previous figure overlayed and mirrored on the sample space distribution plot: </p>
+<p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
 <p><img src="/blog/assets/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
 <details>
 <summary>Show visualization code</summary>
@@ -581,7 +583,7 @@ main()
 <blockquote>
 <p>What we&#39;ve visualized here is actually a rotated form of Pascal&#39;s triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number N, counting how many paths lead to exactly k heads gives you the entries in row N of Pascal&#39;s triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as N grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn&#39;t just resemble Pascal&#39;s triangle; it is Pascal&#39;s triangle, revealing why the bell curve emerges so naturally from repeated binary trials.</p>
 </blockquote>
-<p>I will have to research further the math-y bits, but it was cool to spend an evening chasing geometric intuition; it is much better than swiming through formulas, personally.</p>
+<p>I will have to research further the math-y bits, but it was cool to spend an evening chasing geometric intuition; I find it much better than swimming through formulas, personally.</p>
 <p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
 <p><small>1. I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool.</small></p>
 </article>
