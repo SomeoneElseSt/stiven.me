@@ -264,7 +264,7 @@ plt.show()
 <p>The first block on the left shows the 0-th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
 <p>Rightmost, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
 <p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, respective to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive outcomes - shaded staircase"></p>
+<p><img src="/blog/assets/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
 <details>
 <summary>Show visualization code</summary>
 
@@ -332,9 +332,9 @@ plt.show()
 </details>
 
 <p>Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It also makes questions like how likely is it to get tails if you&#39;ve gotten heads three consecutive times much easier to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, both are bound to be 50/50. The above graph doesn&#39;t really make this intuitive, though. After all, it seems sequences simply collapse into blobs of increasing lenght.</p>
-<p>But something is hidding there in plain sight. A normal distribution. The below figure of the probability of getting heads from N=0 to N=100 coin tosses shows 1) the natural emergence of a normal distribution at the earliest <strong>N</strong> counts, where outcomes are spread according to ??? and 2) the expected convergence by the law of large numbers to a 50% chance of </p>
-<p><img src="/blog/assets/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space" title="Proportion of Heads in the Coin Sample Space"></p>
+<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing lenght.</p>
+<p>But something is hidding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. </p>
+<p><img src="/blog/assets/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
 <details>
 <summary>Show visualization code</summary>
 
@@ -434,11 +434,12 @@ plt.show()
 </details>
 
 
-
-
-
-
-
+<p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line. </p>
+<p>What&#39;s interesting is that at N &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smooting out to a bell. </p>
+<p>We can explain this intuitively by looking at the previous figure overlayed and mirrored on the sample space distribution plot: </p>
+<p><img src="/blog/assets/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p>The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying <strong>the biggest proportion</strong> along the center correspondigly line up with the center of the bell, showing that the Central Limit Theorem holds analitically when outcomes follow an inverse staircase pattern. Zooming out from the coin-toss example, this is applicable to any binomial process. </p>
+<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome a manner that we&#39;re accustomed to and that fits nicely within analyitical frameworks.</p>
 </article>
     
     <script>

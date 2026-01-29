@@ -52,9 +52,9 @@ The Y-axis gives the probability for each single path to happen according to its
 
 Are you starting to see the link between geometry and probability here? You could measure the  probabily for any given sequence by picking its terminal block and measuring its height. It also makes questions like how likely is it to get tails if you've gotten heads three consecutive times much easier to answer; just trace the graph!  
 
-So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, both are bound to be 50/50. The above graph doesn't really make this intuitive, though. After all, it seems sequences simply collapse into blobs of increasing lenght.
+So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn't really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing lenght.
 
-But something is hidding there in plain sight. A normal distribution. The below figure of the probability of getting heads from N=0 to N=100 coin tosses shows 1) the natural emergence of a normal distribution at the earliest **N** counts, where outcomes are spread according to ??? and 2) the expected convergence by the law of large numbers to a 50% chance of 
+But something is hidding in plain sight: a normal distribution. If we plot the proportion of times we get heads in the sample space as shown below, there is a clear bell shape before the true 50% proportion converges. 
 
 ![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
 
@@ -65,8 +65,15 @@ But something is hidding there in plain sight. A normal distribution. The below 
 </details>
 
 
+Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more **N** we'd end up seeing a completely straight line. 
 
+What's interesting is that at N < 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smooting out to a bell. 
 
+We can explain this intuitively by looking at the previous figure overlayed and mirrored on the sample space distribution plot: 
 
+![Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.](/blog/assets/coin-sample-space-overlay.png "Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.")
 
+The edges of the bell line up with consecutive coin paths, which are very unlikely, and correspondingly fall in its tails. The blob outcomes occupying **the biggest proportion** along the center correspondigly line up with the center of the bell, showing that the Central Limit Theorem holds analitically when outcomes follow an inverse staircase pattern in a binomial sample space that splits evenly. Zooming out from the coin-toss example, this is applicable to any binomial process. 
+
+Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome a manner that we're accustomed to and that fits nicely within analyitical frameworks.
 
