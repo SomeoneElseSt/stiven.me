@@ -47,7 +47,7 @@ ax.set_xlim(-0.5, num_flips + 0.5)
 ax.set_ylim(0, 1)
 ax.set_xlabel('Coin Flip Number', fontsize=12, color='white')
 ax.set_ylabel('Probability space (0–1)', fontsize=12, color='white')
-ax.set_title(f'Sample Space Division: {num_flips} Coin Flips\n(Total outcomes = 2^{num_flips} = {2**num_flips})', fontsize=14, color='white')
+ax.set_title(f'Sample Space Division: {num_flips} Coin Flips\nShowing Shaded Staircases of Consecutive H/T Patterns.', fontsize=14, color='white')
 ax.set_xticks(range(num_flips + 1))
 ax.grid(axis='x', alpha=0.3, color='white')
 
