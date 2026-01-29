@@ -75,5 +75,12 @@ The edges of the bell line up with consecutive coin paths, which are very unlike
 
 Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. 
 
+I used Perplexity with Claude 4.5 Sonnet to work through my ideas. Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and following the clearest patterns. It walked me through how this nicely ties up in a way math-minded readers will enjoy:
+
+> What we've visualized here is actually a rotated form of Pascal's triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number N, counting how many paths lead to exactly k heads gives you the entries in row N of Pascal's triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as N grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn't just resemble Pascal's triangle; it is Pascal's triangle, revealing why the bell curve emerges so naturally from repeated binary trials.
+
+I will have to research further the math-y bits, but it was cool to spend an evening chasing geometric intuition; it is much better than swiming through formulas, personally.
+
+If you found this useful or interesting, I'm glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. 
 
 <small>1. I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool.</small>
