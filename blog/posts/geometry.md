@@ -72,7 +72,7 @@ We can explain this intuitively by looking at the previous figure overlaid and m
 <<< blog/assets/code/coin-sample-space-overlay.py
 </details>
 
-The edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy **the biggest proportion** along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. 
+The extreme edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy **the biggest proportion** along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. 
 
 Another way to think about this is that if you re-scale the sample space to show the least likely sequences to be smaller and the most likely to be bigger, the proportion of times that heads appears is distributed close to normally [discounting for the gap between consecutive sequences and roughly normal sequences] until the law of large numbers kicks in and averages out to 50%. Zooming out from the coin-toss example, this is applicable to any binomial process of independent events. 
 
