@@ -17,7 +17,7 @@ Now, you probably already know these formulas if you took a probability class in
 
 What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set **A** with all the outcomes of interest. 
 
-3Blue1Brown's video on Bayes' theorem does a great job of visualizing how one can consider all the possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes' theorem can be derived. You can watch it [here](https://www.youtube.com/watch?v=HZGCoVF3YvM).
+3Blue1Brown's video on Bayes' theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes' theorem can be derived. You can watch it [here](https://www.youtube.com/watch?v=HZGCoVF3YvM).
 
 Applying this to the coin toss question, we can visualize all the possible heads and tails sequences ('HHHTTT', 'HTHTHT', 'HHHHHH', etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. 
 
