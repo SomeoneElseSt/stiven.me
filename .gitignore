@@ -14,3 +14,6 @@ dist/
 .replit.backup
 attached_assets/
 generated-icon.png
+
+# Agents
+CLAUDE.md
