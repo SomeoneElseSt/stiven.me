@@ -12,6 +12,8 @@ for flip in range(1, num_flips + 1):
     marker_size = max(5, 200 / np.sqrt(flip))
 
     for num_heads in range(flip + 1):
+        # comb(flip, num_heads) counts all sequences with exactly num_heads heads,
+        # avoiding the need to enumerate all 2^flip sequences explicitly
         prob = comb(flip, num_heads, exact=True) * (0.5 ** flip)
         relative_prob = prob / max_prob
         color = plt.cm.RdYlBu_r(relative_prob)
