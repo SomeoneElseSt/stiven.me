@@ -246,7 +246,11 @@
             imgs.forEach(function(img) {
                 var src = img.getAttribute('src');
                 if (src && src.endsWith('.png') && !src.includes('-light.')) {
-                    img.setAttribute('src', src.replace('.png', '-light.png'));
+                    var lightSrc = src.replace('.png', '-light.png');
+                    img.setAttribute('src', lightSrc);
+                    img.onerror = (function(original) {
+                        return function() { img.setAttribute('src', original); img.onerror = null; };
+                    })(src);
                 }
             });
         })();
