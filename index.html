@@ -51,8 +51,11 @@
             <defs>
                 <mask id="theme-moon-mask"><rect width="24" height="24" fill="black"/><circle cx="12" cy="12.06" r="8.6" fill="white"/><circle cx="16.72" cy="10.78" r="7.1" fill="black"/></mask>
             </defs>
-            <g id="theme-icon-content">
+            <g id="theme-icon-moon">
                 <circle cx="12" cy="12" r="8.6" fill="currentColor" stroke="none" mask="url(#theme-moon-mask)" transform="rotate(-20 12 12)"/>
+            </g>
+            <g id="theme-icon-sun" stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center; display: none;">
+                <circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/>
             </g>
         </svg>
     </button>
@@ -136,14 +139,15 @@
     </div>
     <script>
         (function() {
-            var btn     = document.getElementById('theme-toggle');
-            var content = document.getElementById('theme-icon-content');
-            var MOON = '<circle cx="12" cy="12" r="8.6" fill="currentColor" stroke="none" mask="url(#theme-moon-mask)" transform="rotate(-20 12 12)"/>';
-            var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
+            var btn  = document.getElementById('theme-toggle');
+            var moon = document.getElementById('theme-icon-moon');
+            var sun  = document.getElementById('theme-icon-sun');
+            
             function applyTheme(light) {
                 document.documentElement.classList.toggle('light-mode', light);
                 document.body.classList.toggle('light-mode', light);
-                content.innerHTML = light ? SUN : MOON;
+                moon.style.display = light ? 'none' : 'block';
+                sun.style.display  = light ? 'block' : 'none';
                 btn.setAttribute('aria-label', 'Switch to ' + (light ? 'dark' : 'light') + ' mode');
                 localStorage.setItem('theme', light ? 'light' : 'dark');
             }
