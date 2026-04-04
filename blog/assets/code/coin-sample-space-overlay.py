@@ -7,15 +7,15 @@ from scipy.special import comb
 
 NUM_FLIPS = 100
 STAIRCASE_FLIPS = 6
-BASE_FILENAME = 'coin-sample-space-proportion-heads-clean.png'
-STAIRCASE_FILENAME = 'coin-sample-space-shaded-staircase-clean.png'
-OUTPUT_FILENAME = 'coin-sample-space-overlay.png'
 ALPHA_SCALE = 0.5
 
 
-def generate_distribution_base(output_path):
-    fig, ax = plt.subplots(figsize=(20, 14), facecolor='black')
-    ax.set_facecolor('black')
+def generate_distribution_base(output_path, theme):
+    is_light = theme == 'light'
+    bg = 'white' if is_light else 'black'
+
+    fig, ax = plt.subplots(figsize=(20, 14), facecolor=bg)
+    ax.set_facecolor(bg)
 
     for flip in range(1, NUM_FLIPS + 1):
         max_prob = comb(flip, flip // 2, exact=True) * (0.5 ** flip)
@@ -47,13 +47,17 @@ def generate_distribution_base(output_path):
         spine.set_visible(False)
 
     plt.tight_layout()
-    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='black')
+    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor=bg)
     plt.close(fig)
 
 
-def generate_staircase_overlay(output_path):
-    fig, ax = plt.subplots(figsize=(14, 8), facecolor='black')
-    ax.set_facecolor('black')
+def generate_staircase_overlay(output_path, theme):
+    is_light = theme == 'light'
+    bg = 'white' if is_light else 'black'
+    fg = 'black' if is_light else 'white'
+
+    fig, ax = plt.subplots(figsize=(14, 8), facecolor=bg)
+    ax.set_facecolor(bg)
 
     colors = plt.cm.Blues(np.linspace(0.3, 0.9, STAIRCASE_FLIPS + 1))
 
@@ -68,11 +72,11 @@ def generate_staircase_overlay(output_path):
             if is_staircase:
                 facecolor = colors[-1]
                 alpha = 1.0
-                edgecolor = 'white'
+                edgecolor = fg
             else:
                 facecolor = colors[flip]
                 alpha = 0.15
-                edgecolor = 'black'
+                edgecolor = bg
 
             rect = plt.Rectangle(
                 (flip, y_position),
@@ -94,7 +98,7 @@ def generate_staircase_overlay(output_path):
         spine.set_visible(False)
 
     plt.tight_layout()
-    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='black')
+    plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor=bg)
     plt.close(fig)
 
 
@@ -120,15 +124,21 @@ def overlay_images(base_path, overlay_path, output_path):
     combined.save(output_path)
 
 
+def generate_for_theme(assets_dir, theme):
+    suffix = '-light' if theme == 'light' else ''
+    base_path = assets_dir / f'coin-sample-space-proportion-heads-clean{suffix}.png'
+    staircase_path = assets_dir / f'coin-sample-space-shaded-staircase-clean{suffix}.png'
+    output_path = assets_dir / f'coin-sample-space-overlay{suffix}.png'
+
+    generate_distribution_base(base_path, theme)
+    generate_staircase_overlay(staircase_path, theme)
+    overlay_images(base_path, staircase_path, output_path)
+
+
 def main():
     assets_dir = Path(__file__).resolve().parent.parent
-    base_path = assets_dir / BASE_FILENAME
-    staircase_path = assets_dir / STAIRCASE_FILENAME
-    output_path = assets_dir / OUTPUT_FILENAME
-
-    generate_distribution_base(base_path)
-    generate_staircase_overlay(staircase_path)
-    overlay_images(base_path, staircase_path, output_path)
+    generate_for_theme(assets_dir, 'dark')
+    generate_for_theme(assets_dir, 'light')
 
 
 main()
