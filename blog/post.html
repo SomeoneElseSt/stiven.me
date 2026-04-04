@@ -217,9 +217,9 @@
             var imgs = document.querySelectorAll('article img');
             imgs.forEach(function(img) {
                 var src = img.getAttribute('src');
-                if (src && src.endsWith('.png') && !src.includes('-light.')) {
-                    var lightSrc = src.replace('.png', '-light.png');
-                    img.setAttribute('src', lightSrc);
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (match) {
+                    img.setAttribute('src', match[1] + '-light' + match[2]);
                     img.onerror = (function(original) {
                         return function() { img.setAttribute('src', original); img.onerror = null; };
                     })(src);
