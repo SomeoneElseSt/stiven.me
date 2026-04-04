@@ -139,7 +139,7 @@
             var btn     = document.getElementById('theme-toggle');
             var content = document.getElementById('theme-icon-content');
             var MOON = '<circle cx="12" cy="12" r="8.6" fill="currentColor" stroke="none" mask="url(#theme-moon-mask)" transform="rotate(-20 12 12)"/>';
-            var SUN  = '<g stroke-width="2.5" stroke-linecap="butt"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
+            var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
             function applyTheme(light) {
                 document.documentElement.classList.toggle('light-mode', light);
                 document.body.classList.toggle('light-mode', light);
