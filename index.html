@@ -135,8 +135,8 @@
         (function() {
             var btn     = document.getElementById('theme-toggle');
             var content = document.getElementById('theme-icon-content');
-            var MOON = '<path d="M 14.826 3.937 A 8.6 8.6 0 1 0 18.542 17.642 A 7.1 7.1 0 0 1 14.826 3.937 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/>';
-            var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.20)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
+            var MOON = '<g transform="scale(1.15) translate(0, -1)"><path d="M 14.826 3.937 A 8.6 8.6 0 1 0 18.542 17.642 A 7.1 7.1 0 0 1 14.826 3.937 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/></g>';
+            var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
             
             function applyTheme(light) {
                 document.documentElement.classList.toggle('light-mode', light);
