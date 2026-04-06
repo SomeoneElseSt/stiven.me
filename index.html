@@ -49,7 +49,9 @@
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light mode">
         <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g id="theme-icon-content">
-                <path d="M 14.826 3.937 A 8.6 8.6 0 1 0 18.542 17.642 A 7.1 7.1 0 0 1 14.826 3.937 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/>
+                <g transform="scale(1.15) translate(0, -2)">
+                    <path d="M 15.826323 4.298101 A 8.6 8.6 0 1 0 19.078049 16.884795 A 6.5 6.5 0 0 1 15.826323 4.298101 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/>
+                </g>
             </g>
         </svg>
     </button>
@@ -135,7 +137,7 @@
         (function() {
             var btn     = document.getElementById('theme-toggle');
             var content = document.getElementById('theme-icon-content');
-            var MOON = '<g transform="scale(1.15) translate(0, -2)"><path d="M 14.826 3.937 A 8.6 8.6 0 1 0 18.542 17.642 A 7.1 7.1 0 0 1 14.826 3.937 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/></g>';
+            var MOON = '<g transform="scale(1.15) translate(0, -2)"><path d="M 15.826323 4.298101 A 8.6 8.6 0 1 0 19.078049 16.884795 A 6.5 6.5 0 0 1 15.826323 4.298101 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/></g>';
             var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
             
             function applyTheme(light) {
