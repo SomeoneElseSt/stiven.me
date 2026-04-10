@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Cities</title>
-    <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script>
+    <script src="/dist/theme.js"></script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -257,7 +257,7 @@
     </script>
     <script>
         (function() {
-            if (localStorage.getItem('theme') !== 'light') return;
+            if (!document.documentElement.classList.contains('light-mode')) return;
             var imgs = document.querySelectorAll('article img');
             imgs.forEach(function(img) {
                 var src = img.getAttribute('src');
