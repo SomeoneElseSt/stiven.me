@@ -2,9 +2,6 @@ import { shouldDisableNProgress } from './disable_np.js';
 import { initPrefetch } from './prefetch.js';
 import { addSocialLinkClickListeners } from './listeners.js';
 import { addNpProgressListeners } from './nprogress.js';
-import { initTheme } from './theme.js';
-
-initTheme();
 
 function initializeApp(): void {
     if (!shouldDisableNProgress()) {
