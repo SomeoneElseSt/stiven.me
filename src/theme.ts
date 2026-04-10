@@ -1,8 +1,6 @@
 export function initTheme(): void {
-    const saved = localStorage.getItem('theme');
-    const hour = new Date().getHours();
-    const SUNRISE = 6, SUNSET = 20;
-    const daytime = hour >= SUNRISE && hour < SUNSET;
-    const isLight = saved === 'light' || (saved === null && daytime);
-    document.documentElement.classList.toggle('light-mode', isLight);
+    // theme-init.js runs synchronously in <head> and sets the light-mode class.
+    // Sync body to match so toggle listeners have a consistent starting point.
+    const isLight = document.documentElement.classList.contains('light-mode');
+    document.body.classList.toggle('light-mode', isLight);
 }
