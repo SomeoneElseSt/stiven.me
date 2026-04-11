@@ -29,6 +29,9 @@
         .theme-toggle { background: none; border: none; cursor: pointer; padding: 4px; color: var(--fg); outline: none; -webkit-tap-highlight-color: transparent; }
         .theme-toggle svg { width: 20px; height: 20px; }
         #blog-list { max-width: 600px; padding-top: 0px;}
+
+        .site-footer { width: 100%; margin-top: 96px; padding: 32px 0 0; display: flex; justify-content: center; }
+        .site-footer pre { margin: 0; padding: 0 16px; max-width: 100%; overflow-x: auto; font-family: 'Courier New', Courier, monospace; font-size: clamp(10px, 1.1vw, 18px); line-height: 1; letter-spacing: 0; white-space: pre; text-align: center; }
         @media (max-width: 768px) {
             body { padding: 24px; }
             .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
@@ -157,5 +160,16 @@
             });
         })();
     </script>
+
+    <footer class="site-footer" role="contentinfo">
+        <pre aria-label="STIVEN ASCII art">
+███████╗████████╗██╗   ██╗██╗   ██╗███████╗███╗   ██╗
+██╔════╝╚══██╔══╝██║   ██║██║   ██║██╔════╝████╗  ██║
+███████╗   ██║   ██║   ██║██║   ██║█████╗  ██╔██╗ ██║
+╚════██║   ██║   ╚██╗ ██╔╝╚██╗ ██╔╝██╔══╝  ██║╚██╗██║
+███████║   ██║    ╚████╔╝  ╚████╔╝ ███████╗██║ ╚████║
+╚══════╝   ╚═╝     ╚═══╝    ╚═══╝  ╚══════╝╚═╝  ╚═══╝
+        </pre>
+    </footer>
 </body>
 </html>
