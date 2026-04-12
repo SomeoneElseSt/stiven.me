@@ -1,14 +1,26 @@
 [
   {
+    "id": "geometry",
+    "title": "Geometry",
+    "date": "January 29, 2026",
+    "file": "geometry.md"
+  },
+  {
+    "id": "intelligence",
+    "title": "Intelligence",
+    "date": "November 14, 2025",
+    "file": "intelligence.md"
+  },
+  {
+    "id": "cancer",
+    "title": "Cancer",
+    "date": "November 3, 2025",
+    "file": "cancer.md"
+  },
+  {
     "id": "cities",
     "title": "Cities",
     "date": "October 20, 2025",
     "file": "cities.md"
-  },
-  {
-  "id": "hello-world",
-  "title": "Hello World",
-  "date": "October 5, 2025",
-  "file": "hello-world.md"
   }
 ]

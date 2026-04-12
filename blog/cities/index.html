@@ -4,162 +4,55 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Cities</title>
+    <script src="/dist/theme.js"></script>
+    <link rel="stylesheet" href="/theme.css">
     <style>
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZJhiI2B.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZthiI2B.woff2) format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZNhiI2B.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZxhiI2B.woff2) format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZBhiI2B.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2) format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* cyrillic-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZJhiI2B.woff2) format('woff2');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-/* cyrillic */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZthiI2B.woff2) format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-/* greek-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZNhiI2B.woff2) format('woff2');
-  unicode-range: U+1F00-1FFF;
-}
-/* greek */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZxhiI2B.woff2) format('woff2');
-  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZBhiI2B.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2) format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial');
-  size-adjust: 106.5%;
-  ascent-override: 90%;
-  descent-override: 22%;
-  line-gap-override: 0%;
-}
-        body { background: black; color: white; font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
         h1 { font-size: 24px; margin-bottom: 24px; }
         .blog-header { padding-top: 5px; }
-        .blog-post-item { border-bottom: 1px solid #333; padding: 16px 0; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
         .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
-        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: white; }
-        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: white; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
         .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
         .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px;} /* Modify margin-bottom to move text up/down */
         .post-header > div { flex: 1; }
         .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
         #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
-        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: white; line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
-        article { max-width: 600px; }
-        article a { color: white; text-decoration: underline; text-underline-offset: 4px; }
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: var(--fg); line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
         article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
         article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
         article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
         article img { max-width: 100%; height: auto; margin: 24px 0; }
-        #nprogress .bar { background: white !important; height: 2px !important; }
-        #nprogress .peg { box-shadow: 0 0 10px white, 0 0 5px white; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
         @media (max-width: 768px) {
             body { padding: 24px; }
@@ -171,8 +64,10 @@
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
 </head>
 <body>
     <div class="post-header">
@@ -189,19 +84,19 @@
 <p>I began asking myself this question when thinking about Tokyo.</p>
 <p>Tokyo is a beautiful city. Everything in it, from the architecture to the food (and porcelain food) has been engineered by someone who thought that what they were making should be beautiful. An interesting byproduct of this is that beauty in Japanese culture seems to be something that can be made, bought, or both. </p>
 <p>Most people would consider the Alps beautiful for their own sake — we don&#39;t have a way to make a copy of the Alps or to move them somewhere else, and the Alps wouldn&#39;t be the Alps if they were in Wyoming or Australia. They are uniquely European and Mediterranean as Yosemite is Californian and the Pyramids are Egyptian. </p>
-<p>Tokyo is different in this sense. Many of the things the city is known for (e.g., Shibuya Square, Shrines, Anime, Japanese food) all share one thing in common: it was made by someone for someone for a reason. </p>
-<p>They carry a deeply intentional weight, and aren&#39;t trivial or sprung out. It took lifetimes for Japanese calligraphy to be distinct; shrines have been re-made methodically for centuries to preserve their essence and background. </p>
+<p>Tokyo is different in this sense. Many of the things the city is known for (e.g., Shibuya Square, Shrines, Anime, Japanese food) all share one thing in common: it was made by someone for someone with what they&#39;d think in mind. </p>
+<p>They carry a deeply intentional weight, and aren&#39;t trivial or sprung out. It took lifetimes for Japanese calligraphy to be distinct; shrines have been remade methodically for centuries to preserve their essence and background. </p>
 <p>This reflects on the people who visit the city. If you had to describe Tokyo tourists at first glance, it would average out nicely to say they would feel more at home in a fashion show or museum than in a high-rise office. </p>
 <p>Tourists drawn to the city seem, at least at a superficial level, very interested in how they look and what they&#39;re looking at. </p>
 <p>From uniforms of Western brands to Japanese anime tees and exotic dark outfits, nobody woke up and threw on a shirt and jeans. This makes sense if you consider most of the tourists that come to Tokyo do so because of how it looks rather than some intrinsic reason.</p>
 <p>People go to the Himalayas, Delhi, Jerusalem, and the Mecca because they expect to be different after they&#39;ve gone. Climbed the highest peak in the world? That probably makes you a better founder. Connected with religion and god? It may just help out in the afterlife. </p>
-<p>This is not true of cities that don&#39;t carry an intrinsic meaning are more generally known more for how they look. Although, this is not to say how somewhere looks doesn&#39;t carry its own weight (then Paris would not be the city of romance).</p>
+<p>This is not true of cities that don&#39;t carry an intrinsic meaning are more generally known more for how they look. Although, this is not to say that how a city looks doesn&#39;t carry its own weight (then Paris would not be the city of romance).</p>
 <p>Coming back to the question above, one could argue that a Tokyo composed by its tourists would be a high-quality of life center where people appreciate beauty and want the world around them to reflect that. </p>
-<p>The statement above may or may not be true, and it is certainly biased on a brief generalization of the tourists I&#39;ve seen in the city. However, it still draws parallels with Japanese culture and Tokyo that are non-negligible. </p>
+<p>This statement may or may not be true, and it is certainly biased on a brief generalization of the tourists I&#39;ve seen in the city. However, it still draws parallels with Japanese culture and Tokyo that are non-negligible. </p>
 <p>Japanese culture is highly interested in the precise creation of things that are beautiful, crafted over time, and held to a very high standard. This is referred to as <a href="https://japanintercultural.com/free-resources/articles/monozukuri-another-look-at-a-key-japanese-principle/"><em>Monozukuri</em></a> — the art of making, where what one is making is infused with the self.</p>
 <p>So, the people that visit a city do to some extent reflect what characterizes that city. Paraphrased, if we sampled a tourist from a city they&#39;re more likely than not to share some features with that city than if we sampled just about any other random person. </p>
 <p>People who care about beauty will likely visit beautiful cities. People who care about power will likely visit powerful cities, and people who care about culture or spirituality will likely go to places with some intrinsic value.</p>
-<p>If cities became the people who visited them, I&#39;d expect two phenomena:</p>
+<p>Following this line of thought, if cities became the people who visited them, I&#39;d expect two phenomena:</p>
 <ol>
 <li>There would be bigger deltas between measurements of cities that compare quality of life, income, and education. </li>
 <li>Cities would become highly specialized and niche, with radically different norms and expectations.</li>
@@ -211,19 +106,22 @@
 <p>I figured the most interesting comparison would be Tokyo vs. San Francisco, because San Francisco is a polar opposite of Tokyo in some areas.</p>
 <p>Tokyo is one of many cities one could visit to have a good time. San Francisco is atomized and intentional. There isn&#39;t a &#39;second-best&#39; to San Francisco because any city trying to do this would want its startups and mentees to go to SF so it could eventually be reputable enough for SF-caliber people to go and build there. </p>
 <p>This is why talking about San Francisco is not really talking about SF, the city — it&#39;s talking about the people and organizations in the city that have made it the north star for two major tech revolutions within the last 40 years.  </p>
-<p>Indeed, People who visit San Francisco generally believe it is the north star to some aspect of their lives. In fact, it&#39;s important enough that they&#39;re willing to sleep in inflatable mattresses and eat ramen for the off-change of being in the next big thing. </p>
-<p>This tells a lot about the type that goes to San Francisco: they hope to be part of something that will change the world as we know it, get rich in the process, and find other people who want to do the same thing to do it with. People visiting — SF&#39;s tourists — are generally drawn to the city for the same values. </p>
-<p>Without this kind of person, SF would be an unjustifiably expensive sea-side town with a cool bridge and a couple of decent parks. </p>
-<p>By our measure of success, it&#39;s clear why San Francisco would win. </p>
-<p>Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don&#39;t choose to deprioritize risk-taking), it&#39;s clear that there is an undeniable intentionality in what makes a city — and by extension country — win.</p>
-<p>Tokyo would not be beautiful without <em>Monozukuri</em> and Paris would not be frugal without <em>L&#39;art de vivre</em>. </p>
-<p>These type of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common related to a local circumstance or feature (except they probably won&#39;t be about technology).</p>
-<p>So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don&#39;t want to live in Bogota (at least not right now) or Paris if you want to build the next billion dollar startup. This is not to say you can&#39;t do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.</p>
-<p>I originally chose to write on this because, having lived in the bay area for close to a year, Tokyo came as quite the cultural shock. Generally, people visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.</p>
+<p>Indeed, people who visit San Francisco generally believe it is the north star to some aspect of their lives. In fact, it&#39;s important enough that they&#39;re willing to sleep in inflatable mattresses and eat ramen for the off-chance of being part of the next big thing. </p>
+<p>This tells a lot about the type that goes to San Francisco: they hope to be part of something that will change the world as we know it, get rich in the process, and find other people who want to do the same thing to do it with. Why? Because people in San Francisco believe achieving something great is the best way they could be spending their time.</p>
+<p>Without this kind of person, SF would be an unjustifiably expensive seaside town with a cool bridge and a couple of decent parks. </p>
+<p>Compared to Tokyo, it&#39;s clear why San Francisco would win. </p>
+<p>Its values and people are directly grounded to our measurement of winning, and despite some unfairness to this comparison (tourism or beauty focused cities generally don&#39;t choose to deprioritize risk-taking), it&#39;s clear that there is an undeniable intentionality in what makes a city — and by extension a country — win.</p>
+<p>Tokyo would not have tourists visiting for its beauty if its people didn&#39;t believe in <em>Monozukuri</em> as Paris would not have tourists visiting to relax if its people didn&#39;t believe in <em><a href="https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/">L&#39;art de vivre</a></em>. </p>
+<p>These kinds of cultural roots will define the fate of cities over the long term as the world becomes more globalized and people can live where they feel to belong to the most. When borders open, there will be many other San Franciscos of immigrants coming together for something they have in common that stemmed from a local circumstance or feature (although they probably won&#39;t be about technology).</p>
+<p>So, there is some direct benefit in aligning where you live with what you want to do. If one is an aggregation of the people around them, you probably don&#39;t want to live in Bogota (at least not right now) or Paris if you want to build a billion dollar startup. This is not to say you can&#39;t do it, but if life is a game of odds, there are higher chances elsewhere ceteris paribus.</p>
+<p>I originally chose to write this because, having lived in the Bay Area for close to a year, Tokyo came as quite the cultural shock. People visiting San Francisco do so because they were invited - brought in due to being best-in-class. Tokyo on the other hand has given me the impression that belonging in a high-fashion city is more related to whether you can afford it than any meaningful competition or merit.</p>
 <p>While places like Tokyo are necessary for balance, we need more places like SF, where just about anyone with a computer and internet connection is <strong>encouraged</strong> to find a way to change the world and their lives. These hubs for risk have been historically more responsible for societal advancement than aesthetic hubs; right now, the world — especially emerging economies — needs far more of one than the other.</p>
-<p>This is not to dismerit Tokyo and other high-rise cities, though. Without some balance between hubs for risk and hubs for rest, the former would lose a meaningful reason to fight for.</p>
+<p>This is not to dismerit Tokyo and other high-rise cities, though. Without some balance between hubs for risk and hubs for rest, the former would lose a meaningful reason to fight for. </p>
+<p>While I have thoroughly enjoyed my time here, a subtle nudge began to settle in after some time: discomfort brings growth, and Tokyo happens to be very comfortable. It&#39;s the right city, just for a different chapter.</p>
 <p><img src="/blog/assets/san-francisco.jpeg" alt="San Francisco — Courtesy of X" title="Downtown San Francisco"></p>
-<p><small>This is partly inspired by Paul Graham&#39;s Cities and Ambition, which you can read <a href="https://www.paulgraham.com/cities.html">here</a>.</small></p>
+<p><small>1. This is partly inspired by Paul Graham&#39;s Cities and Ambition, which you can read <a href="https://www.paulgraham.com/cities.html">here</a>.</small></p>
+<p><small>2. I later jotted down a sentence I think encapsulates what I was trying to convey: Visiting Tokyo is like going to heaven. There are few places as beautiful. Living in Tokyo is realizing you wish you could go back to keep fighting. Nothing quite feels like it, but it can&#39;t make up for the other places you could be and the work you could be doing there.
+</small></p>
 </article>
     
     <script>
@@ -257,22 +155,121 @@
             finishProgress();
         }
 
-        document.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                if (shouldDisableNProgress()) {
-                    return;
-                }
-                const isExternal = link.hostname && link.hostname !== window.location.hostname;
-                if (link.classList.contains('back-button') || isExternal || link.target === '_blank' || event.ctrlKey || event.metaKey) {
-                    return;
-                }
-                if (typeof NProgress !== 'undefined') {
-                    NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
-                    NProgress.start();
-                    NProgress.set(0.4);
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (match) {
+                    img.setAttribute('src', match[1] + '-light' + match[2]);
+                    img.onerror = (function(original) {
+                        return function() { img.setAttribute('src', original); img.onerror = null; };
+                    })(src);
                 }
             });
-        });
+        })();
     </script>
 </body>
 </html>
