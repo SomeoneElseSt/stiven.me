@@ -88,6 +88,6 @@ If you found this useful or interesting, I'm glad! Do consider writing a technic
 
 [^1]: I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields.
 
-[^2]: Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same thing, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you'd show many sampling paths rather than just the theoretical proportions.
+[^2]: Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you'd show many coin flip sequences rather than just the theoretical proportions.
 
 [^3]: If you're curious about the aforementioned chat I had with Claude with my thinking process, you can read it [here](https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8).
