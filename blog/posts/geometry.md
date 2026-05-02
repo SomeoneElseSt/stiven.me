@@ -46,7 +46,7 @@ Are you starting to see the link between geometry and probability here? You coul
 
 So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn't really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.
 
-But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it. 
+But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.[^1] 
 
 ![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
 
@@ -57,7 +57,7 @@ But something is hiding in plain sight: a normal distribution. If we plot the pr
 </details>
 
 
-Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more **N** we'd end up seeing a completely straight line. 
+Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more **N** we'd end up seeing a completely straight line.[^2] 
 
 What's interesting is that at **N** < 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. 
 
@@ -78,7 +78,7 @@ Another way to think about this is that if you re-scale the sample space to show
 
 Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. 
 
-I used Perplexity with Claude 4.5 Sonnet to work through my ideas. Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal's triangle:
+I used Perplexity with Claude 4.5 Sonnet to work through my ideas.[^3] Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal's triangle:
 
 > What we've visualized here is actually a rotated form of Pascal's triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number **N**, counting how many paths lead to exactly k heads gives you the entries in row **N** of Pascal's triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as **N** grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn't just resemble Pascal's triangle; it is Pascal's triangle, revealing why the bell curve emerges so naturally from repeated binary trials.
 
@@ -86,6 +86,8 @@ In hindsight, it's a very intuitive conclusion, as the count of events in each c
 
 If you found this useful or interesting, I'm glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. 
 
-<small>1. I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields.</small>
+[^1]: I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields.
 
-<small>2. If you're curious about the aforementioned chat I had with Claude with my thinking process, you can read it [here](https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8).</small>
+[^2]: Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same thing, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you'd show many sampling paths rather than just the theoretical proportions.
+
+[^3]: If you're curious about the aforementioned chat I had with Claude with my thinking process, you can read it [here](https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8).
