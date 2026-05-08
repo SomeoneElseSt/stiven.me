@@ -53,12 +53,6 @@
             padding: 0;
             margin: 0;
             color: var(--fg);
-            font-family: inherit;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: -0.05em;
-            line-height: 1;
-            opacity: 0.72;
             outline: none;
             -webkit-tap-highlight-color: transparent;
             border-radius: 4px;
@@ -70,9 +64,19 @@
             max-width: 100%;
             overflow: hidden;
             text-overflow: clip;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: inherit;
         }
-        .locale-trigger:hover { opacity: 1; }
-        .locale-trigger:focus-visible { opacity: 1; outline: 1px solid var(--border); outline-offset: 2px; }
+        .locale-trigger[data-short-len="3"] .locale-trigger-label {
+            font-size: 12px;
+            letter-spacing: -0.09em;
+        }
+        .locale-trigger:hover { background: rgba(128, 128, 128, 0.1); }
+        .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .locale-menu {
             position: absolute;
             top: calc(100% + 6px);
@@ -145,7 +149,7 @@
     <div class="top-controls">
     <div id="locale-switcher-mount">
     <div class="locale-switcher">
-    <button type="button" class="locale-trigger" id="locale-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="locale-listbox" aria-label="Choose language">
+    <button type="button" class="locale-trigger" id="locale-trigger" data-short-len="2" aria-haspopup="listbox" aria-expanded="false" aria-controls="locale-listbox" aria-label="Choose language">
         <span class="locale-trigger-label">EN</span>
     </button>
     <ul class="locale-menu" id="locale-listbox" role="listbox" hidden></ul>
@@ -161,7 +165,10 @@
                 if (raw && SHORT[raw]) id = raw;
             } catch (e) {}
             var label = document.querySelector('#locale-switcher-mount .locale-trigger-label');
-            if (label) label.textContent = SHORT[id];
+            var btn = document.getElementById('locale-trigger');
+            var text = SHORT[id];
+            if (label) label.textContent = text;
+            if (btn) btn.setAttribute('data-short-len', text.length >= 3 ? '3' : '2');
         })();
     </script>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light mode">
