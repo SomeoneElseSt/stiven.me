@@ -48,7 +48,7 @@ const es: LocaleDefinition = {
     messages: {
         pageTitle: 'Stiven',
         headline: 'Hola. Soy Stiven',
-        bio1: 'Estudio informática y economía en <a href="https://www.minerva.edu/">Minerva University</a>. Me interesa el modelado de sistemas sociales a escala.',
+        bio1: 'Estudio ciencias computacionales y economía en <a href="https://www.minerva.edu/">Minerva University</a>. Me interesa el modelado de sistemas sociales a escala.',
         bio2: 'Antes fui becario de ingeniería de software en <a href="https://domu.ai">Domu</a> (YC S24), consultor técnico estudiantil para <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> y becario de programación en <a href="https://makers.ngo">Makers</a>.',
         bio3: 'He ganado cuatro hackathons, gestioné más de 500 mil llamadas con un agente de IA para uno de los mayores bancos de Centroamérica y construí varias cosas <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: 'Soy corredor, tecnooptimista y altruista eficaz/aceleracionista. Ahora pienso en predicción social en Bogotá.',
@@ -67,7 +67,7 @@ const ja: LocaleDefinition = {
     messages: {
         pageTitle: 'スティーベン',
         headline: 'こんにちは。スティーベンです',
-        bio1: '<a href="https://www.minerva.edu/">ミネルバ大学</a>でコンピュータサイエンスと経済学を学んでいます。大規模な社会システムのモデリングに関心があります。',
+        bio1: '<a href="https://www.minerva.edu/">ミネルバ大学</a>で計算機科学と経済学を学んでいます。大規模な社会システムのモデリングに関心があります。',
         bio2: 'これまで<a href="https://domu.ai">Domu</a>（YC S24）でソフトウェアエンジニアのインターン、<a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>のテクニカル学生コンサルタント、<a href="https://makers.ngo">Makers</a>のコーディングフェローなどを務めました。',
         bio3: 'ハッカソンで4回優勝し、中米の大手銀行向けにAIエージェントで50万件超の通話をかけ、さまざまなものを作ってきました <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>。',
         bio4: 'ランナーで、テクノオプティミスト、そして効果的利他主義／アクセラレーショニストです。現在はボゴタでの社会的予測について考えています。',
@@ -86,7 +86,7 @@ const hi: LocaleDefinition = {
     messages: {
         pageTitle: 'स्टिवेन',
         headline: 'नमस्ते। मैं स्टिवेन हूँ',
-        bio1: 'मैं <a href="https://www.minerva.edu/">मिनर्वा विश्वविद्यालय</a> में कंप्यूटर विज्ञान और अर्थशास्त्र पढ़ता हूँ। बड़े पैमाने पर सामाजिक प्रणालियों के मॉडलिंग में मेरी रुचि है।',
+        bio1: 'मैं <a href="https://www.minerva.edu/">मिनर्वा विश्वविद्यालय</a> में संगणक विज्ञान और अर्थशास्त्र पढ़ता हूँ। बड़े पैमाने पर सामाजिक प्रणालियों के मॉडलिंग में मेरी रुचि है।',
         bio2: 'पहले मैं <a href="https://domu.ai">Domu</a> (YC S24) में सॉफ्टवेयर इंजीनियरिंग इंटर्न, <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> के लिए तकनीकी छात्र सलाहकार, और <a href="https://makers.ngo">Makers</a> में कोडिंग फेलो रह चुका हूँ।',
         bio3: 'मैंने चार हैकाथॉन जीते हैं, मध्य अमेरिका के एक बड़े बैंक के लिए AI एजेंट से 5 लाख से अधिक कॉल की हैं, और कई चीज़ें बनाई हैं <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>।',
         bio4: 'मैं धावक, तकनीक‑आशावादी, और प्रभावी उदारवादी/त्वरणवादी हूँ। अभी बोगोटा में सामाजिक पूर्वानुमान के बारे में सोच रहा हूँ।',
@@ -105,7 +105,7 @@ const de: LocaleDefinition = {
     messages: {
         pageTitle: 'Stiven',
         headline: 'Hallo. Ich bin Stiven',
-        bio1: 'Ich studiere Informatik und Volkswirtschaft an der <a href="https://www.minerva.edu/">Minerva University</a>. Mich interessiert die Modellierung sozialer Systeme im großen Maßstab.',
+        bio1: 'Ich studiere Computerwissenschaften und Volkswirtschaft an der <a href="https://www.minerva.edu/">Minerva University</a>. Mich interessiert die Modellierung sozialer Systeme im großen Maßstab.',
         bio2: 'Zuvor war ich Software‑Engineering‑Praktikant bei <a href="https://domu.ai">Domu</a> (YC S24), technischer Studierendenberater für <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> und Coding‑Fellow bei <a href="https://makers.ngo">Makers</a>.',
         bio3: 'Ich habe vier Hackathons gewonnen, mit einem KI‑Agenten über 500.000 Anrufe für eine der größten Banken in Mittelamerika getätigt und einiges gebaut <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: 'Ich laufe gern, bin Techno‑Optimist und effektiver Altruist/Accelerationist. Gerade denke ich über soziale Vorhersage in Bogotá nach.',
@@ -124,7 +124,7 @@ const fr: LocaleDefinition = {
     messages: {
         pageTitle: 'Stiven',
         headline: 'Salut. Je suis Stiven',
-        bio1: 'J\'étudie l\'informatique et l\'économie à <a href="https://www.minerva.edu/">Minerva University</a>. Je m\'intéresse à la modélisation des systèmes sociaux à grande échelle.',
+        bio1: 'J\'étudie les sciences informatiques et l\'économie à <a href="https://www.minerva.edu/">Minerva University</a>. Je m\'intéresse à la modélisation des systèmes sociaux à grande échelle.',
         bio2: 'J\'ai été stagiaire ingénieur logiciel chez <a href="https://domu.ai">Domu</a> (YC S24), consultant étudiant technique pour <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, et fellow code chez <a href="https://makers.ngo">Makers</a>.',
         bio3: 'J\'ai remporté quatre hackathons, passé plus de 500 000 appels avec un agent IA pour l\'une des plus grandes banques d\'Amérique centrale, et construit plusieurs projets <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: 'Je suis coureur, techno‑optimiste et altruiste efficace/accélérationniste. Je réfléchis en ce moment à la prédiction sociale à Bogotá.',
@@ -162,7 +162,7 @@ const pt: LocaleDefinition = {
     messages: {
         pageTitle: 'Stiven',
         headline: 'Olá. Eu sou o Stiven',
-        bio1: 'Estudo ciência da computação e economia na <a href="https://www.minerva.edu/">Minerva University</a>. Interesso‑me pela modelagem de sistemas sociais em escala.',
+        bio1: 'Estudo ciências computacionais e economia na <a href="https://www.minerva.edu/">Minerva University</a>. Interesso‑me pela modelagem de sistemas sociais em escala.',
         bio2: 'Fui estagiário de engenharia de software na <a href="https://domu.ai">Domu</a> (YC S24), consultor técnico estudantil para a <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> e fellow de programação na <a href="https://makers.ngo">Makers</a>.',
         bio3: 'Ganhei quatro hackathons, realizei mais de 500 mil chamadas com um agente de IA para um dos maiores bancos da América Central e construí vários projetos <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: 'Sou corredor, techno‑otimista e altruísta eficaz/aceleracionista. Neste momento penso em predição social em Bogotá.',
