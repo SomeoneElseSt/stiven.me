@@ -154,14 +154,8 @@ export function initLocaleSwitcher(): void {
     trigger.setAttribute('aria-expanded', 'false');
     const labelSpan = document.createElement('span');
     labelSpan.className = 'locale-trigger-label';
-    const chevron = document.createElement('span');
-    chevron.className = 'locale-trigger-chevron';
-    chevron.setAttribute('aria-hidden', 'true');
-    chevron.innerHTML =
-        '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
 
     trigger.appendChild(labelSpan);
-    trigger.appendChild(chevron);
 
     const menu = document.createElement('ul');
     menu.className = 'locale-menu';
