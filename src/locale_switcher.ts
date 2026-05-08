@@ -69,6 +69,10 @@ let closeMenuHandler: ((e: MouseEvent) => void) | null = null;
 function setMenuOpen(menu: HTMLElement, trigger: HTMLButtonElement, open: boolean): void {
     menu.hidden = !open;
     trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const wrap = trigger.closest('.locale-switcher');
+    if (wrap) {
+        wrap.classList.toggle('locale-switcher--open', open);
+    }
     if (!open && closeMenuHandler) {
         document.removeEventListener('mousedown', closeMenuHandler);
         closeMenuHandler = null;
@@ -89,6 +93,7 @@ function buildLocaleMenu(
     trigger: HTMLButtonElement,
     menu: HTMLElement,
     onPick: (id: LocaleId) => void,
+    activeLocale: LocaleId,
 ): void {
     menu.innerHTML = '';
     menu.setAttribute('role', 'listbox');
@@ -97,6 +102,9 @@ function buildLocaleMenu(
     menu.hidden = true;
 
     for (const def of LOCALE_DEFINITIONS) {
+        if (def.id === activeLocale) {
+            continue;
+        }
         const row = document.createElement('li');
         row.setAttribute('role', 'none');
         const opt = document.createElement('button');
@@ -113,15 +121,6 @@ function buildLocaleMenu(
         row.appendChild(opt);
         menu.appendChild(row);
     }
-}
-
-function updateSelectedOption(menu: HTMLElement, locale: LocaleId): void {
-    const buttons = menu.querySelectorAll<HTMLButtonElement>('.locale-option');
-    buttons.forEach((b) => {
-        const id = b.dataset.localeId;
-        const selected = id === locale;
-        b.setAttribute('aria-selected', selected ? 'true' : 'false');
-    });
 }
 
 function updateTriggerLabel(labelSpan: HTMLSpanElement, def: LocaleDefinition): void {
@@ -200,23 +199,19 @@ export function initLocaleSwitcher(): void {
 
     const onPick = (id: LocaleId): void => {
         applyLocale(id);
-        updateSelectedOption(menu, id);
         const def = getLocaleDefinition(id);
         updateTriggerLabel(labelSpan, def);
         const ml = getMessage(id, 'localeMenuLabel');
         trigger.setAttribute('aria-label', `${ml}: ${def.nativeName}`);
+        buildLocaleMenu(trigger, menu, onPick, id);
     };
-
-    if (menu.querySelector('.locale-option') === null) {
-        buildLocaleMenu(trigger, menu, onPick);
-    }
 
     const menuLabel = getMessage(initial, 'localeMenuLabel');
     trigger.setAttribute('aria-label', `${menuLabel}: ${getLocaleDefinition(initial).nativeName}`);
 
     applyLocale(initial);
     updateTriggerLabel(labelSpan, getLocaleDefinition(initial));
-    updateSelectedOption(menu, initial);
+    buildLocaleMenu(trigger, menu, onPick, initial);
 
     trigger.addEventListener('click', () => {
         const nextOpen = menu.hidden;
