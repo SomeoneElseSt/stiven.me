@@ -15,7 +15,7 @@ export type MessageKey =
 
 export interface LocaleDefinition {
     id: LocaleId;
-    /** Shown next to the theme toggle (e.g. EN, ESP). */
+    /** Shown next to the theme toggle; ISO-style, max two characters. */
     shortLabel: string;
     /** Language name in that language, for the dropdown. */
     nativeName: string;
@@ -43,7 +43,7 @@ const en: LocaleDefinition = {
 
 const es: LocaleDefinition = {
     id: 'es',
-    shortLabel: 'ESP',
+    shortLabel: 'ES',
     nativeName: 'Español',
     messages: {
         pageTitle: 'Stiven',
