@@ -38,12 +38,24 @@
         #nprogress .spinner { display: none !important; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin-top: 30px; margin-bottom: 30px; }
         .top-row h1 { margin: 0; font-size: 24px; font-weight: bold; }
-        .top-controls { display: flex; align-items: center; gap: 2px; }
+        .top-controls {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            /* Tune locale + theme hit boxes (shared so they stay aligned). */
+            --top-control-hit-width: 28px;
+            --top-control-hit-height: 28px;
+            /* Sun/moon artwork inside the theme button. */
+            --theme-icon-size: 20px;
+            /* Locale letters inside the hit box; compact rule is for 3-letter codes (e.g. ESP). */
+            --locale-label-font-size: 15px;
+            --locale-label-font-size-compact: 12px;
+        }
         .locale-switcher { position: relative; }
         .locale-trigger {
             box-sizing: border-box;
-            width: 28px;
-            height: 28px;
+            width: var(--top-control-hit-width);
+            height: var(--top-control-hit-height);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -69,14 +81,14 @@
             overflow: hidden;
             text-overflow: clip;
             font-family: inherit;
-            font-size: 15px;
+            font-size: var(--locale-label-font-size);
             font-weight: 500;
             letter-spacing: -0.04em;
             line-height: 1;
             color: inherit;
         }
         .locale-trigger[data-short-len="3"] .locale-trigger-label {
-            font-size: 12px;
+            font-size: var(--locale-label-font-size-compact);
             letter-spacing: -0.09em;
         }
         .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
@@ -115,8 +127,8 @@
         .locale-option[aria-selected="true"] { background: rgba(128, 128, 128, 0.07); }
         .theme-toggle {
             box-sizing: border-box;
-            width: 28px;
-            height: 28px;
+            width: var(--top-control-hit-width);
+            height: var(--top-control-hit-height);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -130,7 +142,7 @@
             border-radius: 4px;
         }
         .theme-toggle:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
-        .theme-toggle svg { width: 20px; height: 20px; }
+        .theme-toggle svg { width: var(--theme-icon-size); height: var(--theme-icon-size); }
         #blog-list { max-width: 600px; padding-top: 0px;}
         @media (max-width: 768px) {
             body { padding: 24px; }
