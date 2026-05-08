@@ -66,7 +66,7 @@ const ja: LocaleDefinition = {
     nativeName: '日本語',
     messages: {
         pageTitle: 'スティーベン',
-        headline: 'こんにちは。スティーベンです',
+        headline: 'スティーベンです',
         bio1: '<a href="https://www.minerva.edu/">ミネルバ大学</a>で計算機科学と経済学を学んでいます。大規模な社会システムのモデリングに関心があります。',
         bio2: 'これまで<a href="https://domu.ai">Domu</a>（YC S24）でソフトウェアエンジニアのインターン、<a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>のテクニカル学生コンサルタント、<a href="https://makers.ngo">Makers</a>のコーディングフェローなどを務めました。',
         bio3: 'ハッカソンで4回優勝し、中米の大手銀行向けにAIエージェントで50万件超の通話をかけ、さまざまなものを作ってきました <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>。',
