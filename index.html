@@ -56,6 +56,10 @@
             outline: none;
             -webkit-tap-highlight-color: transparent;
             border-radius: 4px;
+            appearance: none;
+        }
+        .locale-trigger:active {
+            background: transparent;
         }
         .locale-trigger-label {
             display: block;
@@ -75,7 +79,6 @@
             font-size: 12px;
             letter-spacing: -0.09em;
         }
-        .locale-trigger:hover { background: rgba(128, 128, 128, 0.1); }
         .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .locale-menu {
             position: absolute;
