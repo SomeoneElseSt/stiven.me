@@ -104,7 +104,8 @@ function buildLocaleMenu(
         opt.className = 'locale-option';
         opt.setAttribute('role', 'option');
         opt.dataset.localeId = def.id;
-        opt.textContent = def.nativeName;
+        opt.textContent = def.shortLabel;
+        opt.setAttribute('aria-label', def.nativeName);
         opt.addEventListener('click', () => {
             onPick(def.id);
             setMenuOpen(menu, trigger, false);
