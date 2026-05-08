@@ -115,7 +115,27 @@
     <div class="top-row">
     <h1 data-i18n="headline">Hi. I'm Stiven</h1>
     <div class="top-controls">
-    <div id="locale-switcher-mount"></div>
+    <div id="locale-switcher-mount">
+    <div class="locale-switcher">
+    <button type="button" class="locale-trigger" id="locale-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="locale-listbox" aria-label="Choose language">
+        <span class="locale-trigger-label">EN</span>
+    </button>
+    <ul class="locale-menu" id="locale-listbox" role="listbox" hidden></ul>
+    </div>
+    </div>
+    <script>
+        (function () {
+            /* Keep keys and short labels in sync with src/i18n.ts (LOCALE_DEFINITIONS). */
+            var SHORT = { en: 'EN', es: 'ESP', ja: 'JA', hi: 'HI', de: 'DE', fr: 'FR', ko: 'KR', pt: 'PR' };
+            var id = 'en';
+            try {
+                var raw = localStorage.getItem('locale');
+                if (raw && SHORT[raw]) id = raw;
+            } catch (e) {}
+            var label = document.querySelector('#locale-switcher-mount .locale-trigger-label');
+            if (label) label.textContent = SHORT[id];
+        })();
+    </script>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light mode">
         <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g id="theme-icon-content">
