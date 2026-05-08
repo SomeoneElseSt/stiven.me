@@ -134,15 +134,29 @@ export function applyLocale(locale: LocaleId): void {
     syncThemeToggleAriaFromDom(locale);
 }
 
-export function initLocaleSwitcher(): void {
-    const mount = document.getElementById('locale-switcher-mount');
-    if (!mount) {
-        return;
+function findLocaleSwitcherElements(mount: HTMLElement): {
+    trigger: HTMLButtonElement;
+    labelSpan: HTMLSpanElement;
+    menu: HTMLElement;
+} | null {
+    const trigger = document.getElementById('locale-trigger');
+    const labelSpan = mount.querySelector('.locale-trigger-label');
+    const menu = document.getElementById('locale-listbox');
+    if (!trigger || !labelSpan || !menu) {
+        return null;
     }
+    if (!(trigger instanceof HTMLButtonElement) || !(labelSpan instanceof HTMLSpanElement)) {
+        return null;
+    }
+    return { trigger, labelSpan, menu };
+}
 
-    const stored = getLocaleFromStorage();
-    const initial = isLocaleId(stored) ? stored : DEFAULT_LOCALE;
-
+function mountLocaleSwitcherFromScratch(mount: HTMLElement): {
+    trigger: HTMLButtonElement;
+    labelSpan: HTMLSpanElement;
+    menu: HTMLElement;
+} {
+    mount.innerHTML = '';
     const wrap = document.createElement('div');
     wrap.className = 'locale-switcher';
 
@@ -159,6 +173,29 @@ export function initLocaleSwitcher(): void {
 
     const menu = document.createElement('ul');
     menu.className = 'locale-menu';
+    menu.id = 'locale-listbox';
+
+    wrap.appendChild(trigger);
+    wrap.appendChild(menu);
+    mount.appendChild(wrap);
+
+    return { trigger, labelSpan, menu };
+}
+
+export function initLocaleSwitcher(): void {
+    const mount = document.getElementById('locale-switcher-mount');
+    if (!mount) {
+        return;
+    }
+
+    const stored = getLocaleFromStorage();
+    const initial = isLocaleId(stored) ? stored : DEFAULT_LOCALE;
+
+    const found = findLocaleSwitcherElements(mount);
+    const { trigger, labelSpan, menu } = found ?? mountLocaleSwitcherFromScratch(mount);
+
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-controls', menu.id);
 
     const onPick = (id: LocaleId): void => {
         applyLocale(id);
@@ -169,12 +206,9 @@ export function initLocaleSwitcher(): void {
         trigger.setAttribute('aria-label', `${ml}: ${def.nativeName}`);
     };
 
-    buildLocaleMenu(trigger, menu, onPick);
-    wrap.appendChild(trigger);
-    wrap.appendChild(menu);
-    mount.appendChild(wrap);
-
-    trigger.setAttribute('aria-controls', menu.id);
+    if (menu.querySelector('.locale-option') === null) {
+        buildLocaleMenu(trigger, menu, onPick);
+    }
 
     const menuLabel = getMessage(initial, 'localeMenuLabel');
     trigger.setAttribute('aria-label', `${menuLabel}: ${getLocaleDefinition(initial).nativeName}`);
