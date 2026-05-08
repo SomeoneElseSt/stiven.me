@@ -41,22 +41,35 @@
         .top-controls { display: flex; align-items: center; gap: 2px; }
         .locale-switcher { position: relative; }
         .locale-trigger {
+            box-sizing: border-box;
+            width: 28px;
+            height: 28px;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 6px;
+            padding: 0;
             margin: 0;
             color: var(--fg);
             font-family: inherit;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 400;
-            letter-spacing: 0.02em;
+            letter-spacing: -0.05em;
+            line-height: 1;
             opacity: 0.72;
             outline: none;
             -webkit-tap-highlight-color: transparent;
             border-radius: 4px;
+        }
+        .locale-trigger-label {
+            display: block;
+            text-align: center;
+            white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: clip;
         }
         .locale-trigger:hover { opacity: 1; }
         .locale-trigger:focus-visible { opacity: 1; outline: 1px solid var(--border); outline-offset: 2px; }
@@ -93,7 +106,22 @@
         .locale-option:hover { background: rgba(128, 128, 128, 0.09); }
         .locale-option:focus-visible { outline: none; background: rgba(128, 128, 128, 0.12); }
         .locale-option[aria-selected="true"] { background: rgba(128, 128, 128, 0.07); }
-        .theme-toggle { background: none; border: none; cursor: pointer; padding: 4px; color: var(--fg); outline: none; -webkit-tap-highlight-color: transparent; border-radius: 4px; }
+        .theme-toggle {
+            box-sizing: border-box;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            color: var(--fg);
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            border-radius: 4px;
+        }
         .theme-toggle:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .theme-toggle svg { width: 20px; height: 20px; }
         #blog-list { max-width: 600px; padding-top: 0px;}
