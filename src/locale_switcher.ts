@@ -123,8 +123,13 @@ function updateSelectedOption(menu: HTMLElement, locale: LocaleId): void {
     });
 }
 
-function updateTriggerLabel(trigger: HTMLSpanElement, def: LocaleDefinition): void {
-    trigger.textContent = def.shortLabel;
+function updateTriggerLabel(labelSpan: HTMLSpanElement, def: LocaleDefinition): void {
+    labelSpan.textContent = def.shortLabel;
+    const btn = labelSpan.closest('button.locale-trigger');
+    if (!(btn instanceof HTMLButtonElement)) {
+        return;
+    }
+    btn.dataset.shortLen = def.shortLabel.length >= 3 ? '3' : '2';
 }
 
 export function applyLocale(locale: LocaleId): void {
@@ -166,6 +171,7 @@ function mountLocaleSwitcherFromScratch(mount: HTMLElement): {
     trigger.id = 'locale-trigger';
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
+    trigger.dataset.shortLen = '2';
     const labelSpan = document.createElement('span');
     labelSpan.className = 'locale-trigger-label';
 
