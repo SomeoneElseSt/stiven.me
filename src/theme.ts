@@ -1,6 +1,9 @@
 (function() {
     var saved = localStorage.getItem('theme');
-    if (saved === 'light')
+    var hour = new Date().getHours();
+    var SUNRISE = 8, SUNSET = 18;
+    var daytime = !isNaN(hour) && hour >= SUNRISE && hour < SUNSET;
+    if (saved === 'light' || (saved === null && daytime))
         document.documentElement.classList.add('light-mode');
 
     document.addEventListener('DOMContentLoaded', function() {
