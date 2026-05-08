@@ -5,6 +5,18 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>I'm Stiven.</title>
+    <script>
+        (function () {
+            var allowed = ['en', 'es', 'ja', 'hi', 'de', 'fr', 'ko', 'pt'];
+            var v = null;
+            try {
+                v = localStorage.getItem('locale');
+            } catch (e) {}
+            if (v && allowed.indexOf(v) !== -1) {
+                document.documentElement.lang = v;
+            }
+        })();
+    </script>
     <script src="/dist/theme.js"></script>
     <link rel="stylesheet" href="/theme.css">
     <style>
@@ -26,7 +38,66 @@
         #nprogress .spinner { display: none !important; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin-top: 30px; margin-bottom: 30px; }
         .top-row h1 { margin: 0; font-size: 24px; font-weight: bold; }
-        .theme-toggle { background: none; border: none; cursor: pointer; padding: 4px; color: var(--fg); outline: none; -webkit-tap-highlight-color: transparent; }
+        .top-controls { display: flex; align-items: center; gap: 2px; }
+        .locale-switcher { position: relative; }
+        .locale-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 6px 4px 4px;
+            margin: 0;
+            color: var(--fg);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            opacity: 0.72;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            border-radius: 4px;
+        }
+        .locale-trigger:hover { opacity: 1; }
+        .locale-trigger:focus-visible { opacity: 1; outline: 1px solid var(--border); outline-offset: 2px; }
+        .locale-trigger-chevron { display: flex; opacity: 0.55; }
+        .locale-trigger:hover .locale-trigger-chevron { opacity: 0.85; }
+        .locale-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            margin: 0;
+            padding: 4px 0;
+            list-style: none;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            min-width: 10.5rem;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+            z-index: 40;
+        }
+        :root.light-mode .locale-menu { box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08); }
+        .locale-menu li { margin: 0; }
+        .locale-option {
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            color: var(--fg);
+            padding: 7px 14px;
+            cursor: pointer;
+            display: block;
+        }
+        .locale-option:hover { background: rgba(128, 128, 128, 0.09); }
+        .locale-option:focus-visible { outline: none; background: rgba(128, 128, 128, 0.12); }
+        .locale-option[aria-selected="true"] { background: rgba(128, 128, 128, 0.07); }
+        .theme-toggle { background: none; border: none; cursor: pointer; padding: 4px; color: var(--fg); outline: none; -webkit-tap-highlight-color: transparent; border-radius: 4px; }
+        .theme-toggle:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .theme-toggle svg { width: 20px; height: 20px; }
         #blog-list { max-width: 600px; padding-top: 0px;}
         @media (max-width: 768px) {
@@ -45,7 +116,9 @@
 </head>
 <body>
     <div class="top-row">
-    <h1>Hi. I'm Stiven</h1>
+    <h1 data-i18n="headline">Hi. I'm Stiven</h1>
+    <div class="top-controls">
+    <div id="locale-switcher-mount"></div>
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light mode">
         <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <g id="theme-icon-content">
@@ -56,21 +129,20 @@
         </svg>
     </button>
     </div>
+    </div>
 
-    <p>I study computer science and economics at <a href="https://www.minerva.edu/">Minerva University</a>. I'm interested in the modelling of social systems at scale. 
-    </p>
-    
-    <p> I was previously a SWE intern at <a href="https://domu.ai">Domu</a> (YC S24), a technical student consultant for <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, and a coding fellow at <a href="https://makers.ngo">Makers</a>.
+    <p data-i18n="bio1">I study computer science and economics at <a href="https://www.minerva.edu/">Minerva University</a>. I'm interested in the modelling of social systems at scale.
     </p>
 
-    
-
-    <p> I've won four hackathons, dialed 500k+ calls with an AI Agent for one of the largest banks in Central America, and built a bunch of things <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.</p>
-      
-    <p>I am a runner, techno‑optimist, and effective altruist/accelerationist. Currently thinking about social prediction in Hyderabad.  
+    <p data-i18n="bio2">I was previously a SWE intern at <a href="https://domu.ai">Domu</a> (YC S24), a technical student consultant for <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, and a coding fellow at <a href="https://makers.ngo">Makers</a>.
     </p>
 
-    <h1 class="blog-header">Blog</h1>
+    <p data-i18n="bio3">I've won four hackathons, dialed 500k+ calls with an AI Agent for one of the largest banks in Central America, and built a bunch of things <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.</p>
+
+    <p data-i18n="bio4">I am a runner, techno‑optimist, and effective altruist/accelerationist. Currently thinking about social prediction in Hyderabad.
+    </p>
+
+    <h1 class="blog-header" data-i18n="blogHeader">Blog</h1>
     <div id="blog-list">
     <div class="blog-post-item">
       <a href="/blog/geometry/" class="blog-post-link" data-title-length="8">
@@ -101,7 +173,7 @@
     </div>
   </div>
 
-    <h1 class="social-header">Links</h1>
+    <h1 class="social-header" data-i18n="linksHeader">Links</h1>
     <div class="social-links">
         <a href="https://github.com/SomeoneElseSt" target="_blank" rel="noopener">
             <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -140,18 +212,25 @@
             var MOON = '<g transform="scale(1.15) translate(0, -2)"><path d="M 15.826323 4.298101 A 8.6 8.6 0 1 0 19.078049 16.884795 A 6.5 6.5 0 0 1 15.826323 4.298101 Z" fill="currentColor" stroke="none" transform="rotate(-20 12 12)"/></g>';
             var SUN  = '<g stroke-width="2.5" stroke-linecap="butt" transform="scale(1.10)" style="transform-origin: center"><circle cx="12" cy="12" r="4.5" fill="currentColor" stroke="none"/><line x1="12" y1="3" x2="12" y2="8"/><line x1="12" y1="21" x2="12" y2="16"/><line x1="3" y1="12" x2="8" y2="12"/><line x1="21" y1="12" x2="16" y2="12"/><line x1="5.64" y1="5.64" x2="9.17" y2="9.17"/><line x1="18.36" y1="18.36" x2="14.83" y2="14.83"/><line x1="5.64" y1="18.36" x2="9.17" y2="14.83"/><line x1="18.36" y1="5.64" x2="14.83" y2="9.17"/></g>';
             
+            function themeAriaFromBridge(isLight) {
+                var fn = window.__localizedThemeAria;
+                if (typeof fn === 'function') {
+                    return fn(isLight);
+                }
+                return 'Switch to ' + (isLight ? 'dark' : 'light') + ' mode';
+            }
             function applyTheme(light) {
                 document.documentElement.classList.toggle('light-mode', light);
                 document.body.classList.toggle('light-mode', light);
                 content.innerHTML = light ? SUN : MOON;
-                btn.setAttribute('aria-label', 'Switch to ' + (light ? 'dark' : 'light') + ' mode');
+                btn.setAttribute('aria-label', themeAriaFromBridge(light));
                 localStorage.setItem('theme', light ? 'light' : 'dark');
             }
             // Init UI from whatever the head script already determined — don't write to localStorage here
             var _light = document.documentElement.classList.contains('light-mode');
             document.body.classList.toggle('light-mode', _light);
             content.innerHTML = _light ? SUN : MOON;
-            btn.setAttribute('aria-label', 'Switch to ' + (_light ? 'dark' : 'light') + ' mode');
+            btn.setAttribute('aria-label', themeAriaFromBridge(_light));
             btn.addEventListener('click', function() {
                 applyTheme(!document.body.classList.contains('light-mode'));
             });
