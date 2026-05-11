@@ -41,9 +41,9 @@
         .top-controls {
             display: flex;
             align-items: flex-start;
-            gap: 0;
-            --locale-trigger-width: 28px;
-            --locale-label-font-size: 22px;
+            gap: 20;
+            --locale-trigger-width: 42px;
+            --locale-label-font-size: 24px;
             --theme-toggle-hit-width: 34px;
             --top-control-hit-height: 50px;
             --theme-icon-size: 20px;
@@ -53,11 +53,11 @@
             display: inline-flex;
             flex-direction: column;
             align-items: stretch;
+            border: 1px solid transparent;
         }
         .locale-switcher--open {
             z-index: 40;
-            border: 1px solid var(--border);
-            border-radius: 0;
+            border-color: var(--border);
             background: var(--bg);
         }
         .locale-switcher--open .locale-trigger {
@@ -87,21 +87,18 @@
             background: transparent;
         }
         .locale-trigger-label {
-            display: block;
-            text-align: center;
-            white-space: nowrap;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: clip;
-            font: inherit;
-            font-size: var(--locale-label-font-size);
+            font-family: inherit;
+            font-size: 24px;
             font-weight: bold;
-            letter-spacing: -0.04em;
-            line-height: 1;
             color: inherit;
+            position: relative;
+            top: -1px;
         }
         .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .locale-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -131,7 +128,6 @@
             font: inherit;
             font-size: var(--locale-label-font-size);
             font-weight: bold;
-            letter-spacing: -0.04em;
             line-height: 1;
             cursor: pointer;
             appearance: none;
@@ -193,7 +189,7 @@
     <script>
         (function () {
             /* Keep keys and short labels in sync with src/i18n.ts (LOCALE_DEFINITIONS). */
-            var SHORT = { en: 'EN', es: 'ES', ja: 'JA', hi: 'HI', de: 'DE', fr: 'FR', ko: 'KR', pt: 'PR' };
+            var SHORT = { en: 'En', es: 'Es', ja: 'Ja', hi: 'Hi', de: 'De', fr: 'Fr', ko: 'Kr', pt: 'Pt' };
             var id = 'en';
             try {
                 var raw = localStorage.getItem('locale');
