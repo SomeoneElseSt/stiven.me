@@ -132,6 +132,7 @@ export function applyLocale(locale: LocaleId): void {
     installThemeAriaBridge(locale);
     applyMessagesToDom(locale);
     syncThemeToggleAriaFromDom(locale);
+    document.dispatchEvent(new CustomEvent('localechange', { detail: { locale } }));
 }
 
 function findLocaleSwitcherElements(mount: HTMLElement): {

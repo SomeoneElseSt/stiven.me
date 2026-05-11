@@ -1,11 +1,25 @@
 const fs = require('fs-extra');
 const path = require('path');
+const { exec } = require('child_process');
+const { promisify } = require('util');
+const execAsync = promisify(exec);
 const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
 const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
+const TRANSLATIONS_MD_DIR = path.join(__dirname, 'blog/posts/translations');
+
+const TRANSLATION_LOCALES = [
+  { id: 'es', name: 'Spanish' },
+  { id: 'ja', name: 'Japanese' },
+  { id: 'hi', name: 'Hindi' },
+  { id: 'de', name: 'German' },
+  { id: 'fr', name: 'French' },
+  { id: 'ko', name: 'Korean' },
+  { id: 'pt', name: 'Portuguese' },
+];
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
@@ -178,6 +192,89 @@ async function generatePostPages(posts) {
   }
 }
 
+async function runCursorAgentTranslate(prompt, post, locale) {
+  // For agents: gemini-3-flash already exists, do not modify
+  const cmd = `cursor-agent -p ${JSON.stringify(prompt)} --model gemini-3-flash`;
+  const opts = { maxBuffer: 10 * 1024 * 1024 };
+  try {
+    const { stdout } = await execAsync(cmd, opts);
+    return stdout;
+  } catch {
+    console.warn(`  [warn] cursor-agent failed for ${post.id}/${locale.id}, retrying once...`);
+  }
+  try {
+    const { stdout } = await execAsync(cmd, opts);
+    return stdout;
+  } catch {
+    console.warn(`  [warn] cursor-agent failed again for ${post.id}/${locale.id}, skipping`);
+    return null;
+  }
+}
+
+async function translatePost(post, mdContent, locale) {
+  const outputJsonPath = path.join(__dirname, 'blog', post.id, 'translations', `${locale.id}.json`);
+  const exists = await fs.pathExists(outputJsonPath);
+  if (exists) {
+    console.log(`  [skip] ${post.id}/${locale.id} already translated`);
+    return;
+  }
+
+  const prompt = `Translate the following markdown blog post to ${locale.name}.
+Output ONLY the following format — no extra text, no preamble:
+
+TITLE: <translated title here>
+---
+<translated markdown body here>
+
+Rules:
+- Preserve all markdown formatting exactly (headings, bold, italic, lists)
+- Do NOT translate code blocks, URLs, LaTeX math, or HTML tags
+- Do NOT add any commentary before or after the output
+
+Original title: ${post.title}
+---
+${mdContent}`;
+
+  console.log(`  [translate] ${post.id} → ${locale.id}`);
+  const output = runCursorAgentTranslate(prompt, post, locale);
+  if (output === null) return;
+
+  const separatorIdx = output.indexOf('\n---\n');
+  if (separatorIdx === -1) {
+    console.warn(`  [warn] Unexpected output format for ${post.id}/${locale.id}, skipping`);
+    return;
+  }
+
+  const titleLine = output.slice(0, separatorIdx).trim();
+  const translatedTitle = titleLine.startsWith('TITLE:') ? titleLine.slice(6).trim() : post.title;
+  const translatedMd = output.slice(separatorIdx + 5);
+  const processedMd = await applyCodeImports(translatedMd, post.file);
+  const translatedHtml = marked.parse(processedMd);
+
+  const mdOutPath = path.join(TRANSLATIONS_MD_DIR, locale.id, post.file);
+  await fs.ensureDir(path.dirname(mdOutPath));
+  await fs.writeFile(mdOutPath, translatedMd, 'utf-8');
+
+  await fs.ensureDir(path.dirname(outputJsonPath));
+  await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: translatedHtml }, null, 2), 'utf-8');
+  console.log(`  [done] ${post.id}/${locale.id}`);
+}
+
+async function translateAllPosts(posts) {
+  console.log('\nStarting translation step...');
+  for (const post of posts) {
+    const mdPath = path.join(POSTS_DIR, post.file);
+    const [mdContent, mdError] = await readTextFile(mdPath);
+    if (mdError) {
+      console.warn(`  [warn] Could not read ${post.file}, skipping translations`);
+      continue;
+    }
+    console.log(`\nTranslating: ${post.id}`);
+    await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale)));
+  }
+  console.log('\nTranslation step complete.');
+}
+
 async function main() {
   console.log('Starting blog build process...');
 
@@ -244,6 +341,10 @@ async function main() {
   } catch (error) {
     console.error(`Error processing HTML template: ${error.message}`);
     process.exit(1);
+  }
+
+  if (process.argv.includes('--translate')) {
+    await translateAllPosts(finalData.posts);
   }
 }
 
