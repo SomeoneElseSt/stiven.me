@@ -62,7 +62,7 @@ const es: LocaleDefinition = {
 
 const ja: LocaleDefinition = {
     id: 'ja',
-    shortLabel: 'Ja',
+    shortLabel: '日本',
     nativeName: '日本語',
     messages: {
         pageTitle: 'スティーベン',
@@ -81,7 +81,7 @@ const ja: LocaleDefinition = {
 
 const hi: LocaleDefinition = {
     id: 'hi',
-    shortLabel: 'Hi',
+    shortLabel: 'हिं',
     nativeName: 'हिन्दी',
     messages: {
         pageTitle: 'स्टिवेन',
@@ -138,7 +138,7 @@ const fr: LocaleDefinition = {
 
 const ko: LocaleDefinition = {
     id: 'ko',
-    shortLabel: 'Kr',
+    shortLabel: '한',
     nativeName: '한국어',
     messages: {
         pageTitle: '스티븐',
