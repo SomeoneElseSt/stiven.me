@@ -130,20 +130,40 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
   return combinedPosts;
 }
 
-function generateBlogListHTML(posts) {
-  return posts
-    .map((post) => {
-      const isoDate = new Date(post.date).toISOString().split('T')[0];
-      return `
+function escapeHtmlAttr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+async function readLocaleTitle(postId, localeId) {
+  const jsonPath = path.join(__dirname, 'blog', postId, 'translations', `${localeId}.json`);
+  try {
+    const data = await fs.readJson(jsonPath);
+    return data && typeof data.title === 'string' ? data.title : null;
+  } catch {
+    return null;
+  }
+}
+
+async function generateBlogListHTML(posts) {
+  const items = await Promise.all(posts.map(async (post) => {
+    const isoDate = new Date(post.date).toISOString().split('T')[0];
+    const localeTitleAttrs = [];
+    for (const locale of TRANSLATION_LOCALES) {
+      const title = await readLocaleTitle(post.id, locale.id);
+      if (!title) continue;
+      localeTitleAttrs.push(`data-title-${locale.id}="${escapeHtmlAttr(title)}"`);
+    }
+    const attrSuffix = localeTitleAttrs.length ? ' ' + localeTitleAttrs.join(' ') : '';
+    return `
     <div class="blog-post-item">
-      <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}" data-post-id="${post.id}" data-iso-date="${isoDate}">
+      <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}" data-post-id="${post.id}" data-iso-date="${isoDate}"${attrSuffix}>
         <span class="blog-post-title">${post.title}</span>
         <span class="blog-post-date">${post.date}</span>
       </a>
     </div>
   `;
-    })
-    .join('');
+  }));
+  return items.join('');
 }
 
 function structureFinalData(posts) {
@@ -314,7 +334,7 @@ async function main() {
     process.exit(1);
   }
 
-  const blogListHTML = generateBlogListHTML(finalData.posts);
+  const blogListHTML = await generateBlogListHTML(finalData.posts);
 
   try {
     const template = await fs.readFile(HTML_TEMPLATE_PATH, 'utf-8');

@@ -5,11 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Intelligence</title>
     <script src="/dist/theme.js"></script>
+    <script>
+        (function() {
+            var locale = null;
+            try { locale = localStorage.getItem('locale'); } catch (e) {}
+            if (!locale || locale === 'en') return;
+            var parts = window.location.pathname.split('/').filter(Boolean);
+            var postId = parts[1];
+            if (!postId) return;
+            window.__postLocale = locale;
+            window.__postId = postId;
+            document.documentElement.classList.add('translating');
+            try {
+                var raw = localStorage.getItem('i18n:' + postId + ':' + locale);
+                if (raw) window.__cachedTranslation = JSON.parse(raw);
+            } catch (e) {}
+            if (window.__cachedTranslation && window.__cachedTranslation.title) {
+                document.title = window.__cachedTranslation.title;
+            }
+            window.__translationPromise = fetch('/blog/' + postId + '/translations/' + locale + '.json')
+                .then(function(r) { return r.ok ? r.json() : null; })
+                .then(function(data) {
+                    if (data) {
+                        try { localStorage.setItem('i18n:' + postId + ':' + locale, JSON.stringify(data)); } catch (e) {}
+                    }
+                    return data;
+                })
+                .catch(function() { return null; });
+        })();
+    </script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
         :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
-        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
         h1 { font-size: 24px; margin-bottom: 24px; }
         .blog-header { padding-top: 5px; }
         .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -54,14 +83,17 @@
         #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
+        html.translating #post-title, html.translating #post-content { visibility: hidden; }
         @media (max-width: 768px) {
             body { padding: 24px; }
-            .post-header { margin-top: 20px; } /* Change margin top to modify the padding between the title and empty space above */
+            .post-header { margin-top: 30px; } /* Change margin top to modify the padding between the title and empty space above */
             .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
         }
     </style>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
@@ -74,6 +106,17 @@
         <div>
             <h1 id="post-title">Intelligence</h1>
             <time id="post-date" class="post-date" data-iso-date="2025-11-14">November 14, 2025</time>
+            <script>
+                (function() {
+                    var locale = window.__postLocale;
+                    if (!locale) return;
+                    var el = document.getElementById('post-date');
+                    if (!el || !el.dataset.isoDate) return;
+                    try {
+                        el.textContent = new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(el.dataset.isoDate));
+                    } catch (e) {}
+                })();
+            </script>
         </div>
         <a href="/" class="back-button">← Back</a>
     </div>
@@ -136,7 +179,18 @@
 </ol>
 </section>
 </article>
-    
+    <script>
+        (function() {
+            var cached = window.__cachedTranslation;
+            if (!cached) return;
+            var titleEl = document.getElementById('post-title');
+            var contentEl = document.getElementById('post-content');
+            if (titleEl && cached.title) titleEl.textContent = cached.title;
+            if (contentEl && cached.html) contentEl.innerHTML = cached.html;
+            document.documentElement.classList.remove('translating');
+        })();
+    </script>
+
     <script>
         function isSafari() {
             return typeof safari !== 'undefined';
@@ -287,37 +341,41 @@
         (function() {
             var titleEl = document.getElementById('post-title');
             var contentEl = document.getElementById('post-content');
-            var dateEl = document.getElementById('post-date');
             if (!titleEl || !contentEl) return;
 
-            var savedLocale = 'en';
-            try { savedLocale = localStorage.getItem('locale') || 'en'; } catch (e) {}
-            if (savedLocale === 'en') return;
+            var savedLocale = window.__postLocale;
+            if (!savedLocale) return;
 
-            if (dateEl && dateEl.dataset.isoDate) {
-                try {
-                    dateEl.textContent = new Intl.DateTimeFormat(savedLocale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(dateEl.dataset.isoDate));
-                } catch (e) {}
+            function swapLightImages() {
+                if (!document.documentElement.classList.contains('light-mode')) return;
+                contentEl.querySelectorAll('img').forEach(function(img) {
+                    var src = img.getAttribute('src');
+                    var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                    if (!match) return;
+                    var lightSrc = match[1] + '-light' + match[2];
+                    fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                        if (res.ok) img.setAttribute('src', lightSrc);
+                    });
+                });
             }
 
-            fetch('./translations/' + savedLocale + '.json')
-                .then(function(res) { return res.ok ? res.json() : null; })
-                .then(function(data) {
-                    if (!data) return;
+            if (window.__cachedTranslation) swapLightImages();
+
+            var promise = window.__translationPromise;
+            if (!promise) {
+                document.documentElement.classList.remove('translating');
+                return;
+            }
+            promise.then(function(data) {
+                if (data) {
                     titleEl.textContent = data.title;
                     contentEl.innerHTML = data.html;
                     document.title = data.title;
-                    if (!document.documentElement.classList.contains('light-mode')) return;
-                    contentEl.querySelectorAll('img').forEach(function(img) {
-                        var src = img.getAttribute('src');
-                        var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                        if (!match) return;
-                        var lightSrc = match[1] + '-light' + match[2];
-                        fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                            if (res.ok) img.setAttribute('src', lightSrc);
-                        });
-                    });
-                });
+                    try { localStorage.setItem('i18n:' + window.__postId + ':' + savedLocale, JSON.stringify(data)); } catch (e) {}
+                }
+                document.documentElement.classList.remove('translating');
+                if (data) swapLightImages();
+            });
         })();
     </script>
 </body>
