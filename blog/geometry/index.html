@@ -73,7 +73,7 @@
     <div class="post-header">
         <div>
             <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date">January 29, 2026</time>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
         </div>
         <a href="/" class="back-button">← Back</a>
     </div>
@@ -670,22 +670,27 @@ main()
         (function() {
             var titleEl = document.getElementById('post-title');
             var contentEl = document.getElementById('post-content');
+            var dateEl = document.getElementById('post-date');
             if (!titleEl || !contentEl) return;
 
-            var cache = new Map([['en', { title: titleEl.textContent, html: contentEl.innerHTML }]]);
+            var savedLocale = 'en';
+            try { savedLocale = localStorage.getItem('locale') || 'en'; } catch (e) {}
+            if (savedLocale === 'en') return;
 
-            document.addEventListener('localechange', async function(e) {
-                var locale = e.detail.locale;
-                if (!cache.has(locale)) {
-                    var res = await fetch('./translations/' + locale + '.json');
-                    cache.set(locale, res.ok ? await res.json() : null);
-                }
-                var data = cache.get(locale);
-                if (!data) return;
-                titleEl.textContent = data.title;
-                contentEl.innerHTML = data.html;
-                document.title = data.title;
-            });
+            if (dateEl && dateEl.dataset.isoDate) {
+                try {
+                    dateEl.textContent = new Intl.DateTimeFormat(savedLocale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(dateEl.dataset.isoDate));
+                } catch (e) {}
+            }
+
+            fetch('./translations/' + savedLocale + '.json')
+                .then(function(res) { return res.ok ? res.json() : null; })
+                .then(function(data) {
+                    if (!data) return;
+                    titleEl.textContent = data.title;
+                    contentEl.innerHTML = data.html;
+                    document.title = data.title;
+                });
         })();
     </script>
 </body>

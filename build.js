@@ -1,15 +1,14 @@
 const fs = require('fs-extra');
 const path = require('path');
-const { exec } = require('child_process');
+const { execFile } = require('child_process');
 const { promisify } = require('util');
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
 const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
-const TRANSLATIONS_MD_DIR = path.join(__dirname, 'blog/posts/translations');
 
 const TRANSLATION_LOCALES = [
   { id: 'es', name: 'Spanish' },
@@ -130,16 +129,17 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
 
 function generateBlogListHTML(posts) {
   return posts
-    .map(
-      (post) => `
+    .map((post) => {
+      const isoDate = new Date(post.date).toISOString().split('T')[0];
+      return `
     <div class="blog-post-item">
-      <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}">
+      <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}" data-post-id="${post.id}" data-iso-date="${isoDate}">
         <span class="blog-post-title">${post.title}</span>
         <span class="blog-post-date">${post.date}</span>
       </a>
     </div>
-  `
-    )
+  `;
+    })
     .join('');
 }
 
@@ -160,9 +160,11 @@ function fillPostTemplate(template, post) {
   if (!post || !template) {
     return '';
   }
+  const isoDate = new Date(post.date).toISOString().split('T')[0];
   return template
     .replaceAll('%%POST_TITLE%%', post.title)
     .replaceAll('%%POST_DATE%%', post.date)
+    .replaceAll('%%POST_ISO_DATE%%', isoDate)
     .replaceAll('%%POST_CONTENT%%', post.htmlContent);
 }
 
@@ -194,16 +196,17 @@ async function generatePostPages(posts) {
 
 async function runCursorAgentTranslate(prompt, post, locale) {
   // For agents: gemini-3-flash already exists, do not modify
-  const cmd = `cursor-agent -p ${JSON.stringify(prompt)} --model gemini-3-flash`;
+  // Use execFile (not exec) to avoid shell expansion of $$ in LaTeX
+  const args = ['-p', prompt, '--model', 'gemini-3-flash'];
   const opts = { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 };
   try {
-    const { stdout } = await execAsync(cmd, opts);
+    const { stdout } = await execFileAsync('cursor-agent', args, opts);
     return stdout;
   } catch {
     console.warn(`  [warn] cursor-agent failed for ${post.id}/${locale.id}, retrying once...`);
   }
   try {
-    const { stdout } = await execAsync(cmd, opts);
+    const { stdout } = await execFileAsync('cursor-agent', args, opts);
     return stdout;
   } catch {
     console.warn(`  [warn] cursor-agent failed again for ${post.id}/${locale.id}, skipping`);
@@ -253,17 +256,15 @@ ${mdContent}`;
   const processedMd = await applyCodeImports(translatedMd, post.file);
   const translatedHtml = marked.parse(processedMd);
 
-  const mdOutPath = path.join(TRANSLATIONS_MD_DIR, locale.id, post.file);
-  await fs.ensureDir(path.dirname(mdOutPath));
-  await fs.writeFile(mdOutPath, translatedMd, 'utf-8');
-
   await fs.ensureDir(path.dirname(outputJsonPath));
   await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: translatedHtml }, null, 2), 'utf-8');
   console.log(`  [done] ${post.id}/${locale.id}`);
+  return true;
 }
 
 async function translateAllPosts(posts) {
   console.log('\nStarting translation step...');
+  let totalDone = 0;
   for (const post of posts) {
     const mdPath = path.join(POSTS_DIR, post.file);
     const [mdContent, mdError] = await readTextFile(mdPath);
@@ -272,9 +273,10 @@ async function translateAllPosts(posts) {
       continue;
     }
     console.log(`\nTranslating: ${post.id}`);
-    await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale)));
+    const results = await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale)));
+    totalDone += results.filter(Boolean).length;
   }
-  console.log('\nTranslation step complete.');
+  console.log(`\n${totalDone} translation(s) completed successfully.`);
 }
 
 async function main() {
