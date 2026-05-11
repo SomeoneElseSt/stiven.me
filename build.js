@@ -228,7 +228,8 @@ TITLE: <translated title here>
 
 Rules:
 - Preserve all markdown formatting exactly (headings, bold, italic, lists)
-- Do NOT translate code blocks, URLs, LaTeX math, or HTML tags
+- Do NOT translate code blocks (content inside triple backticks), URLs, LaTeX math, or HTML tags
+- DO translate text inside <summary> tags — these are user-facing labels that should be in the target language
 - Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
 - Your response must end with the last line of the translated markdown and nothing else
 
