@@ -39,9 +39,10 @@
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin-top: 30px; margin-bottom: 30px; }
         .top-row h1 { margin: 0; font-size: 24px; font-weight: bold; }
         .top-controls {
+            position: relative;
             display: flex;
             align-items: flex-start;
-            gap: 20;
+            gap: 0;
             --locale-trigger-width: 42px;
             --locale-label-font-size: 24px;
             --theme-toggle-hit-width: 34px;
@@ -49,7 +50,6 @@
             --theme-icon-size: 20px;
         }
         .locale-switcher {
-            position: relative;
             display: inline-flex;
             flex-direction: column;
             align-items: stretch;
@@ -59,7 +59,8 @@
         }
         .locale-trigger {
             box-sizing: border-box;
-            width: var(--locale-trigger-width);
+            min-width: var(--locale-trigger-width);
+            width: auto;
             height: var(--top-control-hit-height);
             display: inline-flex;
             align-items: center;
@@ -68,7 +69,7 @@
             border: none;
             cursor: pointer;
             padding: 0;
-            margin: 0;
+            margin: 0 -4px 0 0;
             color: var(--fg);
             outline: none;
             -webkit-tap-highlight-color: transparent;
@@ -83,17 +84,18 @@
             font-size: 24px;
             font-weight: bold;
             color: inherit;
+            white-space: nowrap;
             position: relative;
             top: -1px;
         }
         .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .locale-menu {
             position: absolute;
-            top: 100%;
+            top: var(--top-control-hit-height);
             right: 0;
             margin: 0;
             padding: 0;
-            width: 100%;
+            min-width: 100%;
             box-sizing: border-box;
             list-style: none;
             background: var(--bg);
@@ -121,6 +123,7 @@
             font-size: var(--locale-label-font-size);
             font-weight: bold;
             line-height: 1;
+            white-space: nowrap;
             cursor: pointer;
             appearance: none;
             -webkit-tap-highlight-color: transparent;
@@ -181,7 +184,7 @@
     <script>
         (function () {
             /* Keep keys and short labels in sync with src/i18n.ts (LOCALE_DEFINITIONS). */
-            var SHORT = { en: 'En', es: 'Es', ja: 'Ja', hi: 'Hi', de: 'De', fr: 'Fr', ko: 'Kr', pt: 'Pt' };
+            var SHORT = { en: 'En', es: 'Es', ja: '日本', hi: 'हिं', de: 'De', fr: 'Fr', ko: '한', pt: 'Pt' };
             var id = 'en';
             try {
                 var raw = localStorage.getItem('locale');
