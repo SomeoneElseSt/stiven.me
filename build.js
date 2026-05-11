@@ -257,13 +257,13 @@ ${mdContent}`;
   const processedMd = await applyCodeImports(translatedMd, post.file);
   const translatedHtml = marked.parse(processedMd);
 
+  const localizedHtml = translatedHtml.replace(/\/blog\/assets\/figures\/en\//g, `/blog/assets/figures/${locale.id}/`);
   await fs.ensureDir(path.dirname(outputJsonPath));
-  await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: translatedHtml }, null, 2), 'utf-8');
+  await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: localizedHtml }, null, 2), 'utf-8');
   return { status: 'done', locale: locale.id };
 }
 
 async function translateAllPosts(posts) {
-  console.log('\nStarting translation step...');
   let totalDone = 0;
   for (const post of posts) {
     const mdPath = path.join(POSTS_DIR, post.file);
