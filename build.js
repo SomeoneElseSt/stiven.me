@@ -222,9 +222,7 @@ async function translatePost(post, mdContent, locale) {
   const exists = await fs.pathExists(outputJsonPath);
   if (exists) return { status: 'skip', locale: locale.id };
 
-  const latexRule = LATIN_LOCALES.has(locale.id)
-    ? '- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly'
-    : '- Do NOT translate LaTeX math at all — preserve every $ and $$ block exactly as-is';
+  const latexRule = '- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly';
 
   const prompt = `Translate the following markdown blog post to ${locale.name}.
 Output ONLY the following format — no extra text, no preamble:
