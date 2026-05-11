@@ -93,6 +93,7 @@
             position: absolute;
             top: var(--top-control-hit-height);
             right: 0;
+            z-index: 100;
             margin: 0;
             padding: 0;
             min-width: 100%;
@@ -311,6 +312,7 @@
     <script>
         (function() {
             var titleCache = new Map();
+            var currentLocale = 'en';
 
             function formatDate(isoDate, locale) {
                 try {
@@ -321,6 +323,7 @@
             }
 
             function updateBlogList(locale) {
+                currentLocale = locale;
                 var links = document.querySelectorAll('.blog-post-link[data-post-id]');
                 links.forEach(function(link) {
                     var postId = link.dataset.postId;
@@ -350,6 +353,7 @@
                         .then(function(data) {
                             if (!data || !titleEl) return;
                             titleCache.set(cacheKey, data.title);
+                            if (currentLocale !== locale) return;
                             titleEl.textContent = data.title;
                         });
                 });
