@@ -18,7 +18,10 @@ const TRANSLATION_LOCALES = [
   { id: 'fr', name: 'French' },
   { id: 'ko', name: 'Korean' },
   { id: 'pt', name: 'Portuguese' },
+  { id: 'pl', name: 'Polish' },
+  { id: 'zh', name: 'Chinese' },
 ];
+const LATIN_LOCALES = new Set(['es', 'de', 'fr', 'pt', 'pl']);
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
@@ -217,10 +220,11 @@ async function runCursorAgentTranslate(prompt, post, locale) {
 async function translatePost(post, mdContent, locale) {
   const outputJsonPath = path.join(__dirname, 'blog', post.id, 'translations', `${locale.id}.json`);
   const exists = await fs.pathExists(outputJsonPath);
-  if (exists) {
-    console.log(`  [skip] ${post.id}/${locale.id} already translated`);
-    return;
-  }
+  if (exists) return { status: 'skip', locale: locale.id };
+
+  const latexRule = LATIN_LOCALES.has(locale.id)
+    ? '- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly'
+    : '- Do NOT translate LaTeX math at all — preserve every $ and $$ block exactly as-is';
 
   const prompt = `Translate the following markdown blog post to ${locale.name}.
 Output ONLY the following format — no extra text, no preamble:
@@ -231,7 +235,8 @@ TITLE: <translated title here>
 
 Rules:
 - Preserve all markdown formatting exactly (headings, bold, italic, lists)
-- Do NOT translate code blocks (content inside triple backticks), URLs, LaTeX math, or HTML tags
+- Do NOT translate code blocks (content inside triple backticks), URLs, or HTML tags
+${latexRule}
 - DO translate text inside <summary> tags — these are user-facing labels that should be in the target language
 - Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
 - Your response must end with the last line of the translated markdown and nothing else
@@ -240,15 +245,11 @@ Original title: ${post.title}
 ---
 ${mdContent}`;
 
-  console.log(`  [translate] ${post.id} → ${locale.id}`);
   const output = await runCursorAgentTranslate(prompt, post, locale);
-  if (output === null) return;
+  if (output === null) return { status: 'warn', locale: locale.id, msg: 'agent failed' };
 
   const separatorIdx = output.indexOf('\n---\n');
-  if (separatorIdx === -1) {
-    console.warn(`  [warn] Unexpected output format for ${post.id}/${locale.id}, skipping`);
-    return;
-  }
+  if (separatorIdx === -1) return { status: 'warn', locale: locale.id, msg: 'unexpected output format' };
 
   const titleLine = output.slice(0, separatorIdx).trim();
   const translatedTitle = titleLine.startsWith('TITLE:') ? titleLine.slice(6).trim() : post.title;
@@ -258,8 +259,7 @@ ${mdContent}`;
 
   await fs.ensureDir(path.dirname(outputJsonPath));
   await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: translatedHtml }, null, 2), 'utf-8');
-  console.log(`  [done] ${post.id}/${locale.id}`);
-  return true;
+  return { status: 'done', locale: locale.id };
 }
 
 async function translateAllPosts(posts) {
@@ -274,9 +274,22 @@ async function translateAllPosts(posts) {
     }
     console.log(`\nTranslating: ${post.id}`);
     const results = await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale)));
-    totalDone += results.filter(Boolean).length;
+
+    const skipped = results.filter(r => r?.status === 'skip');
+    const translated = results.filter(r => r?.status === 'done');
+    const warned = results.filter(r => r?.status === 'warn');
+
+    skipped.forEach(r => console.log(`  [skip] ${r.locale}`));
+    translated.forEach(r => console.log(`  [done] ${r.locale}`));
+    warned.forEach(r => console.warn(`  [warn] ${r.locale}: ${r.msg}`));
+
+    totalDone += translated.length;
   }
-  console.log(`\n${totalDone} translation(s) completed successfully.`);
+  if (totalDone === 0) {
+    console.log('\nAll posts already translated.');
+  } else {
+    console.log(`\n${totalDone} translation(s) completed successfully.`);
+  }
 }
 
 async function main() {

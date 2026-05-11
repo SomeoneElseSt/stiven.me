@@ -1,4 +1,4 @@
-export type LocaleId = 'en' | 'es' | 'ja' | 'hi' | 'de' | 'fr' | 'ko' | 'pt';
+export type LocaleId = 'en' | 'es' | 'ja' | 'hi' | 'de' | 'fr' | 'ko' | 'pt' | 'pl' | 'zh';
 
 export type MessageKey =
     | 'pageTitle'
@@ -174,6 +174,44 @@ const pt: LocaleDefinition = {
     },
 };
 
+const pl: LocaleDefinition = {
+    id: 'pl',
+    shortLabel: 'Pl',
+    nativeName: 'Polski',
+    messages: {
+        pageTitle: 'Stiven',
+        headline: 'Cześć. Jestem Stiven',
+        bio1: 'Studiuję informatykę i ekonomię na <a href="https://www.minerva.edu/">Minerva University</a>. Interesuję się modelowaniem systemów społecznych na dużą skalę.',
+        bio2: 'Wcześniej byłem stażystą inżyniera oprogramowania w <a href="https://domu.ai">Domu</a> (YC S24), technicznym konsultantem studenckim dla <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> i stypendystą programistycznym w <a href="https://makers.ngo">Makers</a>.',
+        bio3: 'Wygrałem cztery hackathony, wykonałem ponad 500 tys. połączeń za pomocą agenta AI dla jednego z największych banków w Ameryce Środkowej i zbudowałem wiele projektów <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
+        bio4: 'Jestem biegaczem, techno‑optymistą i efektywnym altruistą/akceleracjonistą. Obecnie myślę o prognozowaniu społecznym w Bogocie.',
+        blogHeader: 'Blog',
+        linksHeader: 'Linki',
+        themeAriaToLight: 'Przełącz na tryb jasny',
+        themeAriaToDark: 'Przełącz na tryb ciemny',
+        localeMenuLabel: 'Język',
+    },
+};
+
+const zh: LocaleDefinition = {
+    id: 'zh',
+    shortLabel: '中',
+    nativeName: '中文',
+    messages: {
+        pageTitle: 'Stiven',
+        headline: '你好，我是 Stiven',
+        bio1: '我在 <a href="https://www.minerva.edu/">Minerva University</a> 学习计算机科学与经济学，关注大规模社会系统的建模研究。',
+        bio2: '曾在 <a href="https://domu.ai">Domu</a>（YC S24）担任软件工程实习生，担任 <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> 技术学生顾问，以及 <a href="https://makers.ngo">Makers</a> 编程学员。',
+        bio3: '我赢得了四场黑客马拉松，使用 AI 智能体为中美洲最大银行之一拨打了超过 50 万次电话，并构建了许多项目 <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>。',
+        bio4: '我是一名跑者、技术乐观主义者，以及有效利他主义者/加速主义者。目前正在波哥大思考社会预测问题。',
+        blogHeader: '博客',
+        linksHeader: '链接',
+        themeAriaToLight: '切换到浅色模式',
+        themeAriaToDark: '切换到深色模式',
+        localeMenuLabel: '语言',
+    },
+};
+
 export const LOCALE_DEFINITIONS: readonly LocaleDefinition[] = [
     en,
     es,
@@ -183,6 +221,8 @@ export const LOCALE_DEFINITIONS: readonly LocaleDefinition[] = [
     fr,
     ko,
     pt,
+    pl,
+    zh,
 ] as const;
 
 const LOCALE_BY_ID: Map<LocaleId, LocaleDefinition> = new Map(
