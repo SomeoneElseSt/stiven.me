@@ -147,13 +147,14 @@ async function readLocaleTitle(postId, localeId) {
 async function generateBlogListHTML(posts) {
   const items = await Promise.all(posts.map(async (post) => {
     const isoDate = new Date(post.date).toISOString().split('T')[0];
-    const localeTitleAttrs = [];
-    for (const locale of TRANSLATION_LOCALES) {
-      const title = await readLocaleTitle(post.id, locale.id);
-      if (!title) continue;
-      localeTitleAttrs.push(`data-title-${locale.id}="${escapeHtmlAttr(title)}"`);
-    }
-    const attrSuffix = localeTitleAttrs.length ? ' ' + localeTitleAttrs.join(' ') : '';
+    const localeTitleAttrs = await Promise.all(
+      TRANSLATION_LOCALES.map(async (locale) => {
+        const title = await readLocaleTitle(post.id, locale.id);
+        return title ? `data-title-${locale.id}="${escapeHtmlAttr(title)}"` : null;
+      })
+    );
+    const attrs = localeTitleAttrs.filter(Boolean);
+    const attrSuffix = attrs.length ? ' ' + attrs.join(' ') : '';
     return `
     <div class="blog-post-item">
       <a href="/blog/${post.id}/" class="blog-post-link" data-title-length="${post.title.length}" data-post-id="${post.id}" data-iso-date="${isoDate}"${attrSuffix}>
@@ -222,19 +223,20 @@ async function runCursorAgentTranslate(prompt, post, locale) {
   // Use execFile (not exec) to avoid shell expansion of $$ in LaTeX
   const args = ['-p', prompt, '--model', 'gemini-3-flash'];
   const opts = { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 };
-  try {
-    const { stdout } = await execFileAsync('cursor-agent', args, opts);
-    return stdout;
-  } catch {
-    console.warn(`  [warn] cursor-agent failed for ${post.id}/${locale.id}, retrying once...`);
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const { stdout } = await execFileAsync('cursor-agent', args, opts);
+      return stdout;
+    } catch {
+      const isFinalAttempt = attempt === 1;
+      console.warn(
+        isFinalAttempt
+          ? `  [warn] cursor-agent failed again for ${post.id}/${locale.id}, skipping`
+          : `  [warn] cursor-agent failed for ${post.id}/${locale.id}, retrying once...`
+      );
+    }
   }
-  try {
-    const { stdout } = await execFileAsync('cursor-agent', args, opts);
-    return stdout;
-  } catch {
-    console.warn(`  [warn] cursor-agent failed again for ${post.id}/${locale.id}, skipping`);
-    return null;
-  }
+  return null;
 }
 
 async function translatePost(post, mdContent, locale) {
