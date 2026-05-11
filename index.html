@@ -47,7 +47,7 @@
             --locale-label-font-size: 24px;
             --theme-toggle-hit-width: 34px;
             --top-control-hit-height: 50px;
-            --theme-icon-size: 20px;
+            --theme-icon-size: 23px;
         }
         .locale-switcher {
             display: inline-flex;
@@ -149,7 +149,7 @@
             border-radius: 4px;
         }
         .theme-toggle:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
-        .theme-toggle svg { width: var(--theme-icon-size); height: var(--theme-icon-size); }
+        .theme-toggle svg { width: var(--theme-icon-size); height: var(--theme-icon-size); position: relative; top: -1px; }
         #blog-list { max-width: 600px; padding-top: 0px;}
         @media (max-width: 768px) {
             body { padding: 24px; }
