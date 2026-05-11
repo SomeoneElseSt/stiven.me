@@ -83,7 +83,7 @@
         #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
-        html.translating #post-title, html.translating #post-content { visibility: hidden; }
+        html.translating .post-header, html.translating #post-content { visibility: hidden; }
         @media (max-width: 768px) {
             body { padding: 24px; }
             .post-header { margin-top: 30px; } /* Change margin top to modify the padding between the title and empty space above */
@@ -119,6 +119,15 @@
             </script>
         </div>
         <a href="/" class="back-button">← Back</a>
+        <script>
+            (function() {
+                var BACK = { es: 'Atrás', ja: '戻る', hi: 'वापस', de: 'Zurück', fr: 'Retour', ko: '뒤로', pt: 'Voltar', pl: 'Wstecz', zh: '返回' };
+                var locale = window.__postLocale;
+                if (!locale || !BACK[locale]) return;
+                var el = document.querySelector('.back-button');
+                if (el) el.textContent = '← ' + BACK[locale];
+            })();
+        </script>
     </div>
     
     <article id="post-content"><p>Here&#39;s a thought experiment: </p>
@@ -194,13 +203,24 @@
         }
 
         function finishProgress() {
-            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
-                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
-                NProgress.set(0.7);
-                setTimeout(function() {
-                    NProgress.done();
-                }, 100);
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+
+            var finish = function() {
+                setTimeout(function() { NProgress.done(); }, 100);
+            };
+
+            if (!document.documentElement.classList.contains('translating')) {
+                finish();
+                return;
             }
+            var observer = new MutationObserver(function() {
+                if (document.documentElement.classList.contains('translating')) return;
+                observer.disconnect();
+                finish();
+            });
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
         }
 
         if (document.readyState === 'loading') {
