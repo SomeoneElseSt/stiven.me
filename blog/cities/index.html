@@ -294,6 +294,16 @@
                     titleEl.textContent = data.title;
                     contentEl.innerHTML = data.html;
                     document.title = data.title;
+                    if (!document.documentElement.classList.contains('light-mode')) return;
+                    contentEl.querySelectorAll('img').forEach(function(img) {
+                        var src = img.getAttribute('src');
+                        var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                        if (!match) return;
+                        var lightSrc = match[1] + '-light' + match[2];
+                        fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                            if (res.ok) img.setAttribute('src', lightSrc);
+                        });
+                    });
                 });
         })();
     </script>
