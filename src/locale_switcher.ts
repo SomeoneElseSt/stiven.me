@@ -48,11 +48,14 @@ function syncThemeToggleAriaFromDom(locale: LocaleId): void {
 
 function applyMessagesToDom(locale: LocaleId): void {
     document.documentElement.lang = locale;
-    document.title = getMessage(locale, 'pageTitle');
+    const pageTitle = getMessage(locale, 'pageTitle');
+    document.title = pageTitle;
 
+    const messages: Record<string, string> = { pageTitle };
     for (const key of HTML_I18N_KEYS) {
         const nodes = document.querySelectorAll(`[data-i18n="${key}"]`);
         const text = getMessage(locale, key);
+        messages[key] = text;
         const useHtml = HTML_I18N_HTML_KEYS.has(key);
         nodes.forEach((node) => {
             if (useHtml) {
@@ -62,6 +65,9 @@ function applyMessagesToDom(locale: LocaleId): void {
             node.textContent = text;
         });
     }
+    try {
+        localStorage.setItem(`i18n_messages:${locale}`, JSON.stringify(messages));
+    } catch (e) {}
 }
 
 let closeMenuHandler: ((e: MouseEvent) => void) | null = null;
@@ -132,6 +138,8 @@ export function applyLocale(locale: LocaleId): void {
     installThemeAriaBridge(locale);
     applyMessagesToDom(locale);
     syncThemeToggleAriaFromDom(locale);
+    document.documentElement.classList.remove('translating');
+    document.dispatchEvent(new CustomEvent('localechange', { detail: { locale } }));
 }
 
 function findLocaleSwitcherElements(mount: HTMLElement): {

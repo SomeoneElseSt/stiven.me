@@ -4,7 +4,7 @@
   "description": "Personal website",
   "scripts": {
     "build": "node build.js",
-    "compile": "pnpm exec tsc && pnpm run build",
+    "compile": "pnpm exec tsc && node build.js",
     "dev": "pnpm exec tsc --watch",
     "check": "pnpm exec tsc --noEmit"
   },
