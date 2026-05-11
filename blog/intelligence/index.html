@@ -283,6 +283,28 @@
             });
         })();
     </script>
+    <script>
+        (function() {
+            var titleEl = document.getElementById('post-title');
+            var contentEl = document.getElementById('post-content');
+            if (!titleEl || !contentEl) return;
+
+            var cache = new Map([['en', { title: titleEl.textContent, html: contentEl.innerHTML }]]);
+
+            document.addEventListener('localechange', async function(e) {
+                var locale = e.detail.locale;
+                if (!cache.has(locale)) {
+                    var res = await fetch('./translations/' + locale + '.json');
+                    cache.set(locale, res.ok ? await res.json() : null);
+                }
+                var data = cache.get(locale);
+                if (!data) return;
+                titleEl.textContent = data.title;
+                contentEl.innerHTML = data.html;
+                document.title = data.title;
+            });
+        })();
+    </script>
 </body>
 </html>
 
