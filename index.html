@@ -217,28 +217,28 @@
     <h1 class="blog-header" data-i18n="blogHeader">Blog</h1>
     <div id="blog-list">
     <div class="blog-post-item">
-      <a href="/blog/geometry/" class="blog-post-link" data-title-length="8">
+      <a href="/blog/geometry/" class="blog-post-link" data-title-length="8" data-post-id="geometry" data-iso-date="2026-01-29">
         <span class="blog-post-title">Geometry</span>
         <span class="blog-post-date">January 29, 2026</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/intelligence/" class="blog-post-link" data-title-length="12">
+      <a href="/blog/intelligence/" class="blog-post-link" data-title-length="12" data-post-id="intelligence" data-iso-date="2025-11-14">
         <span class="blog-post-title">Intelligence</span>
         <span class="blog-post-date">November 14, 2025</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/cancer/" class="blog-post-link" data-title-length="6">
+      <a href="/blog/cancer/" class="blog-post-link" data-title-length="6" data-post-id="cancer" data-iso-date="2025-11-03">
         <span class="blog-post-title">Cancer</span>
         <span class="blog-post-date">November 3, 2025</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/cities/" class="blog-post-link" data-title-length="6">
+      <a href="/blog/cities/" class="blog-post-link" data-title-length="6" data-post-id="cities" data-iso-date="2025-10-20">
         <span class="blog-post-title">Cities</span>
         <span class="blog-post-date">October 20, 2025</span>
       </a>
@@ -305,6 +305,65 @@
             btn.setAttribute('aria-label', themeAriaFromBridge(_light));
             btn.addEventListener('click', function() {
                 applyTheme(!document.body.classList.contains('light-mode'));
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            var titleCache = new Map();
+
+            function formatDate(isoDate, locale) {
+                try {
+                    return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(isoDate));
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function updateBlogList(locale) {
+                var links = document.querySelectorAll('.blog-post-link[data-post-id]');
+                links.forEach(function(link) {
+                    var postId = link.dataset.postId;
+                    var isoDate = link.dataset.isoDate;
+                    var titleEl = link.querySelector('.blog-post-title');
+                    var dateEl = link.querySelector('.blog-post-date');
+
+                    if (locale === 'en') {
+                        if (titleEl && titleCache.has(postId + ':en')) titleEl.textContent = titleCache.get(postId + ':en');
+                        if (dateEl && isoDate) dateEl.textContent = formatDate(isoDate, 'en-US') || dateEl.textContent;
+                        return;
+                    }
+
+                    if (dateEl && isoDate) {
+                        var formatted = formatDate(isoDate, locale);
+                        if (formatted) dateEl.textContent = formatted;
+                    }
+
+                    var cacheKey = postId + ':' + locale;
+                    if (titleCache.has(cacheKey)) {
+                        if (titleEl) titleEl.textContent = titleCache.get(cacheKey);
+                        return;
+                    }
+
+                    fetch('/blog/' + postId + '/translations/' + locale + '.json')
+                        .then(function(res) { return res.ok ? res.json() : null; })
+                        .then(function(data) {
+                            if (!data || !titleEl) return;
+                            titleCache.set(cacheKey, data.title);
+                            titleEl.textContent = data.title;
+                        });
+                });
+            }
+
+            // Store original English titles on load
+            document.querySelectorAll('.blog-post-link[data-post-id]').forEach(function(link) {
+                var postId = link.dataset.postId;
+                var titleEl = link.querySelector('.blog-post-title');
+                if (titleEl) titleCache.set(postId + ':en', titleEl.textContent);
+            });
+
+            document.addEventListener('localechange', function(e) {
+                updateBlogList(e.detail.locale);
             });
         })();
     </script>
