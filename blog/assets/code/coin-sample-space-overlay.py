@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -8,6 +9,9 @@ from scipy.special import comb
 NUM_FLIPS = 100
 STAIRCASE_FLIPS = 6
 ALPHA_SCALE = 0.5
+ASSETS_DIR = Path(__file__).resolve().parent.parent / "figures"
+
+ALL_LOCALES = ['en', 'es', 'de', 'fr', 'pt', 'pl', 'ja', 'ko', 'hi', 'zh']
 
 
 def generate_distribution_base(output_path, theme):
@@ -27,22 +31,13 @@ def generate_distribution_base(output_path, theme):
             color = plt.cm.RdYlBu_r(relative_prob)
             y_proportion = num_heads / flip
 
-            ax.scatter(
-                flip,
-                y_proportion,
-                c=[color],
-                s=marker_size,
-                marker='s',
-                edgecolors='none',
-                alpha=0.95,
-                rasterized=True
-            )
+            ax.scatter(flip, y_proportion, c=[color], s=marker_size,
+                       marker='s', edgecolors='none', alpha=0.95, rasterized=True)
 
     ax.set_xlim(0, NUM_FLIPS + 2)
     ax.set_ylim(0, 1)
     ax.set_xticks([])
     ax.set_yticks([])
-
     for spine in ax.spines.values():
         spine.set_visible(False)
 
@@ -51,7 +46,7 @@ def generate_distribution_base(output_path, theme):
     plt.close(fig)
 
 
-def generate_staircase_overlay(output_path, theme):
+def generate_staircase_base(output_path, theme):
     is_light = theme == 'light'
     bg = 'white' if is_light else 'black'
     fg = 'black' if is_light else 'white'
@@ -69,31 +64,19 @@ def generate_staircase_overlay(output_path, theme):
             y_position = outcome * height
             is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
 
-            if is_staircase:
-                facecolor = colors[-1]
-                alpha = 1.0
-                edgecolor = fg
-            else:
-                facecolor = colors[flip]
-                alpha = 0.15
-                edgecolor = bg
+            facecolor = colors[-1] if is_staircase else colors[flip]
+            alpha = 1.0 if is_staircase else 0.15
+            edgecolor = fg if is_staircase else bg
 
-            rect = plt.Rectangle(
-                (flip, y_position),
-                0.8,
-                height,
-                linewidth=1,
-                edgecolor=edgecolor,
-                facecolor=facecolor,
-                alpha=alpha
-            )
+            rect = plt.Rectangle((flip, y_position), 0.8, height,
+                                  linewidth=1, edgecolor=edgecolor,
+                                  facecolor=facecolor, alpha=alpha)
             ax.add_patch(rect)
 
     ax.set_xlim(-0.5, STAIRCASE_FLIPS + 0.5)
     ax.set_ylim(0, 1)
     ax.set_xticks([])
     ax.set_yticks([])
-
     for spine in ax.spines.values():
         spine.set_visible(False)
 
@@ -124,21 +107,30 @@ def overlay_images(base_path, overlay_path, output_path):
     combined.save(output_path)
 
 
-def generate_for_theme(assets_dir, theme):
-    suffix = '-light' if theme == 'light' else ''
-    base_path = assets_dir / f'coin-sample-space-proportion-heads-clean{suffix}.png'
-    staircase_path = assets_dir / f'coin-sample-space-shaded-staircase-clean{suffix}.png'
-    output_path = assets_dir / f'coin-sample-space-overlay{suffix}.png'
-
-    generate_distribution_base(base_path, theme)
-    generate_staircase_overlay(staircase_path, theme)
-    overlay_images(base_path, staircase_path, output_path)
-
-
 def main():
-    assets_dir = Path(__file__).resolve().parent.parent
-    generate_for_theme(assets_dir, 'dark')
-    generate_for_theme(assets_dir, 'light')
+    en_dir = ASSETS_DIR / 'en'
+    en_dir.mkdir(exist_ok=True)
+
+    for theme in ['dark', 'light']:
+        suffix = '-light' if theme == 'light' else ''
+        print(f'  generating overlay intermediates ({theme})')
+
+        clean_base = en_dir / f'coin-sample-space-proportion-heads-clean{suffix}.png'
+        clean_staircase = en_dir / f'coin-sample-space-shaded-staircase-clean{suffix}.png'
+        overlay_out = en_dir / f'coin-sample-space-overlay{suffix}.png'
+
+        generate_distribution_base(clean_base, theme)
+        generate_staircase_base(clean_staircase, theme)
+        overlay_images(clean_base, clean_staircase, overlay_out)
+
+        for locale in ALL_LOCALES:
+            if locale == 'en':
+                continue
+            locale_dir = ASSETS_DIR / locale
+            locale_dir.mkdir(exist_ok=True)
+            dest = locale_dir / f'coin-sample-space-overlay{suffix}.png'
+            shutil.copy(overlay_out, dest)
+            print(f'  copied overlay to {locale}/{theme}')
 
 
 main()
