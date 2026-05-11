@@ -5,11 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Geometry</title>
     <script src="/dist/theme.js"></script>
+    <script>
+        (function() {
+            var locale = null;
+            try { locale = localStorage.getItem('locale'); } catch (e) {}
+            if (!locale || locale === 'en') return;
+            var parts = window.location.pathname.split('/').filter(Boolean);
+            var postId = parts[1];
+            if (!postId) return;
+            window.__postLocale = locale;
+            window.__postId = postId;
+            document.documentElement.classList.add('translating');
+            try {
+                var raw = localStorage.getItem('i18n:' + postId + ':' + locale);
+                if (raw) window.__cachedTranslation = JSON.parse(raw);
+            } catch (e) {}
+            if (window.__cachedTranslation && window.__cachedTranslation.title) {
+                document.title = window.__cachedTranslation.title;
+            }
+            window.__translationPromise = fetch('/blog/' + postId + '/translations/' + locale + '.json')
+                .then(function(r) { return r.ok ? r.json() : null; })
+                .then(function(data) {
+                    if (data) {
+                        try { localStorage.setItem('i18n:' + postId + ':' + locale, JSON.stringify(data)); } catch (e) {}
+                    }
+                    return data;
+                })
+                .catch(function() { return null; });
+        })();
+    </script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
         :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
-        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
         h1 { font-size: 24px; margin-bottom: 24px; }
         .blog-header { padding-top: 5px; }
         .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -17,11 +46,11 @@
         .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
         .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
         .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
-        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px;} /* Modify margin-bottom to move text up/down */
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
         .post-header > div { flex: 1; }
         .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
         #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
-        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: var(--fg); line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
         article { max-width: 600px; overflow: hidden; }
         article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
         article p { margin: 16px 0; }
@@ -54,14 +83,16 @@
         #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
+        html.translating .post-header, html.translating #post-content { visibility: hidden; }
         @media (max-width: 768px) {
             body { padding: 24px; }
-            .post-header { margin-top: 20px; } /* Change margin top to modify the padding between the title and empty space above */
             .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
         }
     </style>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
@@ -73,9 +104,29 @@
     <div class="post-header">
         <div>
             <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date">January 29, 2026</time>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
+            <script>
+                (function() {
+                    var locale = window.__postLocale;
+                    if (!locale) return;
+                    var el = document.getElementById('post-date');
+                    if (!el || !el.dataset.isoDate) return;
+                    try {
+                        el.textContent = new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(el.dataset.isoDate));
+                    } catch (e) {}
+                })();
+            </script>
         </div>
         <a href="/" class="back-button">← Back</a>
+        <script>
+            (function() {
+                var BACK = { es: 'Atrás', ja: '戻る', hi: 'वापस', de: 'Zurück', fr: 'Retour', ko: '뒤로', pt: 'Voltar', pl: 'Wstecz', zh: '返回' };
+                var locale = window.__postLocale;
+                if (!locale || !BACK[locale]) return;
+                var el = document.querySelector('.back-button');
+                if (el) el.textContent = '← ' + BACK[locale];
+            })();
+        </script>
     </div>
     
     <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
@@ -88,22 +139,97 @@
 <p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
 <p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
 <p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
-<p><img src="/blog/assets/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
+<p><img src="/blog/assets/figures/en/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
 <details>
 <summary>Show visualization code</summary>
 
-<pre><code class="language-py">import matplotlib.pyplot as plt
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 
 NUM_FLIPS = 6
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
 
-def outcome_to_sequence(outcome, length):
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Coin Flip Number&#39;,
+        &#39;ylabel&#39;: &#39;Probability space (0–1)&#39;,
+        &#39;title&#39;: &#39;Sample Space Division: 6 Coin Flips\n(Total outcomes = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;H&#39;, &#39;T&#39;: &#39;T&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamiento&#39;,
+        &#39;ylabel&#39;: &#39;Espacio de probabilidad (0–1)&#39;,
+        &#39;title&#39;: &#39;División del espacio muestral: 6 lanzamientos\n(Resultados totales = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;S&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Münzwurf-Nummer&#39;,
+        &#39;ylabel&#39;: &#39;Wahrscheinlichkeitsraum (0–1)&#39;,
+        &#39;title&#39;: &#39;Stichprobenraum-Aufteilung: 6 Münzwürfe\n(Gesamtergebnisse = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;K&#39;, &#39;T&#39;: &#39;Z&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Numéro de lancer&#39;,
+        &#39;ylabel&#39;: &#39;Espace de probabilité (0–1)&#39;,
+        &#39;title&#39;: &quot;Division de l&#39;espace des résultats : 6 lancers\n(Résultats totaux = 2^6 = 64)&quot;,
+        &#39;H&#39;: &#39;F&#39;, &#39;T&#39;: &#39;P&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número do lançamento&#39;,
+        &#39;ylabel&#39;: &#39;Espaço de probabilidade (0–1)&#39;,
+        &#39;title&#39;: &#39;Divisão do espaço amostral: 6 lançamentos\n(Resultados totais = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Numer rzutu&#39;,
+        &#39;ylabel&#39;: &#39;Przestrzeń prawdopodobieństwa (0–1)&#39;,
+        &#39;title&#39;: &#39;Podział przestrzeni próbkowania: 6 rzutów\n(Łączne wyniki = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;O&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数&#39;,
+        &#39;ylabel&#39;: &#39;確率空間 (0–1)&#39;,
+        &#39;title&#39;: &#39;標本空間の分割：6回のコイン投げ\n（総結果数 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;表&#39;, &#39;T&#39;: &#39;裏&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수&#39;,
+        &#39;ylabel&#39;: &#39;확률 공간 (0–1)&#39;,
+        &#39;title&#39;: &#39;표본 공간 분할: 동전 6번 던지기\n（총 경우의 수 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;앞&#39;, &#39;T&#39;: &#39;뒤&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल संख्या&#39;,
+        &#39;ylabel&#39;: &#39;प्रायिकता स्थान (0–1)&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान विभाजन: 6 सिक्का उछाल\n(कुल परिणाम = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;च&#39;, &#39;T&#39;: &#39;प&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数&#39;,
+        &#39;ylabel&#39;: &#39;概率空间 (0–1)&#39;,
+        &#39;title&#39;: &#39;样本空间划分：6次硬币投掷\n（总结果数 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;正&#39;, &#39;T&#39;: &#39;反&#39;,
+    },
+}
+
+
+def outcome_to_sequence(outcome, length, h_char, t_char):
     if length == 0:
         return &#39;&#39;
     bits = format(outcome, f&#39;0{length}b&#39;)
-    return &#39;&#39;.join(&#39;H&#39; if bit == &#39;1&#39; else &#39;T&#39; for bit in bits)
+    return &#39;&#39;.join(h_char if bit == &#39;1&#39; else t_char for bit in bits)
 
-def generate(theme):
+
+def render(locale, theme, labels):
     is_light = theme == &#39;light&#39;
     bg = &#39;white&#39; if is_light else &#39;black&#39;
     fg = &#39;black&#39; if is_light else &#39;white&#39;
@@ -112,6 +238,8 @@ def generate(theme):
     ax.set_facecolor(bg)
 
     colors = plt.cm.Blues(np.linspace(0.3, 0.9, NUM_FLIPS + 1))
+    h_char = labels[&#39;H&#39;]
+    t_char = labels[&#39;T&#39;]
 
     for flip in range(NUM_FLIPS + 1):
         total_outcomes = 2**flip
@@ -119,58 +247,146 @@ def generate(theme):
 
         for outcome in range(total_outcomes):
             y_position = outcome * height
-
             rect = plt.Rectangle((flip, y_position), 0.8, height,
-                                linewidth=1, edgecolor=bg,
-                                facecolor=colors[flip], alpha=0.7)
+                                  linewidth=1, edgecolor=bg,
+                                  facecolor=colors[flip], alpha=0.7)
             ax.add_patch(rect)
 
             if flip &lt;= 5:
-                label = outcome_to_sequence(outcome, flip)
-                ax.text(flip + 0.4, y_position + height/2, label,
-                       ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8)
+                label = outcome_to_sequence(outcome, flip, h_char, t_char)
+                ax.text(flip + 0.4, y_position + height / 2, label,
+                        ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8)
 
     ax.set_xlim(-0.5, NUM_FLIPS + 0.5)
     ax.set_ylim(0, 1)
-    ax.set_xlabel(&#39;Coin Flip Number&#39;, fontsize=12, color=fg)
-    ax.set_ylabel(&#39;Probability space (0–1)&#39;, fontsize=12, color=fg)
-    ax.set_title(f&#39;Sample Space Division: {NUM_FLIPS} Coin Flips\n(Total outcomes = 2^{NUM_FLIPS} = {2**NUM_FLIPS})&#39;, fontsize=14, color=fg)
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=12, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=12, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=14, color=fg)
     ax.set_xticks(range(NUM_FLIPS + 1))
     ax.grid(axis=&#39;x&#39;, alpha=0.3, color=fg)
-
     ax.tick_params(colors=fg)
     for spine in ax.spines.values():
         spine.set_color(fg)
 
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
     suffix = &#39;-light&#39; if is_light else &#39;&#39;
     plt.tight_layout()
-    plt.savefig(f&#39;coin-sample-space-n-6{suffix}.png&#39;, dpi=150, facecolor=bg)
+    plt.savefig(out_dir / f&#39;coin-sample-space-n-6{suffix}.png&#39;, dpi=150, facecolor=bg)
     plt.close(fig)
 
-generate(&#39;dark&#39;)
-generate(&#39;light&#39;)
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
 </code></pre>
 </details>
 
 <p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
 <p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
 <p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
+<p><img src="/blog/assets/figures/en/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
 <details>
 <summary>Show visualization code</summary>
 
-<pre><code class="language-py">import matplotlib.pyplot as plt
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 
 NUM_FLIPS = 6
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
 
-def outcome_to_sequence(outcome, length):
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Coin Flip Number&#39;,
+        &#39;ylabel&#39;: &#39;Probability space (0–1)&#39;,
+        &#39;title&#39;: &#39;Sample Space Division: 6 Coin Flips\nShowing Shaded Staircases of Consecutive H/T Patterns.&#39;,
+        &#39;H&#39;: &#39;H&#39;, &#39;T&#39;: &#39;T&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamiento&#39;,
+        &#39;ylabel&#39;: &#39;Espacio de probabilidad (0–1)&#39;,
+        &#39;title&#39;: &#39;División del espacio muestral: 6 lanzamientos\nEscaleras sombreadas de patrones consecutivos C/S.&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;S&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Münzwurf-Nummer&#39;,
+        &#39;ylabel&#39;: &#39;Wahrscheinlichkeitsraum (0–1)&#39;,
+        &#39;title&#39;: &#39;Stichprobenraum-Aufteilung: 6 Münzwürfe\nSchattierte Treppen aufeinanderfolgender K/Z-Muster.&#39;,
+        &#39;H&#39;: &#39;K&#39;, &#39;T&#39;: &#39;Z&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Numéro de lancer&#39;,
+        &#39;ylabel&#39;: &#39;Espace de probabilité (0–1)&#39;,
+        &#39;title&#39;: &quot;Division de l&#39;espace des résultats : 6 lancers\nEscaliers ombrés des motifs consécutifs F/P.&quot;,
+        &#39;H&#39;: &#39;F&#39;, &#39;T&#39;: &#39;P&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número do lançamento&#39;,
+        &#39;ylabel&#39;: &#39;Espaço de probabilidade (0–1)&#39;,
+        &#39;title&#39;: &#39;Divisão do espaço amostral: 6 lançamentos\nDegraus sombreados de padrões consecutivos C/R.&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Numer rzutu&#39;,
+        &#39;ylabel&#39;: &#39;Przestrzeń prawdopodobieństwa (0–1)&#39;,
+        &#39;title&#39;: &#39;Podział przestrzeni próbkowania: 6 rzutów\nZacieniowane schody kolejnych wzorców O/R.&#39;,
+        &#39;H&#39;: &#39;O&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数&#39;,
+        &#39;ylabel&#39;: &#39;確率空間 (0–1)&#39;,
+        &#39;title&#39;: &#39;標本空間の分割：6回のコイン投げ\n連続する表/裏パターンの階段（網掛け）&#39;,
+        &#39;H&#39;: &#39;表&#39;, &#39;T&#39;: &#39;裏&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수&#39;,
+        &#39;ylabel&#39;: &#39;확률 공간 (0–1)&#39;,
+        &#39;title&#39;: &#39;표본 공간 분할: 동전 6번 던지기\n연속 앞/뒤 패턴의 음영 계단.&#39;,
+        &#39;H&#39;: &#39;앞&#39;, &#39;T&#39;: &#39;뒤&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल संख्या&#39;,
+        &#39;ylabel&#39;: &#39;प्रायिकता स्थान (0–1)&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान विभाजन: 6 सिक्का उछाल\nक्रमागत च/प पैटर्न की छायांकित सीढ़ियाँ।&#39;,
+        &#39;H&#39;: &#39;च&#39;, &#39;T&#39;: &#39;प&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数&#39;,
+        &#39;ylabel&#39;: &#39;概率空间 (0–1)&#39;,
+        &#39;title&#39;: &#39;样本空间划分：6次硬币投掷\n连续正/反面模式的阴影阶梯。&#39;,
+        &#39;H&#39;: &#39;正&#39;, &#39;T&#39;: &#39;反&#39;,
+    },
+}
+
+
+def outcome_to_sequence(outcome, length, h_char, t_char):
     if length == 0:
         return &#39;&#39;
     bits = format(outcome, f&#39;0{length}b&#39;)
-    return &#39;&#39;.join(&#39;H&#39; if bit == &#39;1&#39; else &#39;T&#39; for bit in bits)
+    return &#39;&#39;.join(h_char if bit == &#39;1&#39; else t_char for bit in bits)
 
-def generate(theme):
+
+def render(locale, theme, labels):
     is_light = theme == &#39;light&#39;
     bg = &#39;white&#39; if is_light else &#39;black&#39;
     fg = &#39;black&#39; if is_light else &#39;white&#39;
@@ -179,6 +395,8 @@ def generate(theme):
     ax.set_facecolor(bg)
 
     colors = plt.cm.Blues(np.linspace(0.3, 0.9, NUM_FLIPS + 1))
+    h_char = labels[&#39;H&#39;]
+    t_char = labels[&#39;T&#39;]
 
     for flip in range(NUM_FLIPS + 1):
         total_outcomes = 2**flip
@@ -188,61 +406,154 @@ def generate(theme):
             y_position = outcome * height
             is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
 
-            if is_staircase:
-                facecolor = colors[-1]
-                alpha = 1.0
-                edgecolor = fg
-            else:
-                facecolor = colors[flip]
-                alpha = 0.15
-                edgecolor = bg
+            facecolor = colors[-1] if is_staircase else colors[flip]
+            alpha = 1.0 if is_staircase else 0.15
+            edgecolor = fg if is_staircase else bg
 
             rect = plt.Rectangle((flip, y_position), 0.8, height,
-                                linewidth=1, edgecolor=edgecolor,
-                                facecolor=facecolor, alpha=alpha)
+                                  linewidth=1, edgecolor=edgecolor,
+                                  facecolor=facecolor, alpha=alpha)
             ax.add_patch(rect)
 
             if flip &lt;= 5:
-                label = outcome_to_sequence(outcome, flip)
-                ax.text(flip + 0.4, y_position + height/2, label,
-                       ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8, color=fg)
+                label = outcome_to_sequence(outcome, flip, h_char, t_char)
+                ax.text(flip + 0.4, y_position + height / 2, label,
+                        ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8, color=fg)
 
     ax.set_xlim(-0.5, NUM_FLIPS + 0.5)
     ax.set_ylim(0, 1)
-    ax.set_xlabel(&#39;Coin Flip Number&#39;, fontsize=12, color=fg)
-    ax.set_ylabel(&#39;Probability space (0–1)&#39;, fontsize=12, color=fg)
-    ax.set_title(f&#39;Sample Space Division: {NUM_FLIPS} Coin Flips\nShowing Shaded Staircases of Consecutive H/T Patterns.&#39;, fontsize=14, color=fg)
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=12, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=12, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=14, color=fg)
     ax.set_xticks(range(NUM_FLIPS + 1))
     ax.grid(axis=&#39;x&#39;, alpha=0.3, color=fg)
-
     ax.tick_params(colors=fg)
     for spine in ax.spines.values():
         spine.set_color(fg)
 
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
     suffix = &#39;-light&#39; if is_light else &#39;&#39;
     plt.tight_layout()
-    plt.savefig(f&#39;coin-sample-space-shaded-staircase{suffix}.png&#39;, dpi=150, facecolor=bg)
+    plt.savefig(out_dir / f&#39;coin-sample-space-shaded-staircase{suffix}.png&#39;, dpi=150, facecolor=bg)
     plt.close(fig)
 
-generate(&#39;dark&#39;)
-generate(&#39;light&#39;)
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
 </code></pre>
 </details>
 
 <p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
 <p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
 <p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
+<p><img src="/blog/assets/figures/en/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
 <details>
 <summary>Show visualization code</summary>
 
-<pre><code class="language-py">import matplotlib.pyplot as plt
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 from scipy.special import comb
 
 NUM_FLIPS = 100
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
 
-def generate(theme):
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Number of Coin Flips (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proportion of Heads&#39;,
+        &#39;title&#39;: &#39;Proportion of Heads in the Sample Space\nA Normal Distribution Emerges Naturally&#39;,
+        &#39;legend&#39;: &#39;Mean (50% heads)&#39;,
+        &#39;colorbar&#39;: &#39;Relative Probability Density&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamientos (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proporción de caras&#39;,
+        &#39;title&#39;: &#39;Proporción de caras en el espacio muestral\nUna distribución normal emerge naturalmente&#39;,
+        &#39;legend&#39;: &#39;Media (50% caras)&#39;,
+        &#39;colorbar&#39;: &#39;Densidad de probabilidad relativa&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Anzahl der Münzwürfe (n)&#39;,
+        &#39;ylabel&#39;: &#39;Anteil der Köpfe&#39;,
+        &#39;title&#39;: &#39;Anteil der Köpfe im Stichprobenraum\nEine Normalverteilung entsteht natürlich&#39;,
+        &#39;legend&#39;: &#39;Mittelwert (50% Köpfe)&#39;,
+        &#39;colorbar&#39;: &#39;Relative Wahrscheinlichkeitsdichte&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Nombre de lancers (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proportion de faces&#39;,
+        &#39;title&#39;: &quot;Proportion de faces dans l&#39;espace des résultats\nUne distribution normale émerge naturellement&quot;,
+        &#39;legend&#39;: &#39;Moyenne (50% faces)&#39;,
+        &#39;colorbar&#39;: &#39;Densité de probabilité relative&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lançamentos (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proporção de caras&#39;,
+        &#39;title&#39;: &#39;Proporção de caras no espaço amostral\nUma distribuição normal emerge naturalmente&#39;,
+        &#39;legend&#39;: &#39;Média (50% caras)&#39;,
+        &#39;colorbar&#39;: &#39;Densidade de probabilidade relativa&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Liczba rzutów (n)&#39;,
+        &#39;ylabel&#39;: &#39;Odsetek orłów&#39;,
+        &#39;title&#39;: &#39;Odsetek orłów w przestrzeni próbkowania\nNaturalnie pojawia się rozkład normalny&#39;,
+        &#39;legend&#39;: &#39;Średnia (50% orłów)&#39;,
+        &#39;colorbar&#39;: &#39;Względna gęstość prawdopodobieństwa&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数 (n)&#39;,
+        &#39;ylabel&#39;: &#39;表の割合&#39;,
+        &#39;title&#39;: &#39;標本空間における表の割合\n正規分布が自然に現れる&#39;,
+        &#39;legend&#39;: &#39;平均（表 50%）&#39;,
+        &#39;colorbar&#39;: &#39;相対的確率密度&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수 (n)&#39;,
+        &#39;ylabel&#39;: &#39;앞면의 비율&#39;,
+        &#39;title&#39;: &#39;표본 공간에서 앞면의 비율\n정규분포가 자연스럽게 나타남&#39;,
+        &#39;legend&#39;: &#39;평균 (앞면 50%)&#39;,
+        &#39;colorbar&#39;: &#39;상대적 확률 밀도&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल की संख्या (n)&#39;,
+        &#39;ylabel&#39;: &#39;चित का अनुपात&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान में चित का अनुपात\nएक सामान्य वितरण स्वाभाविक रूप से उभरता है&#39;,
+        &#39;legend&#39;: &#39;माध्य (50% चित)&#39;,
+        &#39;colorbar&#39;: &#39;सापेक्ष प्रायिकता घनत्व&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数 (n)&#39;,
+        &#39;ylabel&#39;: &#39;正面比例&#39;,
+        &#39;title&#39;: &#39;样本空间中正面的比例\n正态分布自然涌现&#39;,
+        &#39;legend&#39;: &#39;均值（正面 50%）&#39;,
+        &#39;colorbar&#39;: &#39;相对概率密度&#39;,
+    },
+}
+
+
+def render(locale, theme, labels):
     is_light = theme == &#39;light&#39;
     bg = &#39;white&#39; if is_light else &#39;black&#39;
     fg = &#39;black&#39; if is_light else &#39;white&#39;
@@ -260,83 +571,61 @@ def generate(theme):
             color = plt.cm.RdYlBu_r(relative_prob)
             y_proportion = num_heads / flip
 
-            ax.scatter(
-                flip,
-                y_proportion,
-                c=[color],
-                s=marker_size,
-                marker=&#39;s&#39;,
-                edgecolors=&#39;none&#39;,
-                alpha=0.95,
-                rasterized=True
-            )
+            ax.scatter(flip, y_proportion, c=[color], s=marker_size,
+                       marker=&#39;s&#39;, edgecolors=&#39;none&#39;, alpha=0.95, rasterized=True)
 
-    ax.axhline(
-        y=0.5,
-        color=fg,
-        linestyle=&#39;--&#39;,
-        linewidth=3,
-        alpha=0.9,
-        label=&#39;Mean (50% heads)&#39;,
-        zorder=10
-    )
+    ax.axhline(y=0.5, color=fg, linestyle=&#39;--&#39;, linewidth=3, alpha=0.9,
+               label=labels[&#39;legend&#39;], zorder=10)
 
-    flip_points = [10, 25, 50, 75, 100]
-    for flip in flip_points:
+    for flip in [10, 25, 50, 75, 100]:
         std_dev = np.sqrt(flip * 0.5 * 0.5)
         std_proportion = std_dev / flip
-
-        ax.plot(
-            [flip, flip],
-            [0.5 - std_proportion, 0.5 + std_proportion],
-            &#39;yellow&#39;,
-            linewidth=5,
-            alpha=0.8,
-            zorder=9
-        )
-
-        ax.plot(
-            [flip, flip],
-            [0.5 - 2 * std_proportion, 0.5 + 2 * std_proportion],
-            &#39;orange&#39;,
-            linewidth=3,
-            alpha=0.6,
-            zorder=8
-        )
+        ax.plot([flip, flip], [0.5 - std_proportion, 0.5 + std_proportion],
+                &#39;yellow&#39;, linewidth=5, alpha=0.8, zorder=9)
+        ax.plot([flip, flip], [0.5 - 2 * std_proportion, 0.5 + 2 * std_proportion],
+                &#39;orange&#39;, linewidth=3, alpha=0.6, zorder=8)
 
     ax.set_xlim(0, NUM_FLIPS + 2)
     ax.set_ylim(0, 1)
-    ax.set_xlabel(&#39;Number of Coin Flips (n)&#39;, fontsize=16, fontweight=&#39;bold&#39;, color=fg)
-    ax.set_ylabel(&#39;Proportion of Heads&#39;, fontsize=16, fontweight=&#39;bold&#39;, color=fg)
-    ax.set_title(
-        &#39;Proportion of Heads in the Sample Space\n&#39;
-        &#39;A Normal Distribution Emerges Naturally&#39;,
-        fontsize=17,
-        fontweight=&#39;bold&#39;,
-        pad=20,
-        color=fg
-    )
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=16, fontweight=&#39;bold&#39;, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=16, fontweight=&#39;bold&#39;, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=17, fontweight=&#39;bold&#39;, pad=20, color=fg)
 
     sm = plt.cm.ScalarMappable(cmap=plt.cm.RdYlBu_r, norm=plt.Normalize(vmin=0, vmax=1))
     sm.set_array([])
     cbar = plt.colorbar(sm, ax=ax, pad=0.01, fraction=0.046)
-    cbar.set_label(&#39;Relative Probability Density&#39;, fontsize=14, fontweight=&#39;bold&#39;, color=fg)
+    cbar.set_label(labels[&#39;colorbar&#39;], fontsize=14, fontweight=&#39;bold&#39;, color=fg)
     cbar.ax.yaxis.set_tick_params(color=fg)
     plt.setp(plt.getp(cbar.ax.axes, &#39;yticklabels&#39;), color=fg)
 
     ax.legend(loc=&#39;upper right&#39;, fontsize=13, framealpha=0.9)
-
     ax.tick_params(colors=fg)
     for spine in ax.spines.values():
         spine.set_color(fg)
 
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
     suffix = &#39;-light&#39; if is_light else &#39;&#39;
     plt.tight_layout()
-    plt.savefig(f&#39;coin-sample-space-proportion-heads{suffix}.png&#39;, dpi=150, bbox_inches=&#39;tight&#39;, facecolor=bg)
+    plt.savefig(out_dir / f&#39;coin-sample-space-proportion-heads{suffix}.png&#39;,
+                dpi=150, bbox_inches=&#39;tight&#39;, facecolor=bg)
     plt.close(fig)
 
-generate(&#39;dark&#39;)
-generate(&#39;light&#39;)
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
 </code></pre>
 </details>
 
@@ -344,11 +633,12 @@ generate(&#39;light&#39;)
 <p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
 <p>What&#39;s interesting is that at <strong>N</strong> &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. </p>
 <p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
-<p><img src="/blog/assets/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p><img src="/blog/assets/figures/en/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
 <details>
 <summary>Show visualization code</summary>
 
-<pre><code class="language-py">from pathlib import Path
+<pre><code class="language-py">import shutil
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -358,6 +648,9 @@ from scipy.special import comb
 NUM_FLIPS = 100
 STAIRCASE_FLIPS = 6
 ALPHA_SCALE = 0.5
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
+
+ALL_LOCALES = [&#39;en&#39;, &#39;es&#39;, &#39;de&#39;, &#39;fr&#39;, &#39;pt&#39;, &#39;pl&#39;, &#39;ja&#39;, &#39;ko&#39;, &#39;hi&#39;, &#39;zh&#39;]
 
 
 def generate_distribution_base(output_path, theme):
@@ -377,22 +670,13 @@ def generate_distribution_base(output_path, theme):
             color = plt.cm.RdYlBu_r(relative_prob)
             y_proportion = num_heads / flip
 
-            ax.scatter(
-                flip,
-                y_proportion,
-                c=[color],
-                s=marker_size,
-                marker=&#39;s&#39;,
-                edgecolors=&#39;none&#39;,
-                alpha=0.95,
-                rasterized=True
-            )
+            ax.scatter(flip, y_proportion, c=[color], s=marker_size,
+                       marker=&#39;s&#39;, edgecolors=&#39;none&#39;, alpha=0.95, rasterized=True)
 
     ax.set_xlim(0, NUM_FLIPS + 2)
     ax.set_ylim(0, 1)
     ax.set_xticks([])
     ax.set_yticks([])
-
     for spine in ax.spines.values():
         spine.set_visible(False)
 
@@ -401,7 +685,7 @@ def generate_distribution_base(output_path, theme):
     plt.close(fig)
 
 
-def generate_staircase_overlay(output_path, theme):
+def generate_staircase_base(output_path, theme):
     is_light = theme == &#39;light&#39;
     bg = &#39;white&#39; if is_light else &#39;black&#39;
     fg = &#39;black&#39; if is_light else &#39;white&#39;
@@ -419,31 +703,19 @@ def generate_staircase_overlay(output_path, theme):
             y_position = outcome * height
             is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
 
-            if is_staircase:
-                facecolor = colors[-1]
-                alpha = 1.0
-                edgecolor = fg
-            else:
-                facecolor = colors[flip]
-                alpha = 0.15
-                edgecolor = bg
+            facecolor = colors[-1] if is_staircase else colors[flip]
+            alpha = 1.0 if is_staircase else 0.15
+            edgecolor = fg if is_staircase else bg
 
-            rect = plt.Rectangle(
-                (flip, y_position),
-                0.8,
-                height,
-                linewidth=1,
-                edgecolor=edgecolor,
-                facecolor=facecolor,
-                alpha=alpha
-            )
+            rect = plt.Rectangle((flip, y_position), 0.8, height,
+                                  linewidth=1, edgecolor=edgecolor,
+                                  facecolor=facecolor, alpha=alpha)
             ax.add_patch(rect)
 
     ax.set_xlim(-0.5, STAIRCASE_FLIPS + 0.5)
     ax.set_ylim(0, 1)
     ax.set_xticks([])
     ax.set_yticks([])
-
     for spine in ax.spines.values():
         spine.set_visible(False)
 
@@ -474,21 +746,30 @@ def overlay_images(base_path, overlay_path, output_path):
     combined.save(output_path)
 
 
-def generate_for_theme(assets_dir, theme):
-    suffix = &#39;-light&#39; if theme == &#39;light&#39; else &#39;&#39;
-    base_path = assets_dir / f&#39;coin-sample-space-proportion-heads-clean{suffix}.png&#39;
-    staircase_path = assets_dir / f&#39;coin-sample-space-shaded-staircase-clean{suffix}.png&#39;
-    output_path = assets_dir / f&#39;coin-sample-space-overlay{suffix}.png&#39;
-
-    generate_distribution_base(base_path, theme)
-    generate_staircase_overlay(staircase_path, theme)
-    overlay_images(base_path, staircase_path, output_path)
-
-
 def main():
-    assets_dir = Path(__file__).resolve().parent.parent
-    generate_for_theme(assets_dir, &#39;dark&#39;)
-    generate_for_theme(assets_dir, &#39;light&#39;)
+    en_dir = ASSETS_DIR / &#39;en&#39;
+    en_dir.mkdir(exist_ok=True)
+
+    for theme in [&#39;dark&#39;, &#39;light&#39;]:
+        suffix = &#39;-light&#39; if theme == &#39;light&#39; else &#39;&#39;
+        print(f&#39;  generating overlay intermediates ({theme})&#39;)
+
+        clean_base = en_dir / f&#39;coin-sample-space-proportion-heads-clean{suffix}.png&#39;
+        clean_staircase = en_dir / f&#39;coin-sample-space-shaded-staircase-clean{suffix}.png&#39;
+        overlay_out = en_dir / f&#39;coin-sample-space-overlay{suffix}.png&#39;
+
+        generate_distribution_base(clean_base, theme)
+        generate_staircase_base(clean_staircase, theme)
+        overlay_images(clean_base, clean_staircase, overlay_out)
+
+        for locale in ALL_LOCALES:
+            if locale == &#39;en&#39;:
+                continue
+            locale_dir = ASSETS_DIR / locale
+            locale_dir.mkdir(exist_ok=True)
+            dest = locale_dir / f&#39;coin-sample-space-overlay{suffix}.png&#39;
+            shutil.copy(overlay_out, dest)
+            print(f&#39;  copied overlay to {locale}/{theme}&#39;)
 
 
 main()
@@ -519,7 +800,18 @@ main()
 </ol>
 </section>
 </article>
-    
+    <script>
+        (function() {
+            var cached = window.__cachedTranslation;
+            if (!cached) return;
+            var titleEl = document.getElementById('post-title');
+            var contentEl = document.getElementById('post-content');
+            if (titleEl && cached.title) titleEl.textContent = cached.title;
+            if (contentEl && cached.html) contentEl.innerHTML = cached.html;
+            document.documentElement.classList.remove('translating');
+        })();
+    </script>
+
     <script>
         function isSafari() {
             return typeof safari !== 'undefined';
@@ -536,13 +828,24 @@ main()
         }
 
         function finishProgress() {
-            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
-                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
-                NProgress.set(0.7);
-                setTimeout(function() {
-                    NProgress.done();
-                }, 100);
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+
+            var finish = function() {
+                setTimeout(function() { NProgress.done(); }, 100);
+            };
+
+            if (!document.documentElement.classList.contains('translating')) {
+                finish();
+                return;
             }
+            var observer = new MutationObserver(function() {
+                if (document.documentElement.classList.contains('translating')) return;
+                observer.disconnect();
+                finish();
+            });
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
         }
 
         if (document.readyState === 'loading') {
@@ -663,6 +966,47 @@ main()
                 fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
                     if (res.ok) img.setAttribute('src', lightSrc);
                 });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            var titleEl = document.getElementById('post-title');
+            var contentEl = document.getElementById('post-content');
+            if (!titleEl || !contentEl) return;
+
+            var savedLocale = window.__postLocale;
+            if (!savedLocale) return;
+
+            function swapLightImages() {
+                if (!document.documentElement.classList.contains('light-mode')) return;
+                contentEl.querySelectorAll('img').forEach(function(img) {
+                    var src = img.getAttribute('src');
+                    var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                    if (!match) return;
+                    var lightSrc = match[1] + '-light' + match[2];
+                    fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                        if (res.ok) img.setAttribute('src', lightSrc);
+                    });
+                });
+            }
+
+            if (window.__cachedTranslation) swapLightImages();
+
+            var promise = window.__translationPromise;
+            if (!promise) {
+                document.documentElement.classList.remove('translating');
+                return;
+            }
+            promise.then(function(data) {
+                if (data) {
+                    titleEl.textContent = data.title;
+                    contentEl.innerHTML = data.html;
+                    document.title = data.title;
+                    try { localStorage.setItem('i18n:' + window.__postId + ':' + savedLocale, JSON.stringify(data)); } catch (e) {}
+                }
+                document.documentElement.classList.remove('translating');
+                if (data) swapLightImages();
             });
         })();
     </script>

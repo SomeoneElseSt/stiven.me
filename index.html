@@ -7,14 +7,20 @@
     <title>Stiven</title>
     <script>
         (function () {
-            var allowed = ['en', 'es', 'ja', 'hi', 'de', 'fr', 'ko', 'pt'];
+            var allowed = ['en', 'es', 'ja', 'hi', 'de', 'fr', 'ko', 'pt', 'pl', 'zh'];
             var v = null;
+            try { v = localStorage.getItem('locale'); } catch (e) {}
+            if (!v || allowed.indexOf(v) === -1) return;
+            document.documentElement.lang = v;
+            if (v === 'en') return;
+            document.documentElement.classList.add('translating');
             try {
-                v = localStorage.getItem('locale');
+                var raw = localStorage.getItem('i18n_messages:' + v);
+                if (raw) {
+                    window.__cachedMessages = JSON.parse(raw);
+                    if (window.__cachedMessages.pageTitle) document.title = window.__cachedMessages.pageTitle;
+                }
             } catch (e) {}
-            if (v && allowed.indexOf(v) !== -1) {
-                document.documentElement.lang = v;
-            }
         })();
     </script>
     <script src="/dist/theme.js"></script>
@@ -36,6 +42,7 @@
         #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
+        html.translating [data-i18n], html.translating .blog-post-title, html.translating .blog-post-date { visibility: hidden; }
         .top-row { display: flex; justify-content: space-between; align-items: center; max-width: 600px; margin-top: 30px; margin-bottom: 30px; }
         .top-row h1 { margin: 0; font-size: 24px; font-weight: bold; }
         .top-controls {
@@ -91,8 +98,9 @@
         .locale-trigger:focus-visible { outline: 1px solid var(--border); outline-offset: 2px; }
         .locale-menu {
             position: absolute;
-            top: var(--top-control-hit-height);
+            top: 44px;
             right: 0;
+            z-index: 100;
             margin: 0;
             padding: 0;
             min-width: 100%;
@@ -158,6 +166,8 @@
     </style>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
@@ -180,7 +190,7 @@
     <script>
         (function () {
             /* Keep keys and short labels in sync with src/i18n.ts (LOCALE_DEFINITIONS). */
-            var SHORT = { en: 'En', es: 'Es', ja: '日本', hi: 'हिं', de: 'De', fr: 'Fr', ko: '한', pt: 'Pt' };
+            var SHORT = { en: 'En', es: 'Es', ja: '日本', hi: 'हिं', de: 'De', fr: 'Fr', ko: '한', pt: 'Pt', pl: 'Pl', zh: '中' };
             var id = 'en';
             try {
                 var raw = localStorage.getItem('locale');
@@ -217,28 +227,28 @@
     <h1 class="blog-header" data-i18n="blogHeader">Blog</h1>
     <div id="blog-list">
     <div class="blog-post-item">
-      <a href="/blog/geometry/" class="blog-post-link" data-title-length="8">
+      <a href="/blog/geometry/" class="blog-post-link" data-title-length="8" data-post-id="geometry" data-iso-date="2026-01-29" data-title-es="Geometría" data-title-ja="幾何学" data-title-hi="ज्यामिति" data-title-de="Geometrie" data-title-fr="Géométrie" data-title-ko="기하학" data-title-pt="Geometria" data-title-pl="Geometria" data-title-zh="几何">
         <span class="blog-post-title">Geometry</span>
         <span class="blog-post-date">January 29, 2026</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/intelligence/" class="blog-post-link" data-title-length="12">
+      <a href="/blog/intelligence/" class="blog-post-link" data-title-length="12" data-post-id="intelligence" data-iso-date="2025-11-14" data-title-es="Inteligencia" data-title-ja="知能" data-title-hi="बुद्धिमत्ता" data-title-de="Intelligenz" data-title-fr="Intelligence" data-title-ko="지능" data-title-pt="Inteligência" data-title-pl="Inteligencja" data-title-zh="智能">
         <span class="blog-post-title">Intelligence</span>
         <span class="blog-post-date">November 14, 2025</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/cancer/" class="blog-post-link" data-title-length="6">
+      <a href="/blog/cancer/" class="blog-post-link" data-title-length="6" data-post-id="cancer" data-iso-date="2025-11-03" data-title-es="Cáncer" data-title-ja="がん" data-title-hi="कैंसर" data-title-de="Krebs" data-title-fr="Cancer" data-title-ko="암" data-title-pt="Câncer" data-title-pl="Rak" data-title-zh="癌症">
         <span class="blog-post-title">Cancer</span>
         <span class="blog-post-date">November 3, 2025</span>
       </a>
     </div>
   
     <div class="blog-post-item">
-      <a href="/blog/cities/" class="blog-post-link" data-title-length="6">
+      <a href="/blog/cities/" class="blog-post-link" data-title-length="6" data-post-id="cities" data-iso-date="2025-10-20" data-title-es="Ciudades" data-title-ja="都市" data-title-hi="शहर" data-title-de="Städte" data-title-fr="Villes" data-title-ko="도시들" data-title-pt="Cidades" data-title-pl="Miasta" data-title-zh="城市">
         <span class="blog-post-title">Cities</span>
         <span class="blog-post-date">October 20, 2025</span>
       </a>
@@ -305,6 +315,71 @@
             btn.setAttribute('aria-label', themeAriaFromBridge(_light));
             btn.addEventListener('click', function() {
                 applyTheme(!document.body.classList.contains('light-mode'));
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            var msgs = window.__cachedMessages;
+            if (!msgs) return;
+            var HTML_KEYS = { bio1: 1, bio2: 1, bio3: 1, bio4: 1 };
+            Object.keys(msgs).forEach(function(key) {
+                if (key === 'pageTitle') return;
+                document.querySelectorAll('[data-i18n="' + key + '"]').forEach(function(node) {
+                    if (HTML_KEYS[key]) node.innerHTML = msgs[key];
+                    else node.textContent = msgs[key];
+                });
+            });
+            window.__messagesApplied = true;
+        })();
+    </script>
+    <script>
+        (function() {
+            var enTitles = new Map();
+
+            function formatDate(isoDate, locale) {
+                try {
+                    return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(isoDate));
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function applyBlogList(locale) {
+                var links = document.querySelectorAll('.blog-post-link[data-post-id]');
+                links.forEach(function(link) {
+                    var titleEl = link.querySelector('.blog-post-title');
+                    var dateEl = link.querySelector('.blog-post-date');
+                    var isoDate = link.dataset.isoDate;
+                    var postId = link.dataset.postId;
+
+                    if (titleEl) {
+                        var title = locale === 'en'
+                            ? enTitles.get(postId)
+                            : link.getAttribute('data-title-' + locale);
+                        if (title) titleEl.textContent = title;
+                    }
+                    if (dateEl && isoDate) {
+                        var dateLocale = locale === 'en' ? 'en-US' : locale;
+                        var formatted = formatDate(isoDate, dateLocale);
+                        if (formatted) dateEl.textContent = formatted;
+                    }
+                });
+            }
+
+            var initialLocale = 'en';
+            try { initialLocale = localStorage.getItem('locale') || 'en'; } catch (e) {}
+            document.querySelectorAll('.blog-post-link[data-post-id]').forEach(function(link) {
+                var titleEl = link.querySelector('.blog-post-title');
+                if (titleEl) enTitles.set(link.dataset.postId, titleEl.textContent);
+            });
+            if (initialLocale !== 'en') {
+                applyBlogList(initialLocale);
+                if (window.__messagesApplied) document.documentElement.classList.remove('translating');
+            }
+
+            document.addEventListener('localechange', function(e) {
+                applyBlogList(e.detail.locale);
             });
         })();
     </script>

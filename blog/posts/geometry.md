@@ -21,7 +21,7 @@ What you might not have learned there is that geometry is a powerful way of desc
 
 Applying this to the coin toss question, we can visualize all the possible heads and tails sequences ('HHHTTT', 'HTHTHT', 'HHHHHH', etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. 
 
-![Sample Space for 6 Consecutive [Independent] Coin Tosses](/blog/assets/coin-sample-space-n-6.png "Coin Sample Space")
+![Sample Space for 6 Consecutive [Independent] Coin Tosses](/blog/assets/figures/en/coin-sample-space-n-6.png "Coin Sample Space")
 <details>
 <summary>Show visualization code</summary>
 
@@ -34,7 +34,7 @@ Further to the right, each block doubles in its number of outcomes, which makes 
 
 The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they're the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.
 
-![Consecutive tails or heads shaded staircase.](/blog/assets/coin-sample-space-shaded-staircase.png "Consecutive tails or heads shaded staircase.")
+![Consecutive tails or heads shaded staircase.](/blog/assets/figures/en/coin-sample-space-shaded-staircase.png "Consecutive tails or heads shaded staircase.")
 
 <details>
 <summary>Show visualization code</summary>
@@ -48,7 +48,7 @@ So why is this important? As you may recall from the law of large numbers, over 
 
 But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.[^1] 
 
-![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
+![Proportion of Heads in the Coin Sample Space Over N=0 to N=100](/blog/assets/figures/en/coin-sample-space-proportion-heads.png "Proportion of Heads in the Coin Sample Space Over N=0 to N=100")
 
 <details>
 <summary>Show visualization code</summary>
@@ -64,7 +64,7 @@ What's interesting is that at **N** < 20 the distribution of outcomes is mostly 
 We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: 
 
 
-![Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.](/blog/assets/coin-sample-space-overlay.png "Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.")
+![Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.](/blog/assets/figures/en/coin-sample-space-overlay.png "Overlay of the two previous plots with the sample space mirrored on top of proportion sample space.")
 
 <details>
 <summary>Show visualization code</summary>
