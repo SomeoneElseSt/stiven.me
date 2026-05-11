@@ -24,7 +24,7 @@ export interface LocaleDefinition {
 
 const en: LocaleDefinition = {
     id: 'en',
-    shortLabel: 'EN',
+    shortLabel: 'En',
     nativeName: 'English',
     messages: {
         pageTitle: 'Stiven',
@@ -43,7 +43,7 @@ const en: LocaleDefinition = {
 
 const es: LocaleDefinition = {
     id: 'es',
-    shortLabel: 'ES',
+    shortLabel: 'Es',
     nativeName: 'Español',
     messages: {
         pageTitle: 'Stiven',
@@ -62,7 +62,7 @@ const es: LocaleDefinition = {
 
 const ja: LocaleDefinition = {
     id: 'ja',
-    shortLabel: 'JA',
+    shortLabel: 'Ja',
     nativeName: '日本語',
     messages: {
         pageTitle: 'スティーベン',
@@ -81,7 +81,7 @@ const ja: LocaleDefinition = {
 
 const hi: LocaleDefinition = {
     id: 'hi',
-    shortLabel: 'HI',
+    shortLabel: 'Hi',
     nativeName: 'हिन्दी',
     messages: {
         pageTitle: 'स्टिवेन',
@@ -100,7 +100,7 @@ const hi: LocaleDefinition = {
 
 const de: LocaleDefinition = {
     id: 'de',
-    shortLabel: 'DE',
+    shortLabel: 'De',
     nativeName: 'Deutsch',
     messages: {
         pageTitle: 'Stiven',
@@ -119,7 +119,7 @@ const de: LocaleDefinition = {
 
 const fr: LocaleDefinition = {
     id: 'fr',
-    shortLabel: 'FR',
+    shortLabel: 'Fr',
     nativeName: 'Français',
     messages: {
         pageTitle: 'Stiven',
@@ -138,7 +138,7 @@ const fr: LocaleDefinition = {
 
 const ko: LocaleDefinition = {
     id: 'ko',
-    shortLabel: 'KR',
+    shortLabel: 'Kr',
     nativeName: '한국어',
     messages: {
         pageTitle: '스티븐',
@@ -157,7 +157,7 @@ const ko: LocaleDefinition = {
 
 const pt: LocaleDefinition = {
     id: 'pt',
-    shortLabel: 'PR',
+    shortLabel: 'Pt',
     nativeName: 'Português',
     messages: {
         pageTitle: 'Stiven',
