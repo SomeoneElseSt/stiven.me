@@ -195,7 +195,7 @@ async function generatePostPages(posts) {
 async function runCursorAgentTranslate(prompt, post, locale) {
   // For agents: gemini-3-flash already exists, do not modify
   const cmd = `cursor-agent -p ${JSON.stringify(prompt)} --model gemini-3-flash`;
-  const opts = { maxBuffer: 10 * 1024 * 1024 };
+  const opts = { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 };
   try {
     const { stdout } = await execAsync(cmd, opts);
     return stdout;
@@ -229,14 +229,15 @@ TITLE: <translated title here>
 Rules:
 - Preserve all markdown formatting exactly (headings, bold, italic, lists)
 - Do NOT translate code blocks, URLs, LaTeX math, or HTML tags
-- Do NOT add any commentary before or after the output
+- Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
+- Your response must end with the last line of the translated markdown and nothing else
 
 Original title: ${post.title}
 ---
 ${mdContent}`;
 
   console.log(`  [translate] ${post.id} → ${locale.id}`);
-  const output = runCursorAgentTranslate(prompt, post, locale);
+  const output = await runCursorAgentTranslate(prompt, post, locale);
   if (output === null) return;
 
   const separatorIdx = output.indexOf('\n---\n');
