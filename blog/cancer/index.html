@@ -158,17 +158,6 @@
 </ol>
 </section>
 </article>
-    <script>
-        (function() {
-            var cached = window.__cachedTranslation;
-            if (!cached) return;
-            var titleEl = document.getElementById('post-title');
-            var contentEl = document.getElementById('post-content');
-            if (titleEl && cached.title) titleEl.textContent = cached.title;
-            if (contentEl && cached.html) contentEl.innerHTML = cached.html;
-            document.documentElement.classList.remove('translating');
-        })();
-    </script>
 
     <script>
         function isSafari() {
@@ -333,8 +322,16 @@
             var contentEl = document.getElementById('post-content');
             if (!titleEl || !contentEl) return;
 
-            var savedLocale = window.__postLocale;
-            if (!savedLocale) return;
+            if (!window.__postLocale) return;
+
+            function applyTranslation(data) {
+                if (!data) return;
+                if (data.title) {
+                    titleEl.textContent = data.title;
+                    document.title = data.title;
+                }
+                if (data.html) contentEl.innerHTML = data.html;
+            }
 
             function swapLightImages() {
                 if (!document.documentElement.classList.contains('light-mode')) return;
@@ -349,7 +346,11 @@
                 });
             }
 
-            if (window.__cachedTranslation) swapLightImages();
+            if (window.__cachedTranslation) {
+                applyTranslation(window.__cachedTranslation);
+                swapLightImages();
+                document.documentElement.classList.remove('translating');
+            }
 
             var promise = window.__translationPromise;
             if (!promise) {
@@ -358,13 +359,10 @@
             }
             promise.then(function(data) {
                 if (data) {
-                    titleEl.textContent = data.title;
-                    contentEl.innerHTML = data.html;
-                    document.title = data.title;
-                    try { localStorage.setItem('i18n:' + window.__postId + ':' + savedLocale, JSON.stringify(data)); } catch (e) {}
+                    applyTranslation(data);
+                    swapLightImages();
                 }
                 document.documentElement.classList.remove('translating');
-                if (data) swapLightImages();
             });
         })();
     </script>
