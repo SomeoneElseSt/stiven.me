@@ -8,6 +8,7 @@ const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
 const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
+const LOCALE_METADATA = require('./src/locales.json');
 
 function hashSource(text) {
   return crypto.createHash('sha1').update(text).digest('hex').slice(0, 16);
@@ -15,17 +16,9 @@ function hashSource(text) {
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 
-const TRANSLATION_LOCALES = [
-  { id: 'es', name: 'Spanish' },
-  { id: 'ja', name: 'Japanese' },
-  { id: 'hi', name: 'Hindi' },
-  { id: 'de', name: 'German' },
-  { id: 'fr', name: 'French' },
-  { id: 'ko', name: 'Korean' },
-  { id: 'pt', name: 'Portuguese' },
-  { id: 'pl', name: 'Polish' },
-  { id: 'zh', name: 'Chinese' },
-];
+const TRANSLATION_LOCALES = LOCALE_METADATA
+  .filter((l) => l.id !== 'en')
+  .map((l) => ({ id: l.id, name: l.englishName }));
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');

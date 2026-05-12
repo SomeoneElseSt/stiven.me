@@ -1,4 +1,8 @@
+import LOCALE_METADATA from './locales.json';
+
 export type LocaleId = 'en' | 'es' | 'ja' | 'hi' | 'de' | 'fr' | 'ko' | 'pt' | 'pl' | 'zh';
+
+const metaById = Object.fromEntries(LOCALE_METADATA.map((m) => [m.id, m]));
 
 export type MessageKey =
     | 'pageTitle'
@@ -15,6 +19,7 @@ export type MessageKey =
 
 export interface LocaleDefinition {
     id: LocaleId;
+    englishName: string;
     /** Shown next to the theme toggle; ISO-style, max two characters. */
     shortLabel: string;
     /** Language name in that language, for the dropdown. */
@@ -23,9 +28,8 @@ export interface LocaleDefinition {
 }
 
 const en: LocaleDefinition = {
+    ...metaById['en'],
     id: 'en',
-    shortLabel: 'En',
-    nativeName: 'English',
     messages: {
         pageTitle: 'Stiven',
         headline: "Hi. I'm Stiven",
@@ -42,9 +46,8 @@ const en: LocaleDefinition = {
 };
 
 const es: LocaleDefinition = {
+    ...metaById['es'],
     id: 'es',
-    shortLabel: 'Es',
-    nativeName: 'Español',
     messages: {
         pageTitle: 'Stiven',
         headline: 'Hola. Soy Stiven',
@@ -61,9 +64,8 @@ const es: LocaleDefinition = {
 };
 
 const ja: LocaleDefinition = {
+    ...metaById['ja'],
     id: 'ja',
-    shortLabel: '日本',
-    nativeName: '日本語',
     messages: {
         pageTitle: 'スティーベン',
         headline: 'スティーベンです',
@@ -80,9 +82,8 @@ const ja: LocaleDefinition = {
 };
 
 const hi: LocaleDefinition = {
+    ...metaById['hi'],
     id: 'hi',
-    shortLabel: 'हिं',
-    nativeName: 'हिन्दी',
     messages: {
         pageTitle: 'स्टिवेन',
         headline: 'नमस्ते। मैं स्टिवेन हूँ',
@@ -99,9 +100,8 @@ const hi: LocaleDefinition = {
 };
 
 const de: LocaleDefinition = {
+    ...metaById['de'],
     id: 'de',
-    shortLabel: 'De',
-    nativeName: 'Deutsch',
     messages: {
         pageTitle: 'Stiven',
         headline: 'Hallo. Ich bin Stiven',
@@ -118,9 +118,8 @@ const de: LocaleDefinition = {
 };
 
 const fr: LocaleDefinition = {
+    ...metaById['fr'],
     id: 'fr',
-    shortLabel: 'Fr',
-    nativeName: 'Français',
     messages: {
         pageTitle: 'Stiven',
         headline: 'Salut. Je suis Stiven',
@@ -137,9 +136,8 @@ const fr: LocaleDefinition = {
 };
 
 const ko: LocaleDefinition = {
+    ...metaById['ko'],
     id: 'ko',
-    shortLabel: '한',
-    nativeName: '한국어',
     messages: {
         pageTitle: '스티븐',
         headline: '안녕하세요. 스티븐입니다',
@@ -156,9 +154,8 @@ const ko: LocaleDefinition = {
 };
 
 const pt: LocaleDefinition = {
+    ...metaById['pt'],
     id: 'pt',
-    shortLabel: 'Pt',
-    nativeName: 'Português',
     messages: {
         pageTitle: 'Stiven',
         headline: 'Olá. Eu sou o Stiven',
@@ -175,9 +172,8 @@ const pt: LocaleDefinition = {
 };
 
 const pl: LocaleDefinition = {
+    ...metaById['pl'],
     id: 'pl',
-    shortLabel: 'Pl',
-    nativeName: 'Polski',
     messages: {
         pageTitle: 'Stiven',
         headline: 'Cześć. Jestem Stiven',
@@ -194,9 +190,8 @@ const pl: LocaleDefinition = {
 };
 
 const zh: LocaleDefinition = {
+    ...metaById['zh'],
     id: 'zh',
-    shortLabel: '中',
-    nativeName: '中文',
     messages: {
         pageTitle: 'Stiven',
         headline: '你好，我是 Stiven',
