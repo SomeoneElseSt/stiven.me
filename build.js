@@ -8,7 +8,6 @@ const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
 const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
-const LOCALE_METADATA = require('./src/locales.json');
 
 function hashSource(text) {
   return crypto.createHash('sha1').update(text).digest('hex').slice(0, 16);
@@ -16,9 +15,6 @@ function hashSource(text) {
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 
-const TRANSLATION_LOCALES = LOCALE_METADATA
-  .filter((l) => l.id !== 'en')
-  .map((l) => ({ id: l.id, name: l.englishName }));
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
@@ -143,7 +139,7 @@ async function readLocaleTitle(postId, localeId) {
   }
 }
 
-async function generateBlogListHTML(posts) {
+async function generateBlogListHTML(posts, TRANSLATION_LOCALES) {
   const items = await Promise.all(posts.map(async (post) => {
     const isoDate = new Date(post.date).toISOString().split('T')[0];
     const localeTitleAttrs = await Promise.all(
@@ -319,7 +315,7 @@ ${mdContent}`;
   return { status: 'done', locale: locale.id };
 }
 
-async function translateAllPosts(posts) {
+async function translateAllPosts(posts, TRANSLATION_LOCALES) {
   const postTemplate = await fs.readFile(POST_TEMPLATE_PATH, 'utf-8');
   let totalDone = 0;
   for (const post of posts) {
@@ -350,6 +346,12 @@ async function translateAllPosts(posts) {
 }
 
 async function main() {
+  const localesModule = await import('./src/locales.ts');
+  const { LOCALE_METADATA } = localesModule.default ?? localesModule;
+  const TRANSLATION_LOCALES = LOCALE_METADATA
+    .filter((l) => l.id !== 'en')
+    .map((l) => ({ id: l.id, name: l.englishName }));
+
   console.log('Starting blog build process...');
 
   const [postsMetadata, metadataError] = await readPostsMetadata();
@@ -374,10 +376,10 @@ async function main() {
   }
 
   if (process.argv.includes('--translate')) {
-    await translateAllPosts(finalData.posts);
+    await translateAllPosts(finalData.posts, TRANSLATION_LOCALES);
   }
 
-  const blogListHTML = await generateBlogListHTML(finalData.posts);
+  const blogListHTML = await generateBlogListHTML(finalData.posts, TRANSLATION_LOCALES);
 
   try {
     const template = await fs.readFile(HTML_TEMPLATE_PATH, 'utf-8');

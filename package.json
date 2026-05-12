@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Personal website",
   "scripts": {
-    "build": "node build.js",
-    "compile": "pnpm exec tsc && node build.js",
+    "build": "pnpm exec tsx build.js",
+    "compile": "pnpm exec tsc && pnpm exec tsx build.js",
     "dev": "pnpm exec tsc --watch",
     "check": "pnpm exec tsc --noEmit"
   },
@@ -18,5 +18,8 @@
     "marked-footnote": "^1.4.0",
     "marked-katex-extension": "^5.1.6",
     "typescript": "5.9.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }
