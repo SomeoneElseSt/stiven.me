@@ -1,7 +1,7 @@
 import {
     DEFAULT_LOCALE,
+    getInitialLocale,
     getLocaleDefinition,
-    getLocaleFromStorage,
     getMessage,
     getThemeAriaLabel,
     isLocaleId,
@@ -196,8 +196,7 @@ export function initLocaleSwitcher(): void {
         return;
     }
 
-    const stored = getLocaleFromStorage();
-    const initial = isLocaleId(stored) ? stored : DEFAULT_LOCALE;
+    const initial = getInitialLocale();
 
     const found = findLocaleSwitcherElements(mount);
     const { trigger, labelSpan, menu } = found ?? mountLocaleSwitcherFromScratch(mount);
