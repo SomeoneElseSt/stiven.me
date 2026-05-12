@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <title>幾何学</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'ja'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">幾何学</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">2026年1月29日</time>
+        </div>
+        <a href="/" class="back-button">← 戻る</a>
+    </div>
+    
+    <article id="post-content"><p>これまで、いくつかのトピックについての理解を深めてくれた技術ブログをたくさん読んできました。特筆すべきは、<a href="https://colah.github.io/posts/2015-09-Visual-Information/">この</a>視覚的な情報理論の解説や、マクスウェルの悪魔に関する<a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">この</a>投稿です。どちらも非常に徹底しており、一読をお勧めします。</p>
+<p>技術ブログは知識の不可欠な情報源だと思います。なぜなら、誰かがそれを書くためには、説明しようとしていることを深く（そして経験的に）理解する必要があるからです。さらに、論文とは異なり、読者が理解できるように書かれています。ぜひ、あなた自身でも書いてみることをお勧めします！</p>
+<p>この短い記事は、今学期受講している統計学の授業を通じて見つけた二項イベントの興味深い幾何学的特性を説明することで、恩返しをしようとする私の最初の試みです。</p>
+<p>公平なコインを想像してください。結果は表か裏の2つで、確率はそれぞれ50%です。</p>
+<p>このコインが<strong>N</strong>回連続で表になる確率を知りたい場合、各投げが独立であれば、単に掛け合わせるだけです：</p>
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">表が</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">回</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>大学や高校の確率の授業を受けたことがあれば、おそらくこれらの公式はすでにご存知でしょう。</p>
+<p>そこで学ばなかったかもしれないのは、幾何学が確率を記述する強力な方法であるということです。具体的には、関心のあるすべての結果を含む集合<strong>A</strong>を分割する場合です。</p>
+<p>3Blue1Brownのベイズの定理に関するビデオは、すべての可能な結果（彼らの例では、あるグループの人々の職業）を、ベイズの定理を導き出すことができる重なり合うセクションに分割できる長方形として視覚化する素晴らしい仕事をしています。 <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">こちら</a>で視聴できます。</p>
+<p>これをコイン投げの質問に当てはめると、コインを6回投げた後に得られる可能性のあるすべての表と裏のシーケンス（「HHHTTT」、「HTHTHT」、「HHHHHH」など）を、同様の視覚化、つまり標本空間として視覚化できます。標本空間とは、特定の実験（この例ではコイン投げのシーケンス）で起こりうるすべての離散的な結果や経路を視覚化したものです。</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-n-6.png" alt="6回連続の［独立した］コイン投げの標本空間" title="コインの標本空間"></p>
+<details>
+<summary>視覚化コードを表示</summary>
+
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+NUM_FLIPS = 6
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
+
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Coin Flip Number&#39;,
+        &#39;ylabel&#39;: &#39;Probability space (0–1)&#39;,
+        &#39;title&#39;: &#39;Sample Space Division: 6 Coin Flips\n(Total outcomes = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;H&#39;, &#39;T&#39;: &#39;T&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamiento&#39;,
+        &#39;ylabel&#39;: &#39;Espacio de probabilidad (0–1)&#39;,
+        &#39;title&#39;: &#39;División del espacio muestral: 6 lanzamientos\n(Resultados totales = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;S&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Münzwurf-Nummer&#39;,
+        &#39;ylabel&#39;: &#39;Wahrscheinlichkeitsraum (0–1)&#39;,
+        &#39;title&#39;: &#39;Stichprobenraum-Aufteilung: 6 Münzwürfe\n(Gesamtergebnisse = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;K&#39;, &#39;T&#39;: &#39;Z&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Numéro de lancer&#39;,
+        &#39;ylabel&#39;: &#39;Espace de probabilité (0–1)&#39;,
+        &#39;title&#39;: &quot;Division de l&#39;espace des résultats : 6 lancers\n(Résultats totaux = 2^6 = 64)&quot;,
+        &#39;H&#39;: &#39;F&#39;, &#39;T&#39;: &#39;P&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número do lançamento&#39;,
+        &#39;ylabel&#39;: &#39;Espaço de probabilidade (0–1)&#39;,
+        &#39;title&#39;: &#39;Divisão do espaço amostral: 6 lançamentos\n(Resultados totais = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Numer rzutu&#39;,
+        &#39;ylabel&#39;: &#39;Przestrzeń prawdopodobieństwa (0–1)&#39;,
+        &#39;title&#39;: &#39;Podział przestrzeni próbkowania: 6 rzutów\n(Łączne wyniki = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;O&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数&#39;,
+        &#39;ylabel&#39;: &#39;確率空間 (0–1)&#39;,
+        &#39;title&#39;: &#39;標本空間の分割：6回のコイン投げ\n（総結果数 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;表&#39;, &#39;T&#39;: &#39;裏&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수&#39;,
+        &#39;ylabel&#39;: &#39;확률 공간 (0–1)&#39;,
+        &#39;title&#39;: &#39;표본 공간 분할: 동전 6번 던지기\n（총 경우의 수 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;앞&#39;, &#39;T&#39;: &#39;뒤&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल संख्या&#39;,
+        &#39;ylabel&#39;: &#39;प्रायिकता स्थान (0–1)&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान विभाजन: 6 सिक्का उछाल\n(कुल परिणाम = 2^6 = 64)&#39;,
+        &#39;H&#39;: &#39;च&#39;, &#39;T&#39;: &#39;प&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数&#39;,
+        &#39;ylabel&#39;: &#39;概率空间 (0–1)&#39;,
+        &#39;title&#39;: &#39;样本空间划分：6次硬币投掷\n（总结果数 = 2^6 = 64）&#39;,
+        &#39;H&#39;: &#39;正&#39;, &#39;T&#39;: &#39;反&#39;,
+    },
+}
+
+
+def outcome_to_sequence(outcome, length, h_char, t_char):
+    if length == 0:
+        return &#39;&#39;
+    bits = format(outcome, f&#39;0{length}b&#39;)
+    return &#39;&#39;.join(h_char if bit == &#39;1&#39; else t_char for bit in bits)
+
+
+def render(locale, theme, labels):
+    is_light = theme == &#39;light&#39;
+    bg = &#39;white&#39; if is_light else &#39;black&#39;
+    fg = &#39;black&#39; if is_light else &#39;white&#39;
+
+    fig, ax = plt.subplots(figsize=(14, 8), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    colors = plt.cm.Blues(np.linspace(0.3, 0.9, NUM_FLIPS + 1))
+    h_char = labels[&#39;H&#39;]
+    t_char = labels[&#39;T&#39;]
+
+    for flip in range(NUM_FLIPS + 1):
+        total_outcomes = 2**flip
+        height = 1 / total_outcomes
+
+        for outcome in range(total_outcomes):
+            y_position = outcome * height
+            rect = plt.Rectangle((flip, y_position), 0.8, height,
+                                  linewidth=1, edgecolor=bg,
+                                  facecolor=colors[flip], alpha=0.7)
+            ax.add_patch(rect)
+
+            if flip &lt;= 5:
+                label = outcome_to_sequence(outcome, flip, h_char, t_char)
+                ax.text(flip + 0.4, y_position + height / 2, label,
+                        ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8)
+
+    ax.set_xlim(-0.5, NUM_FLIPS + 0.5)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=12, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=12, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=14, color=fg)
+    ax.set_xticks(range(NUM_FLIPS + 1))
+    ax.grid(axis=&#39;x&#39;, alpha=0.3, color=fg)
+    ax.tick_params(colors=fg)
+    for spine in ax.spines.values():
+        spine.set_color(fg)
+
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
+    suffix = &#39;-light&#39; if is_light else &#39;&#39;
+    plt.tight_layout()
+    plt.savefig(out_dir / f&#39;coin-sample-space-n-6{suffix}.png&#39;, dpi=150, facecolor=bg)
+    plt.close(fig)
+
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
+</code></pre>
+</details>
+
+<p>左側の最初のブロックは、0回目のコイン投げを示しています。これは確実に起こる確率があるため、Y軸全体を占めています。2番目のブロックは、1回目のコイン投げの結果を示しています。表か裏のいずれかであるため、等間隔の2つのブロックを占めています。</p>
+<p>さらに右に進むと、各ブロックの結果の数は2倍になります。これは、各コイン投げをそれぞれ2つの子の結果に拡張しているため、直感的に理にかなっています。</p>
+<p>Y軸は、その割合に応じて各単一経路が発生する確率を示しています。中央に沿った経路（表と裏が均等に変化するもの）は、当然ながら最も確率が高いため、Y軸の大きな部分を占めます。一方、連続した表または裏の経路（階段状に完全に下または上に行くもの）は、以下に示すように、非常に低い確率に比例して、Y軸の占める割合が減少していきます。</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-shaded-staircase.png" alt="連続する裏または表の影付きの階段。" title="連続する裏または表の影付きの階段。"></p>
+<details>
+<summary>視覚化コードを表示</summary>
+
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+
+NUM_FLIPS = 6
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
+
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Coin Flip Number&#39;,
+        &#39;ylabel&#39;: &#39;Probability space (0–1)&#39;,
+        &#39;title&#39;: &#39;Sample Space Division: 6 Coin Flips\nShowing Shaded Staircases of Consecutive H/T Patterns.&#39;,
+        &#39;H&#39;: &#39;H&#39;, &#39;T&#39;: &#39;T&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamiento&#39;,
+        &#39;ylabel&#39;: &#39;Espacio de probabilidad (0–1)&#39;,
+        &#39;title&#39;: &#39;División del espacio muestral: 6 lanzamientos\nEscaleras sombreadas de patrones consecutivos C/S.&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;S&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Münzwurf-Nummer&#39;,
+        &#39;ylabel&#39;: &#39;Wahrscheinlichkeitsraum (0–1)&#39;,
+        &#39;title&#39;: &#39;Stichprobenraum-Aufteilung: 6 Münzwürfe\nSchattierte Treppen aufeinanderfolgender K/Z-Muster.&#39;,
+        &#39;H&#39;: &#39;K&#39;, &#39;T&#39;: &#39;Z&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Numéro de lancer&#39;,
+        &#39;ylabel&#39;: &#39;Espace de probabilité (0–1)&#39;,
+        &#39;title&#39;: &quot;Division de l&#39;espace des résultats : 6 lancers\nEscaliers ombrés des motifs consécutifs F/P.&quot;,
+        &#39;H&#39;: &#39;F&#39;, &#39;T&#39;: &#39;P&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número do lançamento&#39;,
+        &#39;ylabel&#39;: &#39;Espaço de probabilidade (0–1)&#39;,
+        &#39;title&#39;: &#39;Divisão do espaço amostral: 6 lançamentos\nDegraus sombreados de padrões consecutivos C/R.&#39;,
+        &#39;H&#39;: &#39;C&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Numer rzutu&#39;,
+        &#39;ylabel&#39;: &#39;Przestrzeń prawdopodobieństwa (0–1)&#39;,
+        &#39;title&#39;: &#39;Podział przestrzeni próbkowania: 6 rzutów\nZacieniowane schody kolejnych wzorców O/R.&#39;,
+        &#39;H&#39;: &#39;O&#39;, &#39;T&#39;: &#39;R&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数&#39;,
+        &#39;ylabel&#39;: &#39;確率空間 (0–1)&#39;,
+        &#39;title&#39;: &#39;標本空間の分割：6回のコイン投げ\n連続する表/裏パターンの階段（網掛け）&#39;,
+        &#39;H&#39;: &#39;表&#39;, &#39;T&#39;: &#39;裏&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수&#39;,
+        &#39;ylabel&#39;: &#39;확률 공간 (0–1)&#39;,
+        &#39;title&#39;: &#39;표본 공간 분할: 동전 6번 던지기\n연속 앞/뒤 패턴의 음영 계단.&#39;,
+        &#39;H&#39;: &#39;앞&#39;, &#39;T&#39;: &#39;뒤&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल संख्या&#39;,
+        &#39;ylabel&#39;: &#39;प्रायिकता स्थान (0–1)&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान विभाजन: 6 सिक्का उछाल\nक्रमागत च/प पैटर्न की छायांकित सीढ़ियाँ।&#39;,
+        &#39;H&#39;: &#39;च&#39;, &#39;T&#39;: &#39;प&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数&#39;,
+        &#39;ylabel&#39;: &#39;概率空间 (0–1)&#39;,
+        &#39;title&#39;: &#39;样本空间划分：6次硬币投掷\n连续正/反面模式的阴影阶梯。&#39;,
+        &#39;H&#39;: &#39;正&#39;, &#39;T&#39;: &#39;反&#39;,
+    },
+}
+
+
+def outcome_to_sequence(outcome, length, h_char, t_char):
+    if length == 0:
+        return &#39;&#39;
+    bits = format(outcome, f&#39;0{length}b&#39;)
+    return &#39;&#39;.join(h_char if bit == &#39;1&#39; else t_char for bit in bits)
+
+
+def render(locale, theme, labels):
+    is_light = theme == &#39;light&#39;
+    bg = &#39;white&#39; if is_light else &#39;black&#39;
+    fg = &#39;black&#39; if is_light else &#39;white&#39;
+
+    fig, ax = plt.subplots(figsize=(14, 8), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    colors = plt.cm.Blues(np.linspace(0.3, 0.9, NUM_FLIPS + 1))
+    h_char = labels[&#39;H&#39;]
+    t_char = labels[&#39;T&#39;]
+
+    for flip in range(NUM_FLIPS + 1):
+        total_outcomes = 2**flip
+        height = 1 / total_outcomes
+
+        for outcome in range(total_outcomes):
+            y_position = outcome * height
+            is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
+
+            facecolor = colors[-1] if is_staircase else colors[flip]
+            alpha = 1.0 if is_staircase else 0.15
+            edgecolor = fg if is_staircase else bg
+
+            rect = plt.Rectangle((flip, y_position), 0.8, height,
+                                  linewidth=1, edgecolor=edgecolor,
+                                  facecolor=facecolor, alpha=alpha)
+            ax.add_patch(rect)
+
+            if flip &lt;= 5:
+                label = outcome_to_sequence(outcome, flip, h_char, t_char)
+                ax.text(flip + 0.4, y_position + height / 2, label,
+                        ha=&#39;center&#39;, va=&#39;center&#39;, fontsize=8, color=fg)
+
+    ax.set_xlim(-0.5, NUM_FLIPS + 0.5)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=12, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=12, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=14, color=fg)
+    ax.set_xticks(range(NUM_FLIPS + 1))
+    ax.grid(axis=&#39;x&#39;, alpha=0.3, color=fg)
+    ax.tick_params(colors=fg)
+    for spine in ax.spines.values():
+        spine.set_color(fg)
+
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
+    suffix = &#39;-light&#39; if is_light else &#39;&#39;
+    plt.tight_layout()
+    plt.savefig(out_dir / f&#39;coin-sample-space-shaded-staircase{suffix}.png&#39;, dpi=150, facecolor=bg)
+    plt.close(fig)
+
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
+</code></pre>
+</details>
+
+<p>ここで幾何学と確率のつながりが見えてきましたか？ 終端ブロックを選んでその高さを測ることで、任意のシーケンスの確率を測定できます。「HTHHTHH」のような特定のシーケンスがどれくらいの確率で発生するかといった質問に答えるのが簡単になります。グラフをたどるだけです！</p>
+<p>では、なぜこれが重要なのでしょうか？ 大数の法則から思い出されるように、十分な回数の試行を行えば、結果はその真の確率に収束します。公平なコインを永遠に投げ続けて、表または裏が出る回数を数えると、どちらかが出る確率は50%と50%になります。しかし、上記のグラフはこれをあまり直感的に示していません。結局のところ、最も可能性の高いシーケンスは、単に長さが増していく塊に崩壊していくように見えます。</p>
+<p>しかし、すぐ目の前に何かが隠れています。正規分布です。以下に示すように、1回から100回の投げにおけるすべての可能な結果の表の割合をプロットすると、平均50%付近の分布が収束する前に、明確なベル型の分布が現れます。<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-proportion-heads.png" alt="N=0からN=100までのコイン標本空間における表の割合" title="N=0からN=100までのコイン標本空間における表の割合"></p>
+<details>
+<summary>視覚化コードを表示</summary>
+
+<pre><code class="language-py">import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
+from scipy.special import comb
+
+NUM_FLIPS = 100
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
+
+LOCALE_FONTS = {
+    &#39;ja&#39;: &#39;Hiragino Sans&#39;,
+    &#39;ko&#39;: &#39;Apple SD Gothic Neo&#39;,
+    &#39;zh&#39;: &#39;Songti SC&#39;,
+    &#39;hi&#39;: &#39;Kohinoor Devanagari&#39;,
+}
+
+LOCALE_LABELS = {
+    &#39;en&#39;: {
+        &#39;xlabel&#39;: &#39;Number of Coin Flips (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proportion of Heads&#39;,
+        &#39;title&#39;: &#39;Proportion of Heads in the Sample Space\nA Normal Distribution Emerges Naturally&#39;,
+        &#39;legend&#39;: &#39;Mean (50% heads)&#39;,
+        &#39;colorbar&#39;: &#39;Relative Probability Density&#39;,
+    },
+    &#39;es&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lanzamientos (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proporción de caras&#39;,
+        &#39;title&#39;: &#39;Proporción de caras en el espacio muestral\nUna distribución normal emerge naturalmente&#39;,
+        &#39;legend&#39;: &#39;Media (50% caras)&#39;,
+        &#39;colorbar&#39;: &#39;Densidad de probabilidad relativa&#39;,
+    },
+    &#39;de&#39;: {
+        &#39;xlabel&#39;: &#39;Anzahl der Münzwürfe (n)&#39;,
+        &#39;ylabel&#39;: &#39;Anteil der Köpfe&#39;,
+        &#39;title&#39;: &#39;Anteil der Köpfe im Stichprobenraum\nEine Normalverteilung entsteht natürlich&#39;,
+        &#39;legend&#39;: &#39;Mittelwert (50% Köpfe)&#39;,
+        &#39;colorbar&#39;: &#39;Relative Wahrscheinlichkeitsdichte&#39;,
+    },
+    &#39;fr&#39;: {
+        &#39;xlabel&#39;: &#39;Nombre de lancers (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proportion de faces&#39;,
+        &#39;title&#39;: &quot;Proportion de faces dans l&#39;espace des résultats\nUne distribution normale émerge naturellement&quot;,
+        &#39;legend&#39;: &#39;Moyenne (50% faces)&#39;,
+        &#39;colorbar&#39;: &#39;Densité de probabilité relative&#39;,
+    },
+    &#39;pt&#39;: {
+        &#39;xlabel&#39;: &#39;Número de lançamentos (n)&#39;,
+        &#39;ylabel&#39;: &#39;Proporção de caras&#39;,
+        &#39;title&#39;: &#39;Proporção de caras no espaço amostral\nUma distribuição normal emerge naturalmente&#39;,
+        &#39;legend&#39;: &#39;Média (50% caras)&#39;,
+        &#39;colorbar&#39;: &#39;Densidade de probabilidade relativa&#39;,
+    },
+    &#39;pl&#39;: {
+        &#39;xlabel&#39;: &#39;Liczba rzutów (n)&#39;,
+        &#39;ylabel&#39;: &#39;Odsetek orłów&#39;,
+        &#39;title&#39;: &#39;Odsetek orłów w przestrzeni próbkowania\nNaturalnie pojawia się rozkład normalny&#39;,
+        &#39;legend&#39;: &#39;Średnia (50% orłów)&#39;,
+        &#39;colorbar&#39;: &#39;Względna gęstość prawdopodobieństwa&#39;,
+    },
+    &#39;ja&#39;: {
+        &#39;xlabel&#39;: &#39;コイン投げ回数 (n)&#39;,
+        &#39;ylabel&#39;: &#39;表の割合&#39;,
+        &#39;title&#39;: &#39;標本空間における表の割合\n正規分布が自然に現れる&#39;,
+        &#39;legend&#39;: &#39;平均（表 50%）&#39;,
+        &#39;colorbar&#39;: &#39;相対的確率密度&#39;,
+    },
+    &#39;ko&#39;: {
+        &#39;xlabel&#39;: &#39;동전 던지기 횟수 (n)&#39;,
+        &#39;ylabel&#39;: &#39;앞면의 비율&#39;,
+        &#39;title&#39;: &#39;표본 공간에서 앞면의 비율\n정규분포가 자연스럽게 나타남&#39;,
+        &#39;legend&#39;: &#39;평균 (앞면 50%)&#39;,
+        &#39;colorbar&#39;: &#39;상대적 확률 밀도&#39;,
+    },
+    &#39;hi&#39;: {
+        &#39;xlabel&#39;: &#39;सिक्का उछाल की संख्या (n)&#39;,
+        &#39;ylabel&#39;: &#39;चित का अनुपात&#39;,
+        &#39;title&#39;: &#39;नमूना स्थान में चित का अनुपात\nएक सामान्य वितरण स्वाभाविक रूप से उभरता है&#39;,
+        &#39;legend&#39;: &#39;माध्य (50% चित)&#39;,
+        &#39;colorbar&#39;: &#39;सापेक्ष प्रायिकता घनत्व&#39;,
+    },
+    &#39;zh&#39;: {
+        &#39;xlabel&#39;: &#39;硬币投掷次数 (n)&#39;,
+        &#39;ylabel&#39;: &#39;正面比例&#39;,
+        &#39;title&#39;: &#39;样本空间中正面的比例\n正态分布自然涌现&#39;,
+        &#39;legend&#39;: &#39;均值（正面 50%）&#39;,
+        &#39;colorbar&#39;: &#39;相对概率密度&#39;,
+    },
+}
+
+
+def render(locale, theme, labels):
+    is_light = theme == &#39;light&#39;
+    bg = &#39;white&#39; if is_light else &#39;black&#39;
+    fg = &#39;black&#39; if is_light else &#39;white&#39;
+
+    fig, ax = plt.subplots(figsize=(20, 14), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    for flip in range(1, NUM_FLIPS + 1):
+        max_prob = comb(flip, flip // 2, exact=True) * (0.5 ** flip)
+        marker_size = max(5, 200 / np.sqrt(flip))
+
+        for num_heads in range(flip + 1):
+            prob = comb(flip, num_heads, exact=True) * (0.5 ** flip)
+            relative_prob = prob / max_prob
+            color = plt.cm.RdYlBu_r(relative_prob)
+            y_proportion = num_heads / flip
+
+            ax.scatter(flip, y_proportion, c=[color], s=marker_size,
+                       marker=&#39;s&#39;, edgecolors=&#39;none&#39;, alpha=0.95, rasterized=True)
+
+    ax.axhline(y=0.5, color=fg, linestyle=&#39;--&#39;, linewidth=3, alpha=0.9,
+               label=labels[&#39;legend&#39;], zorder=10)
+
+    for flip in [10, 25, 50, 75, 100]:
+        std_dev = np.sqrt(flip * 0.5 * 0.5)
+        std_proportion = std_dev / flip
+        ax.plot([flip, flip], [0.5 - std_proportion, 0.5 + std_proportion],
+                &#39;yellow&#39;, linewidth=5, alpha=0.8, zorder=9)
+        ax.plot([flip, flip], [0.5 - 2 * std_proportion, 0.5 + 2 * std_proportion],
+                &#39;orange&#39;, linewidth=3, alpha=0.6, zorder=8)
+
+    ax.set_xlim(0, NUM_FLIPS + 2)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel(labels[&#39;xlabel&#39;], fontsize=16, fontweight=&#39;bold&#39;, color=fg)
+    ax.set_ylabel(labels[&#39;ylabel&#39;], fontsize=16, fontweight=&#39;bold&#39;, color=fg)
+    ax.set_title(labels[&#39;title&#39;], fontsize=17, fontweight=&#39;bold&#39;, pad=20, color=fg)
+
+    sm = plt.cm.ScalarMappable(cmap=plt.cm.RdYlBu_r, norm=plt.Normalize(vmin=0, vmax=1))
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=ax, pad=0.01, fraction=0.046)
+    cbar.set_label(labels[&#39;colorbar&#39;], fontsize=14, fontweight=&#39;bold&#39;, color=fg)
+    cbar.ax.yaxis.set_tick_params(color=fg)
+    plt.setp(plt.getp(cbar.ax.axes, &#39;yticklabels&#39;), color=fg)
+
+    ax.legend(loc=&#39;upper right&#39;, fontsize=13, framealpha=0.9)
+    ax.tick_params(colors=fg)
+    for spine in ax.spines.values():
+        spine.set_color(fg)
+
+    out_dir = ASSETS_DIR / locale
+    out_dir.mkdir(exist_ok=True)
+    suffix = &#39;-light&#39; if is_light else &#39;&#39;
+    plt.tight_layout()
+    plt.savefig(out_dir / f&#39;coin-sample-space-proportion-heads{suffix}.png&#39;,
+                dpi=150, bbox_inches=&#39;tight&#39;, facecolor=bg)
+    plt.close(fig)
+
+
+def generate(locale, theme):
+    font = LOCALE_FONTS.get(locale, &#39;DejaVu Sans&#39;)
+    with matplotlib.rc_context({&#39;font.family&#39;: font}):
+        render(locale, theme, LOCALE_LABELS[locale])
+
+
+def main():
+    for locale in LOCALE_LABELS:
+        for theme in [&#39;dark&#39;, &#39;light&#39;]:
+            print(f&#39;  {locale}/{theme}&#39;)
+            generate(locale, theme)
+
+
+main()
+</code></pre>
+</details>
+
+
+<p>これで、割合が実際に50%に均一化されることがわかります。これをさらに多くの<strong>N</strong>に拡張すれば、最終的には完全に直線が見えるようになります。<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
+<p>興味深いのは、<strong>N</strong> &lt; 20では結果の分布がほぼ正規分布であることです。黄色い線は視覚的な補助となります。もしそれらの線で割合のサンプリングを止めれば、中心は中心極限定理に従い、ほとんどの結果を蓄積してベル型に滑らかになります。一方、両端には2種類の結果が表示されます。最初は表が出るか出ないか、そして非常に低い確率で、連続して表が出ないか、連続してすべて表が出るかです。</p>
+<p>これは、前の図を標本空間の分布プロットの上に重ねて反転させたものを見ることで、直感的に説明できます：</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-overlay.png" alt="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。" title="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。"></p>
+<details>
+<summary>視覚化コードを表示</summary>
+
+<pre><code class="language-py">import shutil
+from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
+from scipy.special import comb
+
+NUM_FLIPS = 100
+STAIRCASE_FLIPS = 6
+ALPHA_SCALE = 0.5
+ASSETS_DIR = Path(__file__).resolve().parent.parent / &quot;figures&quot;
+
+ALL_LOCALES = [&#39;en&#39;, &#39;es&#39;, &#39;de&#39;, &#39;fr&#39;, &#39;pt&#39;, &#39;pl&#39;, &#39;ja&#39;, &#39;ko&#39;, &#39;hi&#39;, &#39;zh&#39;]
+
+
+def generate_distribution_base(output_path, theme):
+    is_light = theme == &#39;light&#39;
+    bg = &#39;white&#39; if is_light else &#39;black&#39;
+
+    fig, ax = plt.subplots(figsize=(20, 14), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    for flip in range(1, NUM_FLIPS + 1):
+        max_prob = comb(flip, flip // 2, exact=True) * (0.5 ** flip)
+        marker_size = max(5, 200 / np.sqrt(flip))
+
+        for num_heads in range(flip + 1):
+            prob = comb(flip, num_heads, exact=True) * (0.5 ** flip)
+            relative_prob = prob / max_prob
+            color = plt.cm.RdYlBu_r(relative_prob)
+            y_proportion = num_heads / flip
+
+            ax.scatter(flip, y_proportion, c=[color], s=marker_size,
+                       marker=&#39;s&#39;, edgecolors=&#39;none&#39;, alpha=0.95, rasterized=True)
+
+    ax.set_xlim(0, NUM_FLIPS + 2)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches=&#39;tight&#39;, facecolor=bg)
+    plt.close(fig)
+
+
+def generate_staircase_base(output_path, theme):
+    is_light = theme == &#39;light&#39;
+    bg = &#39;white&#39; if is_light else &#39;black&#39;
+    fg = &#39;black&#39; if is_light else &#39;white&#39;
+
+    fig, ax = plt.subplots(figsize=(14, 8), facecolor=bg)
+    ax.set_facecolor(bg)
+
+    colors = plt.cm.Blues(np.linspace(0.3, 0.9, STAIRCASE_FLIPS + 1))
+
+    for flip in range(STAIRCASE_FLIPS + 1):
+        total_outcomes = 2**flip
+        height = 1 / total_outcomes
+
+        for outcome in range(total_outcomes):
+            y_position = outcome * height
+            is_staircase = (outcome == 0 or outcome == total_outcomes - 1)
+
+            facecolor = colors[-1] if is_staircase else colors[flip]
+            alpha = 1.0 if is_staircase else 0.15
+            edgecolor = fg if is_staircase else bg
+
+            rect = plt.Rectangle((flip, y_position), 0.8, height,
+                                  linewidth=1, edgecolor=edgecolor,
+                                  facecolor=facecolor, alpha=alpha)
+            ax.add_patch(rect)
+
+    ax.set_xlim(-0.5, STAIRCASE_FLIPS + 0.5)
+    ax.set_ylim(0, 1)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150, bbox_inches=&#39;tight&#39;, facecolor=bg)
+    plt.close(fig)
+
+
+def overlay_images(base_path, overlay_path, output_path):
+    if not base_path.exists():
+        print(f&#39;Missing base image: {base_path}&#39;)
+        return
+    if not overlay_path.exists():
+        print(f&#39;Missing overlay image: {overlay_path}&#39;)
+        return
+
+    base = Image.open(base_path).convert(&#39;RGBA&#39;)
+    overlay = Image.open(overlay_path).convert(&#39;RGBA&#39;)
+
+    overlay_flipped = overlay.transpose(Image.FLIP_LEFT_RIGHT)
+    overlay_resized = overlay_flipped.resize(base.size, Image.LANCZOS)
+
+    r, g, b, a = overlay_resized.split()
+    a = a.point(lambda v: int(v * ALPHA_SCALE))
+    overlay_transparent = Image.merge(&#39;RGBA&#39;, (r, g, b, a))
+
+    combined = Image.alpha_composite(base, overlay_transparent)
+    combined.save(output_path)
+
+
+def main():
+    en_dir = ASSETS_DIR / &#39;en&#39;
+    en_dir.mkdir(exist_ok=True)
+
+    for theme in [&#39;dark&#39;, &#39;light&#39;]:
+        suffix = &#39;-light&#39; if theme == &#39;light&#39; else &#39;&#39;
+        print(f&#39;  generating overlay intermediates ({theme})&#39;)
+
+        clean_base = en_dir / f&#39;coin-sample-space-proportion-heads-clean{suffix}.png&#39;
+        clean_staircase = en_dir / f&#39;coin-sample-space-shaded-staircase-clean{suffix}.png&#39;
+        overlay_out = en_dir / f&#39;coin-sample-space-overlay{suffix}.png&#39;
+
+        generate_distribution_base(clean_base, theme)
+        generate_staircase_base(clean_staircase, theme)
+        overlay_images(clean_base, clean_staircase, overlay_out)
+
+        for locale in ALL_LOCALES:
+            if locale == &#39;en&#39;:
+                continue
+            locale_dir = ASSETS_DIR / locale
+            locale_dir.mkdir(exist_ok=True)
+            dest = locale_dir / f&#39;coin-sample-space-overlay{suffix}.png&#39;
+            shutil.copy(overlay_out, dest)
+            print(f&#39;  copied overlay to {locale}/{theme}&#39;)
+
+
+main()
+</code></pre>
+</details>
+
+<p>ベル型の両端は、非常に起こりにくい連続したコインの経路と一致します。一方、標本空間の中心に沿って<strong>最大の割合</strong>を占める結果の大部分（表が50%の確率で現れる場所）は、それに対応してベル型の中心と一致します。これは、中心極限定理が二項標本空間の分岐構造から幾何学的に現れることを示しています。</p>
+<p>別の考え方としては、最も起こりにくいシーケンスを小さく、最も起こりやすいシーケンスを大きくするように標本空間を再スケールすると、表が現れる回数の割合は、（連続したシーケンスとほぼ正規のシーケンスの間のギャップを考慮しない場合）大数の法則が働いて50%に平均化されるまで、正規分布に近い形で分布します。コイン投げの例から視野を広げると、これは独立したイベントのあらゆる二項プロセスに適用可能です。</p>
+<p>これは新しい発見でしょうか？ おそらくそうではないでしょう。しかし、確率が面積や割合に変換され、それが特定の結末の根底にある確率分布を視覚的、幾何学的な方法で明らかにできるのを見るのは非常にクールです。</p>
+<p>自分の考えをまとめるために、Claude 4.5 Sonnetを搭載したPerplexityを使用しました。<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> もともと、授業中に箱を描いて問題を解こうとして夢中になっていたときに、上記のグラフや実験を作り始めました。それが階段状のパターン（イカサマのコインという文脈で）に気づき、数学を深く掘り下げるきっかけとなりました。それは、これがパスカルの三角形といかにうまく結びついているかを教えてくれました：</p>
+<blockquote>
+<p>ここで視覚化したものは、実際にはパスカルの三角形を回転させた形です。パスカルの三角形とは、各数字がその上の2つの数字の合計である、確立された数学的構造です。そのつながりは深いです。各投げの回数<strong>N</strong>において、正確にk回表が出る経路がいくつあるかを数えると、パスカルの三角形の<strong>N</strong>行目のエントリが得られます。これらは二項係数C(N,k)であり、N個の中からk個のアイテムを選ぶ方法の数を表します。各行を2^Nで割ってカウントを確率に変換すると、二項分布が得られます。中心極限定理は、<strong>N</strong>が大きくなるにつれて、この分布が正規曲線に近づくことを保証します。これはまさに私たちの視覚化で見ているものです。標本空間を通る分岐経路の幾何学は、単にパスカルの三角形に似ているだけではありません。それはパスカルの三角形そのものであり、なぜベル曲線が繰り返される二項試行からこれほど自然に現れるのかを明らかにしています。</p>
+</blockquote>
+<p>後から考えれば、コイン標本空間の各列のイベントの数が、パスカルの三角形の<strong>N</strong>行目の合計と一致するため、非常に直感的な結論です。</p>
+<p>これが役に立ったり、面白いと感じていただけたら嬉しいです！ ぜひ、あなた自身でも技術ブログを書いてみてください。AIが支配する時代において、思慮深い執筆はかつてないほど価値があります。また、自分自身の理解を深めるのにも非常に役立ちます。</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>表の割合の視覚化を見せるためだけに、わざわざこのブログ記事を書いたわけではないことを誓います。これは非常にクールで、少しスロープフィールドを思い出させます。 <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>後になって、誰かに大数の法則を説明しているときに、このグラフが同じ考えを説明していることに気づきました。ただし、ここでの曲線は滑らかであり、収束を伝えるためのグラフに通常求められる変動性は示されていません。それを行うには、単なる理論的な割合ではなく、多くのコイン投げのシーケンスを示す必要があります。 <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>私の思考プロセスを含むClaudeとの前述のチャットに興味がある場合は、<a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">こちら</a>で読むことができます。 <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

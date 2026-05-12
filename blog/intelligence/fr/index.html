@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="924ce497f77dcfe8"/>
+    <title>Intelligence</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'fr'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">Intelligence</h1>
+            <time id="post-date" class="post-date" data-iso-date="2025-11-14">14 novembre 2025</time>
+        </div>
+        <a href="/" class="back-button">← Retour</a>
+    </div>
+    
+    <article id="post-content"><p>Je suis tombé sur <a href="https://www.youtube.com/watch?v=1mXUFweWOug">cette</a> vidéo récemment. Je vous recommande vivement de la regarder avant de lire ceci. </p>
+<p>C&#39;est un peu difficile à décrire, mais en substance, cela explique comment deux architectures de modèles très différentes peuvent générer le même résultat tout en étant assez différentes sous le capot.</p>
+<p>L&#39;un — le bon réseau — encode des caractéristiques généralisables du résultat. Dans la vidéo (qui est une discussion d&#39;un article que vous pouvez trouver <a href="https://arxiv.org/abs/2505.11581">ici</a>), cela est illustré par l&#39;exemple d&#39;un crâne. Les poids du bon réseau encoderaient les caractéristiques du crâne, comme les deux zones circulaires où se trouvent les yeux ou le cercle qui englobe le contour du crâne.</p>
+<p><img src="/blog/assets/picbreeder-unified-representation.png" alt="Représentations unifiées de Picbreeder" title="Représentations unifiées de Picbreeder">
+<small>
+<em>Le « bon » réseau. Les rectangles dans l&#39;image montrent différents poids à des couches distinctes.</em> 
+</small></p>
+<p>Le « mauvais » réseau n&#39;a pas appris cela. Ses poids ont encodé des représentations éloignées et alambiquées qui capturaient certaines des formes grossières du crâne. Pourtant, ils étaient tous deux capables de produire exactement la même image cible pour laquelle ils avaient été initialement entraînés. </p>
+<p><img src="/blog/assets/picbreeder-fractured-representation.png" alt="Représentations fracturées de Picbreeder" title="Représentations fracturées de Picbreeder">
+<small>
+<em>Le « mauvais » réseau. Ses poids sont flous, disparates et ne détiennent individuellement aucune information ou caractéristique significative du crâne.</em>
+</small></p>
+<p>Lorsque chaque réseau a été chargé de créer une mutation du crâne, en faisant varier la taille des yeux ou la largeur de sa mâchoire, le premier réseau a bien généralisé, tandis que le second réseau a déformé ses résultats et ne s&#39;est pas bien adapté aux nouveaux changements. </p>
+<p><img src="/blog/assets/unified-vs-factored-representations.png" alt="Sortie des représentations unifiées vs factorisées pour les variations de crâne" title="Sortie des représentations unifiées vs factorisées pour les variations de crâne">
+<small><em>Le côté gauche de l&#39;image montre le résultat du premier « bon » réseau lors de la variation des caractéristiques du crâne. Le côté droit de l&#39;image montre le second « mauvais » réseau, où les bords en particulier sont fortement déformés et méconnaissables.</em>
+</small></p>
+<p>Plus tard, la vidéo montre comment les grands modèles de langage présentent des comportements similaires — échouant à se généraliser à des problèmes très similaires mais légèrement modifiés par rapport à ceux pour lesquels ils ont été entraînés, car ils sont entraînés à faire la moyenne ou à « imiter » ce qu&#39;ils ont observé dans leur distribution d&#39;entraînement.</p>
+<p>Comme l&#39;architecture sous-jacente est basée sur la reconnaissance de formes par force brute et des heuristiques, ils n&#39;acquièrent pas les mêmes compétences logiques et mathématiques qui aident les humains à généraliser des problèmes similaires.</p>
+<p>Cela m&#39;a fait réfléchir. Qu&#39;est-ce que l&#39;intelligence, vraiment ? </p>
+<p>Tout d&#39;abord, définissons un langage commun autour de l&#39;intelligence. De mon point de vue, l&#39;intelligence est la capacité à résoudre des problèmes étant donné un but et des contraintes objectives. </p>
+<p>Deuxièmement, définir la plupart des choses nécessite de répondre à quelques questions fondamentales sur le où, le pourquoi, le comment et le quoi. </p>
+<p>Je parlerai davantage du « quoi » et du « comment » ici. Découvrir d&#39;où vient l&#39;intelligence est une tâche que je laisserai aux anthropologues et aux biologistes évolutionnistes. Le « pourquoi » découlera des arguments pour le quoi et le comment plus tard. </p>
+<p>Puisque le « quoi » est déjà (en quelque sorte) répondu ci-dessus, je veux aborder le « comment », car je pense qu&#39;il est plus lié aux questions très profondes sur les propriétés émergentes qui caractérisent les systèmes biologiques. </p>
+<p>Je crois que parler d&#39;intelligence revient intrinsèquement à parler d&#39;une question de nature contre culture. Si nous devions dire que l&#39;intelligence est une question de culture, il est implicite que l&#39;intelligence est un algorithme déterministe avec lequel chacun de nous arrive pré-chargé. </p>
+<p>Par exemple, si je disais que n&#39;importe quelle personne placée dans les bonnes circonstances économiques et éducatives peut atteindre un résultat spécifique — ou en d&#39;autres termes, que l&#39;intelligence est distribuée équitablement alors que les opportunités ne le sont pas — le fond biologique de cet argument est qu&#39;il existe un plan pour l&#39;intelligence qui est universellement partagé dans le génome de l&#39;espèce humaine. </p>
+<p>En termes d&#39;apprentissage automatique, il existe des poids (vraisemblablement au niveau biologique, dans notre génome) décodés dans la façon dont le corps humain est fait, qui sont universellement partagés et n&#39;ont besoin que des bonnes circonstances pour être cultivés et amenés à des niveaux de performance très élevés. </p>
+<p>En revanche, si nous devions dire que l&#39;intelligence est une question de nature, peut-être de manière contre-intuitive, nous dirions qu&#39;il s&#39;agit d&#39;un processus stochastique (bien que cela n&#39;implique pas qu&#39;il soit hors de notre contrôle, comme je l&#39;expliquerai plus tard). Cela semblerait être soutenu par le fait qu&#39;il existe une tendance générale selon laquelle, pour toute population, il émergera un 1 % d&#39;individus issus de milieux très pauvres et défavorisés, allant à l&#39;encontre de l&#39;argument ci-dessus sur la culture comme condition nécessaire à l&#39;intelligence. Certaines personnes, quelles que soient les circonstances, pourraient simplement être plus capables que d&#39;autres (sans tenir compte de la chance).<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
+<p>Ces individus ne sont généralement pas la norme, mais leur existence prouverait que malgré les avantages héréditaires d&#39;être né dans une position favorable à la culture, certaines variations du plan génétique trouveront leur chemin vers le succès quoi qu&#39;il arrive. On peut soutenir que ce seraient de bien meilleures variations que leurs homologues « cultivés », étant donné qu&#39;ils ont égalé ou surpassé les systèmes en place malgré leur désavantage.</p>
+<p>Je crois que, comme pour beaucoup d&#39;autres arguments binaires, la vérité se trouve au milieu. </p>
+<p>Il existe un certain degré de base d&#39;intelligence chez tout membre de l&#39;espèce humaine. Un manque de culture sévère (par exemple, la privation de langage ou d&#39;éducation à un âge précoce) peut l&#39;entraver et, au pire, créer des changements dans le câblage biologique sous-jacent de l&#39;individu pour l&#39;éliminer, tandis qu&#39;une sur-culture (par exemple, des environnements de la petite enfance enrichis) peut la potentialiser et mener à la mobilité sociale. </p>
+<p>Mais il y a aussi une part d&#39;aléa incontrôlable avant la naissance et semi-contrôlable après la naissance dans l&#39;intelligence, en raison du fonctionnement du séquençage du génome. Lorsqu&#39;un bébé naît, des erreurs de copie se produisent naturellement pendant le processus de réplication de l&#39;ADN du parent à l&#39;enfant. En moyenne, chaque personne acquiert environ 60 à 70 de ces erreurs génétiques selon <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3548427/">Kong et al. (2012)</a>.</p>
+<p>Bien que ces erreurs puissent sembler infinitésimales par rapport aux 3 milliards de paires de bases du génome humain, elles impliquent que même s&#39;il existe une base partagée qui peut être sous-cultivée ou sur-cultivée, la stochastique inhérente au séquençage de l&#39;ADN signifie que sur un horizon suffisamment long, des variations naturelles de l&#39;intelligence et de la plupart des systèmes biologiques se produiront naturellement. </p>
+<p>La bonne nouvelle est que le corps humain remodèle activement la façon dont son génome est lu et accessible en fonction de ses expériences pour rester compétitif, en particulier celles qui ont un impact psychologique ou biologique particulièrement fort. C&#39;est la science et l&#39;étude de l&#39;épigénétique <a href="https://developingchild.harvard.edu/resources/infographics/what-is-epigenetics-and-how-does-it-relate-to-child-development/">epigenetics</a>, et cela signifie que bien que l&#39;on ne puisse pas choisir quelles mutations génétiques affectent l&#39;intelligence, il est possible de cultiver ou de favoriser des expériences qui remodèlent la nature en aval. </p>
+<p>Quant à savoir si l&#39;on a les circonstances ou les moyens de le faire, c&#39;est une question différente et, ayant avancé l&#39;argument ci-dessus, il est plus clair comment on pourrait justifier de dire que le talent est également réparti mais pas l&#39;opportunité. </p>
+<p>Vous vous demandez peut-être maintenant quel est le rapport avec la représentation unifiée vs fracturée des concepts dans les réseaux de neurones de tout à l&#39;heure.</p>
+<p>Si nous regardons l&#39;exercice dans les réseaux à travers ces hypothèses sur l&#39;intelligence, je pense qu&#39;il est assez clair qu&#39;il manque certains composants pour parvenir à un système de représentation unifié à usage général (alias AGI). </p>
+<p>Premièrement, comme noté ci-dessus, il y a un aspect déterministe dans la façon dont l&#39;intelligence <em>commence</em>. La nature a élégamment trouvé une combinaison dans l&#39;agencement des neurones et des organes du corps humain qui aboutit à des êtres intelligents. C&#39;est le fondement biologique d&#39;où notre ancêtre le plus lointain a dû partir : l&#39;intelligence « point zéro ».</p>
+<p>L&#39;intelligence point zéro était caractérisée par la compréhension des choses les plus élémentaires. Par exemple, la segmentation de lignes pour les représentations internes de différents types d&#39;objets. Le genre de choses qu&#39;un bébé peut traiter mentalement mais pas articuler ou utiliser de manière significative. </p>
+<p>On peut soutenir que des intelligences de type point zéro existent encore aujourd&#39;hui chez les animaux, car elles constituent la brique de base de la vie non intelligente, semi-intelligente et intelligente (ex. : bactéries -&gt; animaux -&gt; humains). </p>
+<p>Ici, j&#39;ai d&#39;abord pensé à écrire intuitivement qu&#39;à un moment donné, la nature a « trouvé » la bonne primitive de départ et s&#39;y est tenue. Cependant, cela attribue une intentionnalité à la nature, ce qui n&#39;est pas correct. Au lieu de cela, il est plus approprié de dire que les intelligences point zéro ont évolué en étant les meilleures pour les <em>contraintes de survie</em> de l&#39;époque. </p>
+<p>En d&#39;autres termes, les échelons de l&#39;échelle évolutive n&#39;ont pas été gravis, ils ont été trouvés grâce à la sélection naturelle. </p>
+<p>C&#39;est important car c&#39;est l&#39;opposé de la façon dont les systèmes d&#39;IA sont fabriqués en 2025. Ils sont entraînés selon une approche descendante (top-down), renforçant directement les comportements ou la reconnaissance de formes nécessaires pour résoudre des problèmes spécifiques et traçables, alors qu&#39;à l&#39;origine, ces problèmes étaient résolus de bas en haut (bottom-up), comme le résultat de systèmes de cognition naturellement émergents qui répondaient simplement aux réalités et aux pressions de leurs environnements. </p>
+<p>Je crois que pour créer une AGI, nous 1) ne travaillerons pas en faveur d&#39;un problème d&#39;optimisation, avec des réponses correctes et incorrectes clairement définies, et au lieu de cela 2) nous devrons reproduire les environnements et les contraintes qui ont conduit à l&#39;émergence biologique de l&#39;intelligence et trouver des moyens de faire vivre des systèmes viables minimaux (c&#39;est-à-dire les premières formes de vie) pendant des éons à l&#39;intérieur de ceux-ci, en évoluant naturellement comme nous l&#39;avons fait jusqu&#39;à ce qu&#39;ils atteignent notre niveau d&#39;intelligence. </p>
+<p>Fait intéressant, certains semblants de ce scénario ont été évoqués comme une manière dont nous pourrions finir par nous autodétruire, en émettant l&#39;hypothèse que si nous laissons un agent fonctionner pendant des milliers d&#39;années en une seule journée de temps humain, il fomentera un complot pour la domination humaine en raison d&#39;une fonction objective mal informée et l&#39;exécutera à partir de là.</p>
+<p>Je pense que le point 2) ci-dessus pourrait en fait être bien pire. Si nous créions des environnements qui reproduisaient notre monde et les laissions fonctionner plus longtemps que notre société ne s&#39;est développée (en supposant que ces environnements modélisent entièrement la physique du monde et respectent scrupuleusement les contraintes de la théorie de l&#39;information), il est très difficile de dire ce que nous pourrions trouver.</p>
+<p>Je soutiendrais que si nous parvenions effectivement à créer des répliques persistantes (stateful) de notre monde fonctionnant plus vite que nous, cela pourrait être le sommet technologique le plus élevé que l&#39;humanité puisse atteindre. À l&#39;intérieur, nous découvririons que ces sociétés convergeraient toutes vers les mêmes technologies et théories, créant récursivement leurs propres répliques jusqu&#39;à ce que nous fermions l&#39;originale. </p>
+<p>Ce qui précède ouvre de nombreuses questions intéressantes sur l&#39;entropie et l&#39;ordre qui surgiraient si on laissait les choses tourner assez longtemps, mais pour ce qui nous occupe ici, je vais conclure en disant que nos cadres actuels pour la création d&#39;intelligence sont mal alignés et simplement « pratiques ». </p>
+<p>Lorsque les lois d&#39;échelle ont « cliqué » à l&#39;époque d&#39;AlexNet, we rode the compute wave focusing on how data aggregation and data expression could be used to create intelligent systems. Maintenant, je pense que nous devons repenser à partir des principes fondamentaux quelles sont les contraintes qui ont mené à l&#39;émergence de l&#39;intelligence et simuler ces environnements et ces circonstances. </p>
+<p>Comme mentionné dans la vidéo, si nous ne faisons pas en sorte que les architectures de modèles sous-jacentes apprennent de bas en haut, elles ne formeront pas les bonnes représentations internes des concepts nécessaires pour généraliser à travers les domaines. Cela semble faire partie de l&#39;algorithme d&#39;intelligence sous-jacent, et je pense que c&#39;est une voie passionnante de voir comment elle sera développée. Je parierais que cela ne sera pas conçu par un mathématicien ou un spécialiste de l&#39;IA, cependant. C&#39;est trop abstrait pour cela. Je parierais plutôt que ce sera un groupe de généralistes d&#39;un domaine différent résolvant un problème similaire. J&#39;espère juste que nous pourrons le voir de notre vivant.  </p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>Il convient de noter que selon la façon dont on définit l&#39;intelligence, cet argument peut être largement détourné. Je me souviens d&#39;une citation de Naval Ravikant qui disait : « Le seul véritable test d&#39;intelligence est de savoir si vous obtenez ce que vous voulez de la vie ». Selon cette définition, nous pourrions soutenir que l&#39;intelligence est en effet une question de culture, car l&#39;exemple du 1 % émergent ne précise pas si ces 1 % sont des entrepreneurs ou des scientifiques. N&#39;importe qui avec suffisamment de contexte commercial et de persévérance peut finir par devenir entrepreneur. Est-ce applicable aux scientifiques également ? Je crois que oui, mais pour être précis lors de l&#39;évaluation de l&#39;argument de Naval, nous voudrions regarder combien dans les 1 % ont fait quelque chose d&#39;intellectuellement exigeant et combien étaient simplement assez concentrés ou disciplinés pour fabriquer quelque chose que les gens voulaient. Je soutiendrais toujours que, compte tenu de la quantité impressionnante de problèmes à résoudre pour atteindre le 1 % à partir d&#39;une position défavorisée, quiconque peut le faire est intelligent. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

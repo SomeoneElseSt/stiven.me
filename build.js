@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const crypto = require('crypto');
 const { execFile } = require('child_process');
 const { promisify } = require('util');
 const execFileAsync = promisify(execFile);
@@ -7,6 +8,10 @@ const { marked } = require('marked');
 const markedFootnote = require('marked-footnote');
 const markedKatex = require('marked-katex-extension');
 const { glob } = require('glob');
+
+function hashSource(text) {
+  return crypto.createHash('sha1').update(text).digest('hex').slice(0, 16);
+}
 
 const POSTS_JSON_PATH = path.join(__dirname, 'blog/posts.json');
 
@@ -125,7 +130,8 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
     const processedMarkdownContent = await applyCodeImports(markdownContent, fileName);
 
     const htmlContent = marked.parse(processedMarkdownContent);
-    combinedPosts.push({ ...postMeta, htmlContent });
+    const sourceHash = hashSource(markdownContent);
+    combinedPosts.push({ ...postMeta, htmlContent, markdownContent, sourceHash });
   }
   return combinedPosts;
 }
@@ -135,10 +141,11 @@ function escapeHtmlAttr(s) {
 }
 
 async function readLocaleTitle(postId, localeId) {
-  const jsonPath = path.join(__dirname, 'blog', postId, 'translations', `${localeId}.json`);
+  const htmlPath = path.join(__dirname, 'blog', postId, localeId, 'index.html');
   try {
-    const data = await fs.readJson(jsonPath);
-    return data && typeof data.title === 'string' ? data.title : null;
+    const content = await fs.readFile(htmlPath, 'utf-8');
+    const match = content.match(/<title>([^<]+)<\/title>/);
+    return match ? match[1] : null;
   } catch {
     return null;
   }
@@ -180,16 +187,52 @@ function structureFinalData(posts) {
   return { posts, postsById };
 }
 
-function fillPostTemplate(template, post) {
+const BACK_LABELS = {
+  en: 'Back',
+  es: 'Atrás',
+  ja: '戻る',
+  hi: 'वापस',
+  de: 'Zurück',
+  fr: 'Retour',
+  ko: '뒤로',
+  pt: 'Voltar',
+  pl: 'Wstecz',
+  zh: '返回',
+};
+
+function formatDateForLocale(dateString, localeId) {
+  try {
+    return new Intl.DateTimeFormat(localeId, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(dateString));
+  } catch {
+    return dateString;
+  }
+}
+
+function fillPostTemplate(template, post, localeId, sourceHash) {
   if (!post || !template) {
     return '';
   }
+  const locale = localeId || 'en';
   const isoDate = new Date(post.date).toISOString().split('T')[0];
+  const displayDate = locale === 'en' ? post.date : formatDateForLocale(post.date, locale);
   return template
     .replaceAll('%%POST_TITLE%%', post.title)
-    .replaceAll('%%POST_DATE%%', post.date)
+    .replaceAll('%%POST_DATE%%', displayDate)
     .replaceAll('%%POST_ISO_DATE%%', isoDate)
-    .replaceAll('%%POST_CONTENT%%', post.htmlContent);
+    .replaceAll('%%POST_CONTENT%%', post.htmlContent)
+    .replaceAll('%%POST_LOCALE%%', locale)
+    .replaceAll('%%BACK_LABEL%%', BACK_LABELS[locale] || BACK_LABELS.en)
+    .replaceAll('%%SOURCE_HASH%%', sourceHash || '');
+}
+
+async function readStoredSourceHash(htmlPath) {
+  try {
+    const content = await fs.readFile(htmlPath, 'utf-8');
+    const match = content.match(/<meta name="source-hash" content="([^"]*)"\s*\/?>/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
 }
 
 async function generatePostPages(posts) {
@@ -203,15 +246,13 @@ async function generatePostPages(posts) {
     await fs.ensureDir(BLOG_OUTPUT_DIR);
 
     for (const post of posts) {
-      const postHtml = fillPostTemplate(postTemplate, post);
-      
+      const englishHtml = fillPostTemplate(postTemplate, post, 'en', post.sourceHash);
       const postDir = path.join(BLOG_OUTPUT_DIR, post.id);
       await fs.ensureDir(postDir);
-      const outputFilePath = path.join(postDir, 'index.html');
-      await fs.writeFile(outputFilePath, postHtml, 'utf-8');
+      await fs.writeFile(path.join(postDir, 'index.html'), englishHtml, 'utf-8');
     }
-    
-    console.log(`Generated ${posts.length} blog pages.`);
+
+    console.log(`Generated ${posts.length} English blog pages.`);
     return [true, null];
   } catch (error) {
     return [null, new Error(`Error generating post pages: ${error.message}`)];
@@ -239,10 +280,13 @@ async function runCursorAgentTranslate(prompt, post, locale) {
   return null;
 }
 
-async function translatePost(post, mdContent, locale) {
-  const outputJsonPath = path.join(__dirname, 'blog', post.id, 'translations', `${locale.id}.json`);
-  const exists = await fs.pathExists(outputJsonPath);
-  if (exists) return { status: 'skip', locale: locale.id };
+async function translatePost(post, mdContent, locale, postTemplate) {
+  const outputHtmlPath = path.join(__dirname, 'blog', post.id, locale.id, 'index.html');
+  const exists = await fs.pathExists(outputHtmlPath);
+  if (exists) {
+    const storedHash = await readStoredSourceHash(outputHtmlPath);
+    if (storedHash === post.sourceHash) return { status: 'skip', locale: locale.id };
+  }
 
   const latexRule = '- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly';
 
@@ -276,14 +320,17 @@ ${mdContent}`;
   const translatedMd = output.slice(separatorIdx + 5);
   const processedMd = await applyCodeImports(translatedMd, post.file);
   const translatedHtml = marked.parse(processedMd);
-
   const localizedHtml = translatedHtml.replace(/\/blog\/assets\/figures\/en\//g, `/blog/assets/figures/${locale.id}/`);
-  await fs.ensureDir(path.dirname(outputJsonPath));
-  await fs.writeFile(outputJsonPath, JSON.stringify({ title: translatedTitle, html: localizedHtml }, null, 2), 'utf-8');
+
+  const translatedPost = { ...post, title: translatedTitle, htmlContent: localizedHtml };
+  const pageHtml = fillPostTemplate(postTemplate, translatedPost, locale.id, post.sourceHash);
+  await fs.ensureDir(path.dirname(outputHtmlPath));
+  await fs.writeFile(outputHtmlPath, pageHtml, 'utf-8');
   return { status: 'done', locale: locale.id };
 }
 
 async function translateAllPosts(posts) {
+  const postTemplate = await fs.readFile(POST_TEMPLATE_PATH, 'utf-8');
   let totalDone = 0;
   for (const post of posts) {
     const mdPath = path.join(POSTS_DIR, post.file);
@@ -293,7 +340,7 @@ async function translateAllPosts(posts) {
       continue;
     }
     console.log(`\nTranslating: ${post.id}`);
-    const results = await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale)));
+    const results = await Promise.all(TRANSLATION_LOCALES.map(locale => translatePost(post, mdContent, locale, postTemplate)));
 
     const skipped = results.filter(r => r?.status === 'skip');
     const translated = results.filter(r => r?.status === 'done');
@@ -334,6 +381,10 @@ async function main() {
   if (postPagesError) {
     console.error(postPagesError.message);
     process.exit(1);
+  }
+
+  if (process.argv.includes('--translate')) {
+    await translateAllPosts(finalData.posts);
   }
 
   const blogListHTML = await generateBlogListHTML(finalData.posts);
@@ -378,10 +429,6 @@ async function main() {
   } catch (error) {
     console.error(`Error processing HTML template: ${error.message}`);
     process.exit(1);
-  }
-
-  if (process.argv.includes('--translate')) {
-    await translateAllPosts(finalData.posts);
   }
 }
 
