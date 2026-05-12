@@ -1,4 +1,4 @@
-import LOCALE_METADATA from './locales.json';
+import { LOCALE_METADATA } from './locales';
 
 export type LocaleId = typeof LOCALE_METADATA[number]['id'];
 
