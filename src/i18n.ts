@@ -1,6 +1,6 @@
 import LOCALE_METADATA from './locales.json';
 
-export type LocaleId = 'en' | 'es' | 'ja' | 'hi' | 'de' | 'fr' | 'ko' | 'pt' | 'pl' | 'zh';
+export type LocaleId = typeof LOCALE_METADATA[number]['id'];
 
 const metaById = Object.fromEntries(LOCALE_METADATA.map((m) => [m.id, m]));
 
