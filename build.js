@@ -26,7 +26,6 @@ const TRANSLATION_LOCALES = [
   { id: 'pl', name: 'Polish' },
   { id: 'zh', name: 'Chinese' },
 ];
-const LATIN_LOCALES = new Set(['es', 'de', 'fr', 'pt', 'pl']);
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
 const BLOG_OUTPUT_DIR = path.join(__dirname, 'blog');
 const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
@@ -288,8 +287,6 @@ async function translatePost(post, mdContent, locale, postTemplate) {
     if (storedHash === post.sourceHash) return { status: 'skip', locale: locale.id };
   }
 
-  const latexRule = '- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly';
-
   const prompt = `Translate the following markdown blog post to ${locale.name}.
 Output ONLY the following format — no extra text, no preamble:
 
@@ -300,7 +297,7 @@ TITLE: <translated title here>
 Rules:
 - Preserve all markdown formatting exactly (headings, bold, italic, lists)
 - Do NOT translate code blocks (content inside triple backticks), URLs, or HTML tags
-${latexRule}
+- In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly
 - DO translate text inside <summary> tags — these are user-facing labels that should be in the target language
 - Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
 - Your response must end with the last line of the translated markdown and nothing else
