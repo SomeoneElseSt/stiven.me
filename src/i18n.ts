@@ -237,17 +237,6 @@ export function isLocaleId(value: string): value is LocaleId {
     return LOCALE_BY_ID.has(value as LocaleId);
 }
 
-export function getLocaleFromStorage(): LocaleId {
-    if (typeof localStorage === 'undefined') {
-        return DEFAULT_LOCALE;
-    }
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw || !isLocaleId(raw)) {
-        return DEFAULT_LOCALE;
-    }
-    return raw;
-}
-
 export function getInitialLocale(): LocaleId {
     if (typeof localStorage !== 'undefined') {
         const stored = localStorage.getItem(STORAGE_KEY);
