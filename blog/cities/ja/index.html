@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="967c3551b2550176"/>
+    <title>都市</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'ja'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">都市</h1>
+            <time id="post-date" class="post-date" data-iso-date="2025-10-20">2025年10月20日</time>
+        </div>
+        <a href="/" class="back-button">← 戻る</a>
+    </div>
+    
+    <article id="post-content"><p>思考実験をしてみましょう：</p>
+<p>もし都市が、そこを訪れる人々そのものになったとしたら、どのような姿になるでしょうか？</p>
+<p>これについて考えるために、まずいくつかの都市を絞り込む必要があります。十分に高い頻度で人が訪れない都市は考慮せず、現実的な理由から、人々が絶えず出入りする主要都市のみを対象とします。</p>
+<p>私は東京について考えているときに、この疑問を自分自身に投げかけ始めました。</p>
+<p>東京は美しい都市です。建築から食べ物（そして食品サンプル）に至るまで、そこにあるすべてのものは、自分が作っているものは美しくあるべきだと考える誰かによって設計されています。これの興味深い副産物は、日本文化における美とは、作ることができるもの、買うことができるもの、あるいはその両方であるように思われることです。</p>
+<p>ほとんどの人は、アルプス山脈をそれ自体で美しいと考えるでしょう。アルプスのコピーを作ったり、別の場所に移動させたりする方法はありません。アルプスがワイオミングやオーストラリアにあったとしたら、それはアルプスではないでしょう。ヨセミテがカリフォルニア的であり、ピラミッドがエジプト的であるのと同様に、それらは独特のヨーロッパ的、地中海的なものです。</p>
+<p>東京はこの点において異なります。この都市が知られている多くのもの（例えば、渋谷交差点、神社、アニメ、日本食）には、ある共通点があります。それは、誰かが誰かのために、相手がどう思うかを念頭に置いて作ったものだということです。</p>
+<p>それらは深い意図的な重みを持ち、些細なものであったり、不意に現れたりしたものではありません。日本の書道が独特なものになるまでには長い年月がかかりました。神社は、その本質と背景を保存するために、何世紀にもわたって計画的に作り直されてきました。</p>
+<p>これは、その都市を訪れる人々にも反映されています。一見したときの東京の観光客を描写するとすれば、高層ビルのオフィスよりもファッションショーや美術館にいる方がしっくりくると言うのが、うまく平均化した表現になるでしょう。</p>
+<p>この都市に惹かれる観光客は、少なくとも表面的なレベルでは、自分がどう見えるか、そして何を見ているかに非常に興味があるようです。</p>
+<p>西洋ブランドの制服から日本のアニメTシャツ、エキゾチックなダークなアウトフィットまで、朝起きて適当にシャツとジーンズを羽織ったような人は誰もいません。東京に来る観光客の多くが、何か本質的な理由よりも、その見た目のために来ていることを考えれば、これは理にかなっています。</p>
+<p>人々がヒマラヤ、デリー、エルサレム、メッカに行くのは、行った後に自分が変わっていることを期待しているからです。世界最高峰に登った？それはおそらく、より優れた創業者になる助けになるでしょう。宗教や神と繋がった？それは死後の世界で役立つかもしれません。</p>
+<p>これは、本質的な意味を持たず、一般的に見た目で知られている都市には当てはまりません。もっとも、都市の見た目が独自の重みを持たないと言っているわけではありません（そうでなければ、パリはロマンスの街にはならないでしょう）。</p>
+<p>冒頭の質問に戻ると、観光客によって構成された東京は、人々が美を賞賛し、周囲の世界にそれを反映させたいと願う、質の高い生活の中心地になると主張できるかもしれません。</p>
+<p>この記述は真実かもしれませんし、そうでないかもしれません。そして、私がこの街で見てきた観光客に関する短い一般化に基づいた偏見であることは間違いありません。しかし、それでもなお、日本文化や東京との間には無視できない類似点があります。</p>
+<p>日本文化は、時間をかけて作られ、非常に高い基準に保たれた美しいものを正確に創造することに強い関心を持っています。これは<a href="https://japanintercultural.com/free-resources/articles/monozukuri-another-look-at-a-key-japanese-principle/"><em>Monozukuri</em></a>と呼ばれます。作るものに自分自身が注入される、作るという芸術のことです。</p>
+<p>つまり、ある都市を訪れる人々は、ある程度その都市を特徴づけるものを反映しているのです。言い換えれば、ある都市から観光客を一人抽出した場合、他のランダムな人を抽出した場合よりも、その人がその都市といくつかの特徴を共有している可能性が高いということです。</p>
+<p>美を大切にする人は、おそらく美しい都市を訪れるでしょう。権力を大切にする人は、おそらく強力な都市を訪れるでしょう。そして、文化や精神性を大切にする人は、おそらく何らかの本質的な価値を持つ場所へ行くでしょう。</p>
+<p>この考え方に従えば、もし都市がそこを訪れる人々そのものになった場合、二つの現象が起こると予想されます：</p>
+<ol>
+<li>生活の質、収入、教育を比較する都市間の指標において、より大きな格差（デルタ）が生じる。</li>
+<li>都市は高度に専門化されニッチになり、規範や期待が根本的に異なるようになる。</li>
+</ol>
+<p>小さな副産物として、観光客は一般的に裕福で西洋諸国の出身であるため、都市はより西洋化され、裕福になるでしょう。</p>
+<p>これを知ることで、誰が、なぜ訪れるかを考慮したときに、どの都市が「勝つ」可能性が高いかを考えることができます。ここで私は、「勝つ」ということを、社会に価値を加える可能性が高いことと定義します。実質的には、その都市がどれほど10億ドル規模の企業や生活を向上させるものを生み出す可能性があるか、ということです。</p>
+<p>最も興味深い比較は東京対サンフランシスコだと考えました。なぜなら、サンフランシスコはある分野において東京の真逆だからです。</p>
+<p>東京は、楽しい時間を過ごすために訪れることができる多くの都市の一つです。サンフランシスコは細分化され、意図的です。サンフランシスコに「次点」はありません。なぜなら、それを目指す都市は、自らのスタートアップやメンティーにサンフランシスコへ行ってほしいと願うからです。そうすることで、最終的にサンフランシスコ級の人々がそこへ来て構築を始めるのに十分な評判を得られるようになるからです。</p>
+<p>これは、サンフランシスコについて語ることは、実際には都市としてのSFについて語ることではない理由です。それは、過去40年間の二つの大きなテクノロジー革命において、この都市を北極星たらしめた人々や組織について語ることなのです。</p>
+<p>実際、サンフランシスコを訪れる人々は、一般的にそこが自分の人生の何らかの側面における北極星であると信じています。実際、次の大きな流行の一部になれるわずかなチャンスのために、エアマットレスで眠り、ラーメンを食べることを厭わないほど、それは重要なことなのです。</p>
+<p>これは、サンフランシスコに行く人々のタイプについて多くを物語っています。彼らは、私たちが知る世界を変えるような何かの一部になり、その過程で金持ちになり、同じことをしたいと願う他の人々を見つけたいと考えています。なぜか？サンフランシスコの人々は、偉大なことを成し遂げることが、自分の時間を費やす最良の方法だと信じているからです。</p>
+<p>このような人々がいなければ、SFは、クールな橋といくつかのまともな公園があるだけの、不当に高価な海辺の町に過ぎないでしょう。</p>
+<p>東京と比較すれば、なぜサンフランシスコが勝つのかは明らかです。</p>
+<p>その価値観と人々は、私たちの「勝利」の尺度に直接根ざしています。この比較にはいくらか不公平な点がある（観光や美しさに焦点を当てた都市は、通常、リスクを取ることを後回しにすることを選択しているわけではない）ものの、何が都市を、ひいては国を勝たせるのかという点において、否定できない意図性があることは明らかです。</p>
+<p>東京は、もし人々が<em>Monozukuri</em>を信じていなければ、その美しさを求めて訪れる観光客はいないでしょう。同様に、もし人々が*<a href="https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/">L&#39;art de vivre</a>*を信じていなければ、リラックスするためにパリを訪れる観光客はいないでしょう。</p>
+<p>世界がよりグローバル化し、人々が最も自分が属していると感じる場所に住めるようになるにつれ、こうした文化的な根源が長期的な都市の運命を決定づけることになるでしょう。国境が開かれれば、地元の状況や特徴から生じた共通点（おそらくテクノロジーに関することではないでしょうが）のために移民が集まる、多くのサンフランシスコが誕生するでしょう。</p>
+<p>ですから、自分が住む場所を、自分がしたいことと一致させることには、直接的なメリットがあります。もし人が周囲の人々の集合体であるならば、10億ドル規模のスタートアップを立ち上げたいのであれば、ボゴタ（少なくとも今は）やパリに住みたいとは思わないでしょう。それができないと言っているわけではありませんが、人生が確率のゲームであるならば、他の条件が同じであれば、他の場所にチャンスがある可能性が高いのです。</p>
+<p>私がもともとこれを書こうと思ったのは、ベイエリアに1年近く住んだ後、東京がかなりのカルチャーショックだったからです。サンフランシスコを訪れる人々は、招待されたから、つまりクラス最高であるために連れてこられたからです。一方、東京は、ハイファッションな都市に属しているかどうかは、意味のある競争や実力よりも、それを享受できる経済力があるかどうかに関係しているという印象を私に与えました。</p>
+<p>東京のような場所はバランスのために必要ですが、コンピューターとインターネット接続さえあれば、誰もが世界と自分の人生を変える方法を見つけるよう<strong>奨励される</strong>SFのような場所がもっと必要です。こうしたリスクのハブは、歴史的に美のハブよりも社会の進歩に貢献してきました。今、世界、特に新興経済国は、一方よりももう一方をはるかに必要としています。</p>
+<p>もっとも、これは東京や他の高層都市を蔑ろにするものではありません。リスクのハブと休息のハブの間に何らかのバランスがなければ、前者は戦うための意味のある理由を失ってしまうでしょう。</p>
+<p>ここでの時間を心から楽しんできましたが、しばらくして、ある微妙な促しが定着し始めました。不快感は成長をもたらし、東京はたまたま非常に快適であるということです。それは正しい都市ですが、ただ別の章のためのものなのです。</p>
+<p><img src="/blog/assets/san-francisco.jpeg" alt="サンフランシスコ — X提供" title="サンフランシスコのダウンタウン"></p>
+<p><small>1. This is partly inspired by Paul Graham&#39;s Cities and Ambition, which you can read <a href="https://www.paulgraham.com/cities.html">here</a>.</small></p>
+<p><small>2. I later jotted down a sentence I think encapsulates what I was trying to convey: Visiting Tokyo is like going to heaven. There are few places as beautiful. Living in Tokyo is realizing you wish you could go back to keep fighting. Nothing quite feels like it, but it can&#39;t make up for the other places you could be and the work you could be doing there.
+</small></p>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

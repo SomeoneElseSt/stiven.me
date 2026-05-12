@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="967c3551b2550176"/>
+    <title>城市</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'zh'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">城市</h1>
+            <time id="post-date" class="post-date" data-iso-date="2025-10-20">2025年10月20日</time>
+        </div>
+        <a href="/" class="back-button">← 返回</a>
+    </div>
+    
+    <article id="post-content"><p>这里有一个思想实验：</p>
+<p>如果一座城市变成了访问它的人，它会是什么样子？</p>
+<p>为了思考这个问题，首先我们需要缩小范围到一些城市。我们不会考虑那些访问频率不够高的城市，出于实际原因，让我们只考虑人们成群结队进出的大都市。</p>
+<p>当我在思考东京时，我开始问自己这个问题。</p>
+<p>东京是一座美丽的城市。其中的一切，从建筑到食物（以及仿真食物模型），都是由那些认为自己正在制作的东西应该是美丽的人设计的。这产生了一个有趣的副产品，即在日本文化中，美似乎是可以制造、购买，或者两者兼而有之的东西。</p>
+<p>大多数人会认为阿尔卑斯山本身就很美——我们没有办法复制阿尔卑斯山或将其移动到其他地方，如果阿尔卑斯山在怀俄明州或澳大利亚，那它就不再是阿尔卑斯山了。它们具有独特的欧洲和地中海特色，就像约塞米蒂国家公园属于加利福尼亚，金字塔属于埃及一样。</p>
+<p>从这个意义上说，东京是不同的。这座城市闻名的许多事物（例如涩谷十字路口、神社、动漫、日本料理）都有一个共同点：它们是某人为某人精心制作的，并考虑到了对方的想法。</p>
+<p>它们承载着深思熟虑的分量，并非微不足道或偶然产生。日本书法历经几代人才变得独特；神社几个世纪以来一直被有条不紊地重修，以保持其精髓和背景。</p>
+<p>这反映在访问这座城市的人身上。如果你必须在第一眼描述东京的游客，平均而言，他们会觉得在时装秀或博物馆里比在高层写字楼里更自在。</p>
+<p>被这座城市吸引的游客，至少在表面上，对自己的外表以及他们正在看的东西非常感兴趣。</p>
+<p>从西方品牌的制服到日本动漫 T 恤和异国情调的深色装束，没有人是起床后随便套上一件衬衫和牛仔裤就出门的。如果你考虑到大多数来东京的游客是因为它的外观而不是某些内在原因，这就说得通了。</p>
+<p>人们去喜马拉雅山、德里、耶路撒冷和麦加，是因为他们期望去过之后会有所不同。攀登过世界最高峰？这可能会让你成为一个更好的创始人。与宗教和上帝建立联系？这可能对来世有所帮助。</p>
+<p>对于那些不承载内在含义、通常更多因其外观而闻名的城市来说，情况并非如此。尽管这并不是说城市的外观不带有其自身的分量（否则巴黎就不会是浪漫之都了）。</p>
+<p>回到上面的问题，有人可能会辩论说，一个由游客组成的东京将是一个高质量的生活中心，人们在这里欣赏美，并希望周围的世界能反映出这一点。</p>
+<p>这个说法可能正确，也可能不正确，而且它肯定偏向于我对在这座城市看到的游客的简短概括。然而，它仍然与日本文化和东京有着不可忽视的相似之处。</p>
+<p>日本文化对精确创造美的事物非常感兴趣，这些事物经过时间的打磨，并保持着极高的标准。这被称为 <a href="https://japanintercultural.com/free-resources/articles/monozukuri-another-look-at-a-key-japanese-principle/"><em>Monozukuri</em></a> ——制造的艺术，即一个人所制造的东西被注入了自我。</p>
+<p>因此，访问一座城市的人在某种程度上反映了该城市的特征。换句话说，如果我们从一座城市抽样一名游客，他们比随机抽样的任何其他人更有可能与该城市具有某些共同特征。</p>
+<p>在意美的人可能会访问美丽的城市。在意权力的人可能会访问强大的城市，而在意文化或精神性的人可能会去那些具有某种内在价值的地方。</p>
+<p>沿着这个思路，如果城市变成了访问它们的人， I&#39;d expect two phenomena:</p>
+<ol>
+<li>在衡量生活质量、收入和教育程度的城市指标之间会出现更大的差距。</li>
+<li>城市将变得高度专业化和分众化，拥有截然不同的规范和期望。</li>
+</ol>
+<p>一个较小的副产品是，它们也会变得更加西化和富裕，因为游客通常更富裕且来自西方国家。</p>
+<p>了解了这一点，我们可以思考哪些城市更有可能胜出，考虑到谁在访问它们以及为什么。在这里，我将“胜出”定义为为社会创造价值的可能性。在实际操作中，即一座城市产生估值十亿美元的公司和改善生活的事物的可能性有多大。</p>
+<p>我认为最有趣的对比是东京与旧金山，因为旧金山在某些领域是东京的对立面。</p>
+<p>东京是众多可以让人度过愉快时光的城市之一。旧金山则是原子化的、有目的性的。旧金山没有“次优选”，因为任何试图这样做的城市都会希望它的初创公司和导师去旧金山，这样它最终才能积累足够的声誉，吸引旧金山水准的人才去那里建设。</p>
+<p>这就是为什么谈论旧金山实际上并不是在谈论旧金山这座城市——而是在谈论这座城市中的人和组织，是他们让它成为了过去 40 年里两次重大技术革命的北极星。</p>
+<p>的确，访问旧金山的人通常相信它是他们生活中某些方面的北极星。事实上，它足够重要，以至于他们愿意睡充气床垫、吃拉面，只为了能有机会参与到下一个大事件中。</p>
+<p>这说明了很多关于去旧金山的人的类型：他们希望成为改变我们所知世界的一部分，在这个过程中变富，并找到其他想做同样事情的人一起奋斗。为什么？因为旧金山的人相信，成就伟大的事业是他们度过时间的最佳方式。</p>
+<p>如果没有这类人，旧金山将只是一个价格昂贵得离谱的海滨小镇，拥有一座很酷的桥和几个不错的公园。</p>
+<p>与东京相比，旧金山为什么会胜出就很清楚了。</p>
+<p>它的价值观和人们直接扎根于我们对“胜出”的衡量标准，尽管这种比较有些不公平（以旅游或美学为中心的城市通常不会选择不优先考虑冒险），但很明显，在让一座城市——以及延伸到一个国家——胜出的因素中，存在着不可否认的刻意性。</p>
+<p>如果东京的人不相信 <em>Monozukuri</em>，它就不会有游客为了它的美而去访问；就像如果巴黎的人不相信 <em><a href="https://thegoodlifefrance.com/art-de-vivre-a-way-of-life-in-france/">L&#39;art de vivre</a></em>，它就不会有游客为了放松而去访问。</p>
+<p>随着世界变得更加全球化，人们可以住在他们觉得最有归属感的地方，这些文化根源将长期定义城市的命运。当边界开放时，会出现许多其他由移民组成的“旧金山”，他们因为源自当地环境或特征的共同点而聚集在一起（尽管他们可能不再是为了技术）。</p>
+<p>因此，将你居住的地方与你想做的事情对齐是有直接好处的。如果一个人是他周围人的集合，那么如果你想建立一家估值十亿美元的初创公司，你可能不想住在波哥大（至少现在不想）或巴黎。这并不是说你做不到，但如果生活是一场概率游戏，在其他条件相同的情况下，其他地方的机会更高。</p>
+<p>我最初选择写这篇文章是因为，在湾区生活了近一年后，东京给我带来了相当大的文化冲击。访问旧金山的人是因为他们受邀而来——因为他们是业内顶尖而被引入。另一方面，东京给我的印象是，归属于一座高级时尚城市更多地取决于你是否负担得起，而不是任何有意义的竞争或功绩。</p>
+<p>虽然像东京这样的地方对平衡是必要的，但我们需要更多像旧金山这样的地方，在那里，几乎任何拥有电脑和互联网连接的人都被<strong>鼓励</strong>去寻找改变世界和生活的方法。这些冒险中心在历史上比美学中心对社会进步负有更多责任；现在，世界——尤其是新兴经济体——需要更多的前者。</p>
+<p>不过，这并不是在贬低东京和其他高楼林立的城市。如果没有冒险中心和休息中心之间的某种平衡，前者将失去奋斗的有意义的理由。</p>
+<p>虽然我在这里度过了非常愉快的时光，但一段时间后，一种微妙的推动感开始显现：不适带来成长，而东京恰好非常舒适。它是正确的城市，只是为了不同的篇章。</p>
+<p><img src="/blog/assets/san-francisco.jpeg" alt="旧金山 —— 图片由 X 提供" title="旧金山市中心"></p>
+<p><small>1. 这在一定程度上受到了保罗·格雷厄姆（Paul Graham）的《城市与雄心》（Cities and Ambition）的启发，你可以在<a href="https://www.paulgraham.com/cities.html">这里</a>阅读。</small></p>
+<p><small>2. 后来我记下了一句话，我认为它概括了我想表达的意思：访问东京就像去天堂。很少有地方像它一样美丽。住在东京是意识到你希望自己能回去继续战斗。没有什么能与之相比，但它无法弥补你本可以去的其他地方以及你在那里可以做的工作。</small></p>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
