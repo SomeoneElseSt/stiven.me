@@ -9,6 +9,8 @@ pnpm compile
 pnpm compile --translate
 ```
 
+## Testing
+
 Run locally with:
 ```
 python3 -m http.server 8000
