@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="e07d21bae0796c55"/>
+    <title>Câncer</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'pt'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">Câncer</h1>
+            <time id="post-date" class="post-date" data-iso-date="2025-11-03">3 de novembro de 2025</time>
+        </div>
+        <a href="/" class="back-button">← Voltar</a>
+    </div>
+    
+    <article id="post-content"><p>Tenho ouvido um livro chamado <a href="https://press.uchicago.edu/ucp/books/book/chicago/D/bo45084244.html" target="_blank" rel="noopener noreferrer">The Demon in the Machine</a> de Paul Davies. </p>
+<p>Ele fala sobre como a informação desempenha um papel na evolução, na termodinâmica e na biologia. </p>
+<p>Em um de seus capítulos, ele fala sobre o câncer. É bastante fascinante. O câncer — ao nível celular — é o que acontece quando uma célula entra em algum tipo de &#39;overdrive&#39; evolutivo ao se sentir ameaçada devido a uma pressão em seu ambiente. A célula se decompõe em seu impulso mais básico: garantir sua sobrevivência individual, reproduzindo-se em tecidos e órgãos próximos na maior taxa possível.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
+<p>Este é um problema especialmente agudo, dado que um dos principais contratos biológicos dentro do corpo é que as células individuais aceitam morrer ciclicamente e serem substituídas por células mais novas, porque fazê-lo aumenta a força geral do corpo e, com isso, as chances de que ele se reproduza e seu genoma seja levado adiante. </p>
+<p>Há uma certa ironia nesta falha da biologia. Quando uma única célula rebelde decide buscar seu melhor resultado, o corpo não será capaz de se reproduzir (se ela matar com sucesso as células que mantêm seu hospedeiro), descartando a possibilidade de o genoma dessa célula ser transmitido ou espalhado. </p>
+<p>Quando eu estava conversando com um amigo esta semana, ele trouxe uma ideia que eu não tinha ouvido antes: &#39;Todo problema na humanidade decorre de alguém pensar que é melhor do que outra pessoa&#39;. Ele argumentou que, em termos econômicos, devido à maximização individual da utilidade por alguns indivíduos em um sistema social, muitas pessoas que são capazes de obter bons resultados acabam não o fazendo, pois é de maior benefício para tais indivíduos manter algumas pessoas, por exemplo, mal pagas ou sobrecarregadas. </p>
+<p>Isso se alinha bem com o que vemos em países como a China e a mecânica geral dos países manufatureiros com o Ocidente. A sociedade ocidental está em melhor situação econômica pelo abuso de trabalhadores no oriente do que estaria se produzisse seus bens internamente ou se realizasse os trabalhos de serviço que os imigrantes fazem por salários mais baixos. </p>
+<p>Quanto ao argumento do meu amigo, achei-o curiosamente em uníssono com a descrição de Davies sobre o câncer. </p>
+<p>Acho que a maioria das pessoas concordaria que, se pudéssemos todos trabalhar juntos para fornecer educação e segurança àqueles que não as têm, eles acabariam em posições melhores do que as que ocupam atualmente. Isso é apenas senso comum. Semelhante ao contrato do corpo com suas células: se pudéssemos todos nos dar bem, isso aumentaria dramaticamente as chances de nossa raça resistir aos muitos desafios à sua sobrevivência. </p>
+<p>No entanto, nossa sociedade é tudo menos igualitária, no sentido de que a maioria das pessoas foca seus esforços em como poderiam melhorar sua própria vida em vez de trabalhar diretamente para beneficiar os outros. Se você concorda com isso ou não é algo amplamente individual, mas, logicamente, se todos estivessem de fato trabalhando com os outros em mente, esperaríamos que nenhum governo suprimisse e explorasse propositalmente minorias raciais e culturais, o que não é verdade para a maioria das grandes economias. </p>
+<p>Aí reside uma contradição interessante.</p>
+<p>A seleção natural descobriu que a melhor maneira de um sistema maximizar sua sobrevivência a longo prazo é que todas as peças dentro dele aceitem sua própria mortalidade e cooperem em favor do bem maior. Parece que ainda não aprendemos isso.  </p>
+<p>De fato, nossa descrição social acima é mais semelhante à descrição das células cancerígenas. O individualismo cultural levou a algumas das grandes explorações da história; como o câncer, os colonizadores viram novas partes de seu sistema e decidiram que a melhor maneira de moldá-lo era substituir a cultura, a língua e a religião locais pelas suas próprias, explorando os recursos de seus habitantes anteriores para seu benefício.</p>
+<p>Há algo impressionante nisso. A vida moderna é quase totalmente baseada em maximizar o quanto você é melhor que os outros. Um certificado ou prêmio é sua maneira de sinalizar ao mundo que, entre todos os outros que pensaram que poderiam competir em uma tarefa, você é melhor que eles. A atratividade é o decodificador biológico de genética saudável, por isso encontramos maneiras de parecer melhor para que os outros pensem que temos melhores chances de sobrevivência.</p>
+<p>Tudo é uma tarefa competitiva. E as tarefas competitivas são geralmente limitadas por algum sistema que é hackeável. Ou seja, há uma métrica clara para maximizar e algum roteiro para fazê-lo. </p>
+<p>O problema reside no fato de que, se todos pudessem maximizar o quão bem estão, não haveria o suficiente para todos. Ninguém faria os trabalhos de construção necessários para criar uma grande arquitetura ou o trabalho extenuante que os produtos inovadores precisam para chegar ao mercado. O desejo é limitado pela produção, e você não pode ter produção se não houver pessoas dispostas a trabalhar nos empregos difíceis e ruins do mundo. </p>
+<p>Portanto, seria razoável esperar que apenas poucas pessoas possam maximizar o quão bem estão se precisarem de um grande conjunto de outras para alcançar seus resultados desejados, o que é apenas uma maneira diferente de dizer que, em uma sociedade onde cada indivíduo opera para seu próprio benefício, esperamos que ocorra alguma desigualdade e que algumas pessoas sejam naturalmente delegadas como trabalhadores ou inferiores. </p>
+<p>É ilógico esperar que algum dia teremos um mundo igualitário se nossa definição não dita de normal é que cada pessoa cuida de si mesma. Isso não quer dizer que não tenhamos obtido alguns bons resultados com isso (e eu não sou de criticar o livre mercado), mas se quisermos obter o melhor resultado, precisamos ser mais como o corpo e trabalhar em direção a um objetivo comum. </p>
+<p>Isso deve nos preocupar não apenas para garantir a sobrevivência a longo prazo, mas também porque, se o câncer só conseguisse chegar ao ponto de possuir temporariamente algumas partes de seu hospedeiro e depois morrer, poderíamos analogamente estar em uma situação melhor em extensões que ainda não vimos se trabalharmos juntos para nos &#39;reproduzir&#39; colonizando outros planetas — ou de qualquer outra forma que possamos maximizar nossas chances de sobrevivência. </p>
+<p>E se não o fizermos, a história se desenrolará e não iremos muito além do que o câncer jamais foi, e morreremos nesta bela, porém pequena terra. </p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>O capítulo do livro é o #4: Darwinismo 2.0. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

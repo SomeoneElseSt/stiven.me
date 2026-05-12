@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="%%POST_LOCALE%%">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="%%SOURCE_HASH%%"/>
     <title>%%POST_TITLE%%</title>
     <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', '%%POST_LOCALE%%'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
         :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
-        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
         h1 { font-size: 24px; margin-bottom: 24px; }
         .blog-header { padding-top: 5px; }
         .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -17,11 +19,11 @@
         .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
         .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
         .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
-        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px;} /* Modify margin-bottom to move text up/down */
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
         .post-header > div { flex: 1; }
         .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
         #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
-        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; color: var(--fg); line-height: 1.2; position: relative; top: 16px; } /* Change top to move back button up/down */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
         article { max-width: 600px; overflow: hidden; }
         article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
         article p { margin: 16px 0; }
@@ -56,12 +58,13 @@
         #nprogress .spinner { display: none !important; }
         @media (max-width: 768px) {
             body { padding: 24px; }
-            .post-header { margin-top: 20px; } /* Change margin top to modify the padding between the title and empty space above */
             .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
         }
     </style>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
@@ -73,13 +76,13 @@
     <div class="post-header">
         <div>
             <h1 id="post-title">%%POST_TITLE%%</h1>
-            <time id="post-date" class="post-date">%%POST_DATE%%</time>
+            <time id="post-date" class="post-date" data-iso-date="%%POST_ISO_DATE%%">%%POST_DATE%%</time>
         </div>
-        <a href="/" class="back-button">← Back</a>
+        <a href="/" class="back-button">← %%BACK_LABEL%%</a>
     </div>
     
     <article id="post-content">%%POST_CONTENT%%</article>
-    
+
     <script>
         function isSafari() {
             return typeof safari !== 'undefined';
@@ -96,13 +99,10 @@
         }
 
         function finishProgress() {
-            if (!shouldDisableNProgress() && typeof NProgress !== 'undefined') {
-                NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
-                NProgress.set(0.7);
-                setTimeout(function() {
-                    NProgress.done();
-                }, 100);
-            }
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
         }
 
         if (document.readyState === 'loading') {
@@ -218,12 +218,27 @@
             imgs.forEach(function(img) {
                 var src = img.getAttribute('src');
                 var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (match) {
-                    img.setAttribute('src', match[1] + '-light' + match[2]);
-                    img.onerror = (function(original) {
-                        return function() { img.setAttribute('src', original); img.onerror = null; };
-                    })(src);
-                }
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
             });
         })();
     </script>

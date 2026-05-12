@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="e07d21bae0796c55"/>
+    <title>कैंसर</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'hi'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">कैंसर</h1>
+            <time id="post-date" class="post-date" data-iso-date="2025-11-03">3 नवंबर 2025</time>
+        </div>
+        <a href="/" class="back-button">← वापस</a>
+    </div>
+    
+    <article id="post-content"><p>मैं पॉल डेविस की <a href="https://press.uchicago.edu/ucp/books/book/chicago/D/bo45084244.html" target="_blank" rel="noopener noreferrer">The Demon in the Machine</a> नामक पुस्तक सुन रहा हूँ। </p>
+<p>यह इस बारे में बात करती है कि कैसे सूचना विकास (evolution), उष्मागतिकी (thermodynamics) और जीव विज्ञान (biology) में भूमिका निभाती है। </p>
+<p>इसके एक अध्याय में यह कैंसर के बारे में बात करती है। यह काफी दिलचस्प है। कैंसर — कोशिकीय स्तर पर — तब होता है जब एक कोशिका किसी प्रकार के विकासवादी &#39;ओवरड्राइव&#39; में चली जाती है क्योंकि वह अपने वातावरण में दबाव के कारण खतरा महसूस करती है। कोशिका अपने सबसे बुनियादी आवेग में टूट जाती है: अपनी व्यक्तिगत उत्तरजीविता की गारंटी देना, पास के ऊतकों और अंगों में उच्चतम संभव दर पर प्रजनन करके।<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
+<p>यह एक विशेष रूप से गंभीर समस्या है क्योंकि शरीर के भीतर प्रमुख जैविक अनुबंधों में से एक यह है कि व्यक्तिगत कोशिकाएं चक्रीय रूप से मरने और नई कोशिकाओं द्वारा प्रतिस्थापित होने के लिए ठीक हैं, क्योंकि ऐसा करने से शरीर की समग्र शक्ति बढ़ती है और इसके साथ ही इसके प्रजनन की संभावना बढ़ जाती है और उनका जीनोम आगे बढ़ता है। </p>
+<p>जीव विज्ञान की इस विफलता में कुछ विडंबना है। जब एक अकेली दुष्ट कोशिका अपने सर्वोत्तम परिणाम को प्राप्त करने का निर्णय लेती है, तो शरीर प्रजनन करने में सक्षम नहीं होगा (यदि यह सफलतापूर्वक उन कोशिकाओं को मार देती है जो इसके मेजबान को बनाए रखती हैं), जिससे उस कोशिका के जीनोम के पारित होने या फैलने की संभावना समाप्त हो जाती है। </p>
+<p>जब मैं इस हफ्ते एक दोस्त से बात कर रहा था, तो उसने एक ऐसा विचार पेश किया जो मैंने पहले नहीं सुना था: &#39;मानवता की हर समस्या इस बात से उत्पन्न होती है कि कोई खुद को किसी और से बेहतर समझता है&#39;। उन्होंने तर्क दिया कि, आर्थिक संदर्भ में, एक सामाजिक व्यवस्था में कुछ व्यक्तियों द्वारा उपयोगिता के व्यक्तिगत अधिकतमकरण के कारण, बहुत से लोग जो अच्छे परिणाम प्राप्त करने में सक्षम हैं, वे ऐसा नहीं कर पाते हैं, क्योंकि उक्त व्यक्तियों के लिए कुछ लोगों को, उदाहरण के लिए, कम वेतन या अधिक काम पर रखना अधिक फायदेमंद होता है। </p>
+<p>यह चीन जैसे देशों और पश्चिम के साथ विनिर्माण देशों के सामान्य तंत्र में जो हम देखते हैं, उसके साथ अच्छी तरह मेल खाता है। पश्चिमी समाज पूर्व में श्रमिकों के शोषण से आर्थिक रूप से बेहतर स्थिति में है, बजाय इसके कि वह अपने घर पर सामान बनाता या यदि वह उन सेवा नौकरियों को करता जो अप्रवासी कम वेतन पर करते हैं। </p>
+<p>मेरे दोस्त के तर्क के संबंध में, मैंने इसे डेविस के कैंसर के वर्णन के साथ दिलचस्प रूप से एकमत पाया। </p>
+<p>मुझे लगता है कि अधिकांश लोग इस बात से सहमत होंगे कि यदि हम सभी मिलकर उन लोगों को शिक्षा और सुरक्षा प्रदान करने के लिए काम कर सकें जिनके पास यह नहीं है, तो वे अंततः वर्तमान स्थिति से बेहतर स्थिति में होंगे। यह केवल सामान्य ज्ञान है। शरीर की अपनी कोशिकाओं के साथ अनुबंध के समान: यदि हम सभी मिल-जुलकर रह सकें, तो यह नाटकीय रूप से इस संभावना को बढ़ा देगा कि हमारी नस्ल अपने अस्तित्व के लिए कई चुनौतियों का सामना कर पाएगी। </p>
+<p>फिर भी, हमारा समाज समतावादी होने के अलावा सब कुछ है, इस अर्थ में कि अधिकांश लोग अपने प्रयासों को इस बात पर केंद्रित करते हैं कि वे दूसरों को लाभ पहुँचाने के लिए सीधे काम करने के बजाय अपने जीवन को कैसे बेहतर बना सकते हैं। आप इससे सहमत हैं या नहीं, यह काफी हद तक व्यक्तिगत है, लेकिन तार्किक रूप से, यदि हर कोई वास्तव में दूसरों को ध्यान में रखकर काम कर रहा होता, तो हम उम्मीद करते कि कोई भी सरकार जानबूझकर नस्लीय और सांस्कृतिक अल्पसंख्यकों को दबाएगी और उनका शोषण नहीं करेगी, जो कि अधिकांश बड़ी अर्थव्यवस्थाओं के बारे में सच नहीं है। </p>
+<p>इसमें एक दिलचस्प विरोधाभास निहित है।</p>
+<p>प्राकृतिक चयन ने पाया कि किसी प्रणाली के लिए अपने दीर्घकालिक अस्तित्व को अधिकतम करने का सबसे अच्छा तरीका यह है कि उसके भीतर के सभी हिस्से अपनी मृत्यु दर को स्वीकार करें और व्यापक भलाई के पक्ष में सहयोग करें। ऐसा लगता है कि हमने अभी तक यह नहीं सीखा है।  </p>
+<p>वास्तव में, हमारा उपरोक्त सामाजिक वर्णन कैंसर कोशिकाओं के वर्णन के अधिक समान है। सांस्कृतिक व्यक्तिवाद ने इतिहास में कुछ महान शोषणों को जन्म दिया; कैंसर की तरह, उपनिवेशवादियों ने अपनी व्यवस्था के नए हिस्सों को देखा और फैसला किया कि वे इसे आकार देने का सबसे अच्छा तरीका अपनी स्थानीय संस्कृति, भाषा और धर्म को अपने साथ बदलना था, जिससे इसके पिछले निवासियों के संसाधनों का उनके लाभ के लिए शोषण किया जा सके।</p>
+<p>इसके बारे में कुछ चौंकाने वाला है। आधुनिक जीवन काफी हद तक इस बात को अधिकतम करने पर आधारित है कि आप दूसरों से बेहतर कैसे हैं। एक प्रमाण पत्र या पुरस्कार दुनिया को यह संकेत देने का आपका तरीका है कि हर किसी के बीच जिसने सोचा था कि वे किसी कार्य में प्रतिस्पर्धा कर सकते हैं, आप उनसे बेहतर हैं। आकर्षण स्वस्थ आनुवंशिकी का जीव विज्ञान का डिकोडर है, इसलिए हमने बेहतर दिखने के तरीके खोजे हैं ताकि दूसरों को लगे कि हमारे जीवित रहने की संभावना बेहतर है।</p>
+<p>सब कुछ एक प्रतिस्पर्धी कार्य है। और प्रतिस्पर्धी कार्य आम तौर पर किसी ऐसी प्रणाली से बंधे होते हैं जो हैक करने योग्य होती है। यानी, अधिकतम करने के लिए एक स्पष्ट मीट्रिक है और ऐसा करने के लिए कुछ खाका (blueprint) है। </p>
+<p>मुद्दा यह है कि, यदि हर कोई अपनी स्थिति को अधिकतम कर सके तो सभी के लिए पर्याप्त नहीं होगा। कोई भी निर्माण कार्य नहीं करेगा जो महान वास्तुकला बनाने के लिए आवश्यक है या वह कठिन परिश्रम जो नवीन उत्पादों को बाजार में लाने के लिए आवश्यक है। इच्छा उत्पादन से बंधी है, और यदि दुनिया के घटिया और कठिन काम करने के इच्छुक लोग नहीं हैं तो आप उत्पादन नहीं कर सकते। </p>
+<p>इसलिए यह उम्मीद करना उचित होगा कि केवल कुछ ही लोग अपनी स्थिति को अधिकतम कर सकते हैं यदि उन्हें अपने वांछित परिणामों को प्राप्त करने के लिए दूसरों के एक बड़े समूह की आवश्यकता है, जो यह कहने का एक अलग तरीका है कि जिस समाज में प्रत्येक व्यक्ति अपने लाभ के लिए काम करता है, हम कुछ असमानता होने की उम्मीद करते हैं और कुछ लोगों को स्वाभाविक रूप से श्रमिकों या कमतर के रूप में सौंपा जाता है। </p>
+<p>यह उम्मीद करना अतार्किक है कि हमारे पास कभी एक समान दुनिया होगी यदि सामान्य की हमारी अनकही परिभाषा यह है कि प्रत्येक व्यक्ति अपने लिए है। इसका मतलब यह नहीं है कि हमें उससे कुछ अच्छे परिणाम नहीं मिले हैं (और मैं मुक्त बाजारों की आलोचना करने वालों में से नहीं हूँ) लेकिन यदि हम सर्वोत्तम परिणाम प्राप्त करना चाहते हैं, तो हमें शरीर की तरह होने और एक सामान्य लक्ष्य की ओर काम करने की आवश्यकता है। </p>
+<p>यह हमारे लिए न केवल दीर्घकालिक अस्तित्व की गारंटी देने के लिए चिंता का विषय होना चाहिए, बल्कि इसलिए भी क्योंकि, यदि कैंसर केवल अपने मेजबान के कुछ हिस्सों पर अस्थायी रूप से कब्जा करने और फिर मर जाने तक ही पहुँच सकता है, तो हम भी समान रूप से उस सीमा तक बेहतर हो सकते हैं जो हमने अभी तक नहीं देखी है यदि हम अन्य ग्रहों को बसाकर &#39;प्रजनन&#39; करने के लिए मिलकर काम करते हैं — या किसी अन्य तरीके से हम अपने जीवित रहने की संभावनाओं को अधिकतम कर सकते हैं।</p>
+<p>और यदि हम ऐसा नहीं करते हैं, तो इतिहास खुद को दोहराएगा, और हम कैंसर की तुलना में बहुत आगे नहीं बढ़ पाएंगे, और इस सुंदर लेकिन छोटी पृथ्वी पर मर जाएंगे। </p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>पुस्तक का अध्याय #4 है: Darwinism 2.0. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
