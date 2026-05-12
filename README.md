@@ -2,20 +2,12 @@ This is a repository for my personal website: stiven.me.
 
 ## Writing a blog post
 
-1. Add a Markdown file to `blog/posts/` (e.g. `blog/posts/my-post.md`).
-2. Register it in `blog/posts.json`:
-   ```json
-   { "id": "my-post", "title": "My Post", "date": "May 11, 2026", "file": "my-post.md" }
-   ```
-3. Run the build to generate the English post page and inject it into the blog list:
-   ```bash
-   node build.js
-   ```
-4. Once happy with the post, run the build with the translate flag to generate all nine locale versions via the Cursor agent translation flow:
-   ```bash
-   node build.js --translate
-   ```
-   This is slow — it calls the agent once per locale per post that hasn't been translated yet (detected by source hash). Only run it when the post content is final.
+Add a markdown file to `blog/posts/` and register it in `blog/posts.json`. Compile it to preview it, and once the post is final, run it with `--translate` to generate all locale versions. You'll need local Cursor auth for that. 
+
+```
+pnpm compile
+pnpm compile --translate
+```
 
 Run locally with:
 ```
