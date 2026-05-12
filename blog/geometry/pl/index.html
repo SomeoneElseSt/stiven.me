@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="source-hash" content="8ae408b71dbd8da7"/>
-    <title>Geometry</title>
+    <title>Geometria</title>
     <script src="/dist/theme.js"></script>
-    <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
+    <script>try { localStorage.setItem('locale', 'pl'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -75,25 +75,25 @@
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
+            <h1 id="post-title">Geometria</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">29 stycznia 2026</time>
         </div>
-        <a href="/" class="back-button">← Back</a>
+        <a href="/" class="back-button">← Wstecz</a>
     </div>
     
-    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
-<p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
-<p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
-<p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
-<p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
-<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
-<p>Now, you probably already know these formulas if you took a probability class in college or high school. </p>
-<p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
-<p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
-<p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
+    <article id="post-content"><p>W przeszłości przeczytałem wiele blogów technicznych, które rozjaśniły moje rozumienie niektórych tematów. Niektóre godne uwagi wyróżnienia to <a href="https://colah.github.io/posts/2015-09-Visual-Information/">ten</a> rozbiór wizualnej teorii informacji oraz <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">ten</a> wpis o demonie Maxwella. Oba są bardzo rzetelne i polecam je przeczytać.</p>
+<p>Uważam, że blogi techniczne są niezbędnym źródłem wiedzy, ponieważ aby ktoś mógł je napisać, musi głęboko (i empirycznie) zrozumieć to, co próbuje wyjaśnić. Ponadto są one pisane w sposób, który ma być zrozumiały, w przeciwieństwie do prac naukowych. Zachęcam Cię do napisania własnego!</p>
+<p>Ten krótki tekst jest moją pierwszą próbą odwdzięczenia się poprzez zilustrowanie kilku interesujących właściwości geometrycznych zdarzeń dwumianowych, które odkryłem na zajęciach ze statystyki w tym semestrze. </p>
+<p>Wyobraź sobie uczciwą monetę. Istnieją dwa wyniki: orzeł lub reszka, każdy z odpowiednio 50% szansą. </p>
+<p>Jeśli chcesz poznać szansę na to, że ta moneta wypadnie orłem <strong>N</strong> razy z rzędu, a każdy rzut jest niezależny, możesz po prostu pomnożyć:</p>
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">orze</span><span class="mord latin_fallback">ł</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> razy</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>Zapewne znasz już te wzory, jeśli brałeś udział w zajęciach z rachunku prawdopodobieństwa na studiach lub w szkole średniej. </p>
+<p>To, czego mogłeś się tam nie dowiedzieć, to fakt, że geometria jest potężnym sposobem opisywania prawdopodobieństwa, szczególnie przy podziale zbioru <strong>A</strong> ze wszystkimi interesującymi nas wynikami. </p>
+<p>Wideo 3Blue1Brown na temat twierdzenia Bayesa świetnie wizualizuje, jak można rozpatrywać wszystkie możliwe wyniki (w ich przykładzie zawód grupy ludzi) jako prostokąt, który można podzielić na nakładające się sekcje, z których można wyprowadzić twierdzenie Bayesa. Możesz je obejrzeć <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">tutaj</a>.</p>
+<p>Stosując to do pytania o rzut monetą, możemy zwizualizować wszystkie możliwe sekwencje orłów i reszek (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39; itd.), jakie można uzyskać po sześciokrotnym rzucie monetą, za pomocą podobnej wizualizacji: przestrzeni zdarzeń elementarnych. Przestrzeń zdarzeń elementarnych to wizualizacja wszystkich możliwych dyskretnych wyników lub ścieżek, które mogą wystąpić w danym eksperymencie. W tym przykładzie są to sekwencje rzutów monetą. </p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-n-6.png" alt="Przestrzeń zdarzeń dla 6 kolejnych [niezależnych] rzutów monetą" title="Przestrzeń zdarzeń rzutu monetą"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>Pokaż kod wizualizacji</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -245,12 +245,12 @@ main()
 </code></pre>
 </details>
 
-<p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
-<p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
-<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
+<p>Pierwszy blok po lewej stronie pokazuje zerowy rzut monetą. Ponieważ ma on gwarantowane prawdopodobieństwo wystąpienia, zajmuje całą oś Y. Drugi blok pokazuje wynik pierwszego rzutu monetą. Ponieważ może to być orzeł lub reszka, zajmuje dwa równomiernie rozmieszczone bloki. </p>
+<p>Dalej na prawo, każdy blok podwaja liczbę swoich wyników, co ma sens intuicyjny, ponieważ rozszerzamy każdy rzut monetą o odpowiednio 2 wyniki potomne.</p>
+<p>Oś Y podaje prawdopodobieństwo wystąpienia każdej pojedynczej ścieżki zgodnie z jej proporcją. Ścieżki wzdłuż środka — z równomierną zmiennością między orłami a reszkami — zajmują większą część osi Y, ponieważ naturalnie są najbardziej prawdopodobne, podczas gdy ścieżki kolejnych orłów lub reszek (idące całkowicie w dół lub w górę, w schemacie schodkowym), zajmują coraz mniejszą proporcję osi Y, relatywnie do ich bardzo niskiego prawdopodobieństwa, jak pokazano poniżej.</p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-shaded-staircase.png" alt="Zacienione schody kolejnych reszek lub orłów." title="Zacienione schody kolejnych reszek lub orłów."></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>Pokaż kod wizualizacji</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -408,12 +408,12 @@ main()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
-<p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
+<p>Czy zaczynasz dostrzegać związek między geometrią a prawdopodobieństwem? Możesz zmierzyć prawdopodobieństwo dla dowolnej sekwencji, wybierając jej blok końcowy i mierząc jego wysokość. Sprawia to, że pytania takie jak to, jak prawdopodobne jest uzyskanie konkretnej sekwencji, np. &#39;HTHHTHH&#39;, stają się łatwe do odpowiedzi; wystarczy prześledzić wykres!  </p>
+<p>Dlaczego więc jest to ważne? Jak zapewne pamiętasz z prawa wielkich liczb, przy wystarczającej liczbie prób wyniki uśredniają się do ich prawdziwych prawdopodobieństw. Jeśli będziesz rzucać uczciwą monetą w nieskończoność i liczyć, ile razy wypadnie orzeł lub reszka, szansa na uzyskanie któregokolwiek z nich wyniesie 50% i 50%. Powyższy wykres nie czyni tego jednak intuicyjnym. W końcu wydaje się, że najbardziej prawdopodobne sekwencje po prostu zapadają się w bloki o rosnącej długości.</p>
+<p>But coś ukrywa się na widoku: rozkład normalny. Jeśli wykreślimy proporcję orłów we wszystkich możliwych wynikach od 1 do 100 rzutów, jak pokazano poniżej, widać wyraźny rozkład w kształcie dzwonu, zanim rozkład wokół średniej na poziomie 50% zbiegnie się do niej.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-proportion-heads.png" alt="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100" title="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>Pokaż kod wizualizacji</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -582,12 +582,12 @@ main()
 </details>
 
 
-<p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
-<p>What&#39;s interesting is that at <strong>N</strong> &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. </p>
-<p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p>Teraz widzimy, że proporcja rzeczywiście wyrówna się do 50%, a gdybyśmy rozszerzyli to do znacznie większego <strong>N</strong>, zobaczylibyśmy całkowicie prostą linię.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
+<p>Interesujące jest to, że przy <strong>N</strong> &lt; 20 rozkład wyników jest w większości normalny. Żółte linie działają jako pomoc wizualna: gdybyśmy przestali próbkować proporcje na tych liniach, środek podążałby za centralnym twierdzeniem granicznym, gromadząc większość wyników i wygładzając się do dzwonu, podczas gdy same krawędzie pokazują dwa rodzaje wyników: na początku albo wypadnięcie orła, albo nie, a przy bardzo niskim prawdopodobieństwie, kolejne braki orła lub kolejne same orły. </p>
+<p>Możemy to wyjaśnić intuicyjnie, patrząc na poprzednią figurę nałożoną i odzwierciedloną na wykresie rozkładu przestrzeni zdarzeń: </p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-overlay.png" alt="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji." title="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji."></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>Pokaż kod wizualizacji</summary>
 
 <pre><code class="language-py">import shutil
 from pathlib import Path
@@ -728,26 +728,26 @@ main()
 </code></pre>
 </details>
 
-<p>The extreme edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy <strong>the biggest proportion</strong> along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. </p>
-<p>Another way to think about this is that if you re-scale the sample space to show the least likely sequences to be smaller and the most likely to be bigger, the proportion of times that heads appears is distributed close to normally [discounting for the gap between consecutive sequences and roughly normal sequences] until the law of large numbers kicks in and averages out to 50%. Zooming out from the coin-toss example, this is applicable to any binomial process of independent events. </p>
-<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. </p>
-<p>I used Perplexity with Claude 4.5 Sonnet to work through my ideas.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal&#39;s triangle:</p>
+<p>Skrajne krawędzie dzwonu pokrywają się ze ścieżkami kolejnych rzutów, które są bardzo mało prawdopodobne, podczas gdy większość wyników, które zajmują <strong>największą proporcję</strong> wzdłuż środka przestrzeni zdarzeń (gdzie orzeł pojawia się w 50% przypadków), odpowiednio pokrywa się ze środkiem dzwonu, pokazując, że Centralne Twierdzenie Graniczne wyłania się geometrycznie ze struktury rozgałęzień dwumianowej przestrzeni zdarzeń. </p>
+<p>Innym sposobem na myślenie o tym jest to, że jeśli przeskalujesz przestrzeń zdarzeń tak, aby najmniej prawdopodobne sekwencje były mniejsze, a najbardziej prawdopodobne większe, proporcja wystąpień orła jest rozłożona blisko rozkładu normalnego [pomijając lukę między kolejnymi sekwencjami a zgrubsza normalnymi sekwencjami], dopóki prawo wielkich liczb nie zadziała i nie uśredni wyniku do 50%. Odchodząc od przykładu rzutu monetą, ma to zastosowanie do każdego procesu dwumianowego niezależnych zdarzeń. </p>
+<p>Czy to nowość? Być może nie. Ale bardzo fajnie jest zobaczyć, jak prawdopodobieństwo można przełożyć na pola i proporcje, co z kolei może ujawnić leżący u podstaw rozkład prawdopodobieństwa dla konkretnego wyniku w wizualny, geometryczny sposób. </p>
+<p>Użyłem Perplexity z Claude 4.5 Sonnet, aby dopracować moje pomysły.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> Pierwotnie zacząłem tworzyć powyższe wykresy i eksperymenty podczas zajęć, kiedy dałem się ponieść próbom rozwiązania problemu poprzez rysowanie pudełek, co doprowadziło mnie do dostrzeżenia schematu schodkowego (w kontekście sfałszowanych monet) i głębszego wgłębienia się w matematykę. Przeprowadziło mnie to przez to, jak ładnie łączy się to z trójkątem Pascala:</p>
 <blockquote>
-<p>What we&#39;ve visualized here is actually a rotated form of Pascal&#39;s triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number <strong>N</strong>, counting how many paths lead to exactly k heads gives you the entries in row <strong>N</strong> of Pascal&#39;s triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as <strong>N</strong> grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn&#39;t just resemble Pascal&#39;s triangle; it is Pascal&#39;s triangle, revealing why the bell curve emerges so naturally from repeated binary trials.</p>
+<p>To, co tutaj zwizualizowaliśmy, jest w rzeczywistości obróconą formą trójkąta Pascala — dobrze ugruntowanej struktury matematycznej, w której każda liczba jest sumą dwóch liczb nad nią. Związek jest głęboki: przy każdym numerze rzutu <strong>N</strong>, policzenie, ile ścieżek prowadzi do dokładnie k orłów, daje wpisy w rzędzie <strong>N</strong> trójkąta Pascala. Są to współczynniki dwumianowe C(N,k), które reprezentują liczbę sposobów wyboru k elementów z N. Kiedy podzielimy każdy rząd przez 2^N, aby zamienić liczby na prawdopodobieństwa, otrzymamy rozkład dwumianowy. Centralne Twierdzenie Graniczne gwarantuje wtedy, że gdy <strong>N</strong> rośnie, rozkład ten zbliża się do krzywej normalnej — co jest dokładnie tym, co widzimy w naszej wizualizacji. Geometria rozgałęzionych ścieżek przez przestrzeń zdarzeń nie tylko przypomina trójkąt Pascala; ona jest trójkątem Pascala, ujawniając, dlaczego krzywa dzwonowa wyłania się tak naturalnie z powtarzanych prób binarnych.</p>
 </blockquote>
-<p>In hindsight, it&#39;s a very intuitive conclusion, as the count of events in each column of the coin sample space matches the sum of the <strong>N</strong>th row in Pascal&#39;s triangle. </p>
-<p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
+<p>Z perspektywy czasu jest to bardzo intuicyjny wniosek, ponieważ liczba zdarzeń w każdej kolumnie przestrzeni zdarzeń rzutu monetą odpowiada sumie <strong>N</strong>-tego rzędu w trójkącie Pascala. </p>
+<p>Jeśli uznałeś to za przydatne lub interesujące, cieszę się! Rozważ napisanie własnego bloga technicznego. W erze zdominowanej przez AI, uważne pisanie jest cenniejsze niż kiedykolwiek. Jest to również bardzo przydatne do wzbogacenia własnego zrozumienia rzeczy. </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
 <li id="footnote-1">
-<p>I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+<p>Obiecuję, że nie starałem się specjalnie napisać tego wpisu na blogu tylko po to, by pokazać wizualizację proporcji orłów. Jest to niezwykle fajne i przypomina mi nieco pola kierunków. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
 </li>
 <li id="footnote-2">
-<p>Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you&#39;d show many coin flip sequences rather than just the theoretical proportions. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+<p>Dopiero później, wyjaśniając komuś prawo wielkich liczb, zdałem sobie sprawę, że ten wykres ilustruje tę samą ideę, z wyjątkiem tego, że krzywe tutaj są gładkie i nie pokazują zmienności, której normalnie oczekiwałoby się na wykresie mającym oddać zbieżność. Aby to zrobić, należałoby pokazać wiele sekwencji rzutów monetą, a nie tylko teoretyczne proporcje. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
 </li>
 <li id="footnote-3">
-<p>If you&#39;re curious about the aforementioned chat I had with Claude with my thinking process, you can read it <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">here</a>. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+<p>Jeśli jesteś ciekawy wspomnianego czatu, który odbyłem z Claude na temat mojego procesu myślowego, możesz go przeczytać <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">tutaj</a>. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
 </li>
 </ol>
 </section>

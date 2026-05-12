@@ -1,39 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="%%POST_LOCALE%%">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="%%SOURCE_HASH%%"/>
     <title>%%POST_TITLE%%</title>
     <script src="/dist/theme.js"></script>
-    <script>
-        (function() {
-            var locale = null;
-            try { locale = localStorage.getItem('locale'); } catch (e) {}
-            if (!locale || locale === 'en') return;
-            var parts = window.location.pathname.split('/').filter(Boolean);
-            var postId = parts[1];
-            if (!postId) return;
-            window.__postLocale = locale;
-            window.__postId = postId;
-            document.documentElement.classList.add('translating');
-            try {
-                var raw = localStorage.getItem('i18n:' + postId + ':' + locale);
-                if (raw) window.__cachedTranslation = JSON.parse(raw);
-            } catch (e) {}
-            if (window.__cachedTranslation && window.__cachedTranslation.title) {
-                document.title = window.__cachedTranslation.title;
-            }
-            window.__translationPromise = fetch('/blog/' + postId + '/translations/' + locale + '.json')
-                .then(function(r) { return r.ok ? r.json() : null; })
-                .then(function(data) {
-                    if (data) {
-                        try { localStorage.setItem('i18n:' + postId + ':' + locale, JSON.stringify(data)); } catch (e) {}
-                    }
-                    return data;
-                })
-                .catch(function() { return null; });
-        })();
-    </script>
+    <script>try { localStorage.setItem('locale', '%%POST_LOCALE%%'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -83,7 +56,6 @@
         #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
         #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
         #nprogress .spinner { display: none !important; }
-        html.translating .post-header, html.translating #post-content { visibility: hidden; }
         @media (max-width: 768px) {
             body { padding: 24px; }
             .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
@@ -105,28 +77,8 @@
         <div>
             <h1 id="post-title">%%POST_TITLE%%</h1>
             <time id="post-date" class="post-date" data-iso-date="%%POST_ISO_DATE%%">%%POST_DATE%%</time>
-            <script>
-                (function() {
-                    var locale = window.__postLocale;
-                    if (!locale) return;
-                    var el = document.getElementById('post-date');
-                    if (!el || !el.dataset.isoDate) return;
-                    try {
-                        el.textContent = new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(el.dataset.isoDate));
-                    } catch (e) {}
-                })();
-            </script>
         </div>
-        <a href="/" class="back-button">← Back</a>
-        <script>
-            (function() {
-                var BACK = { es: 'Atrás', ja: '戻る', hi: 'वापस', de: 'Zurück', fr: 'Retour', ko: '뒤로', pt: 'Voltar', pl: 'Wstecz', zh: '返回' };
-                var locale = window.__postLocale;
-                if (!locale || !BACK[locale]) return;
-                var el = document.querySelector('.back-button');
-                if (el) el.textContent = '← ' + BACK[locale];
-            })();
-        </script>
+        <a href="/" class="back-button">← %%BACK_LABEL%%</a>
     </div>
     
     <article id="post-content">%%POST_CONTENT%%</article>
@@ -150,21 +102,7 @@
             if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
             NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
             NProgress.set(0.7);
-
-            var finish = function() {
-                setTimeout(function() { NProgress.done(); }, 100);
-            };
-
-            if (!document.documentElement.classList.contains('translating')) {
-                finish();
-                return;
-            }
-            var observer = new MutationObserver(function() {
-                if (document.documentElement.classList.contains('translating')) return;
-                observer.disconnect();
-                finish();
-            });
-            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+            setTimeout(function() { NProgress.done(); }, 100);
         }
 
         if (document.readyState === 'loading') {
@@ -290,51 +228,17 @@
     </script>
     <script>
         (function() {
-            var titleEl = document.getElementById('post-title');
+            if (!document.documentElement.classList.contains('light-mode')) return;
             var contentEl = document.getElementById('post-content');
-            if (!titleEl || !contentEl) return;
-
-            if (!window.__postLocale) return;
-
-            function applyTranslation(data) {
-                if (!data) return;
-                if (data.title) {
-                    titleEl.textContent = data.title;
-                    document.title = data.title;
-                }
-                if (data.html) contentEl.innerHTML = data.html;
-            }
-
-            function swapLightImages() {
-                if (!document.documentElement.classList.contains('light-mode')) return;
-                contentEl.querySelectorAll('img').forEach(function(img) {
-                    var src = img.getAttribute('src');
-                    var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                    if (!match) return;
-                    var lightSrc = match[1] + '-light' + match[2];
-                    fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                        if (res.ok) img.setAttribute('src', lightSrc);
-                    });
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
                 });
-            }
-
-            if (window.__cachedTranslation) {
-                applyTranslation(window.__cachedTranslation);
-                swapLightImages();
-                document.documentElement.classList.remove('translating');
-            }
-
-            var promise = window.__translationPromise;
-            if (!promise) {
-                document.documentElement.classList.remove('translating');
-                return;
-            }
-            promise.then(function(data) {
-                if (data) {
-                    applyTranslation(data);
-                    swapLightImages();
-                }
-                document.documentElement.classList.remove('translating');
             });
         })();
     </script>

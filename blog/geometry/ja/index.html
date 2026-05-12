@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="source-hash" content="8ae408b71dbd8da7"/>
-    <title>Geometry</title>
+    <title>幾何学</title>
     <script src="/dist/theme.js"></script>
-    <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
+    <script>try { localStorage.setItem('locale', 'ja'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -75,25 +75,25 @@
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
+            <h1 id="post-title">幾何学</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">2026年1月29日</time>
         </div>
-        <a href="/" class="back-button">← Back</a>
+        <a href="/" class="back-button">← 戻る</a>
     </div>
     
-    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
-<p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
-<p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
-<p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
-<p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
-<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
-<p>Now, you probably already know these formulas if you took a probability class in college or high school. </p>
-<p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
-<p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
-<p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
+    <article id="post-content"><p>これまで、いくつかのトピックについての理解を深めてくれた技術ブログをたくさん読んできました。特筆すべきは、<a href="https://colah.github.io/posts/2015-09-Visual-Information/">この</a>視覚的な情報理論の解説や、マクスウェルの悪魔に関する<a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">この</a>投稿です。どちらも非常に徹底しており、一読をお勧めします。</p>
+<p>技術ブログは知識の不可欠な情報源だと思います。なぜなら、誰かがそれを書くためには、説明しようとしていることを深く（そして経験的に）理解する必要があるからです。さらに、論文とは異なり、読者が理解できるように書かれています。ぜひ、あなた自身でも書いてみることをお勧めします！</p>
+<p>この短い記事は、今学期受講している統計学の授業を通じて見つけた二項イベントの興味深い幾何学的特性を説明することで、恩返しをしようとする私の最初の試みです。</p>
+<p>公平なコインを想像してください。結果は表か裏の2つで、確率はそれぞれ50%です。</p>
+<p>このコインが<strong>N</strong>回連続で表になる確率を知りたい場合、各投げが独立であれば、単に掛け合わせるだけです：</p>
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">表が</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">回</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>大学や高校の確率の授業を受けたことがあれば、おそらくこれらの公式はすでにご存知でしょう。</p>
+<p>そこで学ばなかったかもしれないのは、幾何学が確率を記述する強力な方法であるということです。具体的には、関心のあるすべての結果を含む集合<strong>A</strong>を分割する場合です。</p>
+<p>3Blue1Brownのベイズの定理に関するビデオは、すべての可能な結果（彼らの例では、あるグループの人々の職業）を、ベイズの定理を導き出すことができる重なり合うセクションに分割できる長方形として視覚化する素晴らしい仕事をしています。 <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">こちら</a>で視聴できます。</p>
+<p>これをコイン投げの質問に当てはめると、コインを6回投げた後に得られる可能性のあるすべての表と裏のシーケンス（「HHHTTT」、「HTHTHT」、「HHHHHH」など）を、同様の視覚化、つまり標本空間として視覚化できます。標本空間とは、特定の実験（この例ではコイン投げのシーケンス）で起こりうるすべての離散的な結果や経路を視覚化したものです。</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-n-6.png" alt="6回連続の［独立した］コイン投げの標本空間" title="コインの標本空間"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>視覚化コードを表示</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -245,12 +245,12 @@ main()
 </code></pre>
 </details>
 
-<p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
-<p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
-<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
+<p>左側の最初のブロックは、0回目のコイン投げを示しています。これは確実に起こる確率があるため、Y軸全体を占めています。2番目のブロックは、1回目のコイン投げの結果を示しています。表か裏のいずれかであるため、等間隔の2つのブロックを占めています。</p>
+<p>さらに右に進むと、各ブロックの結果の数は2倍になります。これは、各コイン投げをそれぞれ2つの子の結果に拡張しているため、直感的に理にかなっています。</p>
+<p>Y軸は、その割合に応じて各単一経路が発生する確率を示しています。中央に沿った経路（表と裏が均等に変化するもの）は、当然ながら最も確率が高いため、Y軸の大きな部分を占めます。一方、連続した表または裏の経路（階段状に完全に下または上に行くもの）は、以下に示すように、非常に低い確率に比例して、Y軸の占める割合が減少していきます。</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-shaded-staircase.png" alt="連続する裏または表の影付きの階段。" title="連続する裏または表の影付きの階段。"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>視覚化コードを表示</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -408,12 +408,12 @@ main()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
-<p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
+<p>ここで幾何学と確率のつながりが見えてきましたか？ 終端ブロックを選んでその高さを測ることで、任意のシーケンスの確率を測定できます。「HTHHTHH」のような特定のシーケンスがどれくらいの確率で発生するかといった質問に答えるのが簡単になります。グラフをたどるだけです！</p>
+<p>では、なぜこれが重要なのでしょうか？ 大数の法則から思い出されるように、十分な回数の試行を行えば、結果はその真の確率に収束します。公平なコインを永遠に投げ続けて、表または裏が出る回数を数えると、どちらかが出る確率は50%と50%になります。しかし、上記のグラフはこれをあまり直感的に示していません。結局のところ、最も可能性の高いシーケンスは、単に長さが増していく塊に崩壊していくように見えます。</p>
+<p>しかし、すぐ目の前に何かが隠れています。正規分布です。以下に示すように、1回から100回の投げにおけるすべての可能な結果の表の割合をプロットすると、平均50%付近の分布が収束する前に、明確なベル型の分布が現れます。<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-proportion-heads.png" alt="N=0からN=100までのコイン標本空間における表の割合" title="N=0からN=100までのコイン標本空間における表の割合"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>視覚化コードを表示</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -582,12 +582,12 @@ main()
 </details>
 
 
-<p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
-<p>What&#39;s interesting is that at <strong>N</strong> &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. </p>
-<p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p>これで、割合が実際に50%に均一化されることがわかります。これをさらに多くの<strong>N</strong>に拡張すれば、最終的には完全に直線が見えるようになります。<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
+<p>興味深いのは、<strong>N</strong> &lt; 20では結果の分布がほぼ正規分布であることです。黄色い線は視覚的な補助となります。もしそれらの線で割合のサンプリングを止めれば、中心は中心極限定理に従い、ほとんどの結果を蓄積してベル型に滑らかになります。一方、両端には2種類の結果が表示されます。最初は表が出るか出ないか、そして非常に低い確率で、連続して表が出ないか、連続してすべて表が出るかです。</p>
+<p>これは、前の図を標本空間の分布プロットの上に重ねて反転させたものを見ることで、直感的に説明できます：</p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-overlay.png" alt="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。" title="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>視覚化コードを表示</summary>
 
 <pre><code class="language-py">import shutil
 from pathlib import Path
@@ -728,26 +728,26 @@ main()
 </code></pre>
 </details>
 
-<p>The extreme edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy <strong>the biggest proportion</strong> along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. </p>
-<p>Another way to think about this is that if you re-scale the sample space to show the least likely sequences to be smaller and the most likely to be bigger, the proportion of times that heads appears is distributed close to normally [discounting for the gap between consecutive sequences and roughly normal sequences] until the law of large numbers kicks in and averages out to 50%. Zooming out from the coin-toss example, this is applicable to any binomial process of independent events. </p>
-<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. </p>
-<p>I used Perplexity with Claude 4.5 Sonnet to work through my ideas.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal&#39;s triangle:</p>
+<p>ベル型の両端は、非常に起こりにくい連続したコインの経路と一致します。一方、標本空間の中心に沿って<strong>最大の割合</strong>を占める結果の大部分（表が50%の確率で現れる場所）は、それに対応してベル型の中心と一致します。これは、中心極限定理が二項標本空間の分岐構造から幾何学的に現れることを示しています。</p>
+<p>別の考え方としては、最も起こりにくいシーケンスを小さく、最も起こりやすいシーケンスを大きくするように標本空間を再スケールすると、表が現れる回数の割合は、（連続したシーケンスとほぼ正規のシーケンスの間のギャップを考慮しない場合）大数の法則が働いて50%に平均化されるまで、正規分布に近い形で分布します。コイン投げの例から視野を広げると、これは独立したイベントのあらゆる二項プロセスに適用可能です。</p>
+<p>これは新しい発見でしょうか？ おそらくそうではないでしょう。しかし、確率が面積や割合に変換され、それが特定の結末の根底にある確率分布を視覚的、幾何学的な方法で明らかにできるのを見るのは非常にクールです。</p>
+<p>自分の考えをまとめるために、Claude 4.5 Sonnetを搭載したPerplexityを使用しました。<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> もともと、授業中に箱を描いて問題を解こうとして夢中になっていたときに、上記のグラフや実験を作り始めました。それが階段状のパターン（イカサマのコインという文脈で）に気づき、数学を深く掘り下げるきっかけとなりました。それは、これがパスカルの三角形といかにうまく結びついているかを教えてくれました：</p>
 <blockquote>
-<p>What we&#39;ve visualized here is actually a rotated form of Pascal&#39;s triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number <strong>N</strong>, counting how many paths lead to exactly k heads gives you the entries in row <strong>N</strong> of Pascal&#39;s triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as <strong>N</strong> grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn&#39;t just resemble Pascal&#39;s triangle; it is Pascal&#39;s triangle, revealing why the bell curve emerges so naturally from repeated binary trials.</p>
+<p>ここで視覚化したものは、実際にはパスカルの三角形を回転させた形です。パスカルの三角形とは、各数字がその上の2つの数字の合計である、確立された数学的構造です。そのつながりは深いです。各投げの回数<strong>N</strong>において、正確にk回表が出る経路がいくつあるかを数えると、パスカルの三角形の<strong>N</strong>行目のエントリが得られます。これらは二項係数C(N,k)であり、N個の中からk個のアイテムを選ぶ方法の数を表します。各行を2^Nで割ってカウントを確率に変換すると、二項分布が得られます。中心極限定理は、<strong>N</strong>が大きくなるにつれて、この分布が正規曲線に近づくことを保証します。これはまさに私たちの視覚化で見ているものです。標本空間を通る分岐経路の幾何学は、単にパスカルの三角形に似ているだけではありません。それはパスカルの三角形そのものであり、なぜベル曲線が繰り返される二項試行からこれほど自然に現れるのかを明らかにしています。</p>
 </blockquote>
-<p>In hindsight, it&#39;s a very intuitive conclusion, as the count of events in each column of the coin sample space matches the sum of the <strong>N</strong>th row in Pascal&#39;s triangle. </p>
-<p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
+<p>後から考えれば、コイン標本空間の各列のイベントの数が、パスカルの三角形の<strong>N</strong>行目の合計と一致するため、非常に直感的な結論です。</p>
+<p>これが役に立ったり、面白いと感じていただけたら嬉しいです！ ぜひ、あなた自身でも技術ブログを書いてみてください。AIが支配する時代において、思慮深い執筆はかつてないほど価値があります。また、自分自身の理解を深めるのにも非常に役立ちます。</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
 <li id="footnote-1">
-<p>I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+<p>表の割合の視覚化を見せるためだけに、わざわざこのブログ記事を書いたわけではないことを誓います。これは非常にクールで、少しスロープフィールドを思い出させます。 <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
 </li>
 <li id="footnote-2">
-<p>Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you&#39;d show many coin flip sequences rather than just the theoretical proportions. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+<p>後になって、誰かに大数の法則を説明しているときに、このグラフが同じ考えを説明していることに気づきました。ただし、ここでの曲線は滑らかであり、収束を伝えるためのグラフに通常求められる変動性は示されていません。それを行うには、単なる理論的な割合ではなく、多くのコイン投げのシーケンスを示す必要があります。 <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
 </li>
 <li id="footnote-3">
-<p>If you&#39;re curious about the aforementioned chat I had with Claude with my thinking process, you can read it <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">here</a>. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+<p>私の思考プロセスを含むClaudeとの前述のチャットに興味がある場合は、<a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">こちら</a>で読むことができます。 <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
 </li>
 </ol>
 </section>

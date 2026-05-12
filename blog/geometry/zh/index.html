@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="source-hash" content="8ae408b71dbd8da7"/>
-    <title>Geometry</title>
+    <title>几何</title>
     <script src="/dist/theme.js"></script>
-    <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
+    <script>try { localStorage.setItem('locale', 'zh'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -75,25 +75,25 @@
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
+            <h1 id="post-title">几何</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">2026年1月29日</time>
         </div>
-        <a href="/" class="back-button">← Back</a>
+        <a href="/" class="back-button">← 返回</a>
     </div>
     
-    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
-<p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
-<p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
-<p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
-<p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
-<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
-<p>Now, you probably already know these formulas if you took a probability class in college or high school. </p>
-<p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
-<p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
-<p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
+    <article id="post-content"><p>我读过许多技术博客，它们在过去澄清了我对某些主题的理解。其中值得一提的有<a href="https://colah.github.io/posts/2015-09-Visual-Information/">这篇</a>关于视觉信息论的分解，以及<a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">这篇</a>关于麦克斯韦妖的文章。它们都非常详尽，我建议你读一读。</p>
+<p>我认为技术博客是知识的重要来源，因为为了写出这些博客，作者需要对他们试图向你解释的内容有深入（且经验性）的理解。此外，它们的编写方式也应该是让你能够理解的，这与论文不同。我鼓励你也写一篇自己的博客！</p>
+<p>这篇简短的文章是我第一次尝试回馈，通过展示我这学期统计课上发现的二项事件的一些有趣的几何性质。</p>
+<p>想象一枚公平的硬币。有两种结果：正面或反面，概率各占 50%。</p>
+<p>如果你想知道这枚硬币连续出现 <strong>N</strong> 次正面的概率，且每次抛掷都是独立的，你只需进行乘法运算：</p>
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">正面</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> </span><span class="mord cjk_fallback">次</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>现在，如果你在大学或高中上过概率课，你可能已经知道这些公式了。</p>
+<p>你可能在那里没学到的是，几何是描述概率的一种强大方式，特别是在对包含所有感兴趣结果的集合 <strong>A</strong> 进行划分时。</p>
+<p>3Blue1Brown 关于贝叶斯定理的视频很好地展示了如何将所有可能的结果（在他们的例子中，是一群人的职业）视为一个矩形，该矩形可以分解为重叠的部分，从中可以推导出贝叶斯定理。你可以在<a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">这里</a>观看。</p>
+<p>将此应用于掷硬币问题，我们可以通过类似的视觉化方式：样本空间，来展示掷硬币六次后可能得到的所有正面和反面序列（&#39;HHHTTT&#39;、&#39;HTHTHT&#39;、&#39;HHHHHH&#39; 等）。样本空间是针对给定实验可能发生的各种离散结果或路径的视觉化展示。在这个例子中，即掷硬币序列。</p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-n-6.png" alt="6 次连续 [独立] 掷硬币的样本空间" title="硬币样本空间"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>显示可视化代码</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -245,12 +245,12 @@ main()
 </code></pre>
 </details>
 
-<p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
-<p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
-<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
+<p>左侧的第一个方块显示第 0 次掷硬币。由于它有确定的发生概率，它占据了整个 Y 轴。第二个方块显示第一次掷硬币的结果。由于它可以是正面或反面，它占据了两个均匀间隔的方块。</p>
+<p>再往右看，每个方块的结果数量都会翻倍，这在直觉上是合理的，因为我们分别为每次掷硬币扩展了 2 个子结果。</p>
+<p>Y 轴根据比例给出了每条单一路径发生的概率。位于中心的路径——正面和反面分布均匀——占据了 Y 轴的较大部分，因为自然地，它们是最有可能发生的；而连续正面或反面的路径（呈阶梯状完全向下或向上）在 Y 轴上占据的比例不断减小，这与其极低的概率相对应，如下所示。</p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-shaded-staircase.png" alt="连续反面或正面的阴影阶梯。" title="连续反面或正面的阴影阶梯。"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>显示可视化代码</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -408,12 +408,12 @@ main()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
-<p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
+<p>你开始看到这里的几何与概率之间的联系了吗？你可以通过选择其末端方块并测量其高度来测量任何给定序列的概率。这使得像“获得特定序列（如 &#39;HTHHTHH&#39;）的可能性有多大”这样的问题变得容易回答；只需追踪图表即可！</p>
+<p>那么为什么这很重要呢？你可能还记得大数定律，在足够多的运行中，结果会平均化为它们的真实概率。如果你永远抛掷一枚公平的硬币并计算你得到正面或反面的次数，得到其中任何一个的概率都会变成 50% 和 50%。不过，上面的图表并没有真正让这一点变得直观。毕竟，最可能的序列似乎只是坍缩成长度不断增加的团块。</p>
+<p>但有些东西就隐藏在显眼的地方：正态分布。如果我们绘制从 1 到 100 次抛掷中所有可能结果中正面的比例，如下所示，在均值 50% 附近的分布收敛之前，有一个清晰的钟形分布。<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-proportion-heads.png" alt="N=0 到 N=100 硬币样本空间中正面的比例" title="N=0 到 N=100 硬币样本空间中正面的比例"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>显示可视化代码</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -581,13 +581,12 @@ main()
 </code></pre>
 </details>
 
-
-<p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
-<p>What&#39;s interesting is that at <strong>N</strong> &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. </p>
-<p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p>现在，我们可以看到比例确实会趋于 50%，如果我们将此扩展到更多的 <strong>N</strong>，我们最终会看到一条完全平直的线。<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
+<p>有趣的是，在 <strong>N</strong> &lt; 20 时，结果的分布大多是正态的。黄线起到视觉辅助作用：如果我们停止在这些线处采样比例，中心将遵循中心极限定理，积累大多数结果并平滑成一个钟形，而极边缘显示两种类型的结果：起初，要么得到正面，要么得不到正面，并且以极低的概率，连续得不到任何正面或连续得到所有正面。</p>
+<p>我们可以通过观察叠加并镜像在样本空间分布图上的前一张图来直观地解释这一点：</p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-overlay.png" alt="前两张图的叠加，样本空间镜像在比例样本空间之上。" title="前两张图的叠加，样本空间镜像在比例样本空间之上。"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>显示可视化代码</summary>
 
 <pre><code class="language-py">import shutil
 from pathlib import Path
@@ -728,26 +727,26 @@ main()
 </code></pre>
 </details>
 
-<p>The extreme edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy <strong>the biggest proportion</strong> along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. </p>
-<p>Another way to think about this is that if you re-scale the sample space to show the least likely sequences to be smaller and the most likely to be bigger, the proportion of times that heads appears is distributed close to normally [discounting for the gap between consecutive sequences and roughly normal sequences] until the law of large numbers kicks in and averages out to 50%. Zooming out from the coin-toss example, this is applicable to any binomial process of independent events. </p>
-<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. </p>
-<p>I used Perplexity with Claude 4.5 Sonnet to work through my ideas.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal&#39;s triangle:</p>
+<p>钟形的极端边缘与连续的硬币路径对齐，这些路径非常不可能发生，而占据样本空间中心<strong>最大比例</strong>的大多数结果（其中正面出现次数为 50%）相应地与钟形的中心对齐，这表明中心极限定理从二项样本空间的决策树结构中几何地显现出来。</p>
+<p>另一种思考方式是，如果你重新缩放样本空间，使最不可能发生的序列变小，最可能发生的序列变大，那么正面出现的比例分布将接近正态分布 [扣除连续序列与大致正态序列之间的间隙]，直到大数定律发挥作用并平均到 50%。从掷硬币的例子放大来看，这适用于任何独立事件的二项过程。</p>
+<p>这是新闻吗？也许不是。但看到概率如何转化为面积和比例是非常酷的，这反过来又可以以视觉、几何的方式揭示特定结果的基础概率分布。</p>
+<p>我使用 Perplexity 和 Claude 4.5 Sonnet 来梳理我的想法。<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> 最初，我是在课堂上开始制作上述图表和实验的，当时我为了尝试通过画框来解决一个问题而忘乎所以，这导致我看到了阶梯模式（在作弊硬币的背景下），并深入研究了数学。它引导我了解了这如何与帕斯卡三角形完美结合：</p>
 <blockquote>
-<p>What we&#39;ve visualized here is actually a rotated form of Pascal&#39;s triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number <strong>N</strong>, counting how many paths lead to exactly k heads gives you the entries in row <strong>N</strong> of Pascal&#39;s triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as <strong>N</strong> grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn&#39;t just resemble Pascal&#39;s triangle; it is Pascal&#39;s triangle, revealing why the bell curve emerges so naturally from repeated binary trials.</p>
+<p>我们在这里视觉化的实际上是帕斯卡三角形的旋转形式——一个成熟的数学结构，其中每个数字都是其上方两个数字之和。这种联系非常深厚：在每次抛掷次数 <strong>N</strong> 时，计算有多少条路径恰好通向 k 个正面，可以得到帕斯卡三角形第 <strong>N</strong> 行的各项。这些是二项式系数 C(N,k)，代表从 N 中选择 k 个项目的方法数。当我们将每一行除以 2^N 以将计数转换为概率时，我们得到了二项分布。中心极限定理随后保证，随着 <strong>N</strong> 变大，这种分布趋于正态曲线——这正是我们在视觉化中看到的。样本空间中分支路径的几何形状不仅类似于帕斯卡三角形；它就是帕斯卡三角形，揭示了为什么钟形曲线如此自然地从重复的二项试验中产生。</p>
 </blockquote>
-<p>In hindsight, it&#39;s a very intuitive conclusion, as the count of events in each column of the coin sample space matches the sum of the <strong>N</strong>th row in Pascal&#39;s triangle. </p>
-<p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
+<p>事后看来，这是一个非常直观的结论，因为硬币样本空间每列中的事件计数与帕斯卡三角形第 <strong>N</strong> 行的总和相匹配。</p>
+<p>如果你觉得这有用或有趣，我很高兴！请考虑写一篇你自己的技术博客。在 AI 主导的时代，用心的写作比以往任何时候都更有价值。这对于丰富你对事物的理解也非常有用。</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
 <li id="footnote-1">
-<p>I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+<p>我保证我并没有为了展示正面比例的可视化而刻意写这篇博客。它非常酷，让我想起了斜率场。 <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
 </li>
 <li id="footnote-2">
-<p>Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you&#39;d show many coin flip sequences rather than just the theoretical proportions. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+<p>直到后来向别人解释大数定律时，我才意识到这张图说明了同样的想法，只是这里的曲线是平滑的，没有显示出你通常希望在旨在传达收敛性的图表中看到的变异性。要做到这一点，你需要展示许多掷硬币序列，而不仅仅是理论比例。 <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
 </li>
 <li id="footnote-3">
-<p>If you&#39;re curious about the aforementioned chat I had with Claude with my thinking process, you can read it <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">here</a>. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+<p>如果你对上述我与 Claude 进行的思考过程的对话感到好奇，可以在<a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">这里</a>阅读。 <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
 </li>
 </ol>
 </section>

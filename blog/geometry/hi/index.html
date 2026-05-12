@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="source-hash" content="8ae408b71dbd8da7"/>
-    <title>Geometry</title>
+    <title>ज्यामिति</title>
     <script src="/dist/theme.js"></script>
-    <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
+    <script>try { localStorage.setItem('locale', 'hi'); } catch (e) {}</script>
     <link rel="stylesheet" href="/theme.css">
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
@@ -75,25 +75,25 @@
 <body>
     <div class="post-header">
         <div>
-            <h1 id="post-title">Geometry</h1>
-            <time id="post-date" class="post-date" data-iso-date="2026-01-29">January 29, 2026</time>
+            <h1 id="post-title">ज्यामिति</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-01-29">29 जनवरी 2026</time>
         </div>
-        <a href="/" class="back-button">← Back</a>
+        <a href="/" class="back-button">← वापस</a>
     </div>
     
-    <article id="post-content"><p>I have read many technical blogs that clarified my understanding of some topics in the past. Some notable shoutouts are <a href="https://colah.github.io/posts/2015-09-Visual-Information/">this</a> visual information theory breakdown, and <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">this</a> post on Maxwell&#39;s demon. They are both very thorough and I recommend you read them.</p>
-<p>I think technical blogs are an essential source of knowledge, because in order for someone to write them, they need to understand deeply (and empirically) whatever they&#39;re trying to explain to you. Plus, they are also written in a way that you&#39;re supposed to understand, unlike papers. I encourage you to write one of your own!</p>
-<p>This brief write-up is my first attempt to contribute back by illustrating some interesting geometrical properties of binomial events I found through a statistics class I&#39;m taking this semester. </p>
-<p>Picture a fair coin. There are two outcomes: heads or tails, each with a 50% chance, respectively. </p>
-<p>If you wanted to know the chances that this coin lands on heads <strong>N</strong> times consecutively, and each flip is independent, you can just multiply:</p>
-<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord">heads </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> times</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
-<p>Now, you probably already know these formulas if you took a probability class in college or high school. </p>
-<p>What you might not have learned there is that geometry is a powerful way of describing probability, specifically when partitioning a set <strong>A</strong> with all the outcomes of interest. </p>
-<p>3Blue1Brown&#39;s video on Bayes&#39; theorem does a great job of visualizing how one can consider all possible outcomes (in their example, the profession of a group of people) as a rectangle that can be broken down into overlapping sections from which Bayes&#39; theorem can be derived. You can watch it <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">here</a>.</p>
-<p>Applying this to the coin toss question, we can visualize all the possible heads and tails sequences (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) one may get after tossing a coin six times with a similar visualization: a sample space. A sample space is a visualization of all the possible discrete outcomes or paths that may happen for a given experiment. In this example, coin toss sequences. </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-n-6.png" alt="Sample Space for 6 Consecutive [Independent] Coin Tosses" title="Coin Sample Space"></p>
+    <article id="post-content"><p>मैंने अतीत में कई तकनीकी ब्लॉग पढ़े हैं जिन्होंने कुछ विषयों के बारे में मेरी समझ को स्पष्ट किया है। कुछ उल्लेखनीय उल्लेख <a href="https://colah.github.io/posts/2015-09-Visual-Information/">यह</a> दृश्य सूचना सिद्धांत विश्लेषण, और मैक्सवेल के दानव (Maxwell&#39;s demon) पर <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">यह</a> पोस्ट हैं। वे दोनों बहुत विस्तृत हैं और मैं आपको उन्हें पढ़ने की सलाह देता हूँ।</p>
+<p>मुझे लगता है कि तकनीकी ब्लॉग ज्ञान का एक अनिवार्य स्रोत हैं, क्योंकि किसी के लिए उन्हें लिखने के लिए, उन्हें उस चीज़ को गहराई से (और अनुभवजन्य रूप से) समझने की आवश्यकता होती है जिसे वे आपको समझाने की कोशिश कर रहे हैं। इसके अलावा, वे शोध पत्रों के विपरीत इस तरह लिखे जाते हैं कि आप उन्हें समझ सकें। मैं आपको अपना खुद का एक ब्लॉग लिखने के लिए प्रोत्साहित करता हूँ!</p>
+<p>यह संक्षिप्त लेख इस सेमेस्टर में ली जा रही सांख्यिकी कक्षा के माध्यम से मिले द्विपद घटनाओं (binomial events) के कुछ दिलचस्प ज्यामितीय गुणों को चित्रित करके वापस योगदान देने का मेरा पहला प्रयास है।</p>
+<p>एक निष्पक्ष सिक्के की कल्पना करें। इसके दो परिणाम होते हैं: चित (heads) या पट (tails), प्रत्येक की क्रमशः 50% संभावना होती है।</p>
+<p>यदि आप यह जानना चाहते हैं कि यह सिक्का लगातार <strong>N</strong> बार चित (heads) आने की क्या संभावना है, और प्रत्येक उछाल स्वतंत्र है, तो आप बस गुणा कर सकते हैं:</p>
+<span class="katex-display"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord text"><span class="mord brahmic_fallback">चित</span><span class="mord"> </span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord text"><span class="mord"> </span><span class="mord brahmic_fallback">बार</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.6313em;vertical-align:-0.95em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.6812em;"><span style="top:-3.9029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span></span>
+<p>अब, आप शायद इन सूत्रों को पहले से ही जानते होंगे यदि आपने कॉलेज या हाई स्कूल में प्रायिकता (probability) की कक्षा ली है।</p>
+<p>आपने वहां जो नहीं सीखा होगा वह यह है कि ज्यामिति प्रायिकता का वर्णन करने का एक शक्तिशाली तरीका है, विशेष रूप से जब सभी रुचि के परिणामों के साथ एक सेट <strong>A</strong> को विभाजित किया जाता है।</p>
+<p>बेयस प्रमेय (Bayes&#39; theorem) पर 3Blue1Brown का वीडियो यह कल्पना करने का एक शानदार काम करता है कि कैसे कोई सभी संभावित परिणामों (उनके उदाहरण में, लोगों के एक समूह का पेशा) को एक आयत के रूप में मान सकता है जिसे ओवरलैपिंग अनुभागों में तोड़ा जा सकता है जिससे बेयस प्रमेय प्राप्त किया जा सकता है। आप इसे <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">यहाँ</a> देख सकते हैं।</p>
+<p>इसे सिक्के के उछाल वाले प्रश्न पर लागू करते हुए, हम उन सभी संभावित चित और पट अनुक्रमों (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, आदि) की कल्पना कर सकते हैं जो एक सिक्के को छह बार उछालने के बाद एक समान विज़ुअलाइज़ेशन के साथ प्राप्त हो सकते हैं: एक नमूना स्थान (sample space)। एक नमूना स्थान किसी दिए गए प्रयोग के लिए होने वाले सभी संभावित असतत परिणामों या पथों का एक विज़ुअलाइज़ेशन है। इस उदाहरण में, सिक्के के उछाल के अनुक्रम।</p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-n-6.png" alt="6 लगातार [स्वतंत्र] सिक्के के उछाल के लिए नमूना स्थान" title="सिक्का नमूना स्थान"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -245,12 +245,12 @@ main()
 </code></pre>
 </details>
 
-<p>The first block on the left shows the 0th coin flip. Since it has a guaranteed probability of happening, it occupies the whole Y-axis. The second block shows the outcome of the first coin toss. Since it can be either a head or a tail, it occupies two evenly spaced blocks. </p>
-<p>Further to the right, each block doubles in its number of outcomes, which makes sense intuitively because we&#39;re expanding each coin toss with 2 children outcomes respectively.</p>
-<p>The Y-axis gives the probability for each single path to happen according to its proportion. Paths along the center — with an even variation between heads and tails — occupy a bigger part of the Y-axis, as naturally, they&#39;re the most probable, while paths of consecutive heads or tails (either going fully down or up, in a staircase pattern), occupy an ever-decreasing proportion of the Y-axis, relative to their very low probabilities as shown below.</p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-shaded-staircase.png" alt="Consecutive tails or heads shaded staircase." title="Consecutive tails or heads shaded staircase."></p>
+<p>बाईं ओर का पहला ब्लॉक 0वीं सिक्के की उछाल को दर्शाता है। चूंकि इसके होने की निश्चित संभावना है, इसलिए यह पूरे Y-अक्ष पर कब्जा कर लेता है। दूसरा ब्लॉक पहले सिक्के की उछाल के परिणाम को दर्शाता है। चूंकि यह या तो चित या पट हो सकता है, इसलिए यह दो समान रूप से दूरी वाले ब्लॉकों पर कब्जा कर लेता है।</p>
+<p>दाईं ओर आगे बढ़ने पर, प्रत्येक ब्लॉक के परिणामों की संख्या दोगुनी हो जाती है, जो सहज रूप से समझ में आता है क्योंकि हम प्रत्येक सिक्के की उछाल को क्रमशः 2 चाइल्ड परिणामों के साथ विस्तारित कर रहे हैं।</p>
+<p>Y-अक्ष अपने अनुपात के अनुसार प्रत्येक एकल पथ के होने की प्रायिकता देता है। केंद्र के साथ वाले पथ — चित और पट के बीच समान भिन्नता के साथ — Y-अक्ष के एक बड़े हिस्से पर कब्जा कर लेते हैं, क्योंकि स्वाभाविक रूप से, वे सबसे संभावित होते हैं, जबकि लगातार चित या पट के पथ (या तो पूरी तरह से नीचे या ऊपर जा रहे हैं, एक सीढ़ी पैटर्न में), Y-अक्ष के निरंतर घटते अनुपात पर कब्जा कर लेते हैं, जैसा कि नीचे दिखाया गया है।</p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-shaded-staircase.png" alt="लगातार पट या चित छायांकित सीढ़ी।" title="लगातार पट या चित छायांकित सीढ़ी।"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -408,12 +408,12 @@ main()
 </code></pre>
 </details>
 
-<p>Are you starting to see the link between geometry and probability here? You could measure the probability for any given sequence by picking its terminal block and measuring its height. It makes questions like how likely are you to get a specific sequence like &#39;HTHHTHH&#39; easy to answer; just trace the graph!  </p>
-<p>So why is this important? As you may recall from the law of large numbers, over enough runs, outcomes average out to their true probabilities. If you flip a fair coin forever and count how many times you get heads or tails, the chance of getting either becomes 50% and 50%. The above graph doesn&#39;t really make this intuitive, though. After all, it seems like the most likely sequences simply collapse into blobs of increasing length.</p>
-<p>But something is hiding in plain sight: a normal distribution. If we plot the proportion of heads in all possible outcomes from 1 to 100 flips as shown below, there is a clear bell shaped distribution before the distribution around the mean at 50% converges on it.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-proportion-heads.png" alt="Proportion of Heads in the Coin Sample Space Over N=0 to N=100" title="Proportion of Heads in the Coin Sample Space Over N=0 to N=100"></p>
+<p>क्या आप यहाँ ज्यामिति और प्रायिकता के बीच संबंध देखना शुरू कर रहे हैं? आप इसके टर्मिनल ब्लॉक को चुनकर और उसकी ऊंचाई मापकर किसी भी दिए गए अनुक्रम के लिए प्रायिकता माप सकते हैं। यह &#39;HTHHTHH&#39; जैसे विशिष्ट अनुक्रम प्राप्त करने की संभावना कितनी है जैसे प्रश्नों का उत्तर देना आसान बनाता है; बस ग्राफ को ट्रेस करें!</p>
+<p>तो यह महत्वपूर्ण क्यों है? जैसा कि आपको बड़ी संख्याओं के नियम (law of large numbers) से याद होगा, पर्याप्त रनों के बाद, परिणाम अपनी वास्तविक प्रायिकताओं के औसत पर आ जाते हैं। यदि आप हमेशा के लिए एक निष्पक्ष सिक्का उछालते हैं और गिनते हैं कि आपको कितनी बार चित या पट मिलता है, तो दोनों में से किसी एक को प्राप्त करने की संभावना 50% और 50% हो जाती है। हालाँकि, ऊपर दिया गया ग्राफ वास्तव में इसे सहज नहीं बनाता है। आखिरकार, ऐसा लगता है कि सबसे संभावित अनुक्रम बस बढ़ती लंबाई के ब्लॉब में सिमट जाते हैं।</p>
+<p>लेकिन कुछ सादे दृश्य में छिपा है: एक सामान्य वितरण (normal distribution)। यदि हम 1 से 100 उछालों के सभी संभावित परिणामों में चित के अनुपात को प्लॉट करते हैं जैसा कि नीचे दिखाया गया है, तो 50% पर माध्य के चारों ओर वितरण के अभिसरण से पहले एक स्पष्ट घंटी के आकार का वितरण होता है।<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-proportion-heads.png" alt="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात" title="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
 <pre><code class="language-py">import matplotlib
 import matplotlib.pyplot as plt
@@ -582,12 +582,12 @@ main()
 </details>
 
 
-<p>Now, we can see that the proportion will indeed even out to 50%, and if we expanded this to many more <strong>N</strong> we&#39;d end up seeing a completely straight line.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
-<p>What&#39;s interesting is that at <strong>N</strong> &lt; 20 the distribution of outcomes is mostly normal. The yellow lines act as a visual aid: if we stopped sampling proportions at those lines, the center would follow the central limit theorem, accumulating most outcomes and smoothing out to a bell, while the very edges show two types of outcomes: at first, either getting a head or not, and at a very low probability, consecutively not getting any head or consecutively getting all heads. </p>
-<p>We can explain this intuitively by looking at the previous figure overlaid and mirrored on the sample space distribution plot: </p>
-<p><img src="/blog/assets/figures/en/coin-sample-space-overlay.png" alt="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space." title="Overlay of the two previous plots with the sample space mirrored on top of proportion sample space."></p>
+<p>अब, हम देख सकते हैं कि अनुपात वास्तव में 50% तक बराबर हो जाएगा, और यदि हम इसे कई और <strong>N</strong> तक विस्तारित करते हैं तो हम अंततः एक पूरी तरह से सीधी रेखा देखेंगे।<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
+<p>दिलचस्प बात यह है कि <strong>N</strong> &lt; 20 पर परिणामों का वितरण ज्यादातर सामान्य होता है। पीली रेखाएं एक दृश्य सहायता के रूप में कार्य करती हैं: यदि हमने उन रेखाओं पर अनुपात का नमूना लेना बंद कर दिया, तो केंद्र केंद्रीय सीमा प्रमेय (central limit theorem) का पालन करेगा, अधिकांश परिणामों को संचित करेगा और एक घंटी के आकार में सुचारू हो जाएगा, जबकि किनारे दो प्रकार के परिणाम दिखाते हैं: पहले, या तो चित प्राप्त करना या नहीं, और बहुत कम संभावना पर, लगातार कोई चित प्राप्त नहीं करना या लगातार सभी चित प्राप्त करना।</p>
+<p>हम नमूना स्थान वितरण प्लॉट पर ओवरलेड और मिरर किए गए पिछले आंकड़े को देखकर इसे सहजता से समझा सकते हैं:</p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-overlay.png" alt="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।" title="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।"></p>
 <details>
-<summary>Show visualization code</summary>
+<summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
 <pre><code class="language-py">import shutil
 from pathlib import Path
@@ -728,26 +728,26 @@ main()
 </code></pre>
 </details>
 
-<p>The extreme edges of the bell line up with consecutive coin paths, which are very unlikely, while the majority of outcomes that occupy <strong>the biggest proportion</strong> along the center of the sample space (where heads appears 50% of the time) correspondingly line up with the center of the bell, showing that the Central Limit Theorem emerges geometrically from the branching structure of a binomial sample space. </p>
-<p>Another way to think about this is that if you re-scale the sample space to show the least likely sequences to be smaller and the most likely to be bigger, the proportion of times that heads appears is distributed close to normally [discounting for the gap between consecutive sequences and roughly normal sequences] until the law of large numbers kicks in and averages out to 50%. Zooming out from the coin-toss example, this is applicable to any binomial process of independent events. </p>
-<p>Is this news? Perhaps not. But it is very cool to see how probability can be translated into areas and proportions, which can in turn reveal the underlying probability distribution for a specific outcome in a visual, geometric manner. </p>
-<p>I used Perplexity with Claude 4.5 Sonnet to work through my ideas.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> Originally, I began making the above graphs and experiments during class when I got carried away trying to solve a problem by drawing boxes, which led to me seeing the staircase pattern (in the context of rigged coins), and digging deeper into the math. It walked me through how this nicely ties up with Pascal&#39;s triangle:</p>
+<p>घंटी के चरम किनारे लगातार सिक्के के पथों के साथ संरेखित होते हैं, जो बहुत कम संभावित होते हैं, जबकि अधिकांश परिणाम जो नमूना स्थान के केंद्र के साथ <strong>सबसे बड़े अनुपात</strong> पर कब्जा करते हैं (जहां चित 50% समय दिखाई देता है) तदनुसार घंटी के केंद्र के साथ संरेखित होते हैं, यह दिखाते हुए कि केंद्रीय सीमा प्रमेय ज्यामितीय रूप से एक द्विपद नमूना स्थान की शाखा संरचना से उभरता है।</p>
+<p>इसके बारे में सोचने का एक और तरीका यह है कि यदि आप नमूना स्थान को फिर से स्केल करते हैं ताकि कम से कम संभावित अनुक्रम छोटे दिखें और सबसे संभावित बड़े दिखें, तो चित दिखाई देने के समय का अनुपात सामान्य रूप से वितरित होता है [लगातार अनुक्रमों और मोटे तौर पर सामान्य अनुक्रमों के बीच के अंतर को छोड़कर] जब तक कि बड़ी संख्याओं का नियम लागू नहीं होता और 50% तक औसत नहीं हो जाता। सिक्के के उछाल वाले उदाहरण से ज़ूम आउट करते हुए, यह स्वतंत्र घटनाओं की किसी भी द्विपद प्रक्रिया पर लागू होता है।</p>
+<p>क्या यह खबर है? शायद नहीं। लेकिन यह देखना बहुत अच्छा है कि कैसे प्रायिकता को क्षेत्रों और अनुपातों में अनुवादित किया जा सकता है, जो बदले में एक दृश्य, ज्यामितीय तरीके से एक विशिष्ट परिणाम के लिए अंतर्निहित प्रायिकता वितरण को प्रकट कर सकता है।</p>
+<p>मैंने अपने विचारों पर काम करने के लिए Claude 4.5 Sonnet के साथ Perplexity का उपयोग किया।<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup> मूल रूप से, मैंने कक्षा के दौरान उपरोक्त ग्राफ और प्रयोग बनाना शुरू किया जब मैं बक्से खींचकर एक समस्या को हल करने की कोशिश में बह गया, जिससे मुझे सीढ़ी पैटर्न (धांधली वाले सिक्कों के संदर्भ में) दिखाई दिया, और गणित में गहराई से खुदाई की। इसने मुझे बताया कि यह पास्कल के त्रिभुज (Pascal&#39;s triangle) के साथ कैसे अच्छी तरह जुड़ता है:</p>
 <blockquote>
-<p>What we&#39;ve visualized here is actually a rotated form of Pascal&#39;s triangle—a well-established mathematical structure where each number is the sum of the two numbers above it. The connection runs deep: at each flip number <strong>N</strong>, counting how many paths lead to exactly k heads gives you the entries in row <strong>N</strong> of Pascal&#39;s triangle. These are the binomial coefficients C(N,k), which represent the number of ways to choose k items from N. When we divide each row by 2^N to convert counts into probabilities, we get the binomial distribution. The Central Limit Theorem then guarantees that as <strong>N</strong> grows large, this distribution approaches the normal curve—which is exactly what we see in our visualization. The geometry of branching paths through sample space doesn&#39;t just resemble Pascal&#39;s triangle; it is Pascal&#39;s triangle, revealing why the bell curve emerges so naturally from repeated binary trials.</p>
+<p>हमने यहाँ जो कल्पना की है वह वास्तव में पास्कल के त्रिभुज का एक घुमाया हुआ रूप है—एक अच्छी तरह से स्थापित गणितीय संरचना जहाँ प्रत्येक संख्या उसके ऊपर की दो संख्याओं का योग होती है। संबंध गहरा है: प्रत्येक उछाल संख्या <strong>N</strong> पर, यह गिनना कि कितने पथ बिल्कुल k चित की ओर ले जाते हैं, आपको पास्कल के त्रिभुज की पंक्ति <strong>N</strong> में प्रविष्टियाँ देता है। ये द्विपद गुणांक C(N,k) हैं, जो N में से k वस्तुओं को चुनने के तरीकों की संख्या का प्रतिनिधित्व करते हैं। जब हम प्रत्येक पंक्ति को 2^N से विभाजित करते हैं ताकि गिनती को प्रायिकता में बदला जा सके, तो हमें द्विपद वितरण प्राप्त होता है। केंद्रीय सीमा प्रमेय तब गारंटी देता है कि जैसे-जैसे <strong>N</strong> बड़ा होता जाता है, यह वितरण सामान्य वक्र के करीब पहुँच जाता है—जो कि बिल्कुल वही है जो हम अपने विज़ुअलाइज़ेशन में देखते हैं। नमूना स्थान के माध्यम से शाखा पथों की ज्यामिति केवल पास्कल के त्रिभुज के समान नहीं है; यह पास्कल का त्रिभुज है, जो यह बताता है कि बार-बार बाइनरी परीक्षणों से घंटी वक्र इतनी स्वाभाविक रूप से क्यों उभरता है।</p>
 </blockquote>
-<p>In hindsight, it&#39;s a very intuitive conclusion, as the count of events in each column of the coin sample space matches the sum of the <strong>N</strong>th row in Pascal&#39;s triangle. </p>
-<p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
+<p>पीछे मुड़कर देखने पर, यह एक बहुत ही सहज निष्कर्ष है, क्योंकि सिक्के के नमूना स्थान के प्रत्येक कॉलम में घटनाओं की संख्या पास्कल के त्रिभुज की <strong>N</strong>वीं पंक्ति के योग से मेल खाती है।</p>
+<p>यदि आपको यह उपयोगी या दिलचस्प लगा, तो मुझे खुशी है! अपना खुद का एक तकनीकी ब्लॉग लिखने पर विचार करें। एआई-प्रभुत्व वाले युग में, सचेत लेखन पहले से कहीं अधिक मूल्यवान है। यह चीजों के बारे में आपकी अपनी समझ को समृद्ध करने के लिए भी बहुत उपयोगी है।</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
 <li id="footnote-1">
-<p>I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+<p>मैं वादा करता हूँ कि मैंने केवल चित के अनुपात के विज़ुअलाइज़ेशन को दिखाने के लिए इस ब्लॉग पोस्ट को लिखने के लिए अपने रास्ते से बाहर नहीं गया। यह बेहद शानदार है, और मुझे थोड़ा स्लोप फील्ड्स (slope fields) की याद दिलाता है। <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
 </li>
 <li id="footnote-2">
-<p>Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you&#39;d show many coin flip sequences rather than just the theoretical proportions. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+<p>बाद में, जब किसी को बड़ी संख्याओं के नियम को समझा रहा था, मुझे एहसास हुआ कि यह ग्राफ उसी विचार को चित्रित करता है, सिवाय इसके कि यहाँ वक्र सुचारू हैं और वह परिवर्तनशीलता नहीं दिखाते हैं जो आप सामान्य रूप से अभिसरण को व्यक्त करने के लिए ग्राफ में चाहते हैं। ऐसा करने के लिए, आप केवल सैद्धांतिक अनुपातों के बजाय कई सिक्के उछालने के अनुक्रम दिखाएंगे। <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
 </li>
 <li id="footnote-3">
-<p>If you&#39;re curious about the aforementioned chat I had with Claude with my thinking process, you can read it <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">here</a>. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+<p>यदि आप मेरे सोचने की प्रक्रिया के साथ क्लाउड के साथ हुई उपरोक्त चैट के बारे में उत्सुक हैं, तो आप इसे <a href="https://www.perplexity.ai/search/question-if-one-is-graphing-wi-olzBdRo6RFuWONjYCk5CoQ#8">यहाँ</a> पढ़ सकते हैं। <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
 </li>
 </ol>
 </section>

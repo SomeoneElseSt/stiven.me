@@ -364,6 +364,7 @@
                         var formatted = formatDate(isoDate, dateLocale);
                         if (formatted) dateEl.textContent = formatted;
                     }
+                    link.setAttribute('href', locale === 'en' ? '/blog/' + postId + '/' : '/blog/' + postId + '/' + locale + '/');
                 });
             }
 
