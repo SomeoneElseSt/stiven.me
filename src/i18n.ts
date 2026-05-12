@@ -248,6 +248,22 @@ export function getLocaleFromStorage(): LocaleId {
     return raw;
 }
 
+export function getInitialLocale(): LocaleId {
+    if (typeof localStorage !== 'undefined') {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored && isLocaleId(stored)) {
+            return stored;
+        }
+    }
+    if (typeof navigator !== 'undefined') {
+        const primary = (navigator.language ?? '').split('-')[0].toLowerCase();
+        if (isLocaleId(primary)) {
+            return primary;
+        }
+    }
+    return DEFAULT_LOCALE;
+}
+
 export function saveLocaleToStorage(locale: LocaleId): void {
     if (typeof localStorage === 'undefined') {
         return;
