@@ -39,7 +39,7 @@ const en: LocaleDefinition = {
         bio1: 'I study computer science and economics at <a href="https://www.minerva.edu/">Minerva University</a>. I\'m interested in the modelling of social systems at scale.',
         bio2: 'I\'m a SWE intern at <a href="https://build.inc">Build</a>, formerly SWE intern at <a href="https://domu.ai">Domu</a> (YC S24), technical consultant for <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, and coding fellow at <a href="https://makers.ngo">Makers</a>.',
         bio3: 'I\'ve won four hackathons, dialed 500k+ calls with an AI Agent for one of the largest banks in Central America, and built a bunch of things <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
-        bio4: `I am a runner, techno‑optimist, and effective altruist/accelerationist. Currently in New York City. <a href="${COFFEE_CHAT_FORM_URL}" target="_blank" rel="noopener">Schedule a coffee chat</a>.`,
+        bio4: `I'm a runner, techno‑optimist, and effective altruist/accelerationist. Currently in New York City. <a href="${COFFEE_CHAT_FORM_URL}" target="_blank" rel="noopener">Schedule a coffee chat</a>.`,
         blogHeader: 'Blog',
         linksHeader: 'Links',
         themeAriaToLight: 'Switch to light mode',
