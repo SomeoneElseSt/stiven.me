@@ -6,12 +6,12 @@ interface Env {
     BRRR_USER_SECRET: string;
 }
 
-type HiField = 'name' | 'contact' | 'thoughts';
+type HiField = 'name' | 'contact' | 'note';
 
 type HiPayload = Record<HiField, string>;
 
 const BRRR_API_BASE_URL = 'https://api.brrr.now/v1';
-const HI_FIELDS: readonly HiField[] = ['name', 'contact', 'thoughts'];
+const HI_FIELDS: readonly HiField[] = ['name', 'contact', 'note'];
 const MAX_FIELD_LENGTH = 500;
 const CONTACT_VALIDATION_ERROR =
     'contact must be a link (http/https), email address, or phone number';
@@ -73,6 +73,10 @@ async function readRequestJson(request: Request): Promise<unknown | null> {
     }
 }
 
+function formatBrrrMessage(payload: HiPayload): string {
+    return `Name: ${payload.name}\nContact: ${payload.contact}\nNote: ${payload.note}`;
+}
+
 async function sendBrrrNotification(userSecret: string, payload: HiPayload): Promise<boolean> {
     const response = await fetch(`${BRRR_API_BASE_URL}/${userSecret}`, {
         method: 'POST',
@@ -80,8 +84,8 @@ async function sendBrrrNotification(userSecret: string, payload: HiPayload): Pro
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            title: `Curious mind: ${payload.name}`,
-            message: `${payload.contact}\n\n${payload.thoughts}`,
+            title: 'stiven.me/hi',
+            message: formatBrrrMessage(payload),
             thread_id: 'stiven-me-curious',
         }),
     });
@@ -103,7 +107,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const payload = parseHiPayload(body);
     if (!payload) {
         return jsonResponse({
-            error: 'Expected JSON object with non-empty string fields: name, contact, thoughts',
+            error: 'Expected JSON object with non-empty string fields: name, contact, note',
         }, 400);
     }
 
