@@ -1,14 +1,26 @@
+import isEmail from 'validator/lib/isEmail';
+import isMobilePhone from 'validator/lib/isMobilePhone';
+import isURL from 'validator/lib/isURL';
+
 interface Env {
-    BRRR_WEBHOOK_SECRET: string;
+    BRRR_USER_SECRET: string;
 }
 
 type HiField = 'name' | 'contact' | 'thoughts';
 
 type HiPayload = Record<HiField, string>;
 
-const BRRR_SEND_URL = 'https://api.brrr.now/v1/send';
+const BRRR_API_BASE_URL = 'https://api.brrr.now/v1';
 const HI_FIELDS: readonly HiField[] = ['name', 'contact', 'thoughts'];
 const MAX_FIELD_LENGTH = 500;
+const CONTACT_VALIDATION_ERROR =
+    'contact must be a link (http/https), email address, or phone number';
+
+function isValidContact(contact: string): boolean {
+    return isEmail(contact)
+        || isURL(contact, { protocols: ['http', 'https'], require_protocol: true })
+        || isMobilePhone(contact, 'any');
+}
 
 function jsonResponse(body: object, status: number): Response {
     return new Response(JSON.stringify(body), {
@@ -61,11 +73,10 @@ async function readRequestJson(request: Request): Promise<unknown | null> {
     }
 }
 
-async function sendBrrrNotification(secret: string, payload: HiPayload): Promise<boolean> {
-    const response = await fetch(BRRR_SEND_URL, {
+async function sendBrrrNotification(userSecret: string, payload: HiPayload): Promise<boolean> {
+    const response = await fetch(`${BRRR_API_BASE_URL}/${userSecret}`, {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${secret}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -79,8 +90,8 @@ async function sendBrrrNotification(secret: string, payload: HiPayload): Promise
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-    const secret = context.env.BRRR_WEBHOOK_SECRET;
-    if (!secret) {
+    const userSecret = context.env.BRRR_USER_SECRET;
+    if (!userSecret) {
         return jsonResponse({ error: 'Service unavailable' }, 503);
     }
 
@@ -96,7 +107,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         }, 400);
     }
 
-    const sent = await sendBrrrNotification(secret, payload);
+    if (!isValidContact(payload.contact)) {
+        return jsonResponse({ error: CONTACT_VALIDATION_ERROR }, 400);
+    }
+
+    const sent = await sendBrrrNotification(userSecret, payload);
     if (!sent) {
         return jsonResponse({ error: 'Failed to send notification' }, 502);
     }
