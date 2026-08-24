@@ -15,7 +15,6 @@ function createPrefetchTag(): void {
     const tag = document.createElement('link');
     tag.rel = 'prefetch';
     tag.href = RESUME_PATH;
-    tag.as = 'document';
     document.head.appendChild(tag);
     prefetchDone = true;
 }
