@@ -8,8 +8,8 @@ let prefetchDone = false;
 
 function createPrefetchTag(): void {
     if (prefetchDone) return;
-    
-    const existingTag = findLinks(`link[href="${RESUME_PATH}"]`, false);
+
+    const existingTag = document.querySelector(`link[href="${RESUME_PATH}"]`);
     if (existingTag) return;
 
     const tag = document.createElement('link');
