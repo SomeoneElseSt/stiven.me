@@ -6,16 +6,22 @@ const IDLE_CALLBACK_TIMEOUT_MS = 2000;
 
 let prefetchDone = false;
 
+function findExistingPrefetchLink(): HTMLLinkElement | null {
+    const link = document.querySelector(`link[href="${RESUME_PATH}"]`);
+    if (!link || !(link instanceof HTMLLinkElement)) {
+        return null;
+    }
+    return link;
+}
+
 function createPrefetchTag(): void {
     if (prefetchDone) return;
-    
-    const existingTag = findLinks(`link[href="${RESUME_PATH}"]`, false);
-    if (existingTag) return;
+
+    if (findExistingPrefetchLink()) return;
 
     const tag = document.createElement('link');
     tag.rel = 'prefetch';
     tag.href = RESUME_PATH;
-    tag.as = 'document';
     document.head.appendChild(tag);
     prefetchDone = true;
 }
