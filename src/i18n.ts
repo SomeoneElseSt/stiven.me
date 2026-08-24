@@ -18,7 +18,9 @@ export type MessageKey =
     | 'linksHeader'
     | 'themeAriaToLight'
     | 'themeAriaToDark'
-    | 'localeMenuLabel';
+    | 'localeMenuLabel'
+    | 'consoleGreeting'
+    | 'consoleInstruction';
 
 export interface LocaleDefinition {
     id: LocaleId;
@@ -45,6 +47,9 @@ const en: LocaleDefinition = {
         themeAriaToLight: 'Switch to light mode',
         themeAriaToDark: 'Switch to dark mode',
         localeMenuLabel: 'Language',
+        consoleGreeting: 'Hello, curious mind.',
+        consoleInstruction:
+            'If you really are thaaat curious, POST your "name", "contact", and "note" to stiven.me/api/hi',
     },
 };
 
@@ -63,6 +68,9 @@ const es: LocaleDefinition = {
         themeAriaToLight: 'Cambiar a modo claro',
         themeAriaToDark: 'Cambiar a modo oscuro',
         localeMenuLabel: 'Idioma',
+        consoleGreeting: 'Hola, mente curiosa.',
+        consoleInstruction:
+            'Si de verdad eres taaan curioso/a, haz POST con tu "name", "contact" y "note" a stiven.me/api/hi',
     },
 };
 
@@ -81,6 +89,9 @@ const ja: LocaleDefinition = {
         themeAriaToLight: 'ライトモードに切り替え',
         themeAriaToDark: 'ダークモードに切り替え',
         localeMenuLabel: '言語',
+        consoleGreeting: 'こんにちは、好奇心旺盛な方へ。',
+        consoleInstruction:
+            '本当にそんなに curious なら、"name"、"contact"、"note" を stiven.me/api/hi に POST してください',
     },
 };
 
@@ -99,6 +110,9 @@ const hi: LocaleDefinition = {
         themeAriaToLight: 'लाइट मोड पर जाएँ',
         themeAriaToDark: 'डार्क मोड पर जाएँ',
         localeMenuLabel: 'भाषा',
+        consoleGreeting: 'नमस्ते, जिज्ञासु मन।',
+        consoleInstruction:
+            'अगर आप सच में curious हैं, तो "name", "contact" और "note" stiven.me/api/hi पर POST करें',
     },
 };
 
@@ -117,6 +131,9 @@ const de: LocaleDefinition = {
         themeAriaToLight: 'Zum Hellmodus wechseln',
         themeAriaToDark: 'Zum Dunkelmodus wechseln',
         localeMenuLabel: 'Sprache',
+        consoleGreeting: 'Hallo, neugieriger Geist.',
+        consoleInstruction:
+            'Wenn du wirklich sooo neugierig bist, POSTe "name", "contact" und "note" an stiven.me/api/hi',
     },
 };
 
@@ -135,6 +152,9 @@ const fr: LocaleDefinition = {
         themeAriaToLight: 'Passer en mode clair',
         themeAriaToDark: 'Passer en mode sombre',
         localeMenuLabel: 'Langue',
+        consoleGreeting: 'Bonjour, esprit curieux.',
+        consoleInstruction:
+            'Si tu es vraiment taaant curieux/curieuse, POST ton "name", "contact" et "note" à stiven.me/api/hi',
     },
 };
 
@@ -153,6 +173,9 @@ const ko: LocaleDefinition = {
         themeAriaToLight: '라이트 모드로 전환',
         themeAriaToDark: '다크 모드로 전환',
         localeMenuLabel: '언어',
+        consoleGreeting: '안녕하세요, 호기심 많은 분.',
+        consoleInstruction:
+            '정말 curious 하시다면 "name", "contact", "note"를 stiven.me/api/hi 로 POST 하세요',
     },
 };
 
@@ -171,6 +194,9 @@ const pt: LocaleDefinition = {
         themeAriaToLight: 'Mudar para modo claro',
         themeAriaToDark: 'Mudar para modo escuro',
         localeMenuLabel: 'Idioma',
+        consoleGreeting: 'Olá, mente curiosa.',
+        consoleInstruction:
+            'Se és mesmo taaao curioso/a, faz POST com "name", "contact" e "note" para stiven.me/api/hi',
     },
 };
 
@@ -189,6 +215,9 @@ const pl: LocaleDefinition = {
         themeAriaToLight: 'Przełącz na tryb jasny',
         themeAriaToDark: 'Przełącz na tryb ciemny',
         localeMenuLabel: 'Język',
+        consoleGreeting: 'Cześć, ciekawska głowo.',
+        consoleInstruction:
+            'Jeśli naprawdę jesteś taaak ciekawy/a, wyślij POST z "name", "contact" i "note" na stiven.me/api/hi',
     },
 };
 
@@ -207,6 +236,9 @@ const zh: LocaleDefinition = {
         themeAriaToLight: '切换到浅色模式',
         themeAriaToDark: '切换到深色模式',
         localeMenuLabel: '语言',
+        consoleGreeting: '你好，好奇的朋友。',
+        consoleInstruction:
+            '如果你真的那么 curious，请向 stiven.me/api/hi POST 你的 "name"、"contact" 和 "note"',
     },
 };
 
