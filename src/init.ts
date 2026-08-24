@@ -4,6 +4,13 @@ import { initPrefetch } from './prefetch.js';
 import { addSocialLinkClickListeners } from './listeners.js';
 import { addNpProgressListeners } from './nprogress.js';
 
+console.log(`
+================================
+|                              |
+|  Hello, curious mind.        |
+|                              |
+================================`);
+
 function initializeApp(): void {
     initLocaleSwitcher();
     if (!shouldDisableNProgress()) {
