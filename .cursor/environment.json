@@ -1,0 +1,17 @@
+{
+  "name": "stiven.me",
+  "install": "pnpm install && pnpm compile",
+  "terminals": [
+    {
+      "name": "web",
+      "command": "python3 -m http.server 8000",
+      "description": "Serves the built static site (index.html, /dist assets, and blog pages) at http://localhost:8000"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web server",
+      "port": 8000
+    }
+  ]
+}
