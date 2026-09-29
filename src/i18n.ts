@@ -11,6 +11,7 @@ export type MessageKey =
     | 'bio2'
     | 'bio3'
     | 'bio4'
+    | 'destroyWebsiteLabel'
     | 'blogHeader'
     | 'linksHeader'
     | 'themeAriaToLight'
@@ -39,6 +40,7 @@ const en: LocaleDefinition = {
         bio2: 'I have interned as a software engineer at <a href="https://domu.ai">Domu</a> (YC S24) and <a href="https://build.inc">Build</a>, been a technical consultant for <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, and a coding fellow at <a href="https://makers.ngo">Makers</a>.',
         bio3: 'I\'ve won five hackathons, made 500k+ calls with an AI Agent for one of the largest banks in Central America, and built a bunch of things <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `I'm a runner, techno‑optimist, and effective altruist/accelerationist. Currently in San Francisco.`,
+        destroyWebsiteLabel: 'Destroy this website',
         blogHeader: 'Blog',
         linksHeader: 'Links',
         themeAriaToLight: 'Switch to light mode',
@@ -60,6 +62,7 @@ const es: LocaleDefinition = {
         bio2: 'He sido becario de ingeniería de software en <a href="https://domu.ai">Domu</a> (YC S24) y <a href="https://build.inc">Build</a>, consultor técnico para <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> y becario de programación en <a href="https://makers.ngo">Makers</a>.',
         bio3: 'He ganado cinco hackathons, hice más de 500 mil llamadas con un agente de IA para uno de los mayores bancos de Centroamérica y construí varias cosas <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `Soy corredor, tecnooptimista y altruista eficaz/aceleracionista. Actualmente en San Francisco.`,
+        destroyWebsiteLabel: 'Destruir este sitio',
         blogHeader: 'Blog',
         linksHeader: 'Enlaces',
         themeAriaToLight: 'Cambiar a modo claro',
@@ -81,6 +84,7 @@ const ja: LocaleDefinition = {
         bio2: '<a href="https://domu.ai">Domu</a>（YC S24）と<a href="https://build.inc">Build</a>でソフトウェアエンジニアのインターン、<a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>のテクニカルコンサルタント、<a href="https://makers.ngo">Makers</a>のコーディングフェローを務めました。',
         bio3: 'ハッカソンで5回優勝し、中米の大手銀行向けにAIエージェントで50万件超の通話を行い、さまざまなものを作ってきました <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>。',
         bio4: `ランナーで、テクノオプティミスト、そして効果的利他主義／アクセラレーショニストです。現在はサンフランシスコにいます。`,
+        destroyWebsiteLabel: 'このサイトを壊す',
         blogHeader: 'ブログ',
         linksHeader: 'リンク',
         themeAriaToLight: 'ライトモードに切り替え',
@@ -102,6 +106,7 @@ const hi: LocaleDefinition = {
         bio2: 'मैं <a href="https://domu.ai">Domu</a> (YC S24) और <a href="https://build.inc">Build</a> में सॉफ्टवेयर इंजीनियरिंग इंटर्न, <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> के लिए तकनीकी सलाहकार, और <a href="https://makers.ngo">Makers</a> में कोडिंग फेलो रह चुका हूँ।',
         bio3: 'मैंने पाँच हैकाथॉन जीते हैं, मध्य अमेरिका के एक बड़े बैंक के लिए AI एजेंट से 5 लाख से अधिक कॉल किए हैं, और कई चीज़ें बनाई हैं <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>।',
         bio4: `मैं धावक, तकनीक‑आशावादी, और प्रभावी उदारवादी/त्वरणवादी हूँ। अभी सैन फ़्रांसिस्को में हूँ।`,
+        destroyWebsiteLabel: 'इस वेबसाइट को नष्ट करें',
         blogHeader: 'ब्लॉग',
         linksHeader: 'लिंक',
         themeAriaToLight: 'लाइट मोड पर जाएँ',
@@ -123,6 +128,7 @@ const de: LocaleDefinition = {
         bio2: 'Ich war Software‑Engineering‑Praktikant bei <a href="https://domu.ai">Domu</a> (YC S24) und <a href="https://build.inc">Build</a>, technischer Berater für <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> und Coding‑Fellow bei <a href="https://makers.ngo">Makers</a>.',
         bio3: 'Ich habe fünf Hackathons gewonnen, mit einem KI‑Agenten über 500.000 Anrufe für eine der größten Banken in Mittelamerika gemacht und einiges gebaut <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `Ich laufe gern, bin Techno‑Optimist und effektiver Altruist/Accelerationist. Derzeit in San Francisco.`,
+        destroyWebsiteLabel: 'Diese Website zerstören',
         blogHeader: 'Blog',
         linksHeader: 'Links',
         themeAriaToLight: 'Zum Hellmodus wechseln',
@@ -144,6 +150,7 @@ const fr: LocaleDefinition = {
         bio2: 'J\'ai été stagiaire ingénieur logiciel chez <a href="https://domu.ai">Domu</a> (YC S24) et <a href="https://build.inc">Build</a>, consultant technique pour <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a>, et fellow code chez <a href="https://makers.ngo">Makers</a>.',
         bio3: 'J\'ai remporté cinq hackathons, effectué plus de 500 000 appels avec un agent IA pour l\'une des plus grandes banques d\'Amérique centrale, et construit plusieurs projets <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `Je suis coureur, techno‑optimiste et altruiste efficace/accélérationniste. Actuellement à San Francisco.`,
+        destroyWebsiteLabel: 'Détruire ce site',
         blogHeader: 'Blog',
         linksHeader: 'Liens',
         themeAriaToLight: 'Passer en mode clair',
@@ -165,6 +172,7 @@ const ko: LocaleDefinition = {
         bio2: '<a href="https://domu.ai">Domu</a>(YC S24)와 <a href="https://build.inc">Build</a>에서 소프트웨어 엔지니어링 인턴, <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> 기술 컨설턴트, <a href="https://makers.ngo">Makers</a> 코딩 펠로우로 활동했습니다.',
         bio3: '해커톤에서 다섯 번 우승했고, 중미 최대 은행 중 하나를 위해 AI 에이전트로 50만 통 이상의 전화를 했으며 여러 프로젝트를 만들었습니다 <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `러너이며 테크노 옵티미스트이고 효과적 이타주의/가속주의 성향입니다. 현재 샌프란시스코에 있습니다.`,
+        destroyWebsiteLabel: '이 웹사이트 파괴하기',
         blogHeader: '블로그',
         linksHeader: '링크',
         themeAriaToLight: '라이트 모드로 전환',
@@ -186,6 +194,7 @@ const pt: LocaleDefinition = {
         bio2: 'Fui estagiário de engenharia de software na <a href="https://domu.ai">Domu</a> (YC S24) e na <a href="https://build.inc">Build</a>, consultor técnico para a <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> e fellow de programação na <a href="https://makers.ngo">Makers</a>.',
         bio3: 'Ganhei cinco hackathons, fiz mais de 500 mil chamadas com um agente de IA para um dos maiores bancos da América Central e construí vários projetos <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `Sou corredor, techno‑otimista e altruísta eficaz/aceleracionista. Atualmente em San Francisco.`,
+        destroyWebsiteLabel: 'Destruir este site',
         blogHeader: 'Blog',
         linksHeader: 'Links',
         themeAriaToLight: 'Mudar para modo claro',
@@ -207,6 +216,7 @@ const pl: LocaleDefinition = {
         bio2: 'Byłem stażystą inżyniera oprogramowania w <a href="https://domu.ai">Domu</a> (YC S24) i <a href="https://build.inc">Build</a>, konsultantem technicznym dla <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> i stypendystą programistycznym w <a href="https://makers.ngo">Makers</a>.',
         bio3: 'Wygrałem pięć hackathonów, zrobiłem ponad 500 tys. połączeń za pomocą agenta AI dla jednego z największych banków w Ameryce Środkowej i zbudowałem wiele projektów <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>.',
         bio4: `Jestem biegaczem, techno‑optymistą i efektywnym altruistą/akceleracjonistą. Obecnie w San Francisco.`,
+        destroyWebsiteLabel: 'Zniszcz tę stronę',
         blogHeader: 'Blog',
         linksHeader: 'Linki',
         themeAriaToLight: 'Przełącz na tryb jasny',
@@ -228,6 +238,7 @@ const zh: LocaleDefinition = {
         bio2: '我曾在 <a href="https://domu.ai">Domu</a>（YC S24）和 <a href="https://build.inc">Build</a>担任软件工程实习生，担任 <a href="https://www.spaceappschallenge.org/">NASA Space Apps</a> 技术顾问，以及 <a href="https://makers.ngo">Makers</a> 编程学员。',
         bio3: '我赢得了五场黑客马拉松，使用 AI 智能体为中美洲最大银行之一进行了超过 50 万次电话，并构建了许多项目 <a href="https://github.com/SomeoneElseSt/cityzero-cli" target="_blank">[1]</a><a href="https://gravitas-new.streamlit.app" target="_blank">[2]</a><a href="https://teleme.me" target="_blank">[3]</a><a href="https://github.com/SomeoneElseSt/CityZero" target="_blank">[4]</a>。',
         bio4: `我是一名跑者、技术乐观主义者，以及有效利他主义者/加速主义者。目前在旧金山。`,
+        destroyWebsiteLabel: '摧毁这个网站',
         blogHeader: '博客',
         linksHeader: '链接',
         themeAriaToLight: '切换到浅色模式',
