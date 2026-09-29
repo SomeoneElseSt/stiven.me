@@ -18,6 +18,7 @@ const HTML_I18N_KEYS: readonly MessageKey[] = [
     'bio2',
     'bio3',
     'bio4',
+    'destroyWebsiteLabel',
     'blogHeader',
     'linksHeader',
 ];
