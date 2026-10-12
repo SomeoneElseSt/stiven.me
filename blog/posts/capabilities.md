@@ -52,15 +52,52 @@ Example: if you're working with a frontier model, it's generally sufficient to a
 
 In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is true for any task that frontier models aren't already good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity. You still need knowledgeable humans (and a ton of compute) to get the most out of them, at least for now.  
 
-We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model skill. The x-axis represents how much of a task a model completes autonomously: at the very left, the human does everything. At the very right, the model can do it end-to-end. The y-axis represents how much effort each side puts in. The height of the human line is the human's effort, just as the height of the model line is the model's effort. Both axes are within the 0-100% range, with the x-axis representing performance and the y-axis the share of each party.  
+We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model effort. The x-axis represents how much of a task a model completes autonomously: at the very left, the human does everything. At the very right, the model can do it end-to-end. The y-axis represents how much effort each side puts in. The height of the human line is the human's effort, just as the height of the model line is the model's effort. Both axes are within the 0-100% range, with the x-axis representing performance and the y-axis the share of each party.  
 
 Let's reintroduce the first graph with these changes.
 
-![Human steering and model skill plotted as a share of effort against how much of a task the model completes autonomously.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Skill")
+![Human steering and model effort plotted as a share of effort against how much of a task the model completes autonomously.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Effort")
+
+You might think we always want to be on the rightmost side of it. I think that constitutes dead-weight loss for both economic and practical reasons. 
+
+One simple example is using frontier models for trivial changes that a smaller model could've made. E.g., changing the copy in a page or running trivial git commands (when was the last time you prompted 'yes, push it'?). 
+
+![Deadweight loss on the right side of the human steering and model effort graph, where a frontier model is used for a trivial task.](/blog/assets/figures/en/human-model-overreliance.png "Deadweight Loss From Over-Relying on the Model")
+
+The economic argument is obvious: you're using frontier tokens for trivial tasks. Ideally, you'd want to save the cost.
+
+The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller/faster model. Like if Cursor's Composer did it rather than have Astra think for a minute straight. 
+
+And even if your very smart model was ultra fast, that is expensive right now, so the economical argument still holds: others *could* do the same thing just as fast for cheaper, if we had the systems to transfer context efficiently (sort of pass the ball but for models).
+
+I see this mattering in the short to medium term but not the long term. 
+
+When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within the company that are heavily token-subsidized[^4]. 
+
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs mantain token subsidies until that happens, it'll be less of an issue. 
+
+If frontier intelligence does increase in cost, I see three technical challenges need to be cleared for a "DWL-optimized harness" that chooses the right intelligence and speed for a task: 
+- Transferring context efficiently: how to transfer context between models cheaply and quickly, ideally at as close to zero cost and latency. This is most important for individual tasks.
+- Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache offloading and onloading so that every watt of compute is being routed to something at a given time. 
+- Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolbench to do this yet. 
+
+I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. 
+
+Budget-concious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that SMBs can use to save their token spend, both for use by individuals within a organization and for specific tasks. 
+
+Paraphrased: Jev might be very cheap but your average store clerk isn't gonna get an API key and make an eval to see if it beats Astra at classifying defects in products. Hence the need for diffusion companies.  
+
+In the graph, the equilibria makes sense if you think about the 50% human effort as setting up the infrastructure and evals to get the model with the best speed, price, and intelligence for the task (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.
+
+![Equilibrium between human steering and model effort, at 50% of the task completed autonomously by the model.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Effort")
+
+I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models. 
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (ex. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (ex. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
 [^2]: Though, it follows very similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by an incumbent. But I won't spoil it for you. Go read! 
 
 [^3]: 1 Billion tokens a day keeps the doctor away.  
+
+[^4]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 

@@ -23,6 +23,11 @@ OUTPUT_DIR = Path(__file__).resolve().parent.parent / "figures" / "en"
 
 PERCENT_MAX = 100
 PERCENT_TICK_STEP = 10
+HUMAN_MODEL_EQUILIBRIUM = 50
+HUMAN_MODEL_EQUILIBRIUM_TEXT = 'Equilibrium: Human set up\nresults in optimized model'
+HUMAN_MODEL_EQUILIBRIUM_TEXT_X = 57
+OVERRELIANCE_AUTONOMY = 80
+OVERRELIANCE_TEXT = 'yes, push it'
 
 
 def price_on_demand_curve(quantity):
@@ -65,7 +70,7 @@ HUMAN_MODEL_SPEC = {
     'xlabel': 'Task completed autonomously by the model',
     'ylabel': 'Share of effort',
     'first_label': 'Human steering',
-    'second_label': 'Model skill',
+    'second_label': 'Model effort',
     'as_percent': True,
 }
 
@@ -146,6 +151,29 @@ def draw_example_points(ax, bg, fg):
         draw_labeled_point(ax, bg, fg, point_xy, point_label(quantity), example['text_xy'], example['align'])
 
 
+def draw_shaded_triangle(ax, bg, fg, corners, text):
+    triangle = plt.Polygon(corners, closed=True, facecolor=plt.cm.Blues(DWL_SHADE),
+                           edgecolor=bg, linewidth=1, alpha=DWL_ALPHA, zorder=1)
+    ax.add_patch(triangle)
+    center_x = sum(corner[0] for corner in corners) / len(corners)
+    center_y = sum(corner[1] for corner in corners) / len(corners)
+    ax.text(center_x, center_y, text, ha='center', va='center',
+            fontsize=DWL_FONT_SIZE, color=fg, zorder=4)
+
+
+def draw_human_model_equilibrium_point(ax, bg, fg):
+    equilibrium_corner = (HUMAN_MODEL_EQUILIBRIUM, human_steering_share(HUMAN_MODEL_EQUILIBRIUM))
+    text_xy = (HUMAN_MODEL_EQUILIBRIUM_TEXT_X, equilibrium_corner[1])
+    draw_labeled_point(ax, bg, fg, equilibrium_corner, HUMAN_MODEL_EQUILIBRIUM_TEXT, text_xy, 'left')
+
+
+def draw_human_model_overreliance_triangle(ax, bg, fg):
+    equilibrium_corner = (HUMAN_MODEL_EQUILIBRIUM, human_steering_share(HUMAN_MODEL_EQUILIBRIUM))
+    human_corner = (OVERRELIANCE_AUTONOMY, human_steering_share(OVERRELIANCE_AUTONOMY))
+    model_corner = (OVERRELIANCE_AUTONOMY, model_skill_share(OVERRELIANCE_AUTONOMY))
+    draw_shaded_triangle(ax, bg, fg, [equilibrium_corner, human_corner, model_corner], OVERRELIANCE_TEXT)
+
+
 def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
     traded_quantity = scenario['traded_quantity']
     equilibrium_corner = (EQUILIBRIUM_QUANTITY, price_on_demand_curve(EQUILIBRIUM_QUANTITY))
@@ -153,13 +181,7 @@ def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
     traded_supply_corner = (traded_quantity, price_on_supply_curve(traded_quantity))
     corners = [equilibrium_corner, traded_demand_corner, traded_supply_corner]
 
-    triangle = plt.Polygon(corners, closed=True, facecolor=plt.cm.Blues(DWL_SHADE),
-                           edgecolor=bg, linewidth=1, alpha=DWL_ALPHA, zorder=1)
-    ax.add_patch(triangle)
-    center_quantity = sum(corner[0] for corner in corners) / len(corners)
-    center_price = sum(corner[1] for corner in corners) / len(corners)
-    ax.text(center_quantity, center_price, 'DWL', ha='center', va='center',
-            fontsize=DWL_FONT_SIZE, color=fg, zorder=4)
+    draw_shaded_triangle(ax, bg, fg, corners, 'DWL')
 
     traded_price = traded_demand_corner[1]
     equilibrium_net = equilibrium_corner[0] * equilibrium_corner[1]
@@ -174,7 +196,7 @@ def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
         draw_labeled_point(ax, bg, fg, corner, label, text_xy, align)
 
 
-def render(theme, filename_stem, with_points, dwl_scenario=None, spec=ECONOMICS_SPEC):
+def render(theme, filename_stem, with_points, dwl_scenario=None, spec=ECONOMICS_SPEC, extra_drawing=None):
     is_light = theme == 'light'
     bg = 'white' if is_light else 'black'
     fg = 'black' if is_light else 'white'
@@ -185,6 +207,8 @@ def render(theme, filename_stem, with_points, dwl_scenario=None, spec=ECONOMICS_
         draw_example_points(ax, bg, fg)
     if dwl_scenario:
         draw_deadweight_loss_triangle(ax, bg, fg, dwl_scenario)
+    if extra_drawing:
+        extra_drawing(ax, bg, fg)
 
     suffix = '-light' if is_light else ''
     plt.tight_layout()
@@ -197,6 +221,10 @@ def main():
     for theme in ['dark', 'light']:
         render(theme, 'supply-demand-curves', with_points=False)
         render(theme, 'human-model-curves', with_points=False, spec=HUMAN_MODEL_SPEC)
+        render(theme, 'human-model-equilibrium', with_points=False, spec=HUMAN_MODEL_SPEC,
+               extra_drawing=draw_human_model_equilibrium_point)
+        render(theme, 'human-model-overreliance', with_points=False, spec=HUMAN_MODEL_SPEC,
+               extra_drawing=draw_human_model_overreliance_triangle)
         render(theme, 'supply-demand-equilibrium', with_points=True)
         for scenario in DWL_SCENARIOS:
             render(theme, scenario['filename_stem'], with_points=False, dwl_scenario=scenario)
