@@ -29,6 +29,7 @@ export interface LocaleDefinition {
     messages: Record<MessageKey, string>;
 }
 
+// Keep the data-i18n text in index.html identical to these English messages (see index.html).
 const en: LocaleDefinition = {
     ...metaById['en'],
     id: 'en',
