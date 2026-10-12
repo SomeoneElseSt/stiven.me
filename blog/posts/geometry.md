@@ -86,6 +86,8 @@ In hindsight, it's a very intuitive conclusion, as the count of events in each c
 
 If you found this useful or interesting, I'm glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. 
 
+**edit**: During a class on simulations, I noticed what looked like a similar pattern when we did mean-field approximation on an infection model made with cellular automata. The proportions of the share of each group in the grid converged to constant values with a bell curve-like shape initially, similar to the 50/50 graphs above. I asked my professor about it and they pointed out that the coin example accounts for all possible outcomes, rather than showing each timestep as the simulation did. The simulation - unlike the coin examples - didn't treat events as independent. They looked alike because mean-field approximation assumes independence, and sums of independent events tend to a normal distribution, as the coins did. Both end up collapsing to their empirical (counts in the coin toss simulation) and approximate (mean field approximation on the cellular automata) steady states respectively. 
+
 [^1]: I promise I did not go out of my way to write this blog post just to show the visualization of the proportion of heads. It is extremely cool, and reminds me a bit of slope fields.
 
 [^2]: Only later, when explaining the law of large numbers to someone, I realized this graph illustrates the same idea, except that the curves here are smooth and do not show the variability you would normally want in a graph meant to convey convergence. To do that, you'd show many coin flip sequences rather than just the theoretical proportions.
