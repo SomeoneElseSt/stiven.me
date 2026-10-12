@@ -79,3 +79,6 @@ While I have thoroughly enjoyed my time here, a subtle nudge began to settle in 
 
 <small>2. I later jotted down a sentence I think encapsulates what I was trying to convey: Visiting Tokyo is like going to heaven. There are few places as beautiful. Living in Tokyo is realizing you wish you could go back to keep fighting. Nothing quite feels like it, but it can't make up for the other places you could be and the work you could be doing there.
 </small>
+
+<small>3. I came to a similar conclusion about New York after living there for a summer. Both cities feel 'terminal'. Somewhere without a 'what's next?'. They've already done everything so well that there isn't the kind of tension that makes you want to do great things. A Japanese friend who had similar thoughts about Tokyo put it as: *if you failed in either city, i.e., if you only did well enough to live an average life, it would be a really great life! So why risk it?*. 
+</small>
