@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import PercentFormatter
 from pathlib import Path
 
 MIN_QUANTITY = 1
@@ -20,11 +21,52 @@ DWL_ALPHA = 0.7
 DWL_FONT_SIZE = 14
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "figures" / "en"
 
-LABELS = {
+PERCENT_MAX = 100
+PERCENT_TICK_STEP = 10
+
+
+def price_on_demand_curve(quantity):
+    return DEMAND_INTERCEPT + DEMAND_SLOPE * quantity
+
+
+def price_on_supply_curve(quantity):
+    return SUPPLY_INTERCEPT + SUPPLY_SLOPE * quantity
+
+
+def human_steering_share(autonomy):
+    return PERCENT_MAX - autonomy
+
+
+def model_skill_share(autonomy):
+    return autonomy
+
+
+ECONOMICS_SPEC = {
+    'x_range': (MIN_QUANTITY, MAX_QUANTITY),
+    'y_range': (0, MAX_PRICE),
+    'x_ticks': range(MIN_QUANTITY, MAX_QUANTITY + 1),
+    'y_ticks': range(0, MAX_PRICE + 1, PRICE_TICK_STEP),
+    'first_curve': price_on_demand_curve,
+    'second_curve': price_on_supply_curve,
     'xlabel': 'Quantity',
     'ylabel': 'Price',
-    'demand': 'Demand curve',
-    'supply': 'Supply curve',
+    'first_label': 'Demand curve',
+    'second_label': 'Supply curve',
+    'as_percent': False,
+}
+
+HUMAN_MODEL_SPEC = {
+    'x_range': (0, PERCENT_MAX),
+    'y_range': (0, PERCENT_MAX),
+    'x_ticks': range(0, PERCENT_MAX + 1, PERCENT_TICK_STEP),
+    'y_ticks': range(0, PERCENT_MAX + 1, PERCENT_TICK_STEP),
+    'first_curve': human_steering_share,
+    'second_curve': model_skill_share,
+    'xlabel': 'Task completed autonomously by the model',
+    'ylabel': 'Share of effort',
+    'first_label': 'Human steering',
+    'second_label': 'Model skill',
+    'as_percent': True,
 }
 
 # (quantity, label text position, horizontal alignment)
@@ -53,31 +95,28 @@ EXAMPLE_POINTS = [
 ]
 
 
-def price_on_demand_curve(quantity):
-    return DEMAND_INTERCEPT + DEMAND_SLOPE * quantity
-
-
 def point_label(quantity):
     buyers_verb = 'buys' if quantity == 1 else 'buy'
     price = price_on_demand_curve(quantity)
     return f'(Costs \\${price:.0f} and {quantity} {buyers_verb} it. Net = \\${price * quantity:.0f})'
 
 
-def draw_curves(ax, bg, fg):
-    quantity = np.linspace(MIN_QUANTITY, MAX_QUANTITY, 200)
-    demand = price_on_demand_curve(quantity)
-    supply = SUPPLY_INTERCEPT + SUPPLY_SLOPE * quantity
+def draw_curves(ax, bg, fg, spec=ECONOMICS_SPEC):
+    x_values = np.linspace(*spec['x_range'], 200)
 
     ax.set_facecolor(bg)
-    ax.plot(quantity, demand, color=DEMAND_COLOR, linewidth=2.5, label=LABELS['demand'])
-    ax.plot(quantity, supply, color=SUPPLY_COLOR, linewidth=2.5, label=LABELS['supply'])
+    ax.plot(x_values, spec['first_curve'](x_values), color=DEMAND_COLOR, linewidth=2.5, label=spec['first_label'])
+    ax.plot(x_values, spec['second_curve'](x_values), color=SUPPLY_COLOR, linewidth=2.5, label=spec['second_label'])
 
-    ax.set_xlim(MIN_QUANTITY, MAX_QUANTITY)
-    ax.set_ylim(0, MAX_PRICE)
-    ax.set_xlabel(LABELS['xlabel'], fontsize=12, color=fg)
-    ax.set_ylabel(LABELS['ylabel'], fontsize=12, color=fg)
-    ax.set_xticks(range(MIN_QUANTITY, MAX_QUANTITY + 1))
-    ax.set_yticks(range(0, MAX_PRICE + 1, PRICE_TICK_STEP))
+    ax.set_xlim(*spec['x_range'])
+    ax.set_ylim(*spec['y_range'])
+    ax.set_xlabel(spec['xlabel'], fontsize=12, color=fg)
+    ax.set_ylabel(spec['ylabel'], fontsize=12, color=fg)
+    ax.set_xticks(spec['x_ticks'])
+    ax.set_yticks(spec['y_ticks'])
+    if spec['as_percent']:
+        ax.xaxis.set_major_formatter(PercentFormatter(xmax=PERCENT_MAX))
+        ax.yaxis.set_major_formatter(PercentFormatter(xmax=PERCENT_MAX))
     ax.tick_params(colors=fg)
     for spine in ax.spines.values():
         spine.set_color(fg)
@@ -105,10 +144,6 @@ def draw_example_points(ax, bg, fg):
         quantity = example['quantity']
         point_xy = (quantity, price_on_demand_curve(quantity))
         draw_labeled_point(ax, bg, fg, point_xy, point_label(quantity), example['text_xy'], example['align'])
-
-
-def price_on_supply_curve(quantity):
-    return SUPPLY_INTERCEPT + SUPPLY_SLOPE * quantity
 
 
 def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
@@ -139,13 +174,13 @@ def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
         draw_labeled_point(ax, bg, fg, corner, label, text_xy, align)
 
 
-def render(theme, filename_stem, with_points, dwl_scenario=None):
+def render(theme, filename_stem, with_points, dwl_scenario=None, spec=ECONOMICS_SPEC):
     is_light = theme == 'light'
     bg = 'white' if is_light else 'black'
     fg = 'black' if is_light else 'white'
 
     fig, ax = plt.subplots(figsize=(8, 6), facecolor=bg)
-    draw_curves(ax, bg, fg)
+    draw_curves(ax, bg, fg, spec)
     if with_points:
         draw_example_points(ax, bg, fg)
     if dwl_scenario:
@@ -161,6 +196,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for theme in ['dark', 'light']:
         render(theme, 'supply-demand-curves', with_points=False)
+        render(theme, 'human-model-curves', with_points=False, spec=HUMAN_MODEL_SPEC)
         render(theme, 'supply-demand-equilibrium', with_points=True)
         for scenario in DWL_SCENARIOS:
             render(theme, scenario['filename_stem'], with_points=False, dwl_scenario=scenario)
