@@ -78,7 +78,7 @@ Long-term, I expect frontier intelligence to become too cheap to meter and very 
 
 If frontier intelligence does increase in cost, I see three technical challenges need to be cleared for a "DWL-optimized harness" that chooses the right intelligence and speed for a task: 
 - Transferring context efficiently: how to transfer context between models cheaply and quickly, ideally at as close to zero cost and latency. This is most important for individual tasks.
-- Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache offloading and onloading so that every watt of compute is being routed to something at a given time. 
+- Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache / model weights offloading and reloading so that every watt of compute is being routed to something at a given time. 
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolbench to do this yet. 
 
 I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
