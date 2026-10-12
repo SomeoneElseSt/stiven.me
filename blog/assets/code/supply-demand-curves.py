@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import PercentFormatter
 from pathlib import Path
 
 MIN_QUANTITY = 1
@@ -19,17 +18,25 @@ EQUILIBRIUM_QUANTITY = 5
 DWL_SHADE = 0.6
 DWL_ALPHA = 0.7
 DWL_FONT_SIZE = 14
+DWL_LABEL = 'DWL'
+DWL_LEFT_COLORMAP = plt.cm.Blues
+DWL_RIGHT_COLORMAP = plt.cm.Oranges
+DWL_LABEL_GAP = 6
+PROMPT_FONT_SIZE = 10
+PROMPT_LINE_HEIGHT = 1.2
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "figures" / "en"
 
 PERCENT_MAX = 100
-PERCENT_TICK_STEP = 10
 HUMAN_MODEL_EQUILIBRIUM = 50
-HUMAN_MODEL_EQUILIBRIUM_TEXT = 'Equilibrium: Human set up\nresults in optimized model'
+HUMAN_MODEL_EQUILIBRIUM_TEXT = 'Equilibrium: model is just\nright for the task'
+HUMAN_MODEL_X_TICKS = (0, 50, 100)
+HUMAN_MODEL_X_TICK_LABELS = ('Too weak', 'Just right', 'Overkill')
+HUMAN_MODEL_Y_TICKS = (0, 100)
+HUMAN_MODEL_Y_TICK_LABELS = ('Low', 'High')
 HUMAN_MODEL_EQUILIBRIUM_TEXT_X = 57
 OVERRELIANCE_AUTONOMY = 100
 OVERRELIANCE_TEXT = 'yes, push it'
 UNDERRELIANCE_AUTONOMY = 0
-UNDERRELIANCE_FONT_SIZE = 9
 UNDERRELIANCE_TEXT = (
     'Edit lines 100-112.\n'
     'Change the function\n'
@@ -67,21 +74,23 @@ ECONOMICS_SPEC = {
     'ylabel': 'Price',
     'first_label': 'Demand curve',
     'second_label': 'Supply curve',
-    'as_percent': False,
+    'x_tick_labels': None,
+    'y_tick_labels': None,
 }
 
 HUMAN_MODEL_SPEC = {
     'x_range': (0, PERCENT_MAX),
     'y_range': (0, PERCENT_MAX),
-    'x_ticks': range(0, PERCENT_MAX + 1, PERCENT_TICK_STEP),
-    'y_ticks': range(0, PERCENT_MAX + 1, PERCENT_TICK_STEP),
+    'x_ticks': HUMAN_MODEL_X_TICKS,
+    'y_ticks': HUMAN_MODEL_Y_TICKS,
     'first_curve': human_steering_share,
     'second_curve': model_skill_share,
-    'xlabel': 'Task completed autonomously by the model',
-    'ylabel': 'Share of effort',
+    'xlabel': 'Model capability relative to the task',
+    'ylabel': 'Cost',
     'first_label': 'Human steering',
-    'second_label': 'Model effort',
-    'as_percent': True,
+    'second_label': 'Model cost',
+    'x_tick_labels': HUMAN_MODEL_X_TICK_LABELS,
+    'y_tick_labels': HUMAN_MODEL_Y_TICK_LABELS,
 }
 
 # (quantity, label text position, horizontal alignment)
@@ -127,11 +136,8 @@ def draw_curves(ax, bg, fg, spec=ECONOMICS_SPEC):
     ax.set_ylim(*spec['y_range'])
     ax.set_xlabel(spec['xlabel'], fontsize=12, color=fg)
     ax.set_ylabel(spec['ylabel'], fontsize=12, color=fg)
-    ax.set_xticks(spec['x_ticks'])
-    ax.set_yticks(spec['y_ticks'])
-    if spec['as_percent']:
-        ax.xaxis.set_major_formatter(PercentFormatter(xmax=PERCENT_MAX))
-        ax.yaxis.set_major_formatter(PercentFormatter(xmax=PERCENT_MAX))
+    ax.set_xticks(spec['x_ticks'], spec['x_tick_labels'])
+    ax.set_yticks(spec['y_ticks'], spec['y_tick_labels'])
     ax.tick_params(colors=fg)
     for spine in ax.spines.values():
         spine.set_color(fg)
@@ -161,14 +167,37 @@ def draw_example_points(ax, bg, fg):
         draw_labeled_point(ax, bg, fg, point_xy, point_label(quantity), example['text_xy'], example['align'])
 
 
-def draw_shaded_triangle(ax, bg, fg, corners, text, font_size=DWL_FONT_SIZE):
-    triangle = plt.Polygon(corners, closed=True, facecolor=plt.cm.Blues(DWL_SHADE),
-                           edgecolor=bg, linewidth=1, alpha=DWL_ALPHA, zorder=1)
-    ax.add_patch(triangle)
+def dwl_colormap(traded_x, equilibrium_x):
+    return DWL_LEFT_COLORMAP if traded_x < equilibrium_x else DWL_RIGHT_COLORMAP
+
+
+def triangle_center(corners):
     center_x = sum(corner[0] for corner in corners) / len(corners)
     center_y = sum(corner[1] for corner in corners) / len(corners)
-    ax.text(center_x, center_y, text, ha='center', va='center',
-            fontsize=font_size, color=fg, zorder=4)
+    return center_x, center_y
+
+
+def draw_shaded_triangle(ax, bg, corners, colormap):
+    triangle = plt.Polygon(corners, closed=True, facecolor=colormap(DWL_SHADE),
+                           edgecolor=bg, linewidth=1, alpha=DWL_ALPHA, zorder=1)
+    ax.add_patch(triangle)
+
+
+def draw_dwl_label(ax, fg, corners):
+    ax.text(*triangle_center(corners), DWL_LABEL, ha='center', va='center',
+            fontsize=DWL_FONT_SIZE, color=fg, zorder=4)
+
+
+def draw_dwl_label_with_prompt(ax, fg, corners, prompt):
+    center = triangle_center(corners)
+    prompt_line_count = prompt.count('\n') + 1
+    half_prompt_height = prompt_line_count * PROMPT_FONT_SIZE * PROMPT_LINE_HEIGHT / 2
+    ax.text(*center, prompt, ha='center', va='center',
+            fontsize=PROMPT_FONT_SIZE, color=fg, zorder=4)
+    # Offset in points so the DWL label sits just above the prompt regardless of its line count
+    ax.annotate(DWL_LABEL, xy=center, xytext=(0, half_prompt_height + DWL_LABEL_GAP),
+                textcoords='offset points', ha='center', va='bottom',
+                fontsize=DWL_FONT_SIZE, color=fg, zorder=4)
 
 
 def draw_human_model_underreliance_triangle(ax, bg, fg):
@@ -176,7 +205,8 @@ def draw_human_model_underreliance_triangle(ax, bg, fg):
     human_corner = (UNDERRELIANCE_AUTONOMY, human_steering_share(UNDERRELIANCE_AUTONOMY))
     model_corner = (UNDERRELIANCE_AUTONOMY, model_skill_share(UNDERRELIANCE_AUTONOMY))
     corners = [equilibrium_corner, human_corner, model_corner]
-    draw_shaded_triangle(ax, bg, fg, corners, UNDERRELIANCE_TEXT, UNDERRELIANCE_FONT_SIZE)
+    draw_shaded_triangle(ax, bg, corners, dwl_colormap(UNDERRELIANCE_AUTONOMY, HUMAN_MODEL_EQUILIBRIUM))
+    draw_dwl_label_with_prompt(ax, fg, corners, UNDERRELIANCE_TEXT)
 
 
 def draw_human_model_equilibrium_point(ax, bg, fg):
@@ -189,7 +219,9 @@ def draw_human_model_overreliance_triangle(ax, bg, fg):
     equilibrium_corner = (HUMAN_MODEL_EQUILIBRIUM, human_steering_share(HUMAN_MODEL_EQUILIBRIUM))
     human_corner = (OVERRELIANCE_AUTONOMY, human_steering_share(OVERRELIANCE_AUTONOMY))
     model_corner = (OVERRELIANCE_AUTONOMY, model_skill_share(OVERRELIANCE_AUTONOMY))
-    draw_shaded_triangle(ax, bg, fg, [equilibrium_corner, human_corner, model_corner], OVERRELIANCE_TEXT)
+    corners = [equilibrium_corner, human_corner, model_corner]
+    draw_shaded_triangle(ax, bg, corners, dwl_colormap(OVERRELIANCE_AUTONOMY, HUMAN_MODEL_EQUILIBRIUM))
+    draw_dwl_label_with_prompt(ax, fg, corners, OVERRELIANCE_TEXT)
 
 
 def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
@@ -199,7 +231,8 @@ def draw_deadweight_loss_triangle(ax, bg, fg, scenario):
     traded_supply_corner = (traded_quantity, price_on_supply_curve(traded_quantity))
     corners = [equilibrium_corner, traded_demand_corner, traded_supply_corner]
 
-    draw_shaded_triangle(ax, bg, fg, corners, 'DWL')
+    draw_shaded_triangle(ax, bg, corners, dwl_colormap(traded_quantity, EQUILIBRIUM_QUANTITY))
+    draw_dwl_label(ax, fg, corners)
 
     traded_price = traded_demand_corner[1]
     equilibrium_net = equilibrium_corner[0] * equilibrium_corner[1]
