@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="05cad6f5dfb207ad"/>
+    <meta name="source-hash" content="32894427db1eaa6c"/>
     <title>Capabilities</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
@@ -122,33 +122,34 @@
 <p>And even if your very smart model was ultra fast, that is expensive right now, so the economical argument still holds: others <em>could</em> do the same thing just as fast for cheaper, if we had the systems to transfer context efficiently (sort of pass the ball but for models).</p>
 <p>I see this mattering in the short to medium term but not the long term. </p>
 <p>When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within the company that are heavily token-subsidized<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. </p>
-<p>Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs mantain token subsidies until that happens, it&#39;ll be less of an issue. </p>
+<p>Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs maintain token subsidies until that happens, it&#39;ll be less of an issue. </p>
 <p>If frontier intelligence does increase in cost, I see three technical challenges need to be cleared for a &quot;DWL-optimized harness&quot; that chooses the right intelligence and speed for a task: </p>
 <ul>
 <li>Transferring context efficiently: how to transfer context between models cheaply and quickly, ideally at as close to zero cost and latency. This is most important for individual tasks.</li>
 <li>Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache offloading and onloading so that every watt of compute is being routed to something at a given time. </li>
 <li>Model Profiling: you don&#39;t need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn&#39;t an all-purpose toolbench to do this yet.</li>
 </ul>
-<p>I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-concious organizations will make their own evals and perhaps even RL small models on them (like <a href="https://x.com/RampLabs/status/2052447438795833506">Ramp</a> did). </p>
-<p>But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within a organization and for specific tasks. </p>
+<p>I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like <a href="https://x.com/RampLabs/status/2052447438795833506">Ramp</a> did). </p>
+<p>But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within an organization and for specific tasks. </p>
 <p>Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn&#39;t gonna get an API key and make an eval to see if it beats Astra at their classification task. Hence the need for diffusion companies.  </p>
 <p>In the graph, the equilibria makes sense if you think about the 50% human effort as setting up the infrastructure and evals to get the model with the best speed, price, and intelligence for the task (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.</p>
 <p><img src="/blog/assets/figures/en/human-model-equilibrium.png" alt="Equilibrium between human steering and model effort, at 50% of the task completed autonomously by the model." title="Equilibrium Between Human Steering and Model Effort"></p>
-<p>I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models.</p>
+<p>I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models. It is also nice that this is a defined engineering effort. If we get it right once, everyone benefits.</p>
 <p>What about DWL on the left side of the graph?</p>
 <p>I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.</p>
 <p><img src="/blog/assets/figures/en/human-model-underreliance.png" alt="Deadweight loss on the left side of the human steering and model effort graph, where a small model needs heavy human guidance." title="Deadweight Loss From Under-Relying on the Model"></p>
 <p>I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I&#39;d tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. </p>
-<p>Another dimension the graph doesn&#39;t capture is time<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>. It took me considerably long to finish my project with Qwen because it needed so much handholding. I knew frontier models would&#39;ve been done in way less. It also doesn&#39;t capture mental load: it is genuinely a more relaxed experience to prompt your way through. You don&#39;t really need to think. </p>
-<p>Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren&#39;t good at <em>yet</em>. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people taking care of these or at least reviewing and steering model outputs. </p>
+<p>Another dimension the graph doesn&#39;t capture is time<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would&#39;ve been done in way less time. It also doesn&#39;t capture mental load: it is so much easier to just prompt your way through. You don&#39;t really need to think. </p>
+<p>Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren&#39;t good at <em>yet</em>. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model&#39;s outputs. </p>
 <p>In my opinion, if accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It&#39;s part of the diffusion process. </p>
-<p>Together, both parts of the graph paint a cohesive picture: the frontier will lay the groundwork at the toughest challenges, while diffusion makes them economically viable and fast. </p>
+<p>Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.</p>
 <p>I see two paths going forward for the future of work:</p>
 <ul>
-<li>Skills that can not be optimized against (yet. Until humanoids) will become increasingly valuable. E.g., interpersonal communication, relationship building.</li>
+<li>Skills that can not be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.</li>
 <li>If we do optimize everything optimizable (though I expect this to take really long), we&#39;ll make different problems for ourselves that 
 require skills outside the scope of optimization (see <a href="https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other">this</a> essay).</li>
 </ul>
+<p>In either case, we&#39;ll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
