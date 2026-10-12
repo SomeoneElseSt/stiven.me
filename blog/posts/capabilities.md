@@ -107,6 +107,12 @@ Though, in my case, I chose to work my way through it because I wanted to experi
 
 In my opinion, if accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It's part of the diffusion process. 
 
+Last, the analogy doesn't capture some qualitative aspects of models.
+
+Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
+
+It assumes models are simply capable and without character. But it can be reconciled if we think of the x-axis as a model family, e.g., Haiku being underpowered, Sonnet generally balanced, and Opus often overkill.
+
 Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.
 
 I see two paths going forward for the future of work:
