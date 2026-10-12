@@ -1,5 +1,11 @@
 [
   {
+    "id": "capabilities",
+    "title": "Capabilities",
+    "date": "October 12, 2026",
+    "file": "capabilities.md"
+  },
+  {
     "id": "geometry",
     "title": "Geometry",
     "date": "January 29, 2026",
