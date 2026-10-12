@@ -74,16 +74,16 @@ I see this mattering in the short to medium term but not the long term.
 
 When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within the company that are heavily token-subsidized[^4]. 
 
-Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs mantain token subsidies until that happens, it'll be less of an issue. 
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs maintain token subsidies until that happens, it'll be less of an issue. 
 
 If frontier intelligence does increase in cost, I see three technical challenges need to be cleared for a "DWL-optimized harness" that chooses the right intelligence and speed for a task: 
 - Transferring context efficiently: how to transfer context between models cheaply and quickly, ideally at as close to zero cost and latency. This is most important for individual tasks.
 - Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache offloading and onloading so that every watt of compute is being routed to something at a given time. 
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolbench to do this yet. 
 
-I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-concious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
+I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
 
-But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within a organization and for specific tasks. 
+But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within an organization and for specific tasks. 
 
 Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. Hence the need for diffusion companies.  
 
@@ -107,14 +107,14 @@ Though, in my case, I chose to work my way through it because I wanted to experi
 
 In my opinion, if accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It's part of the diffusion process. 
 
-Together, both parts of the graph paint a cohesive picture: the frontier will lay the groundwork at the toughest challenges in a expensive, innefficient way, while diffusion makes them economically viable and fast.
+Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.
 
 I see two paths going forward for the future of work:
 - Skills that can not be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
 - If we do optimize everything optimizable (though I expect this to take really long), we'll make different problems for ourselves that 
 require skills outside the scope of optimization (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
 
-In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. If we align it, that is.
+In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. 
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (ex. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (ex. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
