@@ -52,17 +52,17 @@ Example: if you're working with a frontier model, it's generally sufficient to a
 
 In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is true for any task that frontier models aren't already good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity. You still need knowledgeable humans (and a ton of compute) to get the most out of them, at least for now.  
 
-We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model effort. The x-axis represents how much of a task a model completes autonomously: at the very left, the human does everything. At the very right, the model can do it end-to-end. The y-axis represents how much effort each side puts in. The height of the human line is the human's effort, just as the height of the model line is the model's effort. Both axes are within the 0-100% range, with the x-axis representing performance and the y-axis the share of each party.  
+We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model cost. The x-axis represents how capable a model is relative to the task: at the very left, the model is too weak for it. At the very right, it's overkill. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, just as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
 Let's reintroduce the first graph with these changes.
 
-![Human steering and model effort plotted as a share of effort against how much of a task the model completes autonomously.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Effort")
+![Human steering and model cost plotted against how capable the model is relative to the task.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Cost")
 
 You might think we always want to be on the rightmost side of it. I think that constitutes dead-weight loss for both economic and practical reasons. 
 
 One simple example is using frontier models for trivial changes that a smaller model could've made. E.g., changing the copy in a page or running trivial git commands (when was the last time you prompted 'yes, push it'?). 
 
-![Deadweight loss on the right side of the human steering and model effort graph, where a frontier model is used for a trivial task.](/blog/assets/figures/en/human-model-overreliance.png "Deadweight Loss From Over-Relying on the Model")
+![Deadweight loss on the right side of the human steering and model cost graph, where a frontier model is used for a trivial task.](/blog/assets/figures/en/human-model-overreliance.png "Deadweight Loss From an Overpowered Model")
 
 The economic argument is obvious: you're using frontier tokens for trivial tasks. Ideally, you'd want to save the cost.
 
@@ -87,9 +87,9 @@ But to diffuse AI into the wider economy at its current price, much work needs t
 
 Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. Hence the need for diffusion companies.  
 
-In the graph, the equilibria makes sense if you think about the 50% human effort as setting up the infrastructure and evals to get the model with the best speed, price, and intelligence for the task (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.
+In the graph, the equilibria makes sense if you think about it as the model with the best speed, price, and intelligence for the task. Getting there takes human effort: setting up the infrastructure and evals to find that model (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.
 
-![Equilibrium between human steering and model effort, at 50% of the task completed autonomously by the model.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Effort")
+![Equilibrium between human steering and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Cost")
 
 I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models. It is also nice that this is a defined engineering effort. If we get it right once, everyone benefits.
 
@@ -97,11 +97,11 @@ What about DWL on the left side of the graph?
 
 I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.
 
-![Deadweight loss on the left side of the human steering and model effort graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From Under-Relying on the Model")
+![Deadweight loss on the left side of the human steering and model cost graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From an Underpowered Model")
 
 I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture mental load: it is so much easier to just prompt your way through. You don't really need to think. 
+Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the qualitative difference in mental load: it is so much easier to just prompt your way through. You don't really need to think. 
 
 Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
 
