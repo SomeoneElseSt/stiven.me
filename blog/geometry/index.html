@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <meta name="source-hash" content="3a96380865b0b93a"/>
     <title>Geometry</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
@@ -737,6 +737,7 @@ main()
 </blockquote>
 <p>In hindsight, it&#39;s a very intuitive conclusion, as the count of events in each column of the coin sample space matches the sum of the <strong>N</strong>th row in Pascal&#39;s triangle. </p>
 <p>If you found this useful or interesting, I&#39;m glad! Do consider writing a technical blog of your own. In an AI-dominated era, mindful writing is more valuable than ever. It is also very useful to enrich your own understanding of things. </p>
+<p>Edit: During a class on simulations, I noticed what looked like a similar pattern when we did mean-field approximation on an infection model made with cellular automata. The proportions of the share of each group in the grid converged to constant values with a bell curve-like shape initially, similar to the 50/50 graphs above. I asked my professor about it and they pointed out that the coin example accounts for all possible outcomes, rather than showing each timestep as the simulation did. The simulation - unlike the coin examples - didn&#39;t treat events as independent. They looked alike because mean-field approximation assumes independence, and sums of independent events tend to a normal distribution, as the coins did. Both end up collapsing to their empirical (counts in the coin toss simulation) and approximate (mean field approximation on the cellular automata) steady states respectively. </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>

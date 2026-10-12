@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <meta name="source-hash" content="3a96380865b0b93a"/>
     <title>几何</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'zh'); } catch (e) {}</script>
@@ -736,6 +736,7 @@ main()
 </blockquote>
 <p>事后看来，这是一个非常直观的结论，因为硬币样本空间每列中的事件计数与帕斯卡三角形第 <strong>N</strong> 行的总和相匹配。</p>
 <p>如果你觉得这有用或有趣，我很高兴！请考虑写一篇你自己的技术博客。在 AI 主导的时代，用心的写作比以往任何时候都更有价值。这对于丰富你对事物的理解也非常有用。</p>
+<p>编辑：在一次关于模拟的课上，我注意到当我们对使用元胞自动机制作的感染模型进行平均场近似时，出现了一个看起来类似的模式。网格中各组份额的比例最初收敛于常数值，形状类似于钟形曲线，与上面的 50/50 图表类似。我问了教授，他们指出硬币的例子考虑了所有可能的结果，而不是像模拟那样显示每个时间步。模拟——与硬币例子不同——并不把事件视为独立的。它们看起来很像是因为平均场近似假设了独立性，而独立事件之和倾向于正态分布，就像硬币一样。两者最终都分别坍缩到它们的经验稳态（在硬币抛掷模拟中为计数）和近似稳态（元胞自动机的平均场近似）。</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
