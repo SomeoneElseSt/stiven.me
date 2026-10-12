@@ -38,14 +38,29 @@ DWL on the other side of the graph is profit the seller is losing due to pricing
 
 ![Deadweight loss triangle between the supply and demand curves when the good is sold at $20.](/blog/assets/figures/en/supply-demand-dwl-low-price.png "Deadweight Loss at a Price of $20")
 
-Congrats! You now know some undergraduate microeconomics. You can now ask: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it?" and realize the real world isn't as simple and interpretable as this model[^2].
+Congrats! You now know some undergraduate microeconomics. You can now ask: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it? Doesn't that minimize DWL?" and realize the real world isn't as simple and interpretable as this model[^2].
 
 <a id="after-dwl"></a>
 
-I chose to write this because I realized there are 
+Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization and the current paradigms of coding agents. 
 
+I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^3]. 
+
+I've observed that there is an inverse relationship between the skill needed [by a human] to accomplish a task and how good a model is. 
+
+Example: if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. If you're working with small models (with 30B parameters or lower), they need considerably more hand holding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
+
+In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is true for any task that frontier models aren't already good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity. You still need knowledgeable humans (and a ton of compute) to get the most out of them, at least for now.  
+
+We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model skill. The x-axis represents how much of a task a model completes autonomously: at the very left, the human does everything. At the very right, the model can do it end-to-end. The y-axis represents how much effort each side puts in. The height of the human line is the human's effort, just as the height of the model line is the model's effort. Both axes are within the 0-100% range, with the x-axis representing performance and the y-axis the share of each party.  
+
+Let's reintroduce the first graph with these changes.
+
+![Human steering and model skill plotted as a share of effort against how much of a task the model completes autonomously.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Skill")
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (ex. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (ex. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
 [^2]: Though, it follows very similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by an incumbent. But I won't spoil it for you. Go read! 
+
+[^3]: 1 Billion tokens a day keeps the doctor away.  
 
