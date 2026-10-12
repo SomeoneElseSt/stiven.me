@@ -81,17 +81,17 @@ If frontier intelligence does increase in cost, I see three technical challenges
 - Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache offloading and onloading so that every watt of compute is being routed to something at a given time. 
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolbench to do this yet. 
 
-I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. 
+I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-concious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
 
-Budget-concious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that SMBs can use to save their token spend, both for use by individuals within a organization and for specific tasks. 
+But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within a organization and for specific tasks. 
 
-Paraphrased: Jev might be very cheap but your average store clerk isn't gonna get an API key and make an eval to see if it beats Astra at classifying defects in products. Hence the need for diffusion companies.  
+Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. Hence the need for diffusion companies.  
 
 In the graph, the equilibria makes sense if you think about the 50% human effort as setting up the infrastructure and evals to get the model with the best speed, price, and intelligence for the task (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.
 
 ![Equilibrium between human steering and model effort, at 50% of the task completed autonomously by the model.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Effort")
 
-I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models.
+I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models. It is also nice that this is a defined engineering effort. If we get it right once, everyone benefits.
 
 What about DWL on the left side of the graph?
 
@@ -101,18 +101,20 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-Another dimension the graph doesn't capture is time[^5]. It took me considerably long to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less. It also doesn't capture mental load: it is genuinely a more relaxed experience to prompt your way through. You don't really need to think. 
+Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture mental load: it is so much easier to just prompt your way through. You don't really need to think. 
 
-Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people taking care of these or at least reviewing and steering model outputs. 
+Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
 
 In my opinion, if accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It's part of the diffusion process. 
 
-Together, both parts of the graph paint a cohesive picture: the frontier will lay the groundwork at the toughest challenges, while diffusion makes them economically viable and fast. 
+Together, both parts of the graph paint a cohesive picture: the frontier will lay the groundwork at the toughest challenges in a expensive, innefficient way, while diffusion makes them economically viable and fast.
 
 I see two paths going forward for the future of work:
-- Skills that can not be optimized against (yet. Until humanoids) will become increasingly valuable. E.g., interpersonal communication, relationship building.
+- Skills that can not be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
 - If we do optimize everything optimizable (though I expect this to take really long), we'll make different problems for ourselves that 
 require skills outside the scope of optimization (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
+
+In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. If we align it, that is.
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (ex. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (ex. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
