@@ -28,6 +28,16 @@ HUMAN_MODEL_EQUILIBRIUM_TEXT = 'Equilibrium: Human set up\nresults in optimized 
 HUMAN_MODEL_EQUILIBRIUM_TEXT_X = 57
 OVERRELIANCE_AUTONOMY = 80
 OVERRELIANCE_TEXT = 'yes, push it'
+UNDERRELIANCE_AUTONOMY = 10
+UNDERRELIANCE_FONT_SIZE = 9
+UNDERRELIANCE_TEXT = (
+    'Edit lines 100-112.\n'
+    'Change the function\n'
+    'to check all pages\n'
+    'instead of just the\n'
+    'current one.\n'
+    'Then...'
+)
 
 
 def price_on_demand_curve(quantity):
@@ -151,14 +161,22 @@ def draw_example_points(ax, bg, fg):
         draw_labeled_point(ax, bg, fg, point_xy, point_label(quantity), example['text_xy'], example['align'])
 
 
-def draw_shaded_triangle(ax, bg, fg, corners, text):
+def draw_shaded_triangle(ax, bg, fg, corners, text, font_size=DWL_FONT_SIZE):
     triangle = plt.Polygon(corners, closed=True, facecolor=plt.cm.Blues(DWL_SHADE),
                            edgecolor=bg, linewidth=1, alpha=DWL_ALPHA, zorder=1)
     ax.add_patch(triangle)
     center_x = sum(corner[0] for corner in corners) / len(corners)
     center_y = sum(corner[1] for corner in corners) / len(corners)
     ax.text(center_x, center_y, text, ha='center', va='center',
-            fontsize=DWL_FONT_SIZE, color=fg, zorder=4)
+            fontsize=font_size, color=fg, zorder=4)
+
+
+def draw_human_model_underreliance_triangle(ax, bg, fg):
+    equilibrium_corner = (HUMAN_MODEL_EQUILIBRIUM, human_steering_share(HUMAN_MODEL_EQUILIBRIUM))
+    human_corner = (UNDERRELIANCE_AUTONOMY, human_steering_share(UNDERRELIANCE_AUTONOMY))
+    model_corner = (UNDERRELIANCE_AUTONOMY, model_skill_share(UNDERRELIANCE_AUTONOMY))
+    corners = [equilibrium_corner, human_corner, model_corner]
+    draw_shaded_triangle(ax, bg, fg, corners, UNDERRELIANCE_TEXT, UNDERRELIANCE_FONT_SIZE)
 
 
 def draw_human_model_equilibrium_point(ax, bg, fg):
@@ -223,6 +241,8 @@ def main():
         render(theme, 'human-model-curves', with_points=False, spec=HUMAN_MODEL_SPEC)
         render(theme, 'human-model-equilibrium', with_points=False, spec=HUMAN_MODEL_SPEC,
                extra_drawing=draw_human_model_equilibrium_point)
+        render(theme, 'human-model-underreliance', with_points=False, spec=HUMAN_MODEL_SPEC,
+               extra_drawing=draw_human_model_underreliance_triangle)
         render(theme, 'human-model-overreliance', with_points=False, spec=HUMAN_MODEL_SPEC,
                extra_drawing=draw_human_model_overreliance_triangle)
         render(theme, 'supply-demand-equilibrium', with_points=True)

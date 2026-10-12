@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="d18c6d0bdfeb94a1"/>
+    <meta name="source-hash" content="ce14ca2e8488051f"/>
     <title>Capabilities</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
@@ -134,7 +134,12 @@
 <p>Paraphrased: Jev might be very cheap but your average store clerk isn&#39;t gonna get an API key and make an eval to see if it beats Astra at classifying defects in products. Hence the need for diffusion companies.  </p>
 <p>In the graph, the equilibria makes sense if you think about the 50% human effort as setting up the infrastructure and evals to get the model with the best speed, price, and intelligence for the task (both pre-selecting it or changing it at runtime). Whereas using a frontier model avoids you the work but costs a lot.</p>
 <p><img src="/blog/assets/figures/en/human-model-equilibrium.png" alt="Equilibrium between human steering and model effort, at 50% of the task completed autonomously by the model." title="Equilibrium Between Human Steering and Model Effort"></p>
-<p>I expect this to change with harnesses that auto-route and better infrastructure for evaluating and training task-specific models. </p>
+<p>I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models.</p>
+<p>What about DWL on the left side of the graph?</p>
+<p>I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.</p>
+<p><img src="/blog/assets/figures/en/human-model-underreliance.png" alt="Deadweight loss on the left side of the human steering and model effort graph, where a small model needs heavy human guidance." title="Deadweight Loss From Under-Relying on the Model"></p>
+<p>I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I&#39;d tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. </p>
+<p>Another dimension the graph doesn&#39;t capture is time<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>. It took me considerably long to finish my project with Qwen because it needed so much handholding. I knew frontier models would&#39;ve been done in way less. It also doesn&#39;t capture mental load: it is genuinely a more relaxed experience to prompt your way through. You don&#39;t really need to think. </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
@@ -148,7 +153,10 @@
 <p>1 Billion tokens a day keeps the doctor away.   <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
 </li>
 <li id="footnote-4">
-<p>How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would&#39;ve been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this&#39;d be a huge financing issue. Ajeya Cotra talked about this (<a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">here</a>). How in the future money might be directed towards buying API credits or GPUs instead of paying humans because - assuming they need zero steering at an arbitrary task and are all the way on the right of the graph - it&#39;d be faster and cheaper.  <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+<p>How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would&#39;ve been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this&#39;d be a huge financing issue. Ajeya Cotra talked about this <a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">here</a>. In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster. <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+</li>
+<li id="footnote-5">
+<p>As Naval <a href="https://www.youtube.com/shorts/x-P119dx8xM">said</a>: &#39;waste tokens to save time&#39;. <a href="#footnote-ref-5" data-footnote-backref aria-label="Back to reference 5">↩</a></p>
 </li>
 </ol>
 </section>
