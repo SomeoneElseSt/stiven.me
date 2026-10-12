@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <meta name="source-hash" content="3a96380865b0b93a"/>
     <title>幾何学</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'ja'); } catch (e) {}</script>
@@ -737,6 +737,7 @@ main()
 </blockquote>
 <p>後から考えれば、コイン標本空間の各列のイベントの数が、パスカルの三角形の<strong>N</strong>行目の合計と一致するため、非常に直感的な結論です。</p>
 <p>これが役に立ったり、面白いと感じていただけたら嬉しいです！ ぜひ、あなた自身でも技術ブログを書いてみてください。AIが支配する時代において、思慮深い執筆はかつてないほど価値があります。また、自分自身の理解を深めるのにも非常に役立ちます。</p>
+<p>追記: シミュレーションの授業中に、セル・オートマトンで作られた感染モデルで平均場近似を行った際、似たようなパターンを見つけました。グリッド内の各グループの割合は、上記の50/50のグラフと同様に、最初はベル曲線のような形で一定の値に収束しました。教授に尋ねたところ、コインの例はシミュレーションのように各タイムステップを示すのではなく、考えられるすべての結果を考慮していると指摘されました。コインの例とは異なり、シミュレーションはイベントを独立したものとして扱っていませんでした。それらが似ていたのは、平均場近似が独立性を仮定しており、独立したイベントの合計はコインの場合と同様に正規分布に近づく傾向があるためです。どちらも最終的には、それぞれ実証的な状態（コイン投げシミュレーションのカウント）と近似的な状態（セル・オートマトンの平均場近似）の定常状態に収束します。 </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>

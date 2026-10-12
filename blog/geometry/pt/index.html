@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <meta name="source-hash" content="3a96380865b0b93a"/>
     <title>Geometria</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'pt'); } catch (e) {}</script>
@@ -737,6 +737,7 @@ main()
 </blockquote>
 <p>Em retrospecto, é uma conclusão muito intuitiva, já que a contagem de eventos em cada coluna do espaço amostral da moeda corresponde à soma da <strong>N</strong>-ésima linha no triângulo de Pascal. </p>
 <p>Se você achou isso útil ou interessante, fico feliz! Considere escrever um blog técnico próprio. Em uma era dominada pela IA, a escrita consciente é mais valiosa do que nunca. Também é muito útil para enriquecer sua própria compreensão das coisas. </p>
+<p>Edição: Durante uma aula sobre simulações, notei o que parecia ser um padrão semelhante quando fizemos a aproximação de campo médio em um modelo de infecção feito com autômatos celulares. As proporções da parcela de cada grupo na grade convergiram para valores constantes com uma forma semelhante a uma curva de sino inicialmente, semelhante aos gráficos 50/50 acima. Perguntei ao meu professor sobre isso e ele apontou que o exemplo da moeda considera todos os resultados possíveis, em vez de mostrar cada etapa de tempo como a simulação fazia. A simulação — ao contrário dos exemplos da moeda — não tratava os eventos como independentes. Eles pareciam semelhantes porque a aproximação de campo médio assume independência, e somas de eventos independentes tendem a uma distribuição normal, como as moedas fizeram. Ambos acabam colapsando em seus estados estacionários empírico (contagens na simulação de lançamento de moeda) e aproximado (aproximação de campo médio nos autômatos celulares), respectivamente. </p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>

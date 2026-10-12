@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="8ae408b71dbd8da7"/>
+    <meta name="source-hash" content="3a96380865b0b93a"/>
     <title>Geometrie</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'de'); } catch (e) {}</script>
@@ -736,6 +736,7 @@ main()
 </blockquote>
 <p>Rückblickend ist es eine sehr intuitive Schlussfolgerung, da die Anzahl der Ereignisse in jeder Spalte des Münz-Stichprobenraums der Summe der <strong>N</strong>-ten Zeile im Pascalschen Dreieck entspricht.</p>
 <p>Wenn Sie dies nützlich oder interessant fanden, freue ich mich! Erwägen Sie, selbst einen technischen Blog zu schreiben. In einer von KI dominierten Ära ist achtsames Schreiben wertvoller denn je. Es ist auch sehr nützlich, um das eigene Verständnis der Dinge zu vertiefen.</p>
+<p>Nachtrag: In einer Stunde über Simulationen bemerkte ich ein scheinbar ähnliches Muster, als wir eine Mean-Field-Approximation für ein mit Zellulären Automaten erstelltes Infektionsmodell durchführten. Die Anteile der einzelnen Gruppen im Gitter konvergierten anfangs zu konstanten Werten mit einer glockenkurvenähnlichen Form, ähnlich wie in den obigen 50/50-Diagrammen. Ich fragte meinen Professor danach, und er wies darauf hin, dass das Münzbeispiel alle möglichen Ergebnisse berücksichtigt, anstatt jeden Zeitschritt zu zeigen, wie es die Simulation tat. Die Simulation behandelte Ereignisse — im Gegensatz zu den Münzbeispielen — nicht als unabhängig. Sie sahen sich ähnlich, weil die Mean-Field-Approximation Unabhängigkeit voraussetzt und Summen unabhängiger Ereignisse zu einer Normalverteilung tendieren, genau wie bei den Münzen. Beide enden damit, dass sie zu ihren jeweiligen empirischen (Zählwerte in der Münzwurfsimulation) bzw. approximierten (Mean-Field-Approximation auf den zellulären Automaten) stationären Zuständen kollabieren.</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
