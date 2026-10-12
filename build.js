@@ -141,7 +141,7 @@ async function readLocaleTitle(postId, localeId) {
 
 async function generateBlogListHTML(posts, TRANSLATION_LOCALES) {
   const items = await Promise.all(posts.map(async (post) => {
-    const isoDate = new Date(post.date).toISOString().split('T')[0];
+    const isoDate = parsePostDateAsUtc(post.date).toISOString().split('T')[0];
     const localeTitleAttrs = await Promise.all(
       TRANSLATION_LOCALES.map(async (locale) => {
         const title = await readLocaleTitle(post.id, locale.id);
@@ -188,9 +188,13 @@ const BACK_LABELS = {
   zh: '返回',
 };
 
+function parsePostDateAsUtc(dateString) {
+  return new Date(`${dateString} UTC`);
+}
+
 function formatDateForLocale(dateString, localeId) {
   try {
-    return new Intl.DateTimeFormat(localeId, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(dateString));
+    return new Intl.DateTimeFormat(localeId, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(parsePostDateAsUtc(dateString));
   } catch {
     return dateString;
   }
@@ -201,7 +205,7 @@ function fillPostTemplate(template, post, localeId, sourceHash) {
     return '';
   }
   const locale = localeId || 'en';
-  const isoDate = new Date(post.date).toISOString().split('T')[0];
+  const isoDate = parsePostDateAsUtc(post.date).toISOString().split('T')[0];
   const displayDate = locale === 'en' ? post.date : formatDateForLocale(post.date, locale);
   return template
     .replaceAll('%%POST_TITLE%%', post.title)
