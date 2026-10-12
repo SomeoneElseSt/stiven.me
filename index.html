@@ -340,7 +340,7 @@
 
             function formatDate(isoDate, locale) {
                 try {
-                    return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(isoDate));
+                    return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(isoDate));
                 } catch (e) {
                     return null;
                 }
