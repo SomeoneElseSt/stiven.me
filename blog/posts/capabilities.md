@@ -42,7 +42,7 @@ Congrats! You now know some undergraduate microeconomics. You can now ask: "Why 
 
 <a id="after-dwl"></a>
 
-
+I chose to write this because I realized there are 
 
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (ex. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (ex. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
