@@ -23,6 +23,19 @@ const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
 const IMPORT_REGEX = /<<<\s+([^\s]+)/g;
 const FIGURES_DIR = path.join(__dirname, 'blog', 'assets', 'figures');
 const ENGLISH_FIGURE_PATH_REGEX = /\/blog\/assets\/figures\/en\/([^"'\s)]+)/g;
+const IMAGE_SRC_REGEX = /<img src="([^"]+)"/g;
+const LIGHT_IMAGE_SUFFIX = '-light';
+
+// Marks each image that has a light-theme copy on disk, so the page never has to ask the server whether one exists
+function addLightImageSources(html) {
+  return html.replace(IMAGE_SRC_REGEX, (imageTag, src) => {
+    const extension = path.extname(src);
+    if (!extension) return imageTag;
+    const lightSrc = `${src.slice(0, -extension.length)}${LIGHT_IMAGE_SUFFIX}${extension}`;
+    const hasLightCopy = fs.pathExistsSync(path.join(__dirname, lightSrc));
+    return hasLightCopy ? `${imageTag} data-light-src="${lightSrc}"` : imageTag;
+  });
+}
 
 marked.use(markedFootnote());
 marked.use(markedKatex({
@@ -119,7 +132,7 @@ async function combineAllPostData(postsMetadata, markdownFiles) {
 
     const processedMarkdownContent = await applyCodeImports(markdownContent, fileName);
 
-    const htmlContent = marked.parse(processedMarkdownContent);
+    const htmlContent = addLightImageSources(marked.parse(processedMarkdownContent));
     const sourceHash = hashSource(markdownContent);
     combinedPosts.push({ ...postMeta, htmlContent, markdownContent, sourceHash });
   }
@@ -321,7 +334,7 @@ ${mdContent}`;
   const translatedMd = output.slice(separatorIdx + 5);
   const processedMd = await applyCodeImports(translatedMd, post.file);
   const translatedHtml = marked.parse(processedMd);
-  const localizedHtml = localizeFigurePaths(translatedHtml, locale.id);
+  const localizedHtml = addLightImageSources(localizeFigurePaths(translatedHtml, locale.id));
 
   const translatedPost = { ...post, title: translatedTitle, htmlContent: localizedHtml };
   const pageHtml = fillPostTemplate(postTemplate, translatedPost, locale.id, post.sourceHash);

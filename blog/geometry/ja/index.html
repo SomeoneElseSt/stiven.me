@@ -91,7 +91,7 @@
 <p>そこで学ばなかったかもしれないのは、幾何学が確率を記述する強力な方法であるということです。具体的には、関心のあるすべての結果を含む集合<strong>A</strong>を分割する場合です。</p>
 <p>3Blue1Brownのベイズの定理に関するビデオは、すべての可能な結果（彼らの例では、あるグループの人々の職業）を、ベイズの定理を導き出すことができる重なり合うセクションに分割できる長方形として視覚化する素晴らしい仕事をしています。 <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">こちら</a>で視聴できます。</p>
 <p>これをコイン投げの質問に当てはめると、コインを6回投げた後に得られる可能性のあるすべての表と裏のシーケンス（「HHHTTT」、「HTHTHT」、「HHHHHH」など）を、同様の視覚化、つまり標本空間として視覚化できます。標本空間とは、特定の実験（この例ではコイン投げのシーケンス）で起こりうるすべての離散的な結果や経路を視覚化したものです。</p>
-<p><img src="/blog/assets/figures/ja/coin-sample-space-n-6.png" alt="6回連続の［独立した］コイン投げの標本空間" title="コインの標本空間"></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/ja/coin-sample-space-n-6-light.png" alt="6回連続の［独立した］コイン投げの標本空間" title="コインの標本空間"></p>
 <details>
 <summary>視覚化コードを表示</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>左側の最初のブロックは、0回目のコイン投げを示しています。これは確実に起こる確率があるため、Y軸全体を占めています。2番目のブロックは、1回目のコイン投げの結果を示しています。表か裏のいずれかであるため、等間隔の2つのブロックを占めています。</p>
 <p>さらに右に進むと、各ブロックの結果の数は2倍になります。これは、各コイン投げをそれぞれ2つの子の結果に拡張しているため、直感的に理にかなっています。</p>
 <p>Y軸は、その割合に応じて各単一経路が発生する確率を示しています。中央に沿った経路（表と裏が均等に変化するもの）は、当然ながら最も確率が高いため、Y軸の大きな部分を占めます。一方、連続した表または裏の経路（階段状に完全に下または上に行くもの）は、以下に示すように、非常に低い確率に比例して、Y軸の占める割合が減少していきます。</p>
-<p><img src="/blog/assets/figures/ja/coin-sample-space-shaded-staircase.png" alt="連続する裏または表の影付きの階段。" title="連続する裏または表の影付きの階段。"></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/ja/coin-sample-space-shaded-staircase-light.png" alt="連続する裏または表の影付きの階段。" title="連続する裏または表の影付きの階段。"></p>
 <details>
 <summary>視覚化コードを表示</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>ここで幾何学と確率のつながりが見えてきましたか？ 終端ブロックを選んでその高さを測ることで、任意のシーケンスの確率を測定できます。「HTHHTHH」のような特定のシーケンスがどれくらいの確率で発生するかといった質問に答えるのが簡単になります。グラフをたどるだけです！</p>
 <p>では、なぜこれが重要なのでしょうか？ 大数の法則から思い出されるように、十分な回数の試行を行えば、結果はその真の確率に収束します。公平なコインを永遠に投げ続けて、表または裏が出る回数を数えると、どちらかが出る確率は50%と50%になります。しかし、上記のグラフはこれをあまり直感的に示していません。結局のところ、最も可能性の高いシーケンスは、単に長さが増していく塊に崩壊していくように見えます。</p>
 <p>しかし、すぐ目の前に何かが隠れています。正規分布です。以下に示すように、1回から100回の投げにおけるすべての可能な結果の表の割合をプロットすると、平均50%付近の分布が収束する前に、明確なベル型の分布が現れます。<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p><img src="/blog/assets/figures/ja/coin-sample-space-proportion-heads.png" alt="N=0からN=100までのコイン標本空間における表の割合" title="N=0からN=100までのコイン標本空間における表の割合"></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/ja/coin-sample-space-proportion-heads-light.png" alt="N=0からN=100までのコイン標本空間における表の割合" title="N=0からN=100までのコイン標本空間における表の割合"></p>
 <details>
 <summary>視覚化コードを表示</summary>
 
@@ -585,7 +585,7 @@ main()
 <p>これで、割合が実際に50%に均一化されることがわかります。これをさらに多くの<strong>N</strong>に拡張すれば、最終的には完全に直線が見えるようになります。<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
 <p>興味深いのは、<strong>N</strong> &lt; 20では結果の分布がほぼ正規分布であることです。黄色い線は視覚的な補助となります。もしそれらの線で割合のサンプリングを止めれば、中心は中心極限定理に従い、ほとんどの結果を蓄積してベル型に滑らかになります。一方、両端には2種類の結果が表示されます。最初は表が出るか出ないか、そして非常に低い確率で、連続して表が出ないか、連続してすべて表が出るかです。</p>
 <p>これは、前の図を標本空間の分布プロットの上に重ねて反転させたものを見ることで、直感的に説明できます：</p>
-<p><img src="/blog/assets/figures/ja/coin-sample-space-overlay.png" alt="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。" title="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。"></p>
+<p><img src="/blog/assets/figures/ja/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/ja/coin-sample-space-overlay-light.png" alt="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。" title="前の2つのプロットのオーバーレイ。割合の標本空間の上に標本空間を反転させて重ねたもの。"></p>
 <details>
 <summary>視覚化コードを表示</summary>
 
@@ -885,31 +885,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

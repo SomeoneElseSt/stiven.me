@@ -91,7 +91,7 @@
 <p>O que você pode não ter aprendido lá é que a geometria é uma forma poderosa de descrever a probabilidade, especificamente ao particionar um conjunto <strong>A</strong> com todos os resultados de interesse. </p>
 <p>O vídeo do 3Blue1Brown sobre o teorema de Bayes faz um ótimo trabalho ao visualizar como se pode considerar todos os resultados possíveis (no exemplo deles, a profissão de um grupo de pessoas) como um retângulo que pode ser decomposto em seções sobrepostas das quais o teorema de Bayes pode ser derivado. Você pode assisti-lo <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">aqui</a>.</p>
 <p>Aplicando isso à questão do lançamento de moeda, podemos visualizar todas as sequências possíveis de caras e coroas (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc) que se pode obter após lançar uma moeda seis vezes com uma visualização semelhante: um espaço amostral. Um espaço amostral é uma visualização de todos os resultados ou caminhos discretos possíveis que podem acontecer em um determinado experimento. Neste exemplo, sequências de lançamentos de moeda. </p>
-<p><img src="/blog/assets/figures/pt/coin-sample-space-n-6.png" alt="Espaço Amostral para 6 Lançamentos de Moeda [Independentes] Consecutivos" title="Espaço Amostral de Moeda"></p>
+<p><img src="/blog/assets/figures/pt/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/pt/coin-sample-space-n-6-light.png" alt="Espaço Amostral para 6 Lançamentos de Moeda [Independentes] Consecutivos" title="Espaço Amostral de Moeda"></p>
 <details>
 <summary>Mostrar código de visualização</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>O primeiro bloco à esquerda mostra o 0º lançamento de moeda. Como tem uma probabilidade garantida de acontecer, ele ocupa todo o eixo Y. O segundo bloco mostra o resultado do primeiro lançamento de moeda. Como pode ser cara ou coroa, ele ocupa dois blocos uniformemente espaçados. </p>
 <p>Mais à direita, cada bloco dobra em seu número de resultados, o que faz sentido intuitivamente porque estamos expandindo cada lançamento de moeda com 2 resultados filhos, respectivamente.</p>
 <p>O eixo Y fornece a probabilidade de cada caminho individual acontecer de acordo com sua proporção. Caminhos ao longo do centro — com uma variação uniforme entre caras e coroas — ocupam uma parte maior do eixo Y, pois, naturalmente, são os mais prováveis, enquanto caminhos de caras ou coroas consecutivas (indo totalmente para baixo ou para cima, em um padrão de escada), ocupam uma proporção cada vez menor do eixo Y, em relação às suas probabilidades muito baixas, como mostrado abaixo.</p>
-<p><img src="/blog/assets/figures/pt/coin-sample-space-shaded-staircase.png" alt="Escada sombreada de coroas ou caras consecutivas." title="Escada sombreada de coroas ou caras consecutivas."></p>
+<p><img src="/blog/assets/figures/pt/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/pt/coin-sample-space-shaded-staircase-light.png" alt="Escada sombreada de coroas ou caras consecutivas." title="Escada sombreada de coroas ou caras consecutivas."></p>
 <details>
 <summary>Mostrar código de visualização</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>Você está começando a ver a ligação entre geometria e probabilidade aqui? Você poderia medir a probabilidade de qualquer sequência selecionando seu bloco terminal e medindo sua altura. Isso torna perguntas como qual a probabilidade de obter uma sequência específica como &#39;HTHHTHH&#39; fáceis de responder; basta traçar o gráfico!  </p>
 <p>Então, por que isso é importante? Como você deve se lembrar da lei dos grandes números, ao longo de execuções suficientes, os resultados convergem para suas probabilidades reais. Se você lançar uma moeda justa para sempre e contar quantas vezes obtém cara ou coroa, a chance de obter qualquer um deles torna-se 50% e 50%. O gráfico acima não torna isso realmente intuitivo, no entanto. Afinal, parece que as sequências mais prováveis simplesmente colapsam em massas de comprimento crescente.</p>
 <p>But algo está escondido à vista de todos: uma distribuição normal. Se plotarmos a proporção de caras em todos os resultados possíveis de 1 a 100 lançamentos, como mostrado abaixo, há uma clara distribuição em forma de sino antes que a distribuição em torno da média de 50% converja para ela.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/pt/coin-sample-space-proportion-heads.png" alt="Proporção de Caras no Espaço Amostral da Moeda de N=0 a N=100" title="Proporção de Caras no Espaço Amostral da Moeda de N=0 a N=100"></p>
+<p><img src="/blog/assets/figures/pt/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/pt/coin-sample-space-proportion-heads-light.png" alt="Proporção de Caras no Espaço Amostral da Moeda de N=0 a N=100" title="Proporção de Caras no Espaço Amostral da Moeda de N=0 a N=100"></p>
 <details>
 <summary>Mostrar código de visualização</summary>
 
@@ -585,7 +585,7 @@ main()
 <p>Agora, podemos ver que a proporção de fato se estabilizará em 50%, e se expandíssemos isso para muitos mais <strong>N</strong>, acabaríamos vendo uma linha completamente reta.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
 <p>O que é interessante é que em <strong>N</strong> &lt; 20 a distribuição dos resultados é majoritariamente normal. As linhas amarelas funcionam como um auxílio visual: se parássemos de amostrar proporções nessas linhas, o centro seguiria o teorema do limite central, acumulando a maioria dos resultados e suavizando para um sino, enquanto as bordas extremas mostram dois tipos de resultados: a princípio, obter uma cara ou não, e com uma probabilidade muito baixa, consecutivamente não obter nenhuma cara ou consecutivamente obter todas as caras. </p>
 <p>Podemos explicar isso intuitivamente olhando para a figura anterior sobreposta e espelhada no gráfico de distribuição do espaço amostral: </p>
-<p><img src="/blog/assets/figures/pt/coin-sample-space-overlay.png" alt="Sobreposição dos dois gráficos anteriores com o espaço amostral espelhado no topo do gráfico de proporção do espaço amostral." title="Sobreposição dos dois gráficos anteriores com o espaço amostral espelhado no topo do gráfico de proporção do espaço amostral."></p>
+<p><img src="/blog/assets/figures/pt/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/pt/coin-sample-space-overlay-light.png" alt="Sobreposição dos dois gráficos anteriores com o espaço amostral espelhado no topo do gráfico de proporção do espaço amostral." title="Sobreposição dos dois gráficos anteriores com o espaço amostral espelhado no topo do gráfico de proporção do espaço amostral."></p>
 <details>
 <summary>Mostrar código de visualização</summary>
 
@@ -885,31 +885,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

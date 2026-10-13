@@ -93,17 +93,17 @@
 <li>Un cierto número de compradores pueden permitirse el bien a un precio determinado. Esto se llama la <em>curva de demanda</em>. Consideraremos 10 compradores en total, cada uno capaz de pagarlo a un precio diferente.</li>
 </ul>
 <p>Podemos graficar cada una de estas curvas una frente a la otra. Esto será útil para encontrar el precio óptimo al que un vendedor debería vender su producto. </p>
-<p><img src="/blog/assets/figures/es/supply-demand-curves.png" alt="Curvas de oferta y demanda graficadas como precio frente a cantidad." title="Curvas de oferta y demanda"></p>
+<p><img src="/blog/assets/figures/es/supply-demand-curves.png" data-light-src="/blog/assets/figures/es/supply-demand-curves-light.png" alt="Curvas de oferta y demanda graficadas como precio frente a cantidad." title="Curvas de oferta y demanda"></p>
 <p>Las 10 personas pueden permitirse una unidad del bien cuando el precio es cero. Sin embargo, el vendedor no puede ofrecerlo por menos de 10 dólares (este puede ser su precio de equilibrio). ¿Deberían fijar un precio alto o bajo?</p>
 <p>El precio óptimo se encuentra en la intersección de las dos curvas. Intuitivamente, es el número máximo de unidades que el vendedor puede vender al precio más alto. Cinco unidades a 50 dólares cada una rinden 250 dólares. Mucho más que los 160 dólares de vender dos unidades a 80 dólares, y más que vender muchas unidades a 20 dólares, que también suman 160 dólares. Podemos visualizar esto. </p>
-<p><img src="/blog/assets/figures/es/supply-demand-equilibrium.png" alt="Curvas de oferta y demanda con el equilibrio y dos puntos de precio alternativos marcados." title="Equilibrio y puntos de precio alternativos"></p>
+<p><img src="/blog/assets/figures/es/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/es/supply-demand-equilibrium-light.png" alt="Curvas de oferta y demanda con el equilibrio y dos puntos de precio alternativos marcados." title="Equilibrio y puntos de precio alternativos"></p>
 <p>Este es el escenario en el que se da lo <em>máximo</em> por lo <em>más pagado</em>, y se denomina estado de equilibrio. Ahora podemos hablar de la pérdida de peso muerto (PPM). </p>
 <p>La PPM es el beneficio que el vendedor podría haber obtenido si hubiera fijado el precio de su producto más cerca del equilibrio cuando el producto es demasiado caro o barato. </p>
 <p>La visualizamos como el área entre las esquinas de 1) el punto de equilibrio, 2) el punto en la curva de demanda donde se fijó el precio del bien, y 3) el punto en la curva de oferta para la misma cantidad. El 2 y el 3 son paralelos entre sí, lo que hace que la PPM parezca un triángulo. Vamos a visualizarla para cuando el bien se vende a 80 dólares. </p>
-<p><img src="/blog/assets/figures/es/supply-demand-dwl.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 80 dólares." title="Pérdida de peso muerto a un precio de 80 dólares"></p>
+<p><img src="/blog/assets/figures/es/supply-demand-dwl.png" data-light-src="/blog/assets/figures/es/supply-demand-dwl-light.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 80 dólares." title="Pérdida de peso muerto a un precio de 80 dólares"></p>
 <p>El área del triángulo representa los bienes que el vendedor podría haber vendido si hubiera fijado el precio de su producto más cerca del equilibrio, lo que le permitiría obtener un beneficio neto mayor. </p>
 <p>La PPM en el otro lado del gráfico es el beneficio que el vendedor está perdiendo por fijar el precio del bien demasiado bajo. A veces se le llama filantropía —vale, no, pero ya me entiendes—. Es cuando los consumidores se benefician a costa del dinero que la empresa podría estar ganando si el bien tuviera un precio más alto.</p>
-<p><img src="/blog/assets/figures/es/supply-demand-dwl-low-price.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 20 dólares." title="Pérdida de peso muerto a un precio de 20 dólares"></p>
+<p><img src="/blog/assets/figures/es/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/es/supply-demand-dwl-low-price-light.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 20 dólares." title="Pérdida de peso muerto a un precio de 20 dólares"></p>
 <p>¡Felicidades! Ya sabes algo de microeconomía de grado. Prueba a preguntar: &quot;¿Por qué Apple no pone un precio más bajo a sus existencias antiguas dado que valen menos y algunas personas aún podrían comprarlas? ¿No minimiza eso la PPM?&quot; y date cuenta de que el mundo real no es tan sencillo e interpretable como este modelo<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
 <p><a id="after-dwl"></a></p>
 <p>Bien, ¿por qué escribo sobre la PPM? Veo ciertos paralelismos entre las ideas de minimización de la PPM (el uso del cálculo para encontrar puntos de equilibrio para diferentes curvas de oferta y demanda) y los paradigmas actuales de los agentes de programación. </p>
@@ -119,9 +119,9 @@
 <p>Cuando escribo &quot;coste&quot;, me refiero al cómputo necesario para ejecutar una instancia de un modelo. Los modelos más grandes son generalmente mejores y requieren más cómputo para funcionar. </p>
 <p>Lo llamaré &quot;coste&quot; en el blog porque es más fácil de asimilar. Ten en cuenta que el cómputo y el coste monetario se corresponderán uno a uno cuando los laboratorios dejen de subvencionar los tokens<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. Los gráficos asumen que se corresponden uno a uno. </p>
 <p>El eje x representa la capacidad de un modelo en relación con la tarea: a la izquierda, el modelo es demasiado débil y barato. A la derecha, es excesivo y caro. El eje y representa lo que pagas. La altura de la línea humana es la dirección que el modelo necesita de ti, mientras que la altura de la línea del modelo es lo que cuesta el modelo. Cuanto más capaz es el modelo, menos dirección necesita y más cuesta. </p>
-<p><img src="/blog/assets/figures/es/human-model-curves.png" alt="Dirección humana y coste del modelo graficados frente a la capacidad del modelo en relación con la tarea." title="Dirección humana y coste del modelo"></p>
+<p><img src="/blog/assets/figures/es/human-model-curves.png" data-light-src="/blog/assets/figures/es/human-model-curves-light.png" alt="Dirección humana y coste del modelo graficados frente a la capacidad del modelo en relación con la tarea." title="Dirección humana y coste del modelo"></p>
 <p>Un ejemplo sencillo para ilustrar la PPM en este gráfico es cuando se utilizan modelos de frontera para trabajos triviales que un modelo más pequeño podría hacer. Por ejemplo, cambiar el texto de una página o ejecutar comandos de git triviales (¿cuándo fue la última vez que escribiste &#39;sí, envíalo&#39;?). </p>
-<p><img src="/blog/assets/figures/es/human-model-overreliance.png" alt="Pérdida de peso muerto en el lado derecho del gráfico de dirección humana y coste del modelo, donde se utiliza un modelo de frontera para una tarea trivial." title="Pérdida de peso muerto por un modelo superpotente"></p>
+<p><img src="/blog/assets/figures/es/human-model-overreliance.png" data-light-src="/blog/assets/figures/es/human-model-overreliance-light.png" alt="Pérdida de peso muerto en el lado derecho del gráfico de dirección humana y coste del modelo, donde se utiliza un modelo de frontera para una tarea trivial." title="Pérdida de peso muerto por un modelo superpotente"></p>
 <p>El argumento económico contra esto es obvio: estás usando tokens de frontera para tareas triviales. Lo ideal sería ahorrar el coste.</p>
 <p>El argumento práctico es que si el gasto de tokens no fuera una preocupación, probablemente sería más rápido si utilizaras un modelo más pequeño. Como si el Composer de Cursor lo hiciera en 10 segundos en lugar de tener a Astra pensando durante un minuto. </p>
 <p>Incluso si tu modelo inteligente fuera ultrarrápido, eso es muy caro ahora mismo, por lo que el argumento económico sigue siendo válido: otros <em>podrían</em> hacer lo mismo con la misma rapidez por menos dinero si tuviéramos los sistemas para transferir el contexto de forma eficiente y en el acto. Es irracional no ahorrar el coste (desafortunadamente, los humanos somos <em>muy</em> irracionales).</p>
@@ -141,11 +141,11 @@
 <p>Pero para difundir la IA en la economía en general, queda mucho trabajo por hacer en optimizadores fáciles de usar que las pequeñas y medianas organizaciones puedan emplear para ahorrar en su gasto de tokens, tanto para individuos dentro de una organización como para tareas específicas. </p>
 <p>Parafraseando: Jev puede ser muy barato, pero el dependiente de tienda medio o el trabajador de una ONG no va a conseguir una clave de API y hacer una evaluación para ver si supera a Astra en su tarea de clasificación. Preferirán pulsar un botón o preguntar a su agente y ver los resultados para elegir.</p>
 <p>En el gráfico, el equilibrio tiene sentido si lo piensas como el modelo con la mejor velocidad, precio e inteligencia para la tarea. Llegar ahí requiere un esfuerzo humano: configurar la infraestructura y las evaluaciones para encontrar ese modelo (ya sea preseleccionándolo o cambiándolo en tiempo de ejecución). Mientras que usar un modelo de frontera te ahorra el trabajo pero cuesta mucho.</p>
-<p><img src="/blog/assets/figures/es/human-model-equilibrium.png" alt="Equilibrio entre la dirección humana y el coste del modelo, donde el modelo es justo el adecuado para la tarea." title="Equilibrio entre la dirección humana y el coste del modelo"></p>
+<p><img src="/blog/assets/figures/es/human-model-equilibrium.png" data-light-src="/blog/assets/figures/es/human-model-equilibrium-light.png" alt="Equilibrio entre la dirección humana y el coste del modelo, donde el modelo es justo el adecuado para la tarea." title="Equilibrio entre la dirección humana y el coste del modelo"></p>
 <p>Espero que esto cambie con arneses que enruten automáticamente e infraestructuras más sencillas para evaluar y entrenar modelos específicos para tareas. También es positivo que se trate de un esfuerzo de ingeniería definido. Si lo hacemos bien una vez, todo el mundo se beneficia.</p>
 <p>¿Qué pasa con la PPM en el lado izquierdo del gráfico?</p>
 <p>Hace poco estuve experimentando con la familia de modelos Qwen, ejecutándolos localmente en mi ordenador con Ollama. Fue decepcionante. Saben mucho y pueden hacer trucos impresionantes para ser modelos pequeños, pero en cuanto les planteas una tarea real, agotan sus presupuestos de contexto pensando demasiado en detalles innecesarios.</p>
-<p><img src="/blog/assets/figures/es/human-model-underreliance.png" alt="Pérdida de peso muerto en el lado izquierdo del gráfico de dirección humana y coste del modelo, donde un modelo pequeño necesita mucha guía humana." title="Pérdida de peso muerto por un modelo poco potente"></p>
+<p><img src="/blog/assets/figures/es/human-model-underreliance.png" data-light-src="/blog/assets/figures/es/human-model-underreliance-light.png" alt="Pérdida de peso muerto en el lado izquierdo del gráfico de dirección humana y coste del modelo, donde un modelo pequeño necesita mucha guía humana." title="Pérdida de peso muerto por un modelo poco potente"></p>
 <p>Solo conseguí que hicieran lo que yo quería señalando las líneas exactas de código que debían mirar. Incluso tuve que cambiar algo de código a mano porque, aunque les dijera cinco veces seguidas que ejecutaran el cambio, simplemente pensaban y pensaban, hasta que su contexto se desbordaba. </p>
 <p>Otra dimensión que el gráfico no capta es el tiempo<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>. Tardé considerablemente más en terminar mi proyecto con Qwen porque necesitaba mucha ayuda. Sabía que con modelos de frontera habría terminado en mucho menos tiempo. Tampoco capta la diferencia en la carga mental: es mucho más fácil avanzar a base de prompts. Realmente no necesitas pensar. </p>
 <p>Aunque, en mi caso, elegí trabajar así porque quería experimentar. En el mundo real, la PPM a la izquierda es visible en tareas en las que los modelos aún no son buenos. Los extraños benchmarks financieros, los de investigación de ML y las tareas de uso del ordenador. Sigues necesitando a personas que revisen y dirijan los resultados del modelo. </p>
@@ -345,31 +345,9 @@
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

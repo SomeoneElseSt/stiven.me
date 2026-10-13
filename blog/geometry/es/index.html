@@ -91,7 +91,7 @@
 <p>Lo que quizás no aprendiste allí es que la geometría es una forma poderosa de describir la probabilidad, específicamente al particionar un conjunto <strong>A</strong> con todos los resultados de interés.</p>
 <p>El video de 3Blue1Brown sobre el teorema de Bayes hace un gran trabajo visualizando cómo uno puede considerar todos los posibles resultados (en su ejemplo, la profesión de un grupo de personas) como un rectángulo que puede desglosarse en secciones superpuestas de las cuales se puede derivar el teorema de Bayes. Puedes verlo <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">aquí</a>.</p>
 <p>Aplicando esto a la pregunta del lanzamiento de moneda, podemos visualizar todas las posibles secuencias de caras y cruces (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, etc.) que uno puede obtener después de lanzar una moneda seis veces con una visualización similar: un espacio muestral. Un espacio muestral es una visualización de todos los posibles resultados discretos o caminos que pueden ocurrir para un experimento dado. En este ejemplo, secuencias de lanzamientos de moneda.</p>
-<p><img src="/blog/assets/figures/es/coin-sample-space-n-6.png" alt="Espacio muestral para 6 lanzamientos de moneda consecutivos [independientes]" title="Espacio muestral de la moneda"></p>
+<p><img src="/blog/assets/figures/es/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/es/coin-sample-space-n-6-light.png" alt="Espacio muestral para 6 lanzamientos de moneda consecutivos [independientes]" title="Espacio muestral de la moneda"></p>
 <details>
 <summary>Mostrar código de visualización</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>El primer bloque a la izquierda muestra el lanzamiento de moneda número 0. Dado que tiene una probabilidad garantizada de ocurrir, ocupa todo el eje Y. El segundo bloque muestra el resultado del primer lanzamiento de moneda. Como puede ser cara o cruz, ocupa dos bloques espaciados uniformemente.</p>
 <p>Más a la derecha, cada bloque duplica su número de resultados, lo que tiene sentido intuitivamente porque estamos expandiendo cada lanzamiento de moneda con 2 resultados hijos respectivamente.</p>
 <p>El eje Y da la probabilidad de que ocurra cada camino individual según su proporción. Los caminos a lo largo del centro —con una variación uniforme entre caras y cruces— ocupan una parte mayor del eje Y, ya que, naturalmente, son los más probables, mientras que los caminos de caras o cruces consecutivas (ya sea yendo totalmente hacia abajo o hacia arriba, en un patrón de escalera), ocupan una proporción cada vez menor del eje Y, en relación con sus probabilidades muy bajas, como se muestra a continuación.</p>
-<p><img src="/blog/assets/figures/es/coin-sample-space-shaded-staircase.png" alt="Escalera sombreada de cruces o caras consecutivas." title="Escalera sombreada de cruces o caras consecutivas."></p>
+<p><img src="/blog/assets/figures/es/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/es/coin-sample-space-shaded-staircase-light.png" alt="Escalera sombreada de cruces o caras consecutivas." title="Escalera sombreada de cruces o caras consecutivas."></p>
 <details>
 <summary>Mostrar código de visualización</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>¿Estás empezando a ver el vínculo entre la geometría y la probabilidad aquí? Podrías medir la probabilidad de cualquier secuencia dada eligiendo su bloque terminal y midiendo su altura. Esto hace que preguntas como qué tan probable es que obtengas una secuencia específica como &#39;HTHHTHH&#39; sean fáciles de responder; ¡solo sigue el gráfico!</p>
 <p>Entonces, ¿por qué es esto importante? Como recordarás de la ley de los grandes números, a lo largo de suficientes ejecuciones, los resultados se promedian a sus verdaderas probabilidades. Si lanzas una moneda justa para siempre y cuentas cuántas veces obtienes cara o cruz, la probabilidad de obtener cualquiera de las dos se convierte en 50% y 50%. Sin embargo, el gráfico anterior no hace que esto sea realmente intuitivo. Después de todo, parece que las secuencias más probables simplemente se colapsan en manchas de longitud creciente.</p>
 <p>Pero algo se esconde a plena vista: una distribución normal. Si graficamos la proporción de caras en todos los posibles resultados de 1 a 100 lanzamientos como se muestra a continuación, hay una clara distribución en forma de campana antes de que la distribución alrededor de la media al 50% converja en ella.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p><img src="/blog/assets/figures/es/coin-sample-space-proportion-heads.png" alt="Proporción de caras en el espacio muestral de la moneda de N=0 a N=100" title="Proporción de caras en el espacio muestral de la moneda de N=0 a N=100"></p>
+<p><img src="/blog/assets/figures/es/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/es/coin-sample-space-proportion-heads-light.png" alt="Proporción de caras en el espacio muestral de la moneda de N=0 a N=100" title="Proporción de caras en el espacio muestral de la moneda de N=0 a N=100"></p>
 <details>
 <summary>Mostrar código de visualización</summary>
 
@@ -585,7 +585,7 @@ main()
 <p>Ahora, podemos ver que la proporción de hecho se nivelará al 50%, y si expandiéramos esto a muchos más <strong>N</strong>, terminaríamos viendo una línea completamente recta.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
 <p>Lo que es interesante es que a <strong>N</strong> &lt; 20 la distribución de los resultados es mayoritariamente normal. Las líneas amarillas actúan como una ayuda visual: si dejáramos de muestrear proporciones en esas líneas, el centro seguiría el teorema del límite central, acumulando la mayoría de los resultados y suavizándose hasta convertirse en una campana, mientras que los bordes extremos muestran dos tipos de resultados: al principio, obtener una cara o no, y con una probabilidad muy baja, no obtener consecutivamente ninguna cara u obtener consecutivamente todas las caras.</p>
 <p>Podemos explicar esto intuitivamente mirando la figura anterior superpuesta y reflejada en el gráfico de distribución del espacio muestral:</p>
-<p><img src="/blog/assets/figures/es/coin-sample-space-overlay.png" alt="Superposición de los dos gráficos anteriores con el espacio muestral reflejado sobre el espacio muestral de proporción." title="Superposición de los dos gráficos anteriores con el espacio muestral reflejado sobre el espacio muestral de proporción."></p>
+<p><img src="/blog/assets/figures/es/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/es/coin-sample-space-overlay-light.png" alt="Superposición de los dos gráficos anteriores con el espacio muestral reflejado sobre el espacio muestral de proporción." title="Superposición de los dos gráficos anteriores con el espacio muestral reflejado sobre el espacio muestral de proporción."></p>
 <details>
 <summary>Mostrar código de visualización</summary>
 
@@ -885,31 +885,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

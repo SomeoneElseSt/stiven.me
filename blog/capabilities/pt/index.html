@@ -93,17 +93,17 @@
 <li>Um certo número de compradores pode pagar pelo bem a um determinado preço. Isso é chamado de <em>curva de demanda</em>. Consideraremos 10 compradores no total, cada um capaz de pagar por ele a um preço diferente.</li>
 </ul>
 <p>Podemos traçar cada uma dessas curvas uma contra a outra. Isso será útil para encontrar o preço ideal que um vendedor deve cobrar pelo seu produto. </p>
-<p><img src="/blog/assets/figures/pt/supply-demand-curves.png" alt="Curvas de oferta e demanda traçadas como preço versus quantidade." title="Curvas de Oferta e Demanda"></p>
+<p><img src="/blog/assets/figures/pt/supply-demand-curves.png" data-light-src="/blog/assets/figures/pt/supply-demand-curves-light.png" alt="Curvas de oferta e demanda traçadas como preço versus quantidade." title="Curvas de Oferta e Demanda"></p>
 <p>Todas as 10 pessoas podem pagar por uma unidade do bem quando o preço é zero. No entanto, o vendedor não pode oferecê-lo por menos de $10 (este pode ser o seu preço de equilíbrio). Eles devem cobrar caro ou barato?</p>
 <p>O preço ideal reside na interseção das duas curvas. Intutivamente, é o número máximo de unidades que o vendedor pode vender ao preço mais alto. Cinco unidades a $50 cada rendem $250. Muito maior do que os $160 da venda de duas unidades a $80, e maior do que vender muitas unidades a $20, totalizando também $160. Podemos visualizar isso. </p>
-<p><img src="/blog/assets/figures/pt/supply-demand-equilibrium.png" alt="Curvas de oferta e demanda com o equilíbrio e dois pontos de preço alternativos marcados." title="Equilíbrio e Pontos de Preço Alternativos"></p>
+<p><img src="/blog/assets/figures/pt/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/pt/supply-demand-equilibrium-light.png" alt="Curvas de oferta e demanda com o equilíbrio e dois pontos de preço alternativos marcados." title="Equilíbrio e Pontos de Preço Alternativos"></p>
 <p>Este é o cenário com o <em>máximo entregue</em> pelo <em>máximo pago</em>, e é chamado de estado de equilíbrio. Agora podemos falar sobre a perda de peso morto (DWL). </p>
 <p>DWL é o lucro que o vendedor poderia ter obtido se tivesse precificado seu produto mais perto do equilíbrio quando o produto é muito caro ou barato. </p>
 <p>Nós a visualizamos como a área entre os cantos de 1) o ponto de equilíbrio, 2) o ponto na curva de demanda onde o bem foi precificado, e 3) o ponto na curva de oferta na mesma quantidade. 2 e 3 são paralelos entre si, fazendo com que a DWL pareça um triângulo. Vamos visualizá-la para quando o bem é vendido a $80. </p>
-<p><img src="/blog/assets/figures/pt/supply-demand-dwl.png" alt="Triângulo de perda de peso morto entre as curvas de oferta e demanda quando o bem é vendido a $80." title="Perda de Peso Morto a um Preço de $80"></p>
+<p><img src="/blog/assets/figures/pt/supply-demand-dwl.png" data-light-src="/blog/assets/figures/pt/supply-demand-dwl-light.png" alt="Triângulo de perda de peso morto entre as curvas de oferta e demanda quando o bem é vendido a $80." title="Perda de Peso Morto a um Preço de $80"></p>
 <p>A área no triângulo representa os bens que o vendedor poderia ter vendido se tivesse precificado seu produto mais perto do equilíbrio, permitindo-lhes obter um lucro maior. </p>
 <p>A DWL no outro lado do gráfico é o lucro que o vendedor está perdendo devido à precificação do bem muito baixa. Às vezes é referida como filantropia — ok, não, mas você entende a ideia. É quando os consumidores estão se beneficiando às custas do dinheiro que a empresa poderia estar ganhando se o bem fosse precificado mais alto.</p>
-<p><img src="/blog/assets/figures/pt/supply-demand-dwl-low-price.png" alt="Triângulo de perda de peso morto entre as curvas de oferta e demanda quando o bem é vendido a $20." title="Perda de Peso Morto a um Preço de $20"></p>
+<p><img src="/blog/assets/figures/pt/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/pt/supply-demand-dwl-low-price-light.png" alt="Triângulo de perda de peso morto entre as curvas de oferta e demanda quando o bem é vendido a $20." title="Perda de Peso Morto a um Preço de $20"></p>
 <p>Parabéns! Agora você conhece um pouco de microeconomia de graduação. Tente perguntar: &quot;Por que a Apple não precifica seu estoque antigo mais baixo, visto que ele vale menos e algumas pessoas ainda podem comprá-lo? Isso não minimiza a DWL?&quot; e perceba que o mundo real não é tão simples e interpretável quanto este modelo<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
 <p><a id="after-dwl"></a></p>
 <p>Ok, então por que estou escrevendo sobre DWL? Vejo alguns paralelos entre as ideias de Minimização de DWL (o uso de cálculo para encontrar pontos de equilíbrio para diferentes curvas de oferta e demanda) e os paradigmas atuais de agentes de codificação. </p>
@@ -119,9 +119,9 @@
 <p>Quando escrevo &quot;custo&quot;, estou falando sobre a computação necessária para executar uma instância de um modelo. Modelos maiores são geralmente melhores e exigem mais computação para rodar. </p>
 <p>Vou chamá-lo de &quot;custo&quot; no blog porque é mais fácil de digerir. Observe que a computação e o custo monetário serão mapeados um para um quando os laboratórios pararem de subsidiar tokens<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. Os gráficos assumem que eles se mapeiam um para um. </p>
 <p>O eixo x representa quão capaz um modelo é em relação à tarefa: à esquerda, o modelo é muito fraco para ela e barato. À direita, é um exagero e caro. O eixo y representa o que você paga. A altura da linha humana é quanto direcionamento o modelo precisa de você, assim como a altura da linha do modelo é o que o modelo custa. Quanto mais capaz o modelo, menos direcionamento ele precisa e mais custa.  </p>
-<p><img src="/blog/assets/figures/pt/human-model-curves.png" alt="Direcionamento humano e custo do modelo traçados contra quão capaz o modelo é em relação à tarefa." title="Direcionamento Humano e Custo do Modelo"></p>
+<p><img src="/blog/assets/figures/pt/human-model-curves.png" data-light-src="/blog/assets/figures/pt/human-model-curves-light.png" alt="Direcionamento humano e custo do modelo traçados contra quão capaz o modelo é em relação à tarefa." title="Direcionamento Humano e Custo do Modelo"></p>
 <p>Um exemplo simples para ilustrar a DWL neste gráfico é quando modelos de fronteira são usados para trabalhos triviais que um modelo menor poderia fazer. Por exemplo, alterar o texto em uma página ou executar comandos git triviais (qual foi a última vez que você enviou um prompt &#39;sim, faça o push&#39;?). </p>
-<p><img src="/blog/assets/figures/pt/human-model-overreliance.png" alt="Perda de peso morto no lado direito do gráfico de direção humana e custo do modelo, onde um modelo de fronteira é usado para uma tarefa trivial." title="Perda de Peso Morto de um Modelo Sobrecarregado"></p>
+<p><img src="/blog/assets/figures/pt/human-model-overreliance.png" data-light-src="/blog/assets/figures/pt/human-model-overreliance-light.png" alt="Perda de peso morto no lado direito do gráfico de direção humana e custo do modelo, onde um modelo de fronteira é usado para uma tarefa trivial." title="Perda de Peso Morto de um Modelo Sobrecarregado"></p>
 <p>O argumento econômico contra isso é óbvio: você está usando tokens de fronteira para tarefas triviais. Idealmente, você gostaria de economizar o custo.</p>
 <p>O argumento prático é que se o gasto de tokens não fosse uma preocupação, provavelmente seria mais rápido se você usasse um modelo menor. Como se o Composer do Cursor fizesse isso em 10 segundos em vez de fazer o Astra pensar por um minuto. </p>
 <p>Mesmo que seu modelo inteligente fosse ultra rápido, isso é muito caro agora, então o argumento econômico ainda se mantém: outros <em>poderiam</em> fazer a mesma coisa tão rápido por um preço mais baixo se tivéssemos os sistemas para transferir o contexto de forma eficiente e imediata. É irracional não economizar o custo (infelizmente, os humanos são <em>muito</em> irracionais).</p>
@@ -141,11 +141,11 @@
 <p>Mas para difundir a IA na economia em geral, muito trabalho precisa ser feito em otimizadores simples de usar que organizações de pequeno e médio porte possam usar para economizar em seus gastos com tokens, tanto para indivíduos dentro de uma organização quanto para tarefas específicas. </p>
 <p>Parafraseando: o Jev pode ser muito barato, mas seu balconista médio ou funcionário de uma ONG não vai obter uma chave de API e fazer uma avaliação para ver se ele supera o Astra em sua tarefa de classificação. Eles prefeririam apertar um botão ou perguntar ao seu agente e ver os resultados para escolher.</p>
 <p>No gráfico, o equilíbrio faz sentido se você pensar nele como o modelo com a melhor velocidade, preço e inteligência para a tarefa. Chegar lá exige esforço humano: configurar a infraestrutura e as avaliações para encontrar esse modelo (tanto pré-selecionando-o quanto alterando-o em tempo de execução). Enquanto usar um modelo de fronteira economiza o trabalho, mas custa muito.</p>
-<p><img src="/blog/assets/figures/pt/human-model-equilibrium.png" alt="Equilíbrio entre o direcionamento humano e o custo do modelo, onde o modelo é ideal para a tarefa." title="Equilíbrio entre Direcionamento Humano e Custo do Modelo"></p>
+<p><img src="/blog/assets/figures/pt/human-model-equilibrium.png" data-light-src="/blog/assets/figures/pt/human-model-equilibrium-light.png" alt="Equilíbrio entre o direcionamento humano e o custo do modelo, onde o modelo é ideal para a tarefa." title="Equilíbrio entre Direcionamento Humano e Custo do Modelo"></p>
 <p>Espero que isso mude com harnesses que roteiam automaticamente e uma infraestrutura mais simples para avaliar e treinar modelos específicos para tarefas. Também é bom que este seja um esforço de engenharia definido. Se acertarmos uma vez, todos se beneficiam.</p>
 <p>E quanto à DWL no lado esquerdo do gráfico?</p>
 <p>Recentemente, eu estava experimentando a família de modelos Qwen, executando-os localmente em meu computador com o Ollama. Foi decepcionante. Eles sabem muito e podem realizar truques impressionantes para um modelo pequeno, mas assim que você joga uma tarefa real para eles, eles estouram seus orçamentos de contexto pensando demais em detalhes desnecessários.</p>
-<p><img src="/blog/assets/figures/pt/human-model-underreliance.png" alt="Perda de peso morto no lado esquerdo do gráfico de direção humana e custo do modelo, onde um modelo pequeno precisa de orientação humana pesada." title="Perda de Peso Morto de um Modelo Subdimensionado"></p>
+<p><img src="/blog/assets/figures/pt/human-model-underreliance.png" data-light-src="/blog/assets/figures/pt/human-model-underreliance-light.png" alt="Perda de peso morto no lado esquerdo do gráfico de direção humana e custo do modelo, onde um modelo pequeno precisa de orientação humana pesada." title="Perda de Peso Morto de um Modelo Subdimensionado"></p>
 <p>Só consegui que eles fizessem o que eu queria apontando as linhas exatas de código que eles tinham que olhar. Tive até que mudar algum código à mão porque, embora eu dissesse a eles cinco vezes seguidas para executar a mudança, ele apenas pensava, e pensava, até que seu contexto transbordava. </p>
 <p>Outra dimensão que o gráfico não captura é o tempo<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>. Levei consideravelmente mais tempo para terminar meu projeto com o Qwen porque ele precisava de muita orientação manual. Eu sabia que os modelos de fronteira teriam terminado em muito menos tempo. Ele também não captura a diferença na carga mental: é muito mais fácil seguir seu caminho com prompts. Você não precisa realmente pensar. </p>
 <p>No entanto, no meu caso, escolhi trabalhar nisso porque queria experimentar. No mundo real, a DWL à esquerda é visível em tarefas nas quais os modelos não são bons <em>ainda</em>. Os estranhos benchmarks de finanças, benchmarks de pesquisa de ML e tarefas de uso de computador. Você ainda precisa de pessoas revisando e direcionando as saídas do modelo. </p>
@@ -345,31 +345,9 @@
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>
