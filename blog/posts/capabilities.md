@@ -139,13 +139,17 @@ require skills outside the scope of optimization (see [this](https://asteriskmag
 
 In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. 
 
-Economists note as close off! And CS people looking at economics.
+As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well in the field, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
 
-Maybe any interesting calculus/algebra from DWL that is transferable?
+For example: the DWL's area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
+
+Someone building a router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn't know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.
+
+You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (e.g. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (e.g. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
-[^2]: Though, it follows similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by a competitor. But I won't spoil it for you. Go read! 
+[^2]: Though, it follows similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by a competitor. But I won't spoil it for you. 
 
 [^3]: 1 Billion tokens a day keeps the doctor away.  
 
