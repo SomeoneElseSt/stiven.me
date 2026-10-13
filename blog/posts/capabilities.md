@@ -42,17 +42,19 @@ Congrats! You now know some undergraduate microeconomics. Try asking: "Why doesn
 
 <a id="after-dwl"></a>
 
-Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find, for varying supply and demand curves, points of equilibria) and the current paradigms of coding agents. 
+Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find points of equilibria for different supply and demand curves) and the current paradigms of coding agents. 
 
 I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^3]. 
 
 I've observed an inverse relationship between the skill needed by a human to accomplish a task and how good a model is. 
 
-For example, if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. Working with small models (in the 10-100B parameters range) requires more hand holding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
+For example, if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. Working with small models (in the 10-100B parameters range) requires hand holding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
 
-In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is currently true for any task that frontier models aren't good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  
+In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is currently true for any task that frontier models aren't good at or when using handicapped models. It's part of why open-weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now[^4].  
 
-We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model cost. The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it. At the right, it's overkill. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, just as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
+We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model cost. I assume more capable models are more expensive.
+
+The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it and cheap. At the right, it's overkill and expensive. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
 ![Human steering and model cost plotted against how capable the model is relative to the task.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Cost")
 
@@ -62,24 +64,27 @@ A simple example to illustrate DWL in this graph is when frontier models are use
 
 The economic argument against this is obvious: you're using frontier tokens for trivial tasks. Ideally, you'd want to save the cost.
 
-The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller/faster model. Like if Cursor's Composer did it rather than have Astra think for a minute. 
+The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller model. Like if Cursor's Composer did it rather than have Astra think for a minute. 
 
-And even if your very smart model was ultra fast, that is expensive right now, so the economical argument still holds: others *could* do the same thing just as fast for cheaper, if we had the systems to transfer context efficiently (sort of pass the ball but for models).
+And even if your very smart model was ultra fast, that is expensive right now, so the economical argument still holds: others *could* do the same thing just as fast for cheaper if we had the systems to transfer context efficiently and on the spot.
 
 I see this mattering in the short to medium term but not the long term. 
 
-When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within the company that are heavily token-subsidized[^4]. 
+When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
 
 Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs maintain token subsidies until that happens, it'll be less of an issue. 
 
-If frontier intelligence does increase in cost, I see three technical challenges need to be cleared for a "DWL-optimized harness" that chooses the right intelligence and speed for a task: 
-- Transferring context efficiently: how to transfer context between models cheaply and quickly, ideally at as close to zero cost and latency. This is most important for individual tasks.
-- Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache / model weights offloading and reloading so that every watt of compute is being routed to something at a given time. 
+We've seen this to be true empirically when labs release smaller versions of their frontier models (Fable, GPT 6.1 Sol) that are similarly capable for much cheaper. 
+
+I still think a "DWL-optimized harness" will be useful when intelligence diffuses to the economy and token usage grows by many magnitudes. Most tasks will be done for nickles, if the infrastructure enables it. I see three technical challenges in the way:
+
+- Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This is important for individual tasks and threads.
+- Parallelism: if many models are doing many tasks, how can inference providers maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolbench to do this yet. 
 
-I expect that while intelligence is subsidized, companies and individuals will use frontier models because it feels like the safe choice and it requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
+I expect that while intelligence is subsidized, companies and individuals will keep using frontier models because it feels like the safe choice and requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
 
-But to diffuse AI into the wider economy at its current price, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save their token spend, both for use by individuals within an organization and for specific tasks. 
+But to diffuse AI into the wider economy, much work needs to be done on simple to use optimizers that small and medium sized organizations can use to save on their token spend, both for individuals within an organization and for specific tasks. 
 
 Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. Hence the need for diffusion companies.  
 
@@ -97,7 +102,7 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
+Another dimension the graph doesn't capture is time[^6]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
 
 Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
 
@@ -124,6 +129,8 @@ In either case, we'll be better off from it. It will provide healthcare and educ
 
 [^3]: 1 Billion tokens a day keeps the doctor away.  
 
-[^4]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
+[^4]: This also means less-skilled individuals can now do work that previously needed extensive training and experience. [This](https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html) blog post by a developer laid off due to AI describes how their company chose to do layoffs because *"AI assistance raised the capability of work for the less passionate, less experienced, and less costly workforce"*. This isn't a new phenomenon. It's similar to how sewing machinery made jobs traditionally done by hand accessible to anyone, anywhere, who knew how to operate it, permitting offshoring in the '60s. It's the reason why hiring for engineering jobs is shifting from being technically focused to highlighting traditionally undervalued skills, as I discuss toward the end of the post.
 
-[^5]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
+[^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
+
+[^6]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
