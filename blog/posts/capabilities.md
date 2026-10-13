@@ -84,11 +84,13 @@ I see this mattering in the short to medium term but not the long term.
 
 When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
 
-Long-term, I expect frontier intelligence to become too cheap to meter and very fast. If the labs maintain token subsidies until that happens, it'll be less of an issue. 
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' model. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). In that scenario, everyone might as well use the same model for everything. This is my definition of AGI. 
 
-We've seen this to be true empirically when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper. 
+So far we've seen this to be true empirically when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
 
-I still think a "DWL-optimized harness" will be useful while intelligence diffuses to the economy and token usage grows by many orders of magnitude. It will make most tasks near free, fast, runnable on edge hardware[^6], and routable to the cloud when necessary. I see three technical challenges in the way:
+I still think a "DWL-optimized harness" will be useful while intelligence diffuses to the economy and token usage grows by many orders of magnitude, especially if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo. 
+
+It will make most tasks near free, fast, runnable on edge hardware[^7], and routable to the cloud when necessary. I see three technical challenges in the way:
 
 - Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This is important for individual tasks and threads.
 - Parallelism: if many models are doing many tasks, how can inference engines maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
@@ -114,19 +116,19 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-Another dimension the graph doesn't capture is time[^7]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
+Another dimension the graph doesn't capture is time[^8]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
 
 Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
 
 If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
 
-Last, the analogy doesn't capture some qualitative aspects of models.
-
-Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
+The analogy also doesn't capture some qualitative aspects of models.  Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
 
 It discounts qualitative differences in the character of different model lines. This is partly reconciled if we think of the x-axis as a model family, e.g., Haiku being underpowered, Sonnet generally balanced, and Opus often overkill.
 
 Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.
+
+Lastly, what about work that is not part of the graph? That is, work that doesn't have a quantifiable "right" result, such as the arts, and work (e.g., products) that is completely new and doesn't have a point of comparison to define right from . 
 
 I see two paths going forward for the future of work:
 - Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
@@ -145,6 +147,8 @@ In either case, we'll be better off from it. It will provide healthcare and educ
 
 [^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 
-[^6]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
+[^6]: Though the scaling laws - especially test-time compute scaling - would suggest these existing architectures won't suffice to reach a terminal model, at least on the speed and success rate requirements.
 
-[^7]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
+[^7]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
+
+[^8]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
