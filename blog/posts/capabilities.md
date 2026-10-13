@@ -130,12 +130,18 @@ Together, both parts of the graph paint a cohesive story: the frontier will lay 
 
 Lastly, what about work that is not part of the graph? That is, work that doesn't have a quantifiable "right" result, such as the arts, and work (e.g., products) that is completely new and doesn't have a point of comparison to define right from . 
 
+How making new things settles at equilibria, because success is defined by your own criteria.
+
 I see two paths going forward for the future of work:
 - Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
 - If we do optimize everything optimizable (though I expect this to take a long while), we'll make different problems for ourselves that 
 require skills outside the scope of optimization (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
 
 In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. 
+
+Economists note as close off! And CS people looking at economics.
+
+Maybe any interesting calculus/algebra from DWL that is transferable?
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (e.g. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (e.g. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
@@ -147,7 +153,7 @@ In either case, we'll be better off from it. It will provide healthcare and educ
 
 [^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 
-[^6]: Though the scaling laws - especially test-time compute scaling - would suggest these existing architectures won't suffice to reach a terminal model, at least on the speed and success rate requirements.
+[^6]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
 
 [^7]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
 
