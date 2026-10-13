@@ -84,11 +84,13 @@ I see this mattering in the short to medium term but not the long term.
 
 When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
 
-Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' model. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). In that scenario, everyone might as well use the same model for everything. This is my definition of AGI. 
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' model. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
 
-So far we've seen this to be true empirically when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
+In that scenario, everyone might as well use the same model for everything a model can legally do, discounting for differences in style and presentation. This is my definition of AGI. 
 
-I still think a "DWL-optimized harness" will be useful while intelligence diffuses to the economy and token usage grows by many orders of magnitude, especially if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo. 
+Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
+
+I still think a "DWL-optimized harness" will be useful as intelligence diffuses to the economy and token usage grows by many orders of magnitude, especially if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo. 
 
 It will make most tasks near free, fast, runnable on edge hardware[^7], and routable to the cloud when necessary. I see three technical challenges in the way:
 
@@ -141,9 +143,9 @@ In either case, we'll be better off from it. It will provide healthcare and educ
 
 As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well in the field, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
 
-For example: the DWL's area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
+For example: the DWL's triangle area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
 
-Someone building a router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn't know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.
+Someone building a model router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn't know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.
 
 You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
 
