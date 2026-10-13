@@ -11,10 +11,10 @@ Imagine you have a seller - say, a business - and many buyers that want to buy a
 How does that good get priced? Some buyers might be willing to pay more for it than others, so the seller could set prices high. This seems reasonable, but if 8 buyers were able to pay $12 each while 2 were able to pay $40, setting the price of the good to $40 is a *net* loss at $80, as pricing it at $12 would net $96, leaving a $16+ difference on the table. Not to mention the social effects making the good available to more people might have[^1]. 
 
 Let's formalize this: 
-- In this example, the seller can price the good at any price in the range 1-100. This is called the *supply curve*.
-- Some number of buyers can afford the good at a given price within the range. This is called the *demand curve*. We'll consider 10 buyers total, each able to afford it at a different price.
+- The seller can price the good at any price in the range 1-100. This is called the *supply curve*.
+- Some number of buyers can afford the good at a given price. This is called the *demand curve*. We'll consider 10 buyers total, each able to afford it at a different price.
 
-We can plot each of these curves against each other. This will be helpful for finding what is the optimal price a seller should sell their product at. 
+We can plot each of these curves against each other. This will be helpful for finding the optimal price a seller should sell their product at. 
 
 ![Supply and demand curves plotted as price against quantity.](/blog/assets/figures/en/supply-demand-curves.png "Supply and Demand Curves")
 
@@ -26,7 +26,7 @@ The optimal price lies in the intersection of the two curves. Intuitively, it's 
 
 This is the scenario with the *most given* for the *most paid*, and is called a state of equilibrium. We can now talk about dead-weight loss (DWL). 
 
-Conceptually, DWL is the profit the seller could've made had they priced their product closer to equilibrium when the product is too expensive or cheap. 
+DWL is the profit the seller could've made had they priced their product closer to equilibrium when the product is too expensive or cheap. 
 
 We visualize it as the area between the corners of 1) the equilibrium point, 2) the point at the demand curve the good was priced at, and 3) the point on the supply curve at the same quantity. 2 and 3 are parallel to each other, making DWL look like a triangle. Let's visualize it for when the good is sold at $80. 
 
@@ -34,39 +34,35 @@ We visualize it as the area between the corners of 1) the equilibrium point, 2) 
 
 The area in the triangle represents goods the seller could've sold had they priced their product closer to equilibrium, letting them net a higher profit. 
 
-DWL on the other side of the graph is profit the seller is missing out on due to pricing the good at too low of a price. It's sometimes referred to as philanthropy - ok, no, but you get the idea. It's when consumers are benefiting at the cost of money the business could be making if the good was priced higher.
+DWL on the other side of the graph is profit the seller is missing out on due to pricing the good too low. It's sometimes referred to as philanthropy - ok, no, but you get the idea. It's when consumers are benefiting at the cost of money the business could be making if the good was priced higher.
 
 ![Deadweight loss triangle between the supply and demand curves when the good is sold at $20.](/blog/assets/figures/en/supply-demand-dwl-low-price.png "Deadweight Loss at a Price of $20")
 
-Congrats! You now know some undergraduate microeconomics. You can now ask: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it? Doesn't that minimize DWL?" and realize the real world isn't as simple and interpretable as this model[^2].
+Congrats! You now know some undergraduate microeconomics. Try asking: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it? Doesn't that minimize DWL?" and realize the real world isn't as simple and interpretable as this model[^2].
 
 <a id="after-dwl"></a>
 
-Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization and the current paradigms of coding agents. 
+Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find, for varying supply and demand curves, points of equilibria) and the current paradigms of coding agents. 
 
 I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^3]. 
 
-I've observed that there is an inverse relationship between the skill needed [by a human] to accomplish a task and how good a model is. 
+I've observed an inverse relationship between the skill needed by a human to accomplish a task and how good a model is. 
 
-Example: if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. If you're working with small models (with 30B parameters or lower), they need considerably more hand holding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
+For example, if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. Working with small models (in the 10-100B parameters range) requires more hand holding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
 
-In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is true for any task that frontier models aren't already good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity. You still need knowledgeable humans (and a ton of compute) to get the most out of them, at least for now.  
+In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is currently true for any task that frontier models aren't good at or when using handicapped models. It's part of why Open Weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  
 
-We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model cost. The x-axis represents how capable a model is relative to the task: at the very left, the model is too weak for it. At the very right, it's overkill. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, just as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
-
-Let's reintroduce the first graph with these changes.
+We can map these concepts onto the first graph if we swap the Demand curve with Human steering and the Supply curve with Model cost. The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it. At the right, it's overkill. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, just as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
 ![Human steering and model cost plotted against how capable the model is relative to the task.](/blog/assets/figures/en/human-model-curves.png "Human Steering and Model Cost")
 
-You might think we always want to be on the rightmost side of it. I think that constitutes dead-weight loss for both economic and practical reasons. 
-
-One simple example is using frontier models for trivial changes that a smaller model could've made. E.g., changing the copy in a page or running trivial git commands (when was the last time you prompted 'yes, push it'?). 
+A simple example to illustrate DWL in this graph is when frontier models are used for trivial work that a smaller model could do. E.g., changing the copy in a page or running trivial git commands (when was the last time you prompted 'yes, push it'?). 
 
 ![Deadweight loss on the right side of the human steering and model cost graph, where a frontier model is used for a trivial task.](/blog/assets/figures/en/human-model-overreliance.png "Deadweight Loss From an Overpowered Model")
 
-The economic argument is obvious: you're using frontier tokens for trivial tasks. Ideally, you'd want to save the cost.
+The economic argument against this is obvious: you're using frontier tokens for trivial tasks. Ideally, you'd want to save the cost.
 
-The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller/faster model. Like if Cursor's Composer did it rather than have Astra think for a minute straight. 
+The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller/faster model. Like if Cursor's Composer did it rather than have Astra think for a minute. 
 
 And even if your very smart model was ultra fast, that is expensive right now, so the economical argument still holds: others *could* do the same thing just as fast for cheaper, if we had the systems to transfer context efficiently (sort of pass the ball but for models).
 
@@ -101,23 +97,23 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the qualitative difference in mental load: it is so much easier to just prompt your way through. You don't really need to think. 
+Another dimension the graph doesn't capture is time[^5]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
 
 Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
 
-In my opinion, if accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It's part of the diffusion process. 
+If accuracy can be quantified and the task is economically valuable, they will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest to introduce automation. It's part of the diffusion process. 
 
 Last, the analogy doesn't capture some qualitative aspects of models.
 
 Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
 
-It assumes models are simply capable and without character. But it can be reconciled if we think of the x-axis as a model family, e.g., Haiku being underpowered, Sonnet generally balanced, and Opus often overkill.
+It discounts qualitative differences in the character of different model lines. This is partly reconciled if we think of the x-axis as a model family, e.g., Haiku being underpowered, Sonnet generally balanced, and Opus often overkill.
 
 Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.
 
 I see two paths going forward for the future of work:
 - Skills that can not be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
-- If we do optimize everything optimizable (though I expect this to take really long), we'll make different problems for ourselves that 
+- If we do optimize everything optimizable (though I expect this to take a long while), we'll make different problems for ourselves that 
 require skills outside the scope of optimization (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
 
 In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. 
