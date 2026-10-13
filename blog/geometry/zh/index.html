@@ -91,7 +91,7 @@
 <p>你可能在那里没学到的是，几何是描述概率的一种强大方式，特别是在对包含所有感兴趣结果的集合 <strong>A</strong> 进行划分时。</p>
 <p>3Blue1Brown 关于贝叶斯定理的视频很好地展示了如何将所有可能的结果（在他们的例子中，是一群人的职业）视为一个矩形，该矩形可以分解为重叠的部分，从中可以推导出贝叶斯定理。你可以在<a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">这里</a>观看。</p>
 <p>将此应用于掷硬币问题，我们可以通过类似的视觉化方式：样本空间，来展示掷硬币六次后可能得到的所有正面和反面序列（&#39;HHHTTT&#39;、&#39;HTHTHT&#39;、&#39;HHHHHH&#39; 等）。样本空间是针对给定实验可能发生的各种离散结果或路径的视觉化展示。在这个例子中，即掷硬币序列。</p>
-<p><img src="/blog/assets/figures/zh/coin-sample-space-n-6.png" alt="6 次连续 [独立] 掷硬币的样本空间" title="硬币样本空间"></p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/zh/coin-sample-space-n-6-light.png" alt="6 次连续 [独立] 掷硬币的样本空间" title="硬币样本空间"></p>
 <details>
 <summary>显示可视化代码</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>左侧的第一个方块显示第 0 次掷硬币。由于它有确定的发生概率，它占据了整个 Y 轴。第二个方块显示第一次掷硬币的结果。由于它可以是正面或反面，它占据了两个均匀间隔的方块。</p>
 <p>再往右看，每个方块的结果数量都会翻倍，这在直觉上是合理的，因为我们分别为每次掷硬币扩展了 2 个子结果。</p>
 <p>Y 轴根据比例给出了每条单一路径发生的概率。位于中心的路径——正面和反面分布均匀——占据了 Y 轴的较大部分，因为自然地，它们是最有可能发生的；而连续正面或反面的路径（呈阶梯状完全向下或向上）在 Y 轴上占据的比例不断减小，这与其极低的概率相对应，如下所示。</p>
-<p><img src="/blog/assets/figures/zh/coin-sample-space-shaded-staircase.png" alt="连续反面或正面的阴影阶梯。" title="连续反面或正面的阴影阶梯。"></p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/zh/coin-sample-space-shaded-staircase-light.png" alt="连续反面或正面的阴影阶梯。" title="连续反面或正面的阴影阶梯。"></p>
 <details>
 <summary>显示可视化代码</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>你开始看到这里的几何与概率之间的联系了吗？你可以通过选择其末端方块并测量其高度来测量任何给定序列的概率。这使得像“获得特定序列（如 &#39;HTHHTHH&#39;）的可能性有多大”这样的问题变得容易回答；只需追踪图表即可！</p>
 <p>那么为什么这很重要呢？你可能还记得大数定律，在足够多的运行中，结果会平均化为它们的真实概率。如果你永远抛掷一枚公平的硬币并计算你得到正面或反面的次数，得到其中任何一个的概率都会变成 50% 和 50%。不过，上面的图表并没有真正让这一点变得直观。毕竟，最可能的序列似乎只是坍缩成长度不断增加的团块。</p>
 <p>但有些东西就隐藏在显眼的地方：正态分布。如果我们绘制从 1 到 100 次抛掷中所有可能结果中正面的比例，如下所示，在均值 50% 附近的分布收敛之前，有一个清晰的钟形分布。<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p><img src="/blog/assets/figures/zh/coin-sample-space-proportion-heads.png" alt="N=0 到 N=100 硬币样本空间中正面的比例" title="N=0 到 N=100 硬币样本空间中正面的比例"></p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/zh/coin-sample-space-proportion-heads-light.png" alt="N=0 到 N=100 硬币样本空间中正面的比例" title="N=0 到 N=100 硬币样本空间中正面的比例"></p>
 <details>
 <summary>显示可视化代码</summary>
 
@@ -584,7 +584,7 @@ main()
 <p>现在，我们可以看到比例确实会趋于 50%，如果我们将此扩展到更多的 <strong>N</strong>，我们最终会看到一条完全平直的线。<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
 <p>有趣的是，在 <strong>N</strong> &lt; 20 时，结果的分布大多是正态的。黄线起到视觉辅助作用：如果我们停止在这些线处采样比例，中心将遵循中心极限定理，积累大多数结果并平滑成一个钟形，而极边缘显示两种类型的结果：起初，要么得到正面，要么得不到正面，并且以极低的概率，连续得不到任何正面或连续得到所有正面。</p>
 <p>我们可以通过观察叠加并镜像在样本空间分布图上的前一张图来直观地解释这一点：</p>
-<p><img src="/blog/assets/figures/zh/coin-sample-space-overlay.png" alt="前两张图的叠加，样本空间镜像在比例样本空间之上。" title="前两张图的叠加，样本空间镜像在比例样本空间之上。"></p>
+<p><img src="/blog/assets/figures/zh/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/zh/coin-sample-space-overlay-light.png" alt="前两张图的叠加，样本空间镜像在比例样本空间之上。" title="前两张图的叠加，样本空间镜像在比例样本空间之上。"></p>
 <details>
 <summary>显示可视化代码</summary>
 
@@ -884,31 +884,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

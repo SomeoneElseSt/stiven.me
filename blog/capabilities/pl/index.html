@@ -93,17 +93,17 @@
 <li>Pewna liczba kupujących może pozwolić sobie na towar przy danej cenie. Nazywa się to <em>krzywą popytu</em>. Weźmiemy pod uwagę łącznie 10 kupujących, z których każdy może sobie na to pozwolić w innej cenie.</li>
 </ul>
 <p>Możemy wykreślić każdą z tych krzywych względem siebie. Będzie to pomocne w znalezieniu optymalnej ceny, po której sprzedawca powinien sprzedawać swój produkt.</p>
-<p><img src="/blog/assets/figures/pl/supply-demand-curves.png" alt="Krzywe podaży i popytu wykreślone jako cena w stosunku do ilości." title="Krzywe Podaży i Popytu"></p>
+<p><img src="/blog/assets/figures/pl/supply-demand-curves.png" data-light-src="/blog/assets/figures/pl/supply-demand-curves-light.png" alt="Krzywe podaży i popytu wykreślone jako cena w stosunku do ilości." title="Krzywe Podaży i Popytu"></p>
 <p>Wszystkie 10 osób może pozwolić sobie na jednostkę towaru, gdy cena wynosi zero. Jednak sprzedawca nie może zaoferować go za mniej niż 10 USD (może to być jego cena progu rentowności). Czy powinni ustalić cenę wysoko czy nisko?</p>
 <p>Optymalna cena znajduje się na przecięciu obu krzywych. Intuicyjnie jest to maksymalna liczba jednostek, które sprzedawca może sprzedać po najwyższej cenie. Pięć jednostek po 50 USD każda daje 250 USD netto. Znacznie więcej niż 160 USD ze sprzedaży dwóch jednostek po 80 USD i więcej niż sprzedaż wielu jednostek po 20 USD, co również daje łącznie 160 USD. Możemy to zwizualizować.</p>
-<p><img src="/blog/assets/figures/pl/supply-demand-equilibrium.png" alt="Krzywe podaży i popytu z zaznaczonym punktem równowagi i dwoma alternatywnymi punktami cenowymi." title="Równowaga i Alternatywne Punkty Cenowe"></p>
+<p><img src="/blog/assets/figures/pl/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/pl/supply-demand-equilibrium-light.png" alt="Krzywe podaży i popytu z zaznaczonym punktem równowagi i dwoma alternatywnymi punktami cenowymi." title="Równowaga i Alternatywne Punkty Cenowe"></p>
 <p>Jest to scenariusz, w którym <em>najwięcej dano</em> za <em>najwięcej zapłacono</em>, i nazywa się to stanem równowagi. Możemy teraz porozmawiać o stracie jałowej (DWL).</p>
 <p>DWL to zysk, który sprzedawca mógłby osiągnąć, gdyby wycenił swój produkt bliżej punktu równowagi, gdy produkt jest zbyt drogi lub tani.</p>
 <p>Wizualizujemy to jako obszar między rogami 1) punktu równowagi, 2) punktu na krzywej popytu, w którym towar został wyceniony, oraz 3) punktu na krzywej podaży przy tej samej ilości. Punkty 2 i 3 są do siebie równoległe, sprawiając, że DWL wygląda jak trójkąt. Zwizualizujmy to dla sytuacji, gdy towar jest sprzedawany za 80 USD.</p>
-<p><img src="/blog/assets/figures/pl/supply-demand-dwl.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za 80 USD." title="Strata Jałowa przy Cenie 80 USD"></p>
+<p><img src="/blog/assets/figures/pl/supply-demand-dwl.png" data-light-src="/blog/assets/figures/pl/supply-demand-dwl-light.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za 80 USD." title="Strata Jałowa przy Cenie 80 USD"></p>
 <p>Obszar w trójkącie reprezentuje towary, które sprzedawca mógłby sprzedać, gdyby wycenił swój produkt bliżej równowagi, co pozwoliłoby mu uzyskać wyższy zysk netto.</p>
 <p>DWL po drugiej stronie wykresu to zysk, który sprzedawca traci z powodu zbyt niskiej wyceny towaru. Czasami nazywa się to filantropią – no dobrze, nie, ale rozumiesz o co chodzi. Dzieje się tak, gdy konsumenci odnoszą korzyści kosztem pieniędzy, które firma mogłaby zarobić, gdyby towar był wyceniony wyżej.</p>
-<p><img src="/blog/assets/figures/pl/supply-demand-dwl-low-price.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za 20 USD." title="Strata Jałowa przy Cenie 20 USD"></p>
+<p><img src="/blog/assets/figures/pl/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/pl/supply-demand-dwl-low-price-light.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za 20 USD." title="Strata Jałowa przy Cenie 20 USD"></p>
 <p>Gratulacje! Znasz już podstawy mikroekonomii dla studentów. Spróbuj zapytać: „Dlaczego Apple nie wycenia swoich starych zapasów niżej, biorąc pod uwagę, że są warte mniej, a niektórzy ludzie nadal mogliby je kupić? Czy to nie zminimalizowałoby DWL?” i zdaj sobie sprawę, że świat rzeczywisty nie jest tak prosty i interpretowalny jak ten model<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
 <p><a id="after-dwl"></a></p>
 <p>Dobrze, więc dlaczego piszę o DWL? Widzę pewne podobieństwa między ideami minimalizacji DWL (wykorzystanie rachunku różniczkowego do znajdowania punktów równowagi dla różnych krzywych podaży i popytu) a obecnymi paradygmatami agentów programistycznych.</p>
@@ -119,9 +119,9 @@
 <p>Kiedy piszę „koszt”, mam na myśli moc obliczeniową potrzebną do uruchomienia instancji modelu. Większe modele są ogólnie lepsze i wymagają więcej mocy obliczeniowej do działania.</p>
 <p>Będę to nazywać „kosztem” na blogu, ponieważ jest to łatwiejsze do przyswojenia. Należy zauważyć, że moc obliczeniowa i koszt pieniężny będą mapować się jeden do jednego, gdy laboratoria przestaną dotować tokeny<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. Wykresy zakładają, że mapują się one jeden do jednego.</p>
 <p>Oś X reprezentuje to, jak zdolny jest model w stosunku do zadania: po lewej stronie model jest zbyt słaby i tani. Po prawej stronie jest przesadą i jest drogi. Oś Y reprezentuje to, co płacisz. Wysokość linii ludzkiej to to, jak dużego sterowania model potrzebuje od ciebie, podczas gdy wysokość linii modelu to koszt modelu. Im bardziej zdolny model, tym mniej sterowania potrzebuje i tym więcej kosztuje.</p>
-<p><img src="/blog/assets/figures/pl/human-model-curves.png" alt="Ludzkie sterowanie i koszt modelu wykreślone w zależności od tego, jak zdolny jest model w stosunku do zadania." title="Ludzkie Sterowanie i Koszt Modelu"></p>
+<p><img src="/blog/assets/figures/pl/human-model-curves.png" data-light-src="/blog/assets/figures/pl/human-model-curves-light.png" alt="Ludzkie sterowanie i koszt modelu wykreślone w zależności od tego, jak zdolny jest model w stosunku do zadania." title="Ludzkie Sterowanie i Koszt Modelu"></p>
 <p>Prostym przykładem ilustrującym DWL na tym wykresie jest sytuacja, w której modele z czołówki są używane do trywialnej pracy, którą mógłby wykonać mniejszy model. Np. zmiana tekstu na stronie lub uruchamianie trywialnych poleceń git (kiedy ostatnio wpisałeś <code>yes, push it</code>?).</p>
-<p><img src="/blog/assets/figures/pl/human-model-overreliance.png" alt="Strata jałowa po prawej stronie wykresu ludzkiego sterowania i kosztu modelu, gdzie model z czołówki jest używany do trywialnego zadania." title="Strata Jałowa z Powodu Zbyt Potężnego Modelu"></p>
+<p><img src="/blog/assets/figures/pl/human-model-overreliance.png" data-light-src="/blog/assets/figures/pl/human-model-overreliance-light.png" alt="Strata jałowa po prawej stronie wykresu ludzkiego sterowania i kosztu modelu, gdzie model z czołówki jest używany do trywialnego zadania." title="Strata Jałowa z Powodu Zbyt Potężnego Modelu"></p>
 <p>Argument ekonomiczny przeciwko temu jest oczywisty: używasz tokenów z czołówki do trywialnych zadań. Idealnie byłoby zaoszczędzić ten koszt.</p>
 <p>Argument praktyczny jest taki, że gdyby wydatki na tokeny nie były problemem, prawdopodobnie byłoby szybciej, gdybyś użył mniejszego modelu. Na przykład, gdyby Composer w Cursorze zrobił to w 10 sekund, zamiast kazać Astrze myśleć przez minutę.</p>
 <p>Nawet gdyby twój inteligentny model był ultraszybki, jest to obecnie bardzo drogie, więc argument ekonomiczny nadal obowiązuje: inni <em>mogliby</em> robić to samo równie szybko taniej, gdybyśmy mieli systemy do wydajnego i natychmiastowego przesyłania kontekstu. Nieracjonalne jest nie oszczędzać na kosztach (niestety ludzie są <em>bardzo</em> nieracjonalni).</p>
@@ -141,11 +141,11 @@
 <p>Jednak aby rozprzestrzenić AI w szerszej gospodarce, należy wykonać wiele pracy nad prostymi w użyciu optymalizatorami, z których mogą korzystać małe i średnie organizacje, aby zaoszczędzić na wydatkach na tokeny, zarówno dla osób w organizacji, jak i dla konkretnych zadań.</p>
 <p>Parafrazując: Jev może być bardzo tani, ale przeciętny sprzedawca w sklepie lub pracownik organizacji non-profit nie weźmie klucza API i nie zrobi ewaluacji, aby sprawdzić, czy pokona Astrę w swoim zadaniu klasyfikacyjnym. Woleliby nacisnąć przycisk lub zapytać swojego agenta i zobaczyć wyniki do wyboru.</p>
 <p>Na wykresie równowaga ma sens, jeśli pomyślisz o niej jako o modelu o najlepszej szybkości, cenie i inteligencji do zadania. Dotarcie tam wymaga wysiłku ludzkiego: skonfigurowania infrastruktury i ewaluacji w celu znalezienia tego modelu (zarówno jego wstępnego wyboru, jak i zmiany w czasie wykonywania). Natomiast korzystanie z modelu z czołówki oszczędza ci pracy, ale słono kosztuje.</p>
-<p><img src="/blog/assets/figures/pl/human-model-equilibrium.png" alt="Równowaga między ludzkim sterowaniem a kosztem modelu, gdzie model jest w sam raz do zadania." title="Równowaga Między Ludzkim Sterowaniem a Kosztem Modelu"></p>
+<p><img src="/blog/assets/figures/pl/human-model-equilibrium.png" data-light-src="/blog/assets/figures/pl/human-model-equilibrium-light.png" alt="Równowaga między ludzkim sterowaniem a kosztem modelu, gdzie model jest w sam raz do zadania." title="Równowaga Między Ludzkim Sterowaniem a Kosztem Modelu"></p>
 <p>Spodziewam się, że zmieni się to wraz z uprzężami, które automatycznie kierują zadania, oraz prostszą infrastrukturą do oceny i trenowania modeli specyficznych dla zadań. Miło jest również to, że jest to zdefiniowany wysiłek inżynieryjny. Jeśli zrobimy to dobrze raz, wszyscy skorzystają.</p>
 <p>A co z DWL po lewej stronie wykresu?</p>
 <p>Niedawno eksperymentowałem z rodziną modeli Qwen, uruchamiając je lokalnie na moim komputerze za pomocą Ollamy. To było rozczarowujące. Wiedzą one dużo i potrafią wykonywać imponujące sztuczki jak na mały model, ale gdy tylko rzucisz im prawdziwe zadanie, marnują swoje budżety kontekstowe, nadmiernie analizując niepotrzebne szczegóły.</p>
-<p><img src="/blog/assets/figures/pl/human-model-underreliance.png" alt="Strata jałowa po lewej stronie wykresu ludzkiego sterowania i kosztu modelu, gdzie mały model wymaga silnego ludzkiego wsparcia." title="Strata Jałowa z Powodu Zbyt Słabego Modelu"></p>
+<p><img src="/blog/assets/figures/pl/human-model-underreliance.png" data-light-src="/blog/assets/figures/pl/human-model-underreliance-light.png" alt="Strata jałowa po lewej stronie wykresu ludzkiego sterowania i kosztu modelu, gdzie mały model wymaga silnego ludzkiego wsparcia." title="Strata Jałowa z Powodu Zbyt Słabego Modelu"></p>
 <p>Mogłem zmusić je do zrobienia tego, co chciałem, tylko wskazując dokładne linie kodu, na które musiały spojrzeć. Musiałem nawet zmienić część kodu ręcznie, ponieważ mimo że mówiłem im pięć razy z rzędu, aby wykonały zmianę, model po prostu myślał i myślał, aż jego kontekst się przepełnił.</p>
 <p>Innym wymiarem, którego wykres nie uchwycił, jest czas<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>. Ukończenie mojego projektu z Qwen zajęło mi znacznie więcej czasu, ponieważ wymagał on tak dużego prowadzenia za rękę. Wiedziałem, że modele z czołówki zrobiłyby to w znacznie krótszym czasie. Nie oddaje to również różnicy w obciążeniu psychicznym: o wiele łatwiej jest wypracować sobie drogę za pomocą promptów. Naprawdę nie musisz myśleć.</p>
 <p>Chociaż w moim przypadku zdecydowałem się przez to przejść, ponieważ chciałem poeksperymentować. W świecie rzeczywistym DWL po lewej stronie jest widoczny w zadaniach, w których modele nie są <em>jeszcze</em> dobre. Dziwne benchmarki finansowe, benchmarki badawcze ML i zadania związane z używaniem komputera. Nadal potrzebujesz ludzi przeglądających i kierujących wynikami modelu.</p>
@@ -345,31 +345,9 @@
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

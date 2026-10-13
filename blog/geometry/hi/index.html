@@ -91,7 +91,7 @@
 <p>आपने वहां जो नहीं सीखा होगा वह यह है कि ज्यामिति प्रायिकता का वर्णन करने का एक शक्तिशाली तरीका है, विशेष रूप से जब सभी रुचि के परिणामों के साथ एक सेट <strong>A</strong> को विभाजित किया जाता है।</p>
 <p>बेयस प्रमेय (Bayes&#39; theorem) पर 3Blue1Brown का वीडियो यह कल्पना करने का एक शानदार काम करता है कि कैसे कोई सभी संभावित परिणामों (उनके उदाहरण में, लोगों के एक समूह का पेशा) को एक आयत के रूप में मान सकता है जिसे ओवरलैपिंग अनुभागों में तोड़ा जा सकता है जिससे बेयस प्रमेय प्राप्त किया जा सकता है। आप इसे <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">यहाँ</a> देख सकते हैं।</p>
 <p>इसे सिक्के के उछाल वाले प्रश्न पर लागू करते हुए, हम उन सभी संभावित चित और पट अनुक्रमों (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39;, आदि) की कल्पना कर सकते हैं जो एक सिक्के को छह बार उछालने के बाद एक समान विज़ुअलाइज़ेशन के साथ प्राप्त हो सकते हैं: एक नमूना स्थान (sample space)। एक नमूना स्थान किसी दिए गए प्रयोग के लिए होने वाले सभी संभावित असतत परिणामों या पथों का एक विज़ुअलाइज़ेशन है। इस उदाहरण में, सिक्के के उछाल के अनुक्रम।</p>
-<p><img src="/blog/assets/figures/hi/coin-sample-space-n-6.png" alt="6 लगातार [स्वतंत्र] सिक्के के उछाल के लिए नमूना स्थान" title="सिक्का नमूना स्थान"></p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/hi/coin-sample-space-n-6-light.png" alt="6 लगातार [स्वतंत्र] सिक्के के उछाल के लिए नमूना स्थान" title="सिक्का नमूना स्थान"></p>
 <details>
 <summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>बाईं ओर का पहला ब्लॉक 0वीं सिक्के की उछाल को दर्शाता है। चूंकि इसके होने की निश्चित संभावना है, इसलिए यह पूरे Y-अक्ष पर कब्जा कर लेता है। दूसरा ब्लॉक पहले सिक्के की उछाल के परिणाम को दर्शाता है। चूंकि यह या तो चित या पट हो सकता है, इसलिए यह दो समान रूप से दूरी वाले ब्लॉकों पर कब्जा कर लेता है।</p>
 <p>दाईं ओर आगे बढ़ने पर, प्रत्येक ब्लॉक के परिणामों की संख्या दोगुनी हो जाती है, जो सहज रूप से समझ में आता है क्योंकि हम प्रत्येक सिक्के की उछाल को क्रमशः 2 चाइल्ड परिणामों के साथ विस्तारित कर रहे हैं।</p>
 <p>Y-अक्ष अपने अनुपात के अनुसार प्रत्येक एकल पथ के होने की प्रायिकता देता है। केंद्र के साथ वाले पथ — चित और पट के बीच समान भिन्नता के साथ — Y-अक्ष के एक बड़े हिस्से पर कब्जा कर लेते हैं, क्योंकि स्वाभाविक रूप से, वे सबसे संभावित होते हैं, जबकि लगातार चित या पट के पथ (या तो पूरी तरह से नीचे या ऊपर जा रहे हैं, एक सीढ़ी पैटर्न में), Y-अक्ष के निरंतर घटते अनुपात पर कब्जा कर लेते हैं, जैसा कि नीचे दिखाया गया है।</p>
-<p><img src="/blog/assets/figures/hi/coin-sample-space-shaded-staircase.png" alt="लगातार पट या चित छायांकित सीढ़ी।" title="लगातार पट या चित छायांकित सीढ़ी।"></p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/hi/coin-sample-space-shaded-staircase-light.png" alt="लगातार पट या चित छायांकित सीढ़ी।" title="लगातार पट या चित छायांकित सीढ़ी।"></p>
 <details>
 <summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>क्या आप यहाँ ज्यामिति और प्रायिकता के बीच संबंध देखना शुरू कर रहे हैं? आप इसके टर्मिनल ब्लॉक को चुनकर और उसकी ऊंचाई मापकर किसी भी दिए गए अनुक्रम के लिए प्रायिकता माप सकते हैं। यह &#39;HTHHTHH&#39; जैसे विशिष्ट अनुक्रम प्राप्त करने की संभावना कितनी है जैसे प्रश्नों का उत्तर देना आसान बनाता है; बस ग्राफ को ट्रेस करें!</p>
 <p>तो यह महत्वपूर्ण क्यों है? जैसा कि आपको बड़ी संख्याओं के नियम (law of large numbers) से याद होगा, पर्याप्त रनों के बाद, परिणाम अपनी वास्तविक प्रायिकताओं के औसत पर आ जाते हैं। यदि आप हमेशा के लिए एक निष्पक्ष सिक्का उछालते हैं और गिनते हैं कि आपको कितनी बार चित या पट मिलता है, तो दोनों में से किसी एक को प्राप्त करने की संभावना 50% और 50% हो जाती है। हालाँकि, ऊपर दिया गया ग्राफ वास्तव में इसे सहज नहीं बनाता है। आखिरकार, ऐसा लगता है कि सबसे संभावित अनुक्रम बस बढ़ती लंबाई के ब्लॉब में सिमट जाते हैं।</p>
 <p>लेकिन कुछ सादे दृश्य में छिपा है: एक सामान्य वितरण (normal distribution)। यदि हम 1 से 100 उछालों के सभी संभावित परिणामों में चित के अनुपात को प्लॉट करते हैं जैसा कि नीचे दिखाया गया है, तो 50% पर माध्य के चारों ओर वितरण के अभिसरण से पहले एक स्पष्ट घंटी के आकार का वितरण होता है।<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p><img src="/blog/assets/figures/hi/coin-sample-space-proportion-heads.png" alt="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात" title="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात"></p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/hi/coin-sample-space-proportion-heads-light.png" alt="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात" title="N=0 से N=100 तक सिक्के के नमूना स्थान में चित का अनुपात"></p>
 <details>
 <summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
@@ -585,7 +585,7 @@ main()
 <p>अब, हम देख सकते हैं कि अनुपात वास्तव में 50% तक बराबर हो जाएगा, और यदि हम इसे कई और <strong>N</strong> तक विस्तारित करते हैं तो हम अंततः एक पूरी तरह से सीधी रेखा देखेंगे।<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
 <p>दिलचस्प बात यह है कि <strong>N</strong> &lt; 20 पर परिणामों का वितरण ज्यादातर सामान्य होता है। पीली रेखाएं एक दृश्य सहायता के रूप में कार्य करती हैं: यदि हमने उन रेखाओं पर अनुपात का नमूना लेना बंद कर दिया, तो केंद्र केंद्रीय सीमा प्रमेय (central limit theorem) का पालन करेगा, अधिकांश परिणामों को संचित करेगा और एक घंटी के आकार में सुचारू हो जाएगा, जबकि किनारे दो प्रकार के परिणाम दिखाते हैं: पहले, या तो चित प्राप्त करना या नहीं, और बहुत कम संभावना पर, लगातार कोई चित प्राप्त नहीं करना या लगातार सभी चित प्राप्त करना।</p>
 <p>हम नमूना स्थान वितरण प्लॉट पर ओवरलेड और मिरर किए गए पिछले आंकड़े को देखकर इसे सहजता से समझा सकते हैं:</p>
-<p><img src="/blog/assets/figures/hi/coin-sample-space-overlay.png" alt="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।" title="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।"></p>
+<p><img src="/blog/assets/figures/hi/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/hi/coin-sample-space-overlay-light.png" alt="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।" title="अनुपात नमूना स्थान के शीर्ष पर नमूना स्थान के साथ पिछले दो प्लॉट का ओवरले।"></p>
 <details>
 <summary>विज़ुअलाइज़ेशन कोड दिखाएं</summary>
 
@@ -885,31 +885,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

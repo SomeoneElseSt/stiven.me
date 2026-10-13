@@ -93,17 +93,17 @@
 <li>特定の価格で商品を購入できる買い手の数。これは「需要曲線」と呼ばれます。ここでは計10人の買い手がいて、それぞれが異なる価格で購入できるとします。</li>
 </ul>
 <p>これらの曲線を互いにプロットすることができます。これは、売り手が商品を販売すべき最適な価格を見つけるのに役立ちます。</p>
-<p><img src="/blog/assets/figures/ja/supply-demand-curves.png" alt="価格対数量としてプロットされた供給曲線と需要曲線。" title="供給曲線と需要曲線"></p>
+<p><img src="/blog/assets/figures/ja/supply-demand-curves.png" data-light-src="/blog/assets/figures/ja/supply-demand-curves-light.png" alt="価格対数量としてプロットされた供給曲線と需要曲線。" title="供給曲線と需要曲線"></p>
 <p>価格がゼロのとき、10人全員が商品のユニットを購入できます。しかし、売り手は10ドル未満で提供することはできません（これが彼らの損益分岐点かもしれません）。彼らは高く設定すべきでしょうか、それとも安く設定すべきでしょうか？</p>
 <p>最適な価格は2つの曲線の交点にあります。直感的には、売り手が最高の価格で販売できる最大ユニット数です。1つ50ドルで5ユニット売れば250ドルの利益になります。80ドルで2ユニット売った場合の160ドルや、20ドルで大量に売った場合の計160ドルよりもはるかに高くなります。これを可視化してみましょう。</p>
-<p><img src="/blog/assets/figures/ja/supply-demand-equilibrium.png" alt="均衡点と2つの代替価格点がマークされた供給曲線と需要曲線。" title="均衡点と代替価格点"></p>
+<p><img src="/blog/assets/figures/ja/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/ja/supply-demand-equilibrium-light.png" alt="均衡点と2つの代替価格点がマークされた供給曲線と需要曲線。" title="均衡点と代替価格点"></p>
 <p>これは「最も多く提供され、最も多く支払われる」シナリオであり、「均衡」状態と呼ばれます。ここで死荷重（DWL）について話すことができます。</p>
 <p>DWLとは、商品が高すぎたり安すぎたりする場合に、製品の価格を均衡に近づけていれば売り手が得られたはずの利益のことです。</p>
 <p>それは、1）均衡点、2）商品が値付けされた需要曲線上の点、3）同じ数量における供給曲線上の点の3つの角の間の面積として可視化されます。2と3は互いに平行であるため、DWLは三角形のように見えます。商品が80ドルで販売された場合を可視化してみましょう。</p>
-<p><img src="/blog/assets/figures/ja/supply-demand-dwl.png" alt="商品が80ドルで販売されたときの、供給曲線と需要曲線の間の死荷重の三角形。" title="80ドルの価格における死荷重"></p>
+<p><img src="/blog/assets/figures/ja/supply-demand-dwl.png" data-light-src="/blog/assets/figures/ja/supply-demand-dwl-light.png" alt="商品が80ドルで販売されたときの、供給曲線と需要曲線の間の死荷重の三角形。" title="80ドルの価格における死荷重"></p>
 <p>三角形の面積は、売り手が価格を均衡に近づけていれば販売でき、より高い利益を得られたはずの商品の量を表しています。</p>
 <p>グラフの反対側にあるDWLは、価格を低く設定しすぎたために売り手が逃している利益です。これは時として慈善活動（フィランソロピー）と呼ばれることもあります。いや、嘘ですが、意図は伝わるでしょう。消費者が恩恵を受ける一方で、価格が高ければ企業が得られたはずの利益が失われている状態です。</p>
-<p><img src="/blog/assets/figures/ja/supply-demand-dwl-low-price.png" alt="商品が20ドルで販売されたときの、供給曲線と需要曲線の間の死荷重の三角形。" title="20ドルの価格における死荷重"></p>
+<p><img src="/blog/assets/figures/ja/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/ja/supply-demand-dwl-low-price-light.png" alt="商品が20ドルで販売されたときの、供給曲線と需要曲線の間の死荷重の三角形。" title="20ドルの価格における死荷重"></p>
 <p>おめでとうございます！これで学部レベルのミクロ経済学を少し習得しました。「なぜAppleは、価値が下がっていて、まだ買う人がいるかもしれない旧モデルの在庫をもっと安く売らないのか？そうすればDWLを最小限に抑えられるのではないか？」と自問してみてください。そして、現実の世界はこのモデルほど単純でも解釈可能でもないことに気づくでしょう<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>。</p>
 <p><a id="after-dwl"></a></p>
 <p>さて、なぜ私はDWLについて書いているのでしょうか？私は、DWLの最小化（微分積分を用いて異なる供給曲線と需要曲線の均衡点を見つけること）のアイデアと、現在のコーディングエージェントのパラダイムとの間にいくつかの類似点を見ています。</p>
@@ -119,9 +119,9 @@
 <p>私が「コスト」と書くとき、それはモデルのインスタンスを実行するために必要なコンピューティングリソースのことを指しています。一般的に大きなモデルほど性能が良く、実行により多くの計算資源を必要とします。</p>
 <p>ブログでは消化しやすいように「コスト」と呼びます。ラボがトークンの補助金提供を止めれば、計算資源と金銭的コストは一対一で対応するようになることに注意してください<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>。プロットはそれらが一対一で対応すると仮定しています。</p>
 <p>x軸は、タスクに対してモデルがどれほど有能かを表します。左側ではモデルは弱すぎて安価です。右側では過剰性能で高価です。y軸は支払う価格を表します。人間のラインの高さはモデルが必要とするステアリングの量であり、モデルのラインの高さはモデルのコストです。モデルが有能になればなるほど、必要なステアリングは減り、コストは上がります。</p>
-<p><img src="/blog/assets/figures/ja/human-model-curves.png" alt="タスクに対するモデルの有能さと比較した、人間のステアリングとモデルのコストのプロット。" title="人間のステアリングとモデルのコスト"></p>
+<p><img src="/blog/assets/figures/ja/human-model-curves.png" data-light-src="/blog/assets/figures/ja/human-model-curves-light.png" alt="タスクに対するモデルの有能さと比較した、人間のステアリングとモデルのコストのプロット。" title="人間のステアリングとモデルのコスト"></p>
 <p>このグラフにおけるDWLを示す単純な例は、小規模なモデルでも実行可能な些細な作業にフロンティアモデルが使用される場合です。例えば、ページ上のテキストを変更したり、些細なgitコマンドを実行したりする場合です（最後に「yes, push it」とプロンプトを出したのはいつですか？）。</p>
-<p><img src="/blog/assets/figures/ja/human-model-overreliance.png" alt="人間のステアリングとモデルのコストのグラフの右側にある死荷重。フロンティアモデルが些細なタスクに使用されている状態。" title="過剰な性能のモデルによる死荷重"></p>
+<p><img src="/blog/assets/figures/ja/human-model-overreliance.png" data-light-src="/blog/assets/figures/ja/human-model-overreliance-light.png" alt="人間のステアリングとモデルのコストのグラフの右側にある死荷重。フロンティアモデルが些細なタスクに使用されている状態。" title="過剰な性能のモデルによる死荷重"></p>
 <p>これに対する経済的な反論は明白です。些細なタスクにフロンティアトークンを浪費しているからです。理想的には、コストを節約したいはずです。</p>
 <p>実用的な反論は、もしトークンの消費が懸念事項でないなら、より小規模なモデルを使用したほうが速いだろうということです。CursorのComposerがAstraに1分間考えさせるのではなく、10秒で処理してくれるようなものです。</p>
 <p>たとえスマートなモデルが超高速だったとしても、現在は非常に高価です。したがって、経済的な反論は依然として有効です。コンテキストを効率的かつ即座に転送するシステムがあれば、他の誰かが同じことをより安く、同じ速さで行うことが<em>できる</em>からです。コストを節約しないのは不合理です（残念ながら、人間は<em>非常に</em>不合理ですが）。</p>
@@ -141,11 +141,11 @@
 <p>しかし、AIをより広い経済に拡散させるためには、小規模および中規模の組織がトークン支出を節約するために使用できる、使いやすい最適化ツールについて多くの作業を行う必要があります。これは組織内の個人にとっても、特定のタスクにとっても同様です。</p>
 <p>言い換えれば、Jevは非常に安価かもしれませんが、平均的な店員や非営利団体の職員がAPIキーを取得し、Astraに勝るかどうかを確認するために評価を作成することはありません。彼らはボタンを押すか、エージェントに頼んで結果を確認し、そこから選びたいのです。</p>
 <p>グラフにおいて、均衡は、タスクにとって速度、価格、知能が最適に組み合わさったモデルと考えるのが合理的です。そこに到達するには人間の努力が必要です。そのモデルを見つけるためのインフラと評価をセットアップすることです（事前に選択するか、実行時に変更するかの両方）。一方で、フロンティアモデルを使用すれば手間は省けますが、コストはかさみます。</p>
-<p><img src="/blog/assets/figures/ja/human-model-equilibrium.png" alt="人間のステアリングとモデルのコストの間の均衡。モデルがタスクに対して「ちょうど良い」状態。" title="人間のステアリングとモデルのコストの均衡"></p>
+<p><img src="/blog/assets/figures/ja/human-model-equilibrium.png" data-light-src="/blog/assets/figures/ja/human-model-equilibrium-light.png" alt="人間のステアリングとモデルのコストの間の均衡。モデルがタスクに対して「ちょうど良い」状態。" title="人間のステアリングとモデルのコストの均衡"></p>
 <p>自動ルーティングを行うハーネスや、タスク固有のモデルを評価・訓練するためのよりシンプルなインフラによって、この状況は変わると予想しています。また、これが明確なエンジニアリングの取り組みであることも好ましい点です。一度正しく機能させれば、全員が恩恵を受けられます。</p>
 <p>では、グラフの左側のDWLについてはどうでしょうか？</p>
 <p>最近、QwenファミリーのモデルをOllamaを使って自分のコンピューターでローカルに動かし、実験していました。それは期待外れでした。彼らは多くのことを知っており、小規模モデルとしては印象的なトリックをやってのけますが、いざ実際のタスクを投げると、不必要な詳細を考えすぎてコンテキスト予算を使い果たしてしまうのです。</p>
-<p><img src="/blog/assets/figures/ja/human-model-underreliance.png" alt="人間のステアリングとモデルのコストのグラフの左側にある死荷重。小規模なモデルが人間の重い指導を必要としている状態。" title="性能不足のモデルによる死荷重"></p>
+<p><img src="/blog/assets/figures/ja/human-model-underreliance.png" data-light-src="/blog/assets/figures/ja/human-model-underreliance-light.png" alt="人間のステアリングとモデルのコストのグラフの左側にある死荷重。小規模なモデルが人間の重い指導を必要としている状態。" title="性能不足のモデルによる死荷重"></p>
 <p>私が望むことをさせるには、見るべき正確なコード行を指定するしかありませんでした。5回連続で変更を実行するよう伝えても、ひたすら考え続け、コンテキストがオーバーフローするまで考え続けたため、いくつかのコードは手作業で変更せざるを得ませんでした。</p>
 <p>グラフが捉えていないもう一つの次元は「時間」です<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>。Qwenでのプロジェクト完了にはかなり時間がかかりました。あまりに多くの手助けが必要だったからです。フロンティアモデルを使えば、はるかに短い時間で終わっていたはずだとわかっていました。また、メンタルロードの差も捉えていません。プロンプトで進めていくほうがはるかに楽なのです。本当に考える必要がありませんから。</p>
 <p>もっとも私の場合は、実験したかったのであえて苦労することを選びました。現実の世界では、左側のDWLはモデルが<em>まだ</em>得意としていないタスクに現れます。風変わりな金融ベンチマークやML研究ベンチマーク、コンピューター使用（Computer Use）タスクなどです。モデルの出力をレビューし、ステアリングする人々が依然として必要です。</p>
@@ -345,31 +345,9 @@
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

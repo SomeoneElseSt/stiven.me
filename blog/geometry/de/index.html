@@ -91,7 +91,7 @@
 <p>Was Sie dort vielleicht nicht gelernt haben, ist, dass Geometrie eine kraftvolle Art ist, Wahrscheinlichkeit zu beschreiben, insbesondere wenn man eine Menge <strong>A</strong> mit allen interessierenden Ergebnissen partitioniert.</p>
 <p>Das Video von 3Blue1Brown über das Bayes-Theorem leistet großartige Arbeit bei der Visualisierung, wie man alle möglichen Ergebnisse (in ihrem Beispiel der Beruf einer Gruppe von Personen) als ein Rechteck betrachten kann, das in überlappende Abschnitte unterteilt werden kann, aus denen das Bayes-Theorem abgeleitet werden kann. Sie können es sich <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">hier</a> ansehen.</p>
 <p>Wendet man dies auf die Frage des Münzwurfs an, können wir alle möglichen Kopf- und Zahl-Sequenzen (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39; usw.), die man nach sechsmaligem Werfen einer Münze erhalten kann, mit einer ähnlichen Visualisierung darstellen: einem Stichprobenraum. Ein Stichprobenraum ist eine Visualisierung aller möglichen diskreten Ergebnisse oder Pfade, die bei einem gegebenen Experiment auftreten können. In diesem Beispiel Münzwurfsequenzen.</p>
-<p><img src="/blog/assets/figures/de/coin-sample-space-n-6.png" alt="Stichprobenraum für 6 aufeinanderfolgende [unabhängige] Münzwürfe" title="Münz-Stichprobenraum"></p>
+<p><img src="/blog/assets/figures/de/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/de/coin-sample-space-n-6-light.png" alt="Stichprobenraum für 6 aufeinanderfolgende [unabhängige] Münzwürfe" title="Münz-Stichprobenraum"></p>
 <details>
 <summary>Visualisierungscode anzeigen</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>Der erste Block auf der linken Seite zeigt den 0. Münzwurf. Da er eine garantierte Eintrittswahrscheinlichkeit hat, nimmt er die gesamte Y-Achse ein. Der zweite Block zeigt das Ergebnis des ersten Münzwurfs. Da es entweder Kopf oder Zahl sein kann, nimmt er zwei gleichmäßig verteilte Blöcke ein.</p>
 <p>Weiter rechts verdoppelt sich in jedem Block die Anzahl der Ergebnisse, was intuitiv Sinn ergibt, da wir jeden Münzwurf um jeweils 2 Kind-Ergebnisse erweitern.</p>
 <p>Die Y-Achse gibt die Wahrscheinlichkeit für jeden einzelnen Pfad an, entsprechend seinem Anteil. Pfade entlang der Mitte — mit einer gleichmäßigen Variation zwischen Kopf und Zahl — nehmen einen größeren Teil der Y-Achse ein, da sie naturgemäß am wahrscheinlichsten sind, während Pfade von aufeinanderfolgendem Kopf oder Zahl (die entweder ganz nach unten oder nach oben verlaufen, in einem Treppenmuster) einen immer geringeren Anteil der Y-Achse einnehmen, im Verhältnis zu ihren sehr niedrigen Wahrscheinlichkeiten, wie unten gezeigt.</p>
-<p><img src="/blog/assets/figures/de/coin-sample-space-shaded-staircase.png" alt="Schattierte Treppe für aufeinanderfolgende Zahl oder Kopf." title="Schattierte Treppe für aufeinanderfolgende Zahl oder Kopf."></p>
+<p><img src="/blog/assets/figures/de/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/de/coin-sample-space-shaded-staircase-light.png" alt="Schattierte Treppe für aufeinanderfolgende Zahl oder Kopf." title="Schattierte Treppe für aufeinanderfolgende Zahl oder Kopf."></p>
 <details>
 <summary>Visualisierungscode anzeigen</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>Fangen Sie an, die Verbindung zwischen Geometrie und Wahrscheinlichkeit hier zu sehen? Sie könnten die Wahrscheinlichkeit für jede beliebige Sequenz messen, indem Sie ihren Endblock wählen und dessen Höhe messen. Es macht Fragen wie „Wie wahrscheinlich ist es, eine bestimmte Sequenz wie &#39;HTHHTHH&#39; zu erhalten?“ einfach zu beantworten; folgen Sie einfach dem Graphen!</p>
 <p>Warum ist das also wichtig? Wie Sie sich vielleicht aus dem Gesetz der großen Zahlen erinnern, gleichen sich die Ergebnisse über genügend Durchläufe hinweg an ihre wahren Wahrscheinlichkeiten an. Wenn Sie eine faire Münze ewig werfen und zählen, wie oft Sie Kopf oder Zahl erhalten, wird die Chance für beides zu 50 % und 50 %. Der obige Graph macht dies jedoch nicht wirklich intuitiv. Schließlich scheint es, als würden die wahrscheinlichsten Sequenzen einfach in Blobs von zunehmender Länge kollabieren.</p>
 <p>Aber etwas verbirgt sich direkt vor unseren Augen: eine Normalverteilung. Wenn wir den Anteil von Kopf in allen möglichen Ergebnissen von 1 bis 100 Würfen auftragen, wie unten gezeigt, gibt es eine klare glockenförmige Verteilung, bevor die Verteilung um den Mittelwert bei 50 % darauf konvergiert.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup></p>
-<p><img src="/blog/assets/figures/de/coin-sample-space-proportion-heads.png" alt="Anteil von Kopf im Münz-Stichprobenraum über N=0 bis N=100" title="Anteil von Kopf im Münz-Stichprobenraum über N=0 bis N=100"></p>
+<p><img src="/blog/assets/figures/de/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/de/coin-sample-space-proportion-heads-light.png" alt="Anteil von Kopf im Münz-Stichprobenraum über N=0 bis N=100" title="Anteil von Kopf im Münz-Stichprobenraum über N=0 bis N=100"></p>
 <details>
 <summary>Visualisierungscode anzeigen</summary>
 
@@ -584,7 +584,7 @@ main()
 <p>Nun können wir sehen, dass sich der Anteil tatsächlich bei 50 % einpendeln wird, und wenn wir dies auf viel größere <strong>N</strong> ausdehnen würden, würden wir am Ende eine völlig gerade Linie sehen.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup></p>
 <p>Interessant ist, dass bei <strong>N</strong> &lt; 20 die Verteilung der Ergebnisse größtenteils normal ist. Die gelben Linien dienen als visuelle Hilfe: Wenn wir aufhören würden, Anteile an diesen Linien zu messen, würde die Mitte dem zentralen Grenzwertsatz folgen, die meisten Ergebnisse akkumulieren und sich zu einer Glocke glätten, während die äußersten Ränder zwei Arten von Ergebnissen zeigen: zunächst entweder Kopf zu bekommen oder nicht, und mit einer sehr geringen Wahrscheinlichkeit, hintereinander keinen Kopf oder hintereinander nur Kopf zu bekommen.</p>
 <p>Wir können dies intuitiv erklären, indem wir uns die vorherige Abbildung ansehen, die über das Diagramm der Stichprobenraumverteilung gelegt und gespiegelt wurde:</p>
-<p><img src="/blog/assets/figures/de/coin-sample-space-overlay.png" alt="Überlagerung der beiden vorherigen Diagramme mit dem oben gespiegelten Stichprobenraum auf dem Anteil-Stichprobenraum." title="Überlagerung der beiden vorherigen Diagramme mit dem oben gespiegelten Stichprobenraum auf dem Anteil-Stichprobenraum."></p>
+<p><img src="/blog/assets/figures/de/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/de/coin-sample-space-overlay-light.png" alt="Überlagerung der beiden vorherigen Diagramme mit dem oben gespiegelten Stichprobenraum auf dem Anteil-Stichprobenraum." title="Überlagerung der beiden vorherigen Diagramme mit dem oben gespiegelten Stichprobenraum auf dem Anteil-Stichprobenraum."></p>
 <details>
 <summary>Visualisierungscode anzeigen</summary>
 
@@ -884,31 +884,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

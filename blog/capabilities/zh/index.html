@@ -93,17 +93,17 @@
 <li>一定数量的买方在给定价格下能负担得起该商品。这被称为<strong>需求曲线</strong>（demand curve）。我们总共考虑 10 个买方，每个人的负担能力都在不同的价格点上。</li>
 </ul>
 <p>我们可以将这些曲线相互绘制出来。这将有助于找到卖方销售产品的最佳价格。</p>
-<p><img src="/blog/assets/figures/zh/supply-demand-curves.png" alt="Supply and demand curves plotted as price against quantity." title="供给与需求曲线"></p>
+<p><img src="/blog/assets/figures/zh/supply-demand-curves.png" data-light-src="/blog/assets/figures/zh/supply-demand-curves-light.png" alt="Supply and demand curves plotted as price against quantity." title="供给与需求曲线"></p>
 <p>当价格为零时，所有 10 个人都能负担得起一个单位的商品。然而，卖方的报价不能低于 10 美元（这可能是他们的盈亏平衡价）。他们应该定价高还是低？</p>
 <p>最佳价格位于两条曲线的交点。直观地说，这是卖方在最高价格下能卖出的最大单位数量。5 个单位每个 50 美元，净收益 250 美元。这远高于以 80 美元卖出 2 个单位获得的 160 美元，也高于以 20 美元卖出大量单位获得的 160 美元。我们可以将其可视化。</p>
-<p><img src="/blog/assets/figures/zh/supply-demand-equilibrium.png" alt="Supply and demand curves with the equilibrium and two alternative price points marked." title="均衡点与替代价格点"></p>
+<p><img src="/blog/assets/figures/zh/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/zh/supply-demand-equilibrium-light.png" alt="Supply and demand curves with the equilibrium and two alternative price points marked." title="均衡点与替代价格点"></p>
 <p>这是“付出最多”与“支付最多”之间的情景，被称为<strong>均衡</strong>（equilibrium）状态。现在我们可以谈论无谓损失（DWL）了。</p>
 <p>DWL 是指当产品太贵或太便宜时，如果卖方将产品定价更接近均衡点本可以获得的利润。</p>
 <p>我们将其可视化为以下三个点之间的区域：1）均衡点，2）商品定价时需求曲线上的点，以及 3）相同数量下供给曲线上的点。2 和 3 相互平行，使 DWL 看起来像一个三角形。让我们看看商品以 80 美元售出时的可视化效果。</p>
-<p><img src="/blog/assets/figures/zh/supply-demand-dwl.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $80." title="80 美元价格下的无谓损失"></p>
+<p><img src="/blog/assets/figures/zh/supply-demand-dwl.png" data-light-src="/blog/assets/figures/zh/supply-demand-dwl-light.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $80." title="80 美元价格下的无谓损失"></p>
 <p>三角形内的区域代表了如果卖方将产品定价更接近均衡点本可以卖出的商品，从而让他们获得更高的利润。</p>
 <p>图表另一侧的 DWL 是指由于商品定价过低而错失的利润。它有时被形象地称为慈善——好吧，并不是，但你明白我的意思。这是指消费者获益，但代价是如果商品定价更高，企业本可以赚到的钱。</p>
-<p><img src="/blog/assets/figures/zh/supply-demand-dwl-low-price.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $20." title="20 美元价格下的无谓损失"></p>
+<p><img src="/blog/assets/figures/zh/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/zh/supply-demand-dwl-low-price-light.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $20." title="20 美元价格下的无谓损失"></p>
 <p>恭喜！你现在了解了一些本科微观经济学。试着问问：“既然苹果公司的旧库存价值较低，且仍有人会买，为什么苹果不把价格定得更低呢？这难道不会最小化 DWL 吗？”然后你会意识到，现实世界并不像这个模型那样简单和可解释<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>。</p>
 <p><a id="after-dwl"></a></p>
 <p>好，那么我为什么要写 DWL 呢？我发现 DWL 最小化（使用微积分寻找不同供给和需求曲线的均衡点）的理念与当前的编码智能体（coding agents）范式之间存在一些相似之处。</p>
@@ -119,9 +119,9 @@
 <p>当我写“成本”时，我指的是运行模型实例所需的算力（compute）。大模型通常更好，需要更多的算力来运行。</p>
 <p>我在博客中称之为“成本”，因为这更容易理解。请注意，当实验室停止补贴令牌（tokens）时，算力和金钱成本将实现一对一的映射<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>。图表假设它们是一对一映射的。</p>
 <p>x 轴代表模型相对于任务的能力：在左侧，模型对于任务来说太弱且便宜。在右侧，它大材小用且昂贵。y 轴代表你支付的代价。人类引导线的高度代表模型需要你进行的引导程度，而模型成本线的高度代表模型的成本。模型越强大，需要的引导越少，成本越高。</p>
-<p><img src="/blog/assets/figures/zh/human-model-curves.png" alt="Human steering and model cost plotted against how capable the model is relative to the task." title="人类引导与模型成本"></p>
+<p><img src="/blog/assets/figures/zh/human-model-curves.png" data-light-src="/blog/assets/figures/zh/human-model-curves-light.png" alt="Human steering and model cost plotted against how capable the model is relative to the task." title="人类引导与模型成本"></p>
 <p>图中说明 DWL 的一个简单例子是当前沿模型被用于较小模型就能完成的琐碎工作时。例如，更改页面上的文本或运行琐碎的 git 命令（你最后一次提示“是的，推送它”是什么时候？）。</p>
-<p><img src="/blog/assets/figures/zh/human-model-overreliance.png" alt="Deadweight loss on the right side of the human steering and model cost graph, where a frontier model is used for a trivial task." title="性能过剩模型导致的无谓损失"></p>
+<p><img src="/blog/assets/figures/zh/human-model-overreliance.png" data-light-src="/blog/assets/figures/zh/human-model-overreliance-light.png" alt="Deadweight loss on the right side of the human steering and model cost graph, where a frontier model is used for a trivial task." title="性能过剩模型导致的无谓损失"></p>
 <p>反对这种做法的经济理由是显而易见的：你正在将前沿模型的令牌用于琐碎任务。理想情况下，你会希望节省成本。</p>
 <p>实际的理由是，如果令牌支出不是问题，使用较小的模型可能会更快。比如 Cursor 的 Composer 在 10 秒内完成，而不是让 Astra 思考一分钟。</p>
 <p>即使你的智能模型速度极快，目前它也非常昂贵，所以经济理由仍然成立：如果我们拥有能够高效且即时传输上下文的系统，其他人<em>可以</em>用更低的成本以同样的速度完成同样的事情。不节省成本是不理智的（不幸的是，人类非常不理智）。</p>
@@ -141,11 +141,11 @@
 <p>但要将 AI 扩散到更广泛的经济中，还需要在易于使用的优化器上做大量工作，以便中小型组织能够节省令牌支出，无论是对于组织内的个人还是特定任务。</p>
 <p>换句话说：Jev 可能非常便宜，但普通的店员或非营利组织工作者不会去获取 API 密钥并进行评估，以查看它在分类任务上是否击败了 Astra。他们宁愿按下一个按钮或询问他们的智能体，然后查看结果进行选择。</p>
 <p>在图表中，如果你把均衡点看作是在速度、价格和智能方面最适合该任务的模型，那么它就是有意义的。达到这一目标需要人类的努力：建立基础设施和评估体系来找到那个模型（无论是预先选择还是在运行时更改）。而使用前沿模型可以省去这些工作，但成本很高。</p>
-<p><img src="/blog/assets/figures/zh/human-model-equilibrium.png" alt="Equilibrium between human steering and model cost, where the model is just right for the task." title="人类引导与模型成本之间的均衡"></p>
+<p><img src="/blog/assets/figures/zh/human-model-equilibrium.png" data-light-src="/blog/assets/figures/zh/human-model-equilibrium-light.png" alt="Equilibrium between human steering and model cost, where the model is just right for the task." title="人类引导与模型成本之间的均衡"></p>
 <p>我预计这将随着自动路由的框架以及评估和训练特定任务模型的更简单基础设施而改变。令人欣慰的是，这是一项明确的工程工作。如果我们做对了一次，所有人都会受益。</p>
 <p>那么图表左侧的 DWL 呢？</p>
 <p>我最近正在实验通义千问（Qwen）系列模型，使用 Ollama 在我的电脑上本地运行它们。结果令人失望。它们知识渊博，能为小模型完成令人印象深刻的技巧，但一旦你给它们布置一个真正的任务，它们就会因为过度思考不必要的细节而耗尽上下文预算。</p>
-<p><img src="/blog/assets/figures/zh/human-model-underreliance.png" alt="Deadweight loss on the left side of the human steering and model cost graph, where a small model needs heavy human guidance." title="性能不足模型导致的无谓损失"></p>
+<p><img src="/blog/assets/figures/zh/human-model-underreliance.png" data-light-src="/blog/assets/figures/zh/human-model-underreliance-light.png" alt="Deadweight loss on the left side of the human steering and model cost graph, where a small model needs heavy human guidance." title="性能不足模型导致的无谓损失"></p>
 <p>我只能通过指出它们必须查看的确切代码行来让它们做我想做的事情。我甚至不得不亲手更改一些代码，因为即使我连续五次告诉它们执行更改，它们只是思考，不停地思考，直到上下文溢出。</p>
 <p>图表未能捕捉到的另一个维度是时间<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>。由于 Qwen 需要如此多的手把手引导，我完成项目所花的时间明显更长。我知道使用前沿模型花的时间会少得多。它也没有捕捉到心理负担的差异：通过提示词来完成工作要容易得多。你不需要真正地去思考。</p>
 <p>虽然在我的案例中，我选择硬着头皮做下去是因为我想进行实验。在现实世界中，左侧的 DWL 显现在模型<em>尚未</em>擅长的任务上。奇特的金融基准测试、机器学习研究基准测试和计算机使用任务。你仍然需要人员审查和引导模型的输出。</p>
@@ -345,31 +345,9 @@
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>

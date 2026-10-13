@@ -91,7 +91,7 @@
 <p>To, czego mogłeś się tam nie dowiedzieć, to fakt, że geometria jest potężnym sposobem opisywania prawdopodobieństwa, szczególnie przy podziale zbioru <strong>A</strong> ze wszystkimi interesującymi nas wynikami. </p>
 <p>Wideo 3Blue1Brown na temat twierdzenia Bayesa świetnie wizualizuje, jak można rozpatrywać wszystkie możliwe wyniki (w ich przykładzie zawód grupy ludzi) jako prostokąt, który można podzielić na nakładające się sekcje, z których można wyprowadzić twierdzenie Bayesa. Możesz je obejrzeć <a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">tutaj</a>.</p>
 <p>Stosując to do pytania o rzut monetą, możemy zwizualizować wszystkie możliwe sekwencje orłów i reszek (&#39;HHHTTT&#39;, &#39;HTHTHT&#39;, &#39;HHHHHH&#39; itd.), jakie można uzyskać po sześciokrotnym rzucie monetą, za pomocą podobnej wizualizacji: przestrzeni zdarzeń elementarnych. Przestrzeń zdarzeń elementarnych to wizualizacja wszystkich możliwych dyskretnych wyników lub ścieżek, które mogą wystąpić w danym eksperymencie. W tym przykładzie są to sekwencje rzutów monetą. </p>
-<p><img src="/blog/assets/figures/pl/coin-sample-space-n-6.png" alt="Przestrzeń zdarzeń dla 6 kolejnych [niezależnych] rzutów monetą" title="Przestrzeń zdarzeń rzutu monetą"></p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-n-6.png" data-light-src="/blog/assets/figures/pl/coin-sample-space-n-6-light.png" alt="Przestrzeń zdarzeń dla 6 kolejnych [niezależnych] rzutów monetą" title="Przestrzeń zdarzeń rzutu monetą"></p>
 <details>
 <summary>Pokaż kod wizualizacji</summary>
 
@@ -248,7 +248,7 @@ main()
 <p>Pierwszy blok po lewej stronie pokazuje zerowy rzut monetą. Ponieważ ma on gwarantowane prawdopodobieństwo wystąpienia, zajmuje całą oś Y. Drugi blok pokazuje wynik pierwszego rzutu monetą. Ponieważ może to być orzeł lub reszka, zajmuje dwa równomiernie rozmieszczone bloki. </p>
 <p>Dalej na prawo, każdy blok podwaja liczbę swoich wyników, co ma sens intuicyjny, ponieważ rozszerzamy każdy rzut monetą o odpowiednio 2 wyniki potomne.</p>
 <p>Oś Y podaje prawdopodobieństwo wystąpienia każdej pojedynczej ścieżki zgodnie z jej proporcją. Ścieżki wzdłuż środka — z równomierną zmiennością między orłami a reszkami — zajmują większą część osi Y, ponieważ naturalnie są najbardziej prawdopodobne, podczas gdy ścieżki kolejnych orłów lub reszek (idące całkowicie w dół lub w górę, w schemacie schodkowym), zajmują coraz mniejszą proporcję osi Y, relatywnie do ich bardzo niskiego prawdopodobieństwa, jak pokazano poniżej.</p>
-<p><img src="/blog/assets/figures/pl/coin-sample-space-shaded-staircase.png" alt="Zacienione schody kolejnych reszek lub orłów." title="Zacienione schody kolejnych reszek lub orłów."></p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-shaded-staircase.png" data-light-src="/blog/assets/figures/pl/coin-sample-space-shaded-staircase-light.png" alt="Zacienione schody kolejnych reszek lub orłów." title="Zacienione schody kolejnych reszek lub orłów."></p>
 <details>
 <summary>Pokaż kod wizualizacji</summary>
 
@@ -411,7 +411,7 @@ main()
 <p>Czy zaczynasz dostrzegać związek między geometrią a prawdopodobieństwem? Możesz zmierzyć prawdopodobieństwo dla dowolnej sekwencji, wybierając jej blok końcowy i mierząc jego wysokość. Sprawia to, że pytania takie jak to, jak prawdopodobne jest uzyskanie konkretnej sekwencji, np. &#39;HTHHTHH&#39;, stają się łatwe do odpowiedzi; wystarczy prześledzić wykres!  </p>
 <p>Dlaczego więc jest to ważne? Jak zapewne pamiętasz z prawa wielkich liczb, przy wystarczającej liczbie prób wyniki uśredniają się do ich prawdziwych prawdopodobieństw. Jeśli będziesz rzucać uczciwą monetą w nieskończoność i liczyć, ile razy wypadnie orzeł lub reszka, szansa na uzyskanie któregokolwiek z nich wyniesie 50% i 50%. Powyższy wykres nie czyni tego jednak intuicyjnym. W końcu wydaje się, że najbardziej prawdopodobne sekwencje po prostu zapadają się w bloki o rosnącej długości.</p>
 <p>But coś ukrywa się na widoku: rozkład normalny. Jeśli wykreślimy proporcję orłów we wszystkich możliwych wynikach od 1 do 100 rzutów, jak pokazano poniżej, widać wyraźny rozkład w kształcie dzwonu, zanim rozkład wokół średniej na poziomie 50% zbiegnie się do niej.<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup> </p>
-<p><img src="/blog/assets/figures/pl/coin-sample-space-proportion-heads.png" alt="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100" title="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100"></p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-proportion-heads.png" data-light-src="/blog/assets/figures/pl/coin-sample-space-proportion-heads-light.png" alt="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100" title="Proporcja orłów w przestrzeni zdarzeń rzutu monetą dla N=0 do N=100"></p>
 <details>
 <summary>Pokaż kod wizualizacji</summary>
 
@@ -585,7 +585,7 @@ main()
 <p>Teraz widzimy, że proporcja rzeczywiście wyrówna się do 50%, a gdybyśmy rozszerzyli to do znacznie większego <strong>N</strong>, zobaczylibyśmy całkowicie prostą linię.<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup> </p>
 <p>Interesujące jest to, że przy <strong>N</strong> &lt; 20 rozkład wyników jest w większości normalny. Żółte linie działają jako pomoc wizualna: gdybyśmy przestali próbkować proporcje na tych liniach, środek podążałby za centralnym twierdzeniem granicznym, gromadząc większość wyników i wygładzając się do dzwonu, podczas gdy same krawędzie pokazują dwa rodzaje wyników: na początku albo wypadnięcie orła, albo nie, a przy bardzo niskim prawdopodobieństwie, kolejne braki orła lub kolejne same orły. </p>
 <p>Możemy to wyjaśnić intuicyjnie, patrząc na poprzednią figurę nałożoną i odzwierciedloną na wykresie rozkładu przestrzeni zdarzeń: </p>
-<p><img src="/blog/assets/figures/pl/coin-sample-space-overlay.png" alt="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji." title="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji."></p>
+<p><img src="/blog/assets/figures/pl/coin-sample-space-overlay.png" data-light-src="/blog/assets/figures/pl/coin-sample-space-overlay-light.png" alt="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji." title="Nałożenie dwóch poprzednich wykresów z przestrzenią zdarzeń odzwierciedloną na górze przestrzeni zdarzeń proporcji."></p>
 <details>
 <summary>Pokaż kod wizualizacji</summary>
 
@@ -885,31 +885,9 @@ main()
     <script>
         (function() {
             if (!document.documentElement.classList.contains('light-mode')) return;
-            var imgs = document.querySelectorAll('article img');
-            imgs.forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
-            });
-        })();
-    </script>
-    <script>
-        (function() {
-            if (!document.documentElement.classList.contains('light-mode')) return;
-            var contentEl = document.getElementById('post-content');
-            if (!contentEl) return;
-            contentEl.querySelectorAll('img').forEach(function(img) {
-                var src = img.getAttribute('src');
-                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
-                if (!match) return;
-                var lightSrc = match[1] + '-light' + match[2];
-                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
-                    if (res.ok) img.setAttribute('src', lightSrc);
-                });
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
             });
         })();
     </script>
