@@ -112,6 +112,24 @@ DWL_SCENARIOS = [
     },
 ]
 
+# Each example: model capability, the curve the dot sits on, and its label text position and alignment
+HUMAN_MODEL_EXAMPLE_POINTS = [
+    {
+        'capability': 20,
+        'curve': human_steering_share,
+        'label': '(Human steers {steering:.0f}% of the way.\nModel is cheap)',
+        'text_xy': (3, 58),
+        'align': 'left',
+    },
+    {
+        'capability': 80,
+        'curve': model_skill_share,
+        'label': '(Human steers {steering:.0f}% of the way.\nModel is costly)',
+        'text_xy': (97, 58),
+        'align': 'right',
+    },
+]
+
 EXAMPLE_POINTS = [
     {'quantity': 2, 'text_xy': (2.6, 92), 'align': 'left'},
     {'quantity': 5, 'text_xy': (6.0, 50), 'align': 'left'},
@@ -165,6 +183,14 @@ def draw_example_points(ax, bg, fg):
         quantity = example['quantity']
         point_xy = (quantity, price_on_demand_curve(quantity))
         draw_labeled_point(ax, bg, fg, point_xy, point_label(quantity), example['text_xy'], example['align'])
+
+
+def draw_human_model_example_points(ax, bg, fg):
+    for example in HUMAN_MODEL_EXAMPLE_POINTS:
+        capability = example['capability']
+        point_xy = (capability, example['curve'](capability))
+        label = example['label'].format(steering=human_steering_share(capability))
+        draw_labeled_point(ax, bg, fg, point_xy, label, example['text_xy'], example['align'])
 
 
 def dwl_colormap(traded_x, equilibrium_x):
@@ -271,7 +297,8 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for theme in ['dark', 'light']:
         render(theme, 'supply-demand-curves', with_points=False)
-        render(theme, 'human-model-curves', with_points=False, spec=HUMAN_MODEL_SPEC)
+        render(theme, 'human-model-curves', with_points=False, spec=HUMAN_MODEL_SPEC,
+               extra_drawing=draw_human_model_example_points)
         render(theme, 'human-model-equilibrium', with_points=False, spec=HUMAN_MODEL_SPEC,
                extra_drawing=draw_human_model_equilibrium_point)
         render(theme, 'human-model-underreliance', with_points=False, spec=HUMAN_MODEL_SPEC,
