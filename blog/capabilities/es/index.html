@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="e568ee82ac0445a5"/>
+    <title>La pérdida de peso muerto en la IA</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'es'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 1.5em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">La pérdida de peso muerto en la IA</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-10-12">12 de octubre de 2026</time>
+        </div>
+        <a href="/" class="back-button">← Atrás</a>
+    </div>
+    
+    <article id="post-content"><p>Asistí a una clase de economía en Berkeley durante mi primer año en San Francisco. Un amigo que estudiaba allí me invitó a visitarlo. Tenía que hacer algo durante la tarde y me dejó en uno de los pabellones. En aquel momento pensaba que quería estudiar economía, así que me alegró descubrir que una de las conferencias en ese pabellón era el curso de microeconomía de Berkeley, ECON 100A, y decidí asistir durante la primavera.</p>
+<p>Irónicamente, cuanto más estudiaba economía, más escéptico me sentía respecto a ella como ciencia social. Me parecía que sus teorías estaban demasiado limitadas y se basaban en supuestos poco razonables.</p>
+<p>Sin embargo, fue una asignatura divertida de estudiar. Tengo cientos de páginas de apuntes que tomé en una tableta de dibujo de gran tamaño conectada a mi ordenador, lo que debía de parecer la configuración más ridícula de todos los presentes en el pabellón. </p>
+<p>Mi concepto favorito de los que aprendí en esa clase es la pérdida de peso muerto, o PPM (DWL por sus siglas en inglés) para abreviar. Si ya estás familiarizado con ella, no dudes en saltarte esta sección (<a href="#after-dwl">haz clic aquí</a>). </p>
+<p>Imagina que tienes un vendedor —por ejemplo, una empresa— y muchos compradores que quieren comprar un bien de ese vendedor. Suponemos que el vendedor quiere ganar la mayor cantidad de dinero posible y que hay muchos compradores que pueden permitirse el producto a diferentes precios. </p>
+<p>¿Cómo se fija el precio de ese bien? Algunos compradores podrían estar dispuestos a pagar más por él que otros, por lo que el vendedor podría fijar precios altos. Esto parece razonable, pero si 8 compradores pudieran pagar 12 dólares cada uno mientras que 2 pudieran pagar 40 dólares, fijar el precio del bien en 40 dólares supondría una pérdida <em>neta</em> de 80 dólares, ya que fijarlo en 12 dólares supondría 96 dólares netos, dejando una diferencia de más de 16 dólares sobre la mesa. Por no hablar de los efectos sociales que podría tener el hecho de que el bien estuviera al alcance de más gente<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>. </p>
+<p>Formalicemos esto: </p>
+<ul>
+<li>El vendedor puede fijar el precio del bien en cualquier valor entre 1 y 100. Esto se llama la <em>curva de oferta</em>.</li>
+<li>Un cierto número de compradores pueden permitirse el bien a un precio determinado. Esto se llama la <em>curva de demanda</em>. Consideraremos 10 compradores en total, cada uno capaz de pagarlo a un precio diferente.</li>
+</ul>
+<p>Podemos graficar cada una de estas curvas una frente a la otra. Esto será útil para encontrar el precio óptimo al que un vendedor debería vender su producto. </p>
+<p><img src="/blog/assets/figures/en/supply-demand-curves.png" alt="Curvas de oferta y demanda graficadas como precio frente a cantidad." title="Curvas de oferta y demanda"></p>
+<p>Las 10 personas pueden permitirse una unidad del bien cuando el precio es cero. Sin embargo, el vendedor no puede ofrecerlo por menos de 10 dólares (este puede ser su precio de equilibrio). ¿Deberían fijar un precio alto o bajo?</p>
+<p>El precio óptimo se encuentra en la intersección de las dos curvas. Intuitivamente, es el número máximo de unidades que el vendedor puede vender al precio más alto. Cinco unidades a 50 dólares cada una rinden 250 dólares. Mucho más que los 160 dólares de vender dos unidades a 80 dólares, y más que vender muchas unidades a 20 dólares, que también suman 160 dólares. Podemos visualizar esto. </p>
+<p><img src="/blog/assets/figures/en/supply-demand-equilibrium.png" alt="Curvas de oferta y demanda con el equilibrio y dos puntos de precio alternativos marcados." title="Equilibrio y puntos de precio alternativos"></p>
+<p>Este es el escenario en el que se da lo <em>máximo</em> por lo <em>más pagado</em>, y se denomina estado de equilibrio. Ahora podemos hablar de la pérdida de peso muerto (PPM). </p>
+<p>La PPM es el beneficio que el vendedor podría haber obtenido si hubiera fijado el precio de su producto más cerca del equilibrio cuando el producto es demasiado caro o barato. </p>
+<p>La visualizamos como el área entre las esquinas de 1) el punto de equilibrio, 2) el punto en la curva de demanda donde se fijó el precio del bien, y 3) el punto en la curva de oferta para la misma cantidad. El 2 y el 3 son paralelos entre sí, lo que hace que la PPM parezca un triángulo. Vamos a visualizarla para cuando el bien se vende a 80 dólares. </p>
+<p><img src="/blog/assets/figures/en/supply-demand-dwl.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 80 dólares." title="Pérdida de peso muerto a un precio de 80 dólares"></p>
+<p>El área del triángulo representa los bienes que el vendedor podría haber vendido si hubiera fijado el precio de su producto más cerca del equilibrio, lo que le permitiría obtener un beneficio neto mayor. </p>
+<p>La PPM en el otro lado del gráfico es el beneficio que el vendedor está perdiendo por fijar el precio del bien demasiado bajo. A veces se le llama filantropía —vale, no, pero ya me entiendes—. Es cuando los consumidores se benefician a costa del dinero que la empresa podría estar ganando si el bien tuviera un precio más alto.</p>
+<p><img src="/blog/assets/figures/en/supply-demand-dwl-low-price.png" alt="Triángulo de pérdida de peso muerto entre las curvas de oferta y demanda cuando el bien se vende a 20 dólares." title="Pérdida de peso muerto a un precio de 20 dólares"></p>
+<p>¡Felicidades! Ya sabes algo de microeconomía de grado. Prueba a preguntar: &quot;¿Por qué Apple no pone un precio más bajo a sus existencias antiguas dado que valen menos y algunas personas aún podrían comprarlas? ¿No minimiza eso la PPM?&quot; y date cuenta de que el mundo real no es tan sencillo e interpretable como este modelo<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
+<p><a id="after-dwl"></a></p>
+<p>Bien, ¿por qué escribo sobre la PPM? Veo ciertos paralelismos entre las ideas de minimización de la PPM (el uso del cálculo para encontrar puntos de equilibrio para diferentes curvas de oferta y demanda) y los paradigmas actuales de los agentes de programación. </p>
+<p>Trabajo intensamente con agentes de programación. Casi todos los días estoy escribiendo prompts, revisando código, etc<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>. </p>
+<p>He observado una relación inversa entre la habilidad necesaria por parte de un humano para realizar una tarea y lo bueno que es un modelo. </p>
+<p>Por ejemplo, si trabajas con un modelo de frontera, generalmente basta con pedir lo que quieres. &quot;Arregla este error&quot;, &quot;Añade la función X&quot;, etc. Trabajar con modelos pequeños (en el rango de 10-100 mil millones de parámetros) requiere guía. Los prompts deben ser más largos y específicos porque, de lo contrario, los modelos se pierden en sus pensamientos y agotan sus ventanas de contexto antes de hacer algo útil.</p>
+<p>En otras palabras: cuando un modelo es malo o limitado en una tarea, los humanos compensan su deficiencia con sus propias habilidades y dirección. Esto ocurre actualmente en cualquier tarea en la que los modelos de frontera no son buenos o cuando se utilizan modelos limitados. Es parte de la razón por la que los modelos de pesos abiertos no son una amenaza tan grande como parece en ciberseguridad y biología. Sigue haciendo falta humanos con conocimientos para sacarles el máximo partido, al menos por ahora. </p>
+<p>Esta relación también significa que personas menos cualificadas pueden utilizar los modelos para realizar trabajos que antes requerían una formación y experiencia exhaustivas, en los casos en que la intervención humana es mínima o está más cerca de la supervisión que de la dirección. </p>
+<p><a href="https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html">Esta</a> entrada de blog de un desarrollador despedido debido a la IA describe cómo su empresa decidió hacer despidos porque <em>&quot;la asistencia de la IA elevó la capacidad de trabajo de la mano de obra menos apasionada, con menos experiencia y menos costosa&quot;</em>. </p>
+<p>Este no es un fenómeno nuevo. Es similar a cómo la maquinaria de coser hizo que los trabajos realizados tradicionalmente a mano fueran accesibles a cualquiera, en cualquier lugar, que supiera manejarla, permitiendo la deslocalización en los años 60. </p>
+<p>Es la razón por la que la contratación para puestos de ingeniería está pasando de centrarse en lo técnico a destacar habilidades tradicionalmente infravaloradas, como discuto hacia el final del post.</p>
+<p>Podemos representar estos conceptos en el primer gráfico si intercambiamos la curva de demanda por la dirección humana y la curva de oferta por el coste del modelo. Supongo que los modelos más capaces son más caros.</p>
+<p>Cuando escribo &quot;coste&quot;, me refiero al cómputo necesario para ejecutar una instancia de un modelo. Los modelos más grandes son generalmente mejores y requieren más cómputo para funcionar. </p>
+<p>Lo llamaré &quot;coste&quot; en el blog porque es más fácil de asimilar. Ten en cuenta que el cómputo y el coste monetario se corresponderán uno a uno cuando los laboratorios dejen de subvencionar los tokens<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. Los gráficos asumen que se corresponden uno a uno. </p>
+<p>El eje x representa la capacidad de un modelo en relación con la tarea: a la izquierda, el modelo es demasiado débil y barato. A la derecha, es excesivo y caro. El eje y representa lo que pagas. La altura de la línea humana es la dirección que el modelo necesita de ti, mientras que la altura de la línea del modelo es lo que cuesta el modelo. Cuanto más capaz es el modelo, menos dirección necesita y más cuesta. </p>
+<p><img src="/blog/assets/figures/en/human-model-curves.png" alt="Dirección humana y coste del modelo graficados frente a la capacidad del modelo en relación con la tarea." title="Dirección humana y coste del modelo"></p>
+<p>Un ejemplo sencillo para ilustrar la PPM en este gráfico es cuando se utilizan modelos de frontera para trabajos triviales que un modelo más pequeño podría hacer. Por ejemplo, cambiar el texto de una página o ejecutar comandos de git triviales (¿cuándo fue la última vez que escribiste &#39;sí, envíalo&#39;?). </p>
+<p><img src="/blog/assets/figures/en/human-model-overreliance.png" alt="Pérdida de peso muerto en el lado derecho del gráfico de dirección humana y coste del modelo, donde se utiliza un modelo de frontera para una tarea trivial." title="Pérdida de peso muerto por un modelo superpotente"></p>
+<p>El argumento económico contra esto es obvio: estás usando tokens de frontera para tareas triviales. Lo ideal sería ahorrar el coste.</p>
+<p>El argumento práctico es que si el gasto de tokens no fuera una preocupación, probablemente sería más rápido si utilizaras un modelo más pequeño. Como si el Composer de Cursor lo hiciera en 10 segundos en lugar de tener a Astra pensando durante un minuto. </p>
+<p>Incluso si tu modelo inteligente fuera ultrarrápido, eso es muy caro ahora mismo, por lo que el argumento económico sigue siendo válido: otros <em>podrían</em> hacer lo mismo con la misma rapidez por menos dinero si tuviéramos los sistemas para transferir el contexto de forma eficiente y en el acto. Es irracional no ahorrar el coste (desafortunadamente, los humanos somos <em>muy</em> irracionales).</p>
+<p>Veo que esto será importante a corto y medio plazo, pero no a largo plazo. </p>
+<p>Cuando cesen las subvenciones de tokens, un sistema de enrutamiento automático de prompts y tareas se volverá valioso para ahorrar gastos y tiempo innecesarios. Tanto para los empleados que utilizan la IA como para los sistemas dentro de las empresas que están fuertemente subvencionados mediante tokens<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>. </p>
+<p>A largo plazo, espero que la inteligencia de frontera llegue a ser demasiado barata para ser cobrada por uso y muy rápida. A esto lo llamo un modelo &quot;terminal&quot;. Una navaja suiza, por así decirlo, que funcione bien para el &gt;= 90% de las tareas y que no cueste nada ejecutarla (lo más probable porque utilizaría tu teléfono u ordenador). El 10% restante no serán tareas que el modelo no pueda hacer, sino tareas que no dejaríamos que hiciera solo, como alinearse a sí mismo o controlar armas nucleares. Estos campos seguirán necesitando humanos.</p>
+<p>en ese escenario, todo el mundo podría usar el mismo modelo para todo lo que un modelo pueda hacer legalmente, descontando las diferencias de estilo y presentación. Esta es mi definición de AGI. </p>
+<p>Empíricamente, hemos visto progresos en esta dirección cuando los laboratorios lanzan versiones más pequeñas de sus modelos de frontera (Fable de Mythos, GPT 6.1 Sol de Astra) que son igual de capaces por menos precio<sup><a id="footnote-ref-6" href="#footnote-6" data-footnote-ref aria-describedby="footnote-label">6</a></sup>. </p>
+<p>Sigo pensando que un &quot;arnés optimizado para la PPM&quot; será útil a medida que la inteligencia se difunda en la economía y el uso de tokens crezca en muchos órdenes de magnitud, especialmente si los gobiernos introducen regulaciones que frenen el desarrollo de un modelo terminal y nos instalemos en un statu quo. </p>
+<p>Hará que la mayoría de las tareas sean casi gratuitas, rápidas, ejecutables en hardware local<sup><a id="footnote-ref-7" href="#footnote-7" data-footnote-ref aria-describedby="footnote-label">7</a></sup> y direccionables a la nube cuando sea necesario. Veo tres retos técnicos en el camino:</p>
+<ul>
+<li>Transferencia eficiente del contexto: cómo transferir el contexto entre modelos con un coste y una latencia lo más cercanos a cero posible. Esto es importante para tareas e hilos individuales.</li>
+<li>Paralelismo: si muchos modelos están realizando muchas tareas, ¿cómo pueden los motores de inferencia maximizar la utilización de la GPU y la descarga y recarga de la caché KV / pesos del modelo para que cada vatio de cómputo se utilice constantemente?</li>
+<li>Perfilado de modelos: no es necesario enrutar las peticiones cada vez si ya sabes qué modelos se sitúan en el equilibrio. Que yo sepa, aún no existe un conjunto de herramientas de propósito general para hacer esto.</li>
+</ul>
+<p>Espero que mientras la inteligencia esté subvencionada, las empresas y los individuos sigan utilizando modelos de frontera porque parece la opción segura y requiere menos dirección. Las organizaciones conscientes del presupuesto harán sus propias evaluaciones (evals) y tal vez incluso apliquen RL a modelos pequeños (como hizo <a href="https://x.com/RampLabs/status/2052447438795833506">Ramp</a>). </p>
+<p>Pero para difundir la IA en la economía en general, queda mucho trabajo por hacer en optimizadores fáciles de usar que las pequeñas y medianas organizaciones puedan emplear para ahorrar en su gasto de tokens, tanto para individuos dentro de una organización como para tareas específicas. </p>
+<p>Parafraseando: Jev puede ser muy barato, pero el dependiente de tienda medio o el trabajador de una ONG no va a conseguir una clave de API y hacer una evaluación para ver si supera a Astra en su tarea de clasificación. Preferirán pulsar un botón o preguntar a su agente y ver los resultados para elegir.</p>
+<p>En el gráfico, el equilibrio tiene sentido si lo piensas como el modelo con la mejor velocidad, precio e inteligencia para la tarea. Llegar ahí requiere un esfuerzo humano: configurar la infraestructura y las evaluaciones para encontrar ese modelo (ya sea preseleccionándolo o cambiándolo en tiempo de ejecución). Mientras que usar un modelo de frontera te ahorra el trabajo pero cuesta mucho.</p>
+<p><img src="/blog/assets/figures/en/human-model-equilibrium.png" alt="Equilibrio entre la dirección humana y el coste del modelo, donde el modelo es justo el adecuado para la tarea." title="Equilibrio entre la dirección humana y el coste del modelo"></p>
+<p>Espero que esto cambie con arneses que enruten automáticamente e infraestructuras más sencillas para evaluar y entrenar modelos específicos para tareas. También es positivo que se trate de un esfuerzo de ingeniería definido. Si lo hacemos bien una vez, todo el mundo se beneficia.</p>
+<p>¿Qué pasa con la PPM en el lado izquierdo del gráfico?</p>
+<p>Hace poco estuve experimentando con la familia de modelos Qwen, ejecutándolos localmente en mi ordenador con Ollama. Fue decepcionante. Saben mucho y pueden hacer trucos impresionantes para ser modelos pequeños, pero en cuanto les planteas una tarea real, agotan sus presupuestos de contexto pensando demasiado en detalles innecesarios.</p>
+<p><img src="/blog/assets/figures/en/human-model-underreliance.png" alt="Pérdida de peso muerto en el lado izquierdo del gráfico de dirección humana y coste del modelo, donde un modelo pequeño necesita mucha guía humana." title="Pérdida de peso muerto por un modelo poco potente"></p>
+<p>Solo conseguí que hicieran lo que yo quería señalando las líneas exactas de código que debían mirar. Incluso tuve que cambiar algo de código a mano porque, aunque les dijera cinco veces seguidas que ejecutaran el cambio, simplemente pensaban y pensaban, hasta que su contexto se desbordaba. </p>
+<p>Otra dimensión que el gráfico no capta es el tiempo<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>. Tardé considerablemente más en terminar mi proyecto con Qwen porque necesitaba mucha ayuda. Sabía que con modelos de frontera habría terminado en mucho menos tiempo. Tampoco capta la diferencia en la carga mental: es mucho más fácil avanzar a base de prompts. Realmente no necesitas pensar. </p>
+<p>Aunque, en mi caso, elegí trabajar así porque quería experimentar. En el mundo real, la PPM a la izquierda es visible en tareas en las que los modelos aún no son buenos. Los extraños benchmarks financieros, los de investigación de ML y las tareas de uso del ordenador. Sigues necesitando a personas que revisen y dirijan los resultados del modelo. </p>
+<p>Si la precisión se puede cuantificar y la tarea es económicamente valiosa, acabará siendo conquistada, lo más probable primero en la frontera, desplazándose hacia la derecha. Esto es cierto para las tareas en las que los laboratorios y las startups tienen interés en introducir la automatización. Es parte del proceso de difusión. </p>
+<p>La analogía tampoco capta algunos aspectos cualitativos de los modelos. Como el hecho de que prefiera usar Claude para cualquier cosa conversacional, o Codex para el uso del ordenador. No capta cómo la gente empieza a confiar en que un modelo acertará el 90% de las veces y lo utiliza para trabajos específicos.</p>
+<p>Ignora las diferencias cualitativas en el carácter de las distintas líneas de modelos. Esto se reconcilia en parte si pensamos en el eje x como una familia de modelos, por ejemplo, siendo Haiku poco potente, Sonnet generalmente equilibrado y Opus a menudo excesivo.</p>
+<p>En conjunto, ambas partes del gráfico cuentan una historia cohesiva: la frontera sentará las bases de los retos más difíciles de forma costosa e ineficiente, mientras que la difusión los hará económicamente viables y rápidos.</p>
+<p>Veo dos caminos a seguir para el futuro del trabajo:</p>
+<ul>
+<li>Las habilidades que no se pueden optimizar (todavía) serán cada vez más valiosas. Por ejemplo, la comunicación interpersonal, la creación de relaciones.</li>
+<li>Si optimizamos todo lo optimizable (aunque espero que esto lleve mucho tiempo), nos crearemos problemas diferentes que requieran habilidades fuera del alcance de la optimización (ver <a href="https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other">este</a> ensayo).</li>
+</ul>
+<p>En cualquier caso, saldremos ganando. Proporcionará sanidad y educación a millones de personas en zonas desfavorecidas, permitirá una movilidad social masiva... todo lo demás. Eso sí, si logramos alinearlo. </p>
+<p>¿Qué pasa con el trabajo que no forma parte del gráfico? Es decir, el trabajo que no tiene un resultado &quot;correcto&quot; cuantificable, como las artes, y el trabajo (por ejemplo, productos, medios) que es completamente nuevo y no tiene un punto de comparación para definir qué es lo correcto.</p>
+<p>Si el modelo con el que trabajas puede hacer cualquier cosa que le pidas<sup><a id="footnote-ref-9" href="#footnote-9" data-footnote-ref aria-describedby="footnote-label">9</a></sup>, lo &quot;correcto&quot; en una búsqueda creativa depende totalmente de ti. El modelo se ajusta perfectamente a lo que quieres que haga, así que solo tú sabes dónde parar (suponiendo que el modelo sea terminal).</p>
+<p>Para ilustrar esto: si el escultor francés Auguste Rodin hubiera tenido acceso a una máquina que pudiera esculpir cualquier cosa que él quisiera, habría seguido dedicando una gran cantidad de tiempo a retocar sus piezas y a definir lo que debían transmitir. Cada una se caracteriza por lo que el autor estaba pasando en ese momento, o por la forma en que <em>eligió</em> retratar a otras personas.</p>
+<p>El <em>Monumento a Balzac</em> de Rodin es un buen ejemplo. </p>
+<p><img src="/blog/assets/monument-to-balzac-the-met.jpg" alt="Detalle del Estudio final de Auguste Rodin para el Monumento a Balzac: una figura de bronce envuelta en una pesada capa, con la cabeza echada hacia atrás." title="Auguste Rodin, Estudio final para el Monumento a Balzac. The Metropolitan Museum of Art."></p>
+<p>Cuando Rodin se propuso hacer un monumento para Balzac, un destacado escritor francés, afirmó que &quot;un hombre celebrado por su corazón y su mente no debería estar [representado por] su cuerpo&quot; (ver <a href="https://www.metmuseum.org/art/collection/search/207498">referencia</a>). Vemos esto en la escultura, que está lejos de ser idealizada o embellecida en su textura, sus contornos y la forma indefinida del rostro de Balzac. </p>
+<p>Esto hace que la escultura sea icónica. Hace que uno se pregunte por qué el autor eligió retratarlo así. Otros escultores podrían haber optado por destacarlo de forma heroica o más grandiosa, pero ese no era Rodin. </p>
+<p>En otras palabras: el proceso de creación de la pieza y las decisiones tomadas por el autor son la obra. El resultado final es un reflejo de ello. Ahora que gran parte del proceso de creación de software y medios digitales se ha mercantilizado, las elecciones intencionadas diferenciarán unas obras de otras. </p>
+<p>Por ejemplo, Wall-E es hermosa pero distópica, extrema pero esperanzadora, emocional pero solemne. Podrías pedirle a un modelo terminal: &quot;haz una película que sea hermosa pero distópica, extrema pero esperanzadora, y emocional pero solemne&quot;, y haría muchas películas, pero no Wall-E exactamente. </p>
+<p>Hacer Wall-E —un trabajo único en general— no puede hacerse de forma descriptiva. Para hacer Wall-E sin conocerla (supongo que la conoces :)), tendrías que seguir las mismas elecciones que sus autores. Pero ¿cómo? Tus motivaciones, tu entorno y tus pensamientos son diferentes.</p>
+<p>Es extremadamente improbable que lo hicieras. Las obras de arte son únicas porque surgen de individuos con historias de vida, preferencias y recuerdos distintos. </p>
+<p>Creo que un mundo post-escasez vendrá definido por esta individualidad.</p>
+<p>Todo el mundo tendrá posibilidades ilimitadas, así que apreciaremos las formas en que cada uno de nosotros es único y elige trabajar en cosas específicas. Más personas vivirán para crear, un lujo que no muchos podían permitirse hasta ahora. Estoy entusiasmado con este futuro. </p>
+<p>Ya está aquí, en parte, ya que hacer este blog habría sido considerablemente más difícil sin la IA. Ahora puedo escribir sobre qué tiene que ver la PPM con la IA —¡qué esotérico!</p>
+<p>He decidido no hablar de la optimización de descripciones genéricas frente a las respuestas cerebrales (por ejemplo, utilizando <a href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/">TRIBE v2</a> de Meta, un modelo que predice la actividad cerebral por fMRI en respuesta a los medios) porque en ese punto, no seríamos mejores que los drogadictos, pulsando un botón para obtener dopamina. Ah, espera, acabo de describir TikTok. </p>
+<p>No creo que se llegue a eso porque la dopamina solo tiene sentido con el esfuerzo. Creo que simplemente nos aburriríamos. Como cuando jugamos a videojuegos para obtener retos falsos que se sienten bien al ser superados. O cómo comer demasiado helado hace que no quieras comerlo durante mucho tiempo. </p>
+<p>Nuestra nueva lucha será adquirir inspiración, vivir vidas únicas y realizar obras cada vez más creativas. O eso espero.</p>
+<p>Como nota final, creo que más economistas deberían interesarse por la IA y más informáticos por la economía. Los economistas pueden descubrir que algunos conceptos encajan bien en este campo, como he intentado hacer con la PPM. Los informáticos pueden utilizar el pensamiento analógico de la economía para comprender mejor la dirección del sector.</p>
+<p>Por ejemplo: el área del triángulo de la PPM crece mucho más rápido cuanto más te alejas del equilibrio. Esto significa que hay una pequeña cantidad de pérdida si te pasas o te quedas corto con respecto al equilibrio por un poco, y una enorme si estás en cualquiera de los extremos. </p>
+<p>Alguien que construya un enrutador de modelos podría optar por aceptar algún error alejado del equilibrio porque la pérdida cercana es pequeña, y en su lugar optimizar para evitar los peores casos (como que Fable haga un git push). Este es un marco mental útil que yo mismo no conocía; me lo dijo Claude cuando le pedí algunas formas de analizar la PPM que pudieran conectar con el post.</p>
+<p>Habría hecho falta un economista interesado en la IA o un informático que lea sobre economía para atar cabos. Además, no he hablado del cálculo y el álgebra que intervienen en la minimización de la PPM para curvas complejas de oferta y demanda. Algunos conocimientos podrían ser transferibles a la asignación de cómputo. ¡Vayan a leer!</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>Idealmente, a cada cliente se le cobraría lo máximo que pueda pagar. Esto se conoce como fijación de precios de primer grado. Pero a menudo los vendedores no saben cuál es ese precio máximo y, en su lugar, ofrecen muchas opciones en diferentes niveles (por ejemplo, primera clase, turista premium, turista) para que el comprador elija por sí mismo. Esto se conoce como fijación de precios de segundo grado. La fijación de precios de tercer grado obliga a los clientes a segmentarse haciendo que la brecha de calidad entre las opciones sea grande o imponiendo niveles (por ejemplo, descuentos para estudiantes). Todos ellos pretenden extraer del cliente la mayor parte de lo que puede pagar por un bien, lo que se denomina su excedente. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>Aunque sigue reglas similares. Si sigues estudiando economía, te animo a que aprendas el concepto de la &quot;mano invisible&quot;. Resumen: los mercados minimizan la PPM por sí solos porque los acuerdos ineficientes serán superados en competencia o en precio por un competidor. Pero no te lo voy a estropear.  <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>Mil millones de tokens al día mantienen al médico en la lejanía.  <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+<li id="footnote-4">
+<p>Cuando cesen las subvenciones, espero que la retirada de la alfombra sea similar a lo que ocurrió cuando las aplicaciones de transporte compartido dejaron de subvencionar los trayectos y el precio real se trasladó a los consumidores. No fue agradable.  <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+</li>
+<li id="footnote-5">
+<p>¿Cuántas startups estarían en apuros si los laboratorios quitaran hoy las subvenciones de tokens? En serio. Yo gastaba 6 cifras en tokens en una startup anterior (en costes de API) cada mes. Si se hubieran facturado, ¡habría sido como si me pagaran el sueldo dos veces! Para una startup pequeña esto podría estar bien, pero a la escala de grandes empresas u organizaciones nativas de la IA, esto sería un gran problema de financiación. Ajeya Cotra habló de ello <a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">aquí</a>. En el futuro, parte del dinero se destinará a comprar créditos de API o GPUs en lugar de pagar a humanos porque la inteligencia será más barata y rápida. <a href="#footnote-ref-5" data-footnote-backref aria-label="Back to reference 5">↩</a></p>
+</li>
+<li id="footnote-6">
+<p>Aunque las leyes de escalamiento —especialmente el escalamiento del cómputo en tiempo de prueba— sugerirían que las arquitecturas existentes no bastarán para alcanzar un modelo terminal, porque intercambian velocidad por inteligencia. <a href="#footnote-ref-6" data-footnote-backref aria-label="Back to reference 6">↩</a></p>
+</li>
+<li id="footnote-7">
+<p>Están empezando a verse algunos primeros destellos de inferencia en el borde, como detalló Anthropic en <a href="https://www.anthropic.com/research/self-replicating-ai">este</a> informe reciente. Espero que los teléfonos y los portátiles realicen la mayor parte de la inferencia dentro de esta década. <a href="#footnote-ref-7" data-footnote-backref aria-label="Back to reference 7">↩</a></p>
+</li>
+<li id="footnote-8">
+<p>Como <a href="https://www.youtube.com/shorts/x-P119dx8xM">dijo</a> Naval: &#39;desperdicia tokens para ahorrar tiempo&#39;. <a href="#footnote-ref-8" data-footnote-backref aria-label="Back to reference 8">↩</a></p>
+</li>
+<li id="footnote-9">
+<p>Esto ya es cierto en algunos dominios, solo que aún no es fluido. <a href="#footnote-ref-9" data-footnote-backref aria-label="Back to reference 9">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var imgs = document.querySelectorAll('article img');
+            imgs.forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            var contentEl = document.getElementById('post-content');
+            if (!contentEl) return;
+            contentEl.querySelectorAll('img').forEach(function(img) {
+                var src = img.getAttribute('src');
+                var match = src && !src.includes('-light.') && src.match(/^(.*?)(\.[a-zA-Z]+)$/);
+                if (!match) return;
+                var lightSrc = match[1] + '-light' + match[2];
+                fetch(lightSrc, { method: 'HEAD' }).then(function(res) {
+                    if (res.ok) img.setAttribute('src', lightSrc);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+

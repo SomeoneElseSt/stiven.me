@@ -21,6 +21,8 @@ const HTML_TEMPLATE_PATH = path.join(__dirname, 'index.html');
 const POST_TEMPLATE_PATH = path.join(__dirname, 'blog', 'post.html');
 const HTML_OUTPUT_PATH = path.join(__dirname, 'index.html');
 const IMPORT_REGEX = /<<<\s+([^\s]+)/g;
+const FIGURES_DIR = path.join(__dirname, 'blog', 'assets', 'figures');
+const ENGLISH_FIGURE_PATH_REGEX = /\/blog\/assets\/figures\/en\/([^"'\s)]+)/g;
 
 marked.use(markedFootnote());
 marked.use(markedKatex({
@@ -272,6 +274,14 @@ async function runCursorAgentTranslate(prompt, post, locale) {
   return null;
 }
 
+// Points a figure at its localized copy only when one exists, so posts without localized figures keep the English ones
+function localizeFigurePaths(html, localeId) {
+  return html.replace(ENGLISH_FIGURE_PATH_REGEX, (englishPath, fileName) => {
+    const hasLocalizedFigure = fs.pathExistsSync(path.join(FIGURES_DIR, localeId, fileName));
+    return hasLocalizedFigure ? `/blog/assets/figures/${localeId}/${fileName}` : englishPath;
+  });
+}
+
 async function translatePost(post, mdContent, locale, postTemplate) {
   const outputHtmlPath = path.join(__dirname, 'blog', post.id, locale.id, 'index.html');
   const exists = await fs.pathExists(outputHtmlPath);
@@ -292,6 +302,7 @@ Rules:
 - Do NOT translate code blocks (content inside triple backticks), URLs, or HTML tags
 - In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly
 - DO translate text inside <summary> tags — these are user-facing labels that should be in the target language
+- Keep currency amounts exactly as written in the original, with the $ sign directly before the number (e.g. $12, $250). Do NOT move the $ after the number: a $ followed by a space or punctuation is parsed as LaTeX math and breaks the page
 - Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
 - Your response must end with the last line of the translated markdown and nothing else
 
@@ -310,7 +321,7 @@ ${mdContent}`;
   const translatedMd = output.slice(separatorIdx + 5);
   const processedMd = await applyCodeImports(translatedMd, post.file);
   const translatedHtml = marked.parse(processedMd);
-  const localizedHtml = translatedHtml.replace(/\/blog\/assets\/figures\/en\//g, `/blog/assets/figures/${locale.id}/`);
+  const localizedHtml = localizeFigurePaths(translatedHtml, locale.id);
 
   const translatedPost = { ...post, title: translatedTitle, htmlContent: localizedHtml };
   const pageHtml = fillPostTemplate(postTemplate, translatedPost, locale.id, post.sourceHash);
