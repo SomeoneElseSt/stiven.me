@@ -4,7 +4,7 @@ Ironically, the more I studied economics, the more skeptical I felt about it as 
 
 It was nevertheless a fun subject to study. I have hundreds of pages of notes I took on an oversized drawing tablet plugged into my computer that must've looked the silliest set-up of anyone in the hall. 
 
-My favorite concept I learned in that class is dead-weight loss, or DWL for brevity. Feel free to skip this section if you're already familiarized ([click here](#after-dwl)). 
+My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Feel free to skip this section if you're already familiarized ([click here](#after-dwl)). 
 
 Imagine you have a seller - say, a business - and many buyers that want to buy a good from that seller. We assume the seller wants to earn the largest amount of money possible and there are many buyers that can each afford the product at a different price point. 
 
@@ -24,7 +24,7 @@ The optimal price lies in the intersection of the two curves. Intuitively, it's 
 
 ![Supply and demand curves with the equilibrium and two alternative price points marked.](/blog/assets/figures/en/supply-demand-equilibrium.png "Equilibrium and Alternative Price Points")
 
-This is the scenario with the *most given* for the *most paid*, and is called a state of equilibrium. We can now talk about dead-weight loss (DWL). 
+This is the scenario with the *most given* for the *most paid*, and is called a state of equilibrium. We can now talk about deadweight loss (DWL). 
 
 DWL is the profit the seller could've made had they priced their product closer to equilibrium when the product is too expensive or cheap. 
 
@@ -95,7 +95,7 @@ I still think a "DWL-optimized harness" will be useful as intelligence diffuses 
 It will make most tasks near free, fast, runnable on edge hardware[^7], and routable to the cloud when necessary. I see three technical challenges in the way:
 
 - Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This is important for individual tasks and threads.
-- Parallelism: if many models are doing many tasks, how can inference engines maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
+- Parallelism: if many models are doing many tasks, how can inference engines maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly?
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolkit to do this yet. 
 
 I expect that while intelligence is subsidized, companies and individuals will keep using frontier models because it feels like the safe choice and requires less steering. Budget-conscious organizations will make their own evals and perhaps even RL small models on them (like [Ramp](https://x.com/RampLabs/status/2052447438795833506) did). 
@@ -124,15 +124,11 @@ Though, in my case, I chose to work my way through it because I wanted to experi
 
 If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
 
-The analogy also doesn't capture some qualitative aspects of models.  Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
+The analogy also doesn't capture some qualitative aspects of models. Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
 
 It discounts qualitative differences in the character of different model lines. This is partly reconciled if we think of the x-axis as a model family, e.g., Haiku being underpowered, Sonnet generally balanced, and Opus often overkill.
 
 Together, both parts of the graph paint a cohesive story: the frontier will lay the groundwork at the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.
-
-Lastly, what about work that is not part of the graph? That is, work that doesn't have a quantifiable "right" result, such as the arts, and work (e.g., products) that is completely new and doesn't have a point of comparison to define right from . 
-
-How making new things settles at equilibria, because success is defined by your own criteria.
 
 I see two paths going forward for the future of work:
 - Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
@@ -141,9 +137,43 @@ require skills outside the scope of optimization (see [this](https://asteriskmag
 
 In either case, we'll be better off from it. It will provide healthcare and education for millions of people in underprivileged areas, enable massive social mobility - the works. That is, if we align it. 
 
+What about work that is not part of the graph? That is, work that doesn't have a quantifiable "right" result, such as the arts, and work (e.g., products, media) that is completely new and doesn't have a point of comparison to define right from.
+
+If the model you're working with can do anything you ask[^9], "right" in a creative pursuit is entirely up to you. The model is perfectly matched to what you want it to do, so only you know where to stop (assuming the model is terminal).
+
+To illustrate this: had French sculptor Auguste Rodin had access to a machine that could sculpt anything he wanted, he would've still spent a large amount of time tweaking his pieces and dialing in what they're meant to convey. Each is characterized by what the author was going through at the time, or the way he *chose* to portray other people.
+
+Rodin's *Monument to Balzac* is a good example. 
+
+![Detail of Auguste Rodin's Final Study for the Monument to Balzac: a bronze figure wrapped in a heavy cloak, head thrown back.](/blog/assets/monument-to-balzac-the-met.jpg "Auguste Rodin, Final Study for the Monument to Balzac. The Metropolitan Museum of Art.")
+
+When Rodin set out to make a monument for Balzac, a prominent French writer, he stated "a man celebrated for his heart and mind should not be [represented by] his body" (see [reference](https://www.metmuseum.org/art/collection/search/207498)). We see this in the sculpture, it being far from idealized or beautified in its texture, contours, and the undefined shape of Balzac's face. 
+
+This makes the sculpture iconic. It makes one wonder why the author chose to portray him like that. Other sculptors might've chosen to highlight him heroically or in a more grandiose way, but that wasn't Rodin. 
+
+In other words: the process of making the piece and the choices taken by the author are the work. The end result is a reflection of that. Now that much of the process of creation of software and digital media has been commodified, intentional choices will differentiate works from each other. 
+
+For example, Wall-E is beautiful yet dystopic, dire yet hopeful, emotional yet solemn. You could prompt a terminal model, "make a movie that's beautiful yet dystopic, dire yet hopeful, and emotional yet solemn", and it would make many movies but not Wall-E exactly. 
+
+Making Wall-E - unique work broadly - can't be done descriptively. To make Wall-E without knowing about it (I assume you do :)), you would have to walk the same choices as its authors. But how? Your motivations, environment, and thoughts are different.
+
+It's extremely unlikely you would. Works of art are unique because they stem from individuals with distinct life stories, preferences, and memories. 
+
+I believe a post-scarcity world will be defined by this individuality.
+
+Everyone will have limitless possibility, so we'll appreciate the ways each one of us is unique and chooses to work on specific things. More people will live to create, a luxury not many could afford until now. I'm excited for this future. 
+
+It's already here, partially, as making this blog would have been considerably harder without AI. Now I get to write about how DWL has to do with AI - how esoteric!
+
+I'm choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than drug addicts, pressing a button to get dopamine. Ah, wait, I just described TikTok. 
+
+I don't think it'll come to that because dopamine is only meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. 
+
+Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
+
 As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well in the field, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
 
-For example: the DWL's triangle area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
+For example: the DWL triangle's area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
 
 Someone building a model router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn't know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.
 
@@ -157,10 +187,12 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^4]: When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. It wasn't pretty. 
 
-[^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
+[^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 
 [^6]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
 
 [^7]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
 
 [^8]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
+
+[^9]: This is already true in some domains, just not frictionless yet.
