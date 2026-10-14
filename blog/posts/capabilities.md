@@ -169,11 +169,11 @@ I believe a post-scarcity world will be defined by this individuality.
 
 Everyone will have limitless possibility, so we'll appreciate the ways each one of us is unique and chooses to work on specific things. More people will live to create, a luxury not many could afford until now. I'm excited for this future. 
 
-It's already here, partially, as making this blog would have been considerably harder without AI. Now I get to write about how DWL has to do with AI - how esoteric!
+It's already here, partially, as making this blog would have been considerably harder without LLMs. Now I get to write about how DWL has to do with AI - how esoteric!
 
-I'm choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than drug addicts, pressing a button to get dopamine. Ah, wait, I just described TikTok. 
+I'm choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than addicts pressing a button to get dopamine. Ah, wait, that's just TikTok. 
 
-I don't think it'll come to that because dopamine is only meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. 
+I don't think it'll come to that because dopamine is most meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. 
 
 Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
 
