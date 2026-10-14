@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="d05407899e4628aa"/>
+    <title>Strata jałowa w AI</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'pl'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 2.25em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">Strata jałowa w AI</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-10-14">14 października 2026</time>
+        </div>
+        <a href="/" class="back-button">← Wstecz</a>
+    </div>
+    
+    <article id="post-content"><p>Podczas wiosny na pierwszym roku studiów dwa razy w tygodniu dojeżdżałem z San Francisco do Berkeley, aby móc uczestniczyć w zajęciach ECON 100A, kursie mikroekonomii w Berkeley. Przyjaciel zaprosił mnie z wizytą i zostawił mnie na chwilę w jednej z sal. W tamtym czasie myślałem, że chcę studiować ekonomię, więc ucieszyłem się, dowiedziawszy się, że jednym z wykładów w tej sali był właśnie 100A, i postanowiłem wpaść na zajęcia, gdy trwały<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>.</p>
+<p>Paradoksalnie, im bardziej studiowałem ekonomię, tym bardziej sceptycznie podchodziłem do niej jako do nauki społecznej. Uważałem jej teorie za zbyt ograniczone i limitowane przez niepraktyczne założenia.</p>
+<p>Niemniej jednak, był to ciekawy przedmiot do nauki. Mam setki notatek sporządzonych na przerośniętym tablecie graficznym, który musiał wyglądać na najbardziej niedorzeczny zestaw spośród wszystkich osób w sali.</p>
+<p><a id="dwl-primer"></a></p>
+<p>Moim ulubionym pojęciem wyniesionym z tych zajęć jest strata jałowa, w skrócie DWL (od angielskiego deadweight loss). Pomiń tę sekcję, jeśli już je znasz (<a href="#after-dwl">kliknij tutaj</a>). </p>
+<p>Wyobraź sobie, że masz sprzedawcę - powiedzmy, firmę - i wielu kupujących, którzy chcą kupić towar od tego sprzedawcy. Zakładamy, że sprzedawca chce zarobić jak największą kwotę pieniędzy, a istnieje wielu kupujących, z których każdy może pozwolić sobie na produkt w innym punkcie cenowym. </p>
+<p>Jak wyceniany jest ten towar? Niektórzy kupujący mogą być skłonni zapłacić za niego więcej niż inni, więc sprzedawca mógłby ustalić wysokie ceny. Wydaje się to rozsądne, ale jeśli 8 kupujących byłoby w stanie zapłacić po $12 każdy, podczas gdy 2 mogłoby zapłacić po $40, ustalenie ceny towaru na poziomie $40 jest stratą <em>netto</em> wynoszącą $80, ponieważ wycenienie go na $12 przyniosłoby $96, zostawiając różnicę ponad $16 na stole. Nie wspominając o efektach społecznych, jakie mogłoby mieć udostępnienie towaru większej liczbie osób<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>. </p>
+<p>Sformalizujmy to: </p>
+<ul>
+<li>Sprzedawca może wycenić towar na dowolną cenę w zakresie 1-100. Nazywa się to <em>krzywą podaży</em>.</li>
+<li>Pewna liczba kupujących może pozwolić sobie na towar przy danej cenie. Nazywa się to <em>krzywą popytu</em>. Rozważymy łącznie 10 kupujących, z których każdy może pozwolić sobie na niego w innej cenie.</li>
+</ul>
+<p>Możemy wykreślić te krzywe względem siebie. Będzie to pomocne w znalezieniu optymalnej ceny, po której sprzedawca powinien sprzedawać swój produkt. </p>
+<p><img src="/blog/assets/figures/pl/supply-demand-curves.png" data-light-src="/blog/assets/figures/pl/supply-demand-curves-light.png" alt="Krzywe podaży i popytu wykreślone jako cena względem ilości." title="Krzywe Podaży i Popytu"></p>
+<p>Wszystkie 10 osób może pozwolić sobie na jednostkę towaru, gdy cena wynosi zero. Jednak sprzedawca nie może oferować go za mniej niż $10 (może to być jego cena progu rentowności). Czy powinni wycenić go wysoko czy nisko?</p>
+<p>Optymalna cena leży w punkcie przecięcia obu krzywych. Intuicyjnie, jest to maksymalna liczba jednostek, które sprzedawca może sprzedać po najwyższej cenie. Pięć jednostek po $50 każda daje $250. Znacznie więcej niż $160 ze sprzedaży dwóch jednostek po $80 i więcej niż sprzedaż wielu jednostek po $20, co również daje łącznie $160. Możemy to zwizualizować. </p>
+<p><img src="/blog/assets/figures/pl/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/pl/supply-demand-equilibrium-light.png" alt="Krzywe podaży i popytu z zaznaczoną równowagą i dwoma alternatywnymi punktami cenowymi." title="Równowaga i Alternatywne Punkty Cenowe"></p>
+<p>Jest to scenariusz, w którym oddaje się <em>najwięcej</em> za <em>najwyższą zapłatę</em>, i nazywa się to stanem równowagi. Możemy teraz porozmawiać o DWL. </p>
+<p>DWL to zysk, który sprzedawca mógłby osiągnąć, gdyby wycenił swój produkt bliżej równowagi, w sytuacji gdy produkt jest zbyt drogi lub zbyt tani. </p>
+<p>Wizualizujemy to jako obszar między wierzchołkami 1) punktu równowagi, 2) punktu na krzywej popytu, przy którym towar został wyceniony, oraz 3) punktu na krzywej podaży równoległego do ceny na krzywej popytu, tworząc trójkąt. Zwizualizujmy to dla sytuacji, gdy towar jest sprzedawany za $80. </p>
+<p><img src="/blog/assets/figures/pl/supply-demand-dwl.png" data-light-src="/blog/assets/figures/pl/supply-demand-dwl-light.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za $80." title="Strata Jałowa przy Cenie $80"></p>
+<p>Pole trójkąta reprezentuje towary, które sprzedawca mógłby sprzedać, gdyby wycenił swój produkt bliżej równowagi, co pozwoliłoby mu na osiągnięcie wyższego zysku netto. </p>
+<p>DWL po prawej stronie wykresu to zysk, który sprzedawca traci z powodu zbyt niskiej wyceny towaru. Dzieje się tak, gdy konsumenci czerpią korzyści kosztem pieniędzy, które firma mogłaby zarobić, gdyby towar był wyceniony wyżej.</p>
+<p><img src="/blog/assets/figures/pl/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/pl/supply-demand-dwl-low-price-light.png" alt="Trójkąt straty jałowej między krzywymi podaży i popytu, gdy towar jest sprzedawany za $20." title="Strata Jałowa przy Cenie $20"></p>
+<p>Gratulacje! Znasz już podstawy mikroekonomii dla studentów pierwszego roku. Spróbuj zapytać: &quot;Dlaczego Apple nie wycenia swoich starych zapasów niżej, biorąc pod uwagę, że są warte mniej, a niektórzy ludzie wciąż mogliby je kupić? Czy to nie zminimalizowałoby DWL?&quot; i zdaj sobie sprawę, że prawdziwy świat nie jest tak prosty i interpretowalny jak ten model<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>.</p>
+<p><a id="after-dwl"></a></p>
+<p>Ok, więc dlaczego piszę o DWL? (Pominąłeś fragment? <a href="#dwl-primer">Wróć tutaj</a>.) Widzę pewne podobieństwa między ideami w badaniu DWL a obecnymi paradygmatami agentów programistycznych. </p>
+<p>Pracuję intensywnie z agentami programistycznymi. Prawie każdego dnia tworzę prompty, recenzuję kod itp<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>. </p>
+<p>Zaobserwowałem odwrotną zależność między umiejętnościami potrzebnymi człowiekowi do wykonania zadania a tym, jak dobry jest model. </p>
+<p>Pracując z modelem typu frontier, zazwyczaj wystarczy poprosić o to, czego się chce. &quot;Napraw ten błąd&quot;, &quot;Dodaj funkcję X&quot; itp. Z drugiej strony, małe modele potrzebują długich, hiper-specyficznych promptów. W przeciwnym razie są niedokładne, mijają się z intencją lub tracą wątek zadania po pewnym czasie. </p>
+<p>Innymi słowy: gdy model jest słaby/ograniczony w danym zadaniu, ludzie uzupełniają jego niedobory własnymi umiejętnościami i sterowaniem. </p>
+<p>Jest to obecnie prawdą w przypadku każdego zadania, w którym modele klasy frontier nie są dobre, lub gdy używa się małych modeli. Jest to część powodu, dla którego modele o otwartych wagach nie są tak dużym zagrożeniem, jak mogłoby się wydawać w cyberbezpieczeństwie i biologii. Wciąż potrzebujesz kompetentnych ludzi, aby wycisnąć z nich to, co najlepsze, przynajmniej na razie.  </p>
+<p>Ta zależność oznacza również, że niewykwalifikowani pracownicy mogą używać potężnych modeli do wykonywania pracy, która wcześniej wymagała intensywnego szkolenia i doświadczenia.</p>
+<p><a href="https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html">Ten</a> wpis na blogu programisty zwolnionego z powodu AI opisuje, jak jego firma zdecydowała się na zwolnienia, ponieważ <em>&quot;wsparcie AI podniosło możliwości pracy mniej zaangażowanej, mniej doświadczonej i tańszej siły roboczej&quot;</em>. </p>
+<p>Nie jest to nowe zjawisko. Jest podobne do tego, jak maszyny do szycia sprawiły, że prace tradycyjnie wykonywane ręcznie stały się dostępne dla każdego, wszędzie, kto wiedział, jak je obsługiwać, co pozwoliło na offshoring w latach 60. </p>
+<p>Jest to powód, dla którego rekrutacja na stanowiska inżynierskie przesuwa się z bycia skoncentrowaną technicznie na podkreślanie tradycyjnie niedocenianych umiejętności, o czym wspomnę pod koniec wpisu.</p>
+<p>Możemy odwzorować tę zależność na pierwszym wykresie, jeśli zamienimy krzywą popytu na Wysiłek ludzki, a krzywą podaży na Koszt modelu. Zakładam, że bardziej zdolne modele są droższe<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>.</p>
+<p>Oś x reprezentuje to, jak zdolny jest model w stosunku do zadania: po lewej stronie model jest zbyt słaby i tani. Po prawej jest to przerost formy nad treścią i jest drogi. Oś y reprezentuje to, co płacisz. Wysokość linii wysiłku ludzkiego to to, jak dużego wysiłku sterującego model wymaga od ciebie, podczas gdy wysokość linii modelu to koszt modelu. Im bardziej zdolny model, tym mniej sterowania potrzebuje i tym więcej kosztuje.  </p>
+<p><img src="/blog/assets/figures/pl/human-model-curves.png" data-light-src="/blog/assets/figures/pl/human-model-curves-light.png" alt="Wysiłek ludzki i koszt modelu wykreślone w zależności od tego, jak zdolny jest model w stosunku do zadania." title="Wysiłek Ludzki i Koszt Modelu"></p>
+<p>Prostym przykładem ilustrującym DWL na tym wykresie jest sytuacja, gdy modele klasy frontier są używane do trywialnych prac, które mógłby wykonać mniejszy model. Np. zmiana tekstu na stronie lub uruchamianie trywialnych poleceń git (kiedy ostatni raz wpisałeś prompt &#39;tak, wypchnij to&#39;?). </p>
+<p><img src="/blog/assets/figures/pl/human-model-overreliance.png" data-light-src="/blog/assets/figures/pl/human-model-overreliance-light.png" alt="Strata jałowa po prawej stronie wykresu wysiłku ludzkiego i kosztu modelu, gdzie model typu frontier jest używany do trywialnego zadania." title="Strata Jałowa z Powodu Zbyt Potężnego Modelu"></p>
+<p>Argument ekonomiczny przeciwko temu jest oczywisty: zużywasz tokeny frontier do trywialnych zadań. Idealnie byłoby zaoszczędzić na kosztach.</p>
+<p>Argument praktyczny jest taki, że gdyby koszt tokenów nie był problemem, prawdopodobnie szybciej byłoby użyć mniejszego modelu. Na przykład gdyby Composer w Cursorze zrobił to w 6 sekund, zamiast kazać Astrze myśleć przez 60. </p>
+<p>Nawet jeśli twój inteligentny model byłby ultra szybki, jest to obecnie bardzo drogie, więc argument ekonomiczny nadal obowiązuje: inni <em>mogliby</em> zrobić to samo tak samo szybko taniej, gdybyśmy mieli systemy do wydajnego i błyskawicznego przesyłania kontekstu. Niepotrzebnie paliłbyś pieniądze. </p>
+<p>Widzę, że prawostronne DWL ma znaczenie w krótkim i średnim terminie, ale nie w długim. </p>
+<p>W krótkim i średnim terminie AI jest na tyle drogie, by uzasadniać optymalizację wyboru modelu. Będzie to szczególnie istotne dla firm typu AI-native, jeśli dotacje do tokenów się skończą<sup><a id="footnote-ref-6" href="#footnote-6" data-footnote-ref aria-describedby="footnote-label">6</a></sup>. Inżynierowie mogą otrzymać budżety na tokeny oprócz pensji, jak <a href="https://www.cnbc.com/2026/03/20/nvidia-ai-agents-tokens-human-workers-engineer-jobs-unemployment-jensen-huang.html">zauważył</a> Jensen Huang.</p>
+<p>W długim terminie spodziewam się, że inteligencja klasy frontier stanie się zbyt tania, by ją mierzyć, i bardzo szybka. Nazywam to &#39;terminalną&#39; klasą modeli. Scyzoryki szwajcarskie, które działają dobrze w 90% zadań, są prawie darmowe w eksploatacji (najprawdopodobniej dlatego, że używałyby twojego telefonu lub komputera) i szybkie. Pozostałe 10% nie będzie zadaniami, których model nie potrafi wykonać, ale zadaniami, na które nie pozwolilibyśmy mu samemu, jak samoregulacja czy kontrolowanie broni nuklearnej. Te dziedziny nadal będą potrzebować ludzi.</p>
+<p>Empirycznie widzieliśmy postępy w tym kierunku, gdy laboratoria wypuszczają mniejsze wersje swoich modeli typu frontier (Fable od Mythos, GPT 6.1 Sol od Astra), które są podobnie zdolne przy niższych kosztach<sup><a id="footnote-ref-7" href="#footnote-7" data-footnote-ref aria-describedby="footnote-label">7</a></sup>. </p>
+<p>Na razie modele klasy frontier pozostaną w użyciu do prostych zadań, ponieważ są ogólnie bardziej niezawodne i nie są wyceniane według ich prawdziwego kosztu. Nie ma zachęty do szukania równie dobrych i tańszych (być może deterministycznych?) alternatyw. Być może nie będziemy musieli, jeśli dotacje do tokenów przetrwają do czasu, aż osiągniemy modele terminalne.</p>
+<p>A co z DWL po lewej stronie wykresu?</p>
+<p>Ostatnio eksperymentowałem z rodziną modeli Qwen, uruchamiając je lokalnie na moim komputerze za pomocą Ollama. To było rozczarowujące. Wiedzą dużo i potrafią wykręcić imponujące sztuczki jak na mały model, ale jak tylko rzucisz im prawdziwe zadanie, marnują swój budżet kontekstu, rozmyślając nad niepotrzebnymi szczegółami.</p>
+<p><img src="/blog/assets/figures/pl/human-model-underreliance.png" data-light-src="/blog/assets/figures/pl/human-model-underreliance-light.png" alt="Strata jałowa po lewej stronie wykresu wysiłku ludzkiego i kosztu modelu, gdzie mały model potrzebuje silnego ludzkiego prowadzenia." title="Strata Jałowa z Powodu Zbyt Słabego Modelu"></p>
+<p>Udało mi się zmusić go do zrobienia tego, co chciałem, tylko wskazując dokładne linie kodu, na które musiał spojrzeć. Musiałem nawet zmienić część kodu ręcznie, ponieważ mimo że mówiłem mu wiele razy z rzędu, by wykonał zmianę, on tylko myślał i myślał, aż jego kontekst się przepełnił. </p>
+<p>Zajęło mi to również znacznie więcej czasu, aby ukończyć mój projekt z Qwen, ponieważ wymagał tak dużej pomocy. Wiedziałem, że modele klasy frontier wykonałyby zadanie za pomocą jednego promptu. Moje obciążenie psychiczne też było większe: o wiele prościej jest przejść przez zadanie z modelem klasy frontier. Naprawdę nie musisz myśleć<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>. </p>
+<p>Chociaż w moim przypadku użyłem małego modelu ze względu na eksperyment. W prawdziwym świecie DWL po lewej stronie jest widoczne w zadaniach, w których modele nie są <em>jeszcze</em> dobre. Jak te rzadkie testy porównawcze w finansach i badaniach ML, czy niektóre zadania związane z obsługą komputera. Wciąż potrzebujesz ludzi przeglądających wyniki modeli i sterujących nimi.</p>
+<p>Jeśli dokładność można skwantyfikować, a zadanie jest wartościowe ekonomicznie, zostanie ono w końcu opanowane, najprawdopodobniej najpierw na froncie, przesuwając się w prawo. Jest to prawda w przypadku zadań, w których laboratoria i startupy są zainteresowane wprowadzeniem automatyzacji. Jest to część procesu dyfuzji. </p>
+<p>Punktem równowagi jest model z najlepszą ceną i odpowiednim poziomem inteligencji dla danego zadania. Uzyskuje on taki sam wynik, jaki uzyskałby model typu frontier, ponieważ jest tak samo zdolny do tego zadania, z tym że jest tańszy i prawdopodobnie szybszy. </p>
+<p>Do równowagi dochodzisz, używając mniejszego modelu do zadania, o którym wiadomo, że jest on w stanie je wykonać, lub tworząc własny poprzez niestandardowe zbiory danych i ewaluacje, jeśli taki jeszcze nie istnieje. Jest to stały, ale kosztowny i czasochłonny koszt (obecnie). Wysiłek ludzki, który oszczędzasz powyżej punktu równowagi, jest obecnie opłacany z dotacji do tokenów i w przeciwnym razie byłby kosztowny.</p>
+<p>To, czy koszt tokenów frontier jest niższy niż koszt znalezienia modelu równowagi, zależy od konkretnego przypadku, jednak wiedząc, że optymalizacja jest kosztem stałym, prawdopodobnie jest to znaczący zysk netto dla aplikacji na skalę masową.</p>
+<p><img src="/blog/assets/figures/pl/human-model-equilibrium.png" data-light-src="/blog/assets/figures/pl/human-model-equilibrium-light.png" alt="Równowaga między wysiłkiem ludzkim a kosztem modelu, gdzie model jest w sam raz do zadania." title="Równowaga Między Wysiłkiem Ludzkim a Kosztem Modelu"></p>
+<p>Dopóki nie osiągniemy modeli terminalnych, zoptymalizowane pod kątem równowagi oprzyrządowanie modeli, routery modeli i środowiska treningowe będą przydatne w miarę wzrostu zużycia tokenów w całej gospodarce. Lub w nieskończoność, jeśli rządy wprowadzą regulacje, które zahamują rozwój modelu terminalnego i utkwimy w status quo.</p>
+<p>Sprawią one, że większość zadań będzie prawie darmowa, szybka, możliwa do uruchomienia na sprzęcie brzegowym<sup><a id="footnote-ref-9" href="#footnote-9" data-footnote-ref aria-describedby="footnote-label">9</a></sup> i w razie potrzeby przesyłana do chmury, kosztem ludzkiego wysiłku. Widzę trzy wyzwania techniczne na drodze:</p>
+<ul>
+<li>Przesyłanie kontekstu: wybór odpowiedniego modelu, do którego należy przesłać kontekst, i zrobienie tego przy koszcie i opóźnieniu bliskim zeru. Ma to znaczenie dla poszczególnych zadań i wątków, np. w oprzyrządowaniu modeli i routerach.</li>
+<li>Równoległość: jak zmaksymalizować wykorzystanie GPU oraz prędkość odciążania i ponownego ładowania KV Cache / wag modeli, aby każdy wat mocy obliczeniowej dostępny u dostawców infrastruktury był wykorzystywany 24/7.</li>
+<li>Profilowanie modeli: łatwe w użyciu narzędzia, których każdy może użyć, aby znaleźć już zdolny model do zadania lub wytrenować taki, czyli dotrzeć do równowagi.</li>
+</ul>
+<p>Organizacje dbające o budżet i zdolne technicznie, takie jak Ramp, już próbują swoich sił w tych problemach, tworząc niestandardowe środowiska do <a href="https://x.com/RampLabs/status/2052447438795833506">RL małych modeli</a> i budując własny <a href="https://router.com">router modeli</a>.</p>
+<p>Ale aby rozprzestrzenić AI w szerszej gospodarce przy jej obecnej cenie, należy wykonać dużo pracy nad prostymi w użyciu optymalizatorami, z których małe i średnie organizacje mogą korzystać, aby zaoszczędzić na wydatkach na tokeny, zarówno dla osób wewnątrz organizacji, jak i dla konkretnych zadań. </p>
+<p>Jev może być bardzo tani, ale przeciętny sprzedawca w sklepie czy pracownik organizacji non-profit nie zamierza zdobywać klucza API i przeprowadzać ewaluacji, aby sprawdzić, czy pokona Astrę w ich zadaniu klasyfikacji. Woleliby nacisnąć przycisk lub zapytać swojego agenta i zobaczyć wyniki do wyboru. Idealnie byłoby, gdyby proaktywnie dowiedzieli się od swojego agenta, że dostępna jest lepsza opcja.</p>
+<p>Uważam, że dostawcy modeli mogą być pierwszymi, którzy dotrą do rozwiązania. Byłoby świetnie, gdyby Claude Code automatycznie przełączał modele, gdy moje prośby były proste (chociaż w praktyce nie jest to jeszcze bardziej wydajne ze względu na buforowanie), tak jak automatyczne skrzynie biegów zmieniają biegi w odpowiednim momencie za ciebie.</p>
+<p>Podsumowując, wykres maluje znaną historię: front przygotuje grunt pod najtrudniejsze wyzwania, podczas gdy dyfuzja uczyni je ekonomicznie opłacalnymi i dostępnymi<sup><a id="footnote-ref-10" href="#footnote-10" data-footnote-ref aria-describedby="footnote-label">10</a></sup>. </p>
+<p>Przemyślenie tego doprowadziło mnie do wniosku, że istnieją dwie ścieżki dla przyszłości pracy:</p>
+<ul>
+<li>Umiejętności, których nie można (jeszcze) zoptymalizować za pomocą komputera, staną się coraz cenniejsze. Np. komunikacja interpersonalna, budowanie relacji, wysokie standardy, odporność na ból.</li>
+<li>Jeśli zoptymalizujemy wszystko, co optymalizowalne - choć spodziewam się, że zajmie to dużo czasu - stworzymy dla siebie inne problemy, w których optymalizacja jest bezcelowa (zobacz <a href="https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other">ten</a> esej).</li>
+</ul>
+<p>W każdym przypadku wyjdzie nam to na dobre. Zapewni to opiekę zdrowotną i poprawę jakości życia milionom ludzi w niekorzystnej sytuacji, umożliwi masową mobilność społeczną - i tak dalej. O ile oczywiście odpowiednio to ukierunkujemy. </p>
+<p>A co z pracą, która nie jest częścią wykresu? To znaczy pracą, która nie ma &quot;właściwego&quot; wyniku, taką jak sztuka, oraz pracą, która jest całkowicie nowa i nie ma punktu odniesienia, by zdefiniować to, co słuszne, np. nowe produkty i media.</p>
+<p>Jeśli model może zrobić wszystko, o co poprosisz<sup><a id="footnote-ref-11" href="#footnote-11" data-footnote-ref aria-describedby="footnote-label">11</a></sup>, to &quot;słuszność&quot; w twórczym dążeniu zależy wyłącznie od ciebie. Zakładając, że model jest terminalny, będzie on idealnie dopasowany do wszystkiego, co chcesz, aby zrobił, więc tylko ty będziesz wiedzieć, gdzie przestać.</p>
+<p>Aby to zilustrować: gdyby francuski rzeźbiarz Auguste Rodin miał dostęp do maszyny, która mogłaby wyrzeźbić wszystko, co zechce, nadal spędzałby mnóstwo czasu na poprawianiu swoich dzieł i ustalaniu tego, co mają przekazywać. Każde z nich charakteryzuje się tym, przez co autor przechodził w danym czasie, lub sposobem, w jaki <em>zdecydował</em> się przedstawić innych ludzi.</p>
+<p><em>Pomnik Balzaka</em> Rodina jest dobrym przykładem. </p>
+<p><img src="/blog/assets/monument-to-balzac-the-met.jpg" alt="Szczegół Ostatniego studium Auguste&#39;a Rodina do Pomnika Balzaka: brązowa figura owinięta w ciężki płaszcz, głowa odrzucona do tyłu." title="Auguste Rodin, Ostatnie studium do Pomnika Balzaka. The Metropolitan Museum of Art."></p>
+<p>Kiedy Rodin postanowił stworzyć pomnik Balzaka, wybitnego francuskiego pisarza, stwierdził, że &quot;człowiek sławny ze swojego serca i umysłu nie powinien być [reprezentowany przez] swoje ciało&quot; (patrz <a href="https://www.metmuseum.org/art/collection/search/207498">odniesienie</a>). Widzimy to w rzeźbie, która jest daleka od idealizacji czy upiększania w swojej teksturze, konturach i niezdefiniowanym kształcie twarzy Balzaka. </p>
+<p>To czyni rzeźbę ikoniczną. Sprawia, że człowiek zastanawia się, dlaczego autor zdecydował się go tak przedstawić. Inni rzeźbiarze mogliby zdecydować się na ukazanie go w sposób heroiczny lub bardziej wspaniały, ale to nie był Rodin. </p>
+<p>Innymi słowy: proces tworzenia dzieła i wybory podejmowane przez autora są samą pracą. Wynik końcowy jest tego odzwierciedleniem. Teraz, gdy znaczna część procesu tworzenia oprogramowania i mediów cyfrowych została utowarowiona, intencjonalne wybory będą odróżniać dzieła od siebie. </p>
+<p>Na przykład Wall-E jest piękny, a zarazem dystopijny, tragiczny, a zarazem pełen nadziei, emocjonalny, a zarazem podniosły. Mógłbyś poprosić model terminalny: &quot;zrób film, który jest piękny, a zarazem dystopijny, tragiczny, a zarazem pełen nadziei oraz emocjonalny, a zarazem podniosły&quot;, i zrobi on wiele filmów, ale nie dokładnie Wall-E. </p>
+<p>Stworzenie Wall-E - szerzej rozumianej wyróżniającej się pracy - nie może odbyć się opisowo. Aby stworzyć Wall-E, nie wiedząc o nim, musiałbyś przejść przez te same wybory, co jego autorzy. Ale jak? Twoje motywacje, otoczenie i myśli są inne.</p>
+<p>Jest skrajnie mało prawdopodobne, że byś to zrobił. Dzieła sztuki są wyjątkowe, ponieważ wywodzą się od jednostek z odrębnymi historiami życia, preferencjami i wspomnieniami. </p>
+<p>Wierzę, że świat po niedoborze będzie definiowany przez tę indywidualność.</p>
+<p>Jest to już częściowo widoczne. Kod do wyświetlenia tego bloga tak, jak go sobie wyobraziłem, byłby znacznie trudniejszy do stworzenia bez LLM. </p>
+<p>Nic z tego nie oznacza, że AI nie tworzy już pięknej sztuki i sensownej pracy. Oznacza to, że ludzie w świecie po niedoborze będą skłonni doceniać dzieło bardziej ze względu na osobę, która za nim stoi i jej motywy, niż za sam wynik końcowy. Jeśli antropomorfizujemy AI, np. dając im ciała, tożsamości i takie samo traktowanie jak ludziom, &quot;osoba&quot; może oznaczać również humanoidów.</p>
+<p>Używanie AI do tworzenia oznacza również, że pośrednio rozmyje ono nasze wybory twórcze, tak jak każde narzędzie, które wykonuje za ciebie niektóre kroki. Wyraźne motywacje, inspiracja i cele będą zatem najważniejsze. Tak jak ja, ucząc się o DWL i widząc podobieństwa do możliwości modeli i ludzkiego wysiłku. </p>
+<p>Nie sądzę również, abyśmy optymalizowali generatywną pracę twórczą pod kątem reakcji mózgu (np. używając <a href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/">TRIBE v2</a> od Meta, modelu przewidującego aktywność mózgu fMRI w odpowiedzi na media), ponieważ dopamina jest najbardziej znacząca przy wysiłku. Myślę, że byśmy się znudzili. Podobnie jak zjedzenie zbyt dużej ilości lodów sprawia, że nie chce się ich jeść przez długi czas. Istnieją jednak scenariusze, w których optymalizujemy pętlę wysiłku i dopaminy, co mogłoby być katastrofalne<sup><a id="footnote-ref-12" href="#footnote-12" data-footnote-ref aria-describedby="footnote-label">12</a></sup>. </p>
+<p>Nowym wyzwaniem ludzkości będzie zdobywanie inspiracji, prowadzenie wyjątkowych żyć i tworzenie coraz bardziej kreatywnych dzieł. A przynajmniej mam taką nadzieję.</p>
+<p>Na zakończenie myślę, że więcej ekonomistów powinno przyglądać się AI, a więcej informatyków powinno przyglądać się ekonomii. Ekonomiści mogą odkryć, że niektóre koncepcje dobrze pasują do AI, tak jak ja próbowałem dopasować DWL. Informatycy mogą wykorzystać analogiczne myślenie z ekonomii, aby lepiej analizować tę dziedzinę.</p>
+<p>Na przykład: pole trójkąta DWL rośnie znacznie szybciej, im dalej jesteś od równowagi. Oznacza to, że istnieje niewielka strata, jeśli nieco przekroczysz lub nie dosięgniesz równowagi, a ogromna, jeśli znajdziesz się w którymś z ekstremów. </p>
+<p>Ktoś budujący router modeli może zdecydować się na zaakceptowanie pewnego błędu z dala od równowagi, ponieważ strata w pobliżu jest niewielka, i zamiast tego optymalizować unikanie najgorszych przypadków (jak zlecenie Fable wykonania git push). Jest to pomocna rama myślowa, której sam nie znałem - Claude powiedział mi o niej, gdy zapytałem go o sposoby analizy DWL, które mogłyby łączyć się z wpisem.</p>
+<p>Potrzebny byłby ekonomista interesujący się AI lub informatyk czytający o ekonomii, aby połączyć te kropki. Ponadto nie wspomniałem o skomplikowanym rachunku różniczkowym i algebrze, które wchodzą w skład minimalizacji DWL dla złożonych krzywych podaży i popytu. Część z tego może być możliwa do przeniesienia na alokację mocy obliczeniowej. Idźcie poczytać!</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>Sala była zazwyczaj w połowie pusta, więc uznałem, że zminimalizuje to stratę jałową (gra słów zamierzona), jeśli usiądę cicho i będę oglądać wykłady.  <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>Idealnie byłoby, gdyby każdy klient był obciążany maksymalną kwotą, jaką może zapłacić. Nazywa się to różnicowaniem cen pierwszego stopnia. Często jednak sprzedawcy nie wiedzą, jaka jest ta maksymalna cena, i zamiast tego oferują wiele opcji na różnych poziomach (np. klasa pierwsza, premium economy, ekonomiczna), aby kupujący sam dokonał wyboru. Nazywa się to różnicowaniem cen drugiego stopnia. Różnicowanie cen trzeciego stopnia zmusza klientów do segmentacji poprzez powiększanie luki jakościowej między opcjami lub wymuszanie poziomów (np. zniżki studenckie). Wszystkie one mają na celu wyciągnięcie od klienta jak największej części tego, co może zapłacić za towar, co określa się mianem nadwyżki konsumenta. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>Jednak rządzi się to podobnymi zasadami. Jeśli będziesz dalej studiować ekonomię, zachęcam cię do zapoznania się z koncepcją &quot;niewidzialnej ręki&quot;. W skrócie: rynki same minimalizują DWL, ponieważ nieefektywne układy zostaną wyparte przez konkurencję o lepszej cenie.  <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+<li id="footnote-4">
+<p>Miliard tokenów dziennie trzyma lekarza z daleka.   <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+</li>
+<li id="footnote-5">
+<p>Kiedy piszę &quot;koszt&quot;, mam na myśli moc obliczeniową potrzebną do uruchomienia instancji modelu. Większe modele są ogólnie lepsze i wymagają więcej mocy obliczeniowej do działania. Nazywam to na blogu &quot;kosztem&quot;, ponieważ z tym ostatecznie mamy do czynienia. Należy zauważyć, że koszt obliczeniowy i pieniężny będą się pokrywać jeden do jednego, gdy laboratoria przestaną dotować tokeny. Wykresy zakładają, że pokrywają się one jeden do jednego. Kiedy dotacje się skończą, spodziewam się, że nagłe odcięcie będzie podobne do tego, co stało się, gdy aplikacje do zamawiania przejazdów przestały dotować kursy, a prawdziwa cena została przerzucona na konsumentów. Ludzie będą bardziej selektywni w kwestii tego, kiedy zdecydują się skorzystać z usługi, i będą ją uzupełniać własnymi umiejętnościami oraz tańszymi alternatywami. <a href="#footnote-ref-5" data-footnote-backref aria-label="Back to reference 5">↩</a></p>
+</li>
+<li id="footnote-6">
+<p>Ile startupów byłoby w opałach, gdyby laboratoria wycofały dziś dotacje do tokenów? Większość wydaje co najmniej 5-cyfrowe kwoty na tokeny (w kosztach API) każdego miesiąca na inżyniera. Dla małego startupu może to być OK, ale w skali dużych firm czy organizacji typu AI-native byłby to ogromny problem finansowy. Ajeya Cotra mówiła o tym <a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">tutaj</a>. Kiedy modele nie będą już potrzebowały promptowania, pieniądze zostaną skierowane bezpośrednio na zakup kredytów API lub procesorów GPU zamiast na opłacanie ludzi. Ludzie, którzy nadal będą zatrudnieni, prawdopodobnie spędzą większość czasu na pisaniu dokumentów projektowych do wykonania przez modele. <a href="#footnote-ref-6" data-footnote-backref aria-label="Back to reference 6">↩</a></p>
+</li>
+<li id="footnote-7">
+<p>Chociaż prawa skalowania - zwłaszcza skalowanie mocy obliczeniowej w czasie testu - sugerowałyby, że istniejące architektury nie wystarczą do osiągnięcia mojej definicji modelu terminalnego, ponieważ wymieniają one szybkość na inteligencję. <a href="#footnote-ref-7" data-footnote-backref aria-label="Back to reference 7">↩</a></p>
+</li>
+<li id="footnote-8">
+<p>Jak <a href="https://www.youtube.com/shorts/x-P119dx8xM">powiedział</a> Naval: &#39;marnuj tokeny, aby oszczędzać czas&#39;. <a href="#footnote-ref-8" data-footnote-backref aria-label="Back to reference 8">↩</a></p>
+</li>
+<li id="footnote-9">
+<p>Zaczynają pojawiać się pierwsze oznaki wnioskowania na brzegu sieci, co Anthropic szczegółowo opisał w <a href="https://www.anthropic.com/research/self-replicating-ai">tym</a> niedawnym raporcie. Spodziewam się, że telefony i laptopy będą wykonywać większość wnioskowania jeszcze w tej dekadzie. <a href="#footnote-ref-9" data-footnote-backref aria-label="Back to reference 9">↩</a></p>
+</li>
+<li id="footnote-10">
+<p>Ten wzorzec w rzeczywistości powtarza się w dużej części historii, jak na przykład rekonstrukcja twarzy została wynaleziona, by leczyć okaleczonych żołnierzy podczas I wojny światowej, lub jak Tesla zaczynała od sprzedaży luksusowego samochodu, by potem zejść do przeciętnych konsumentów. Nowe dobre technologie są opracowywane wielkim kosztem, często dla bardzo małej liczby użytkowników, by później stać się powszechnymi. <a href="#footnote-ref-10" data-footnote-backref aria-label="Back to reference 10">↩</a></p>
+</li>
+<li id="footnote-11">
+<p>Jest to już prawdą w niektórych dziedzinach, po prostu nie jest jeszcze bezwysiłkowe. <a href="#footnote-ref-11" data-footnote-backref aria-label="Back to reference 11">↩</a></p>
+</li>
+<li id="footnote-12">
+<p>Sporty i gry wideo już optymalizują cykl wysiłku, a potem dopaminy. Łączy je to, że zazwyczaj są to doświadczenia wieloosobowe. Spodziewam się, że doświadczenia wspomagane przez AI również takie będą. To, co byłoby strasznie szkodliwe, to sytuacja, w której zastąpiłyby one ludzkie więzi więziami z AI. To znaczy, jeśli ludzie mogliby zamienić interakcję międzyludzką na interakcję z maszyną. Mówiąc brutalnie, jeśli kłócenie się i godzenie z twoją dziewczyną/chłopakiem AI zaspokajałoby jakąkolwiek potrzebę emocjonalną, jaką miałbyś w związku z kłóceniem się i godzeniem z prawdziwą osobą, a istniałyby sposoby na zaspokojenie również potrzeb fizycznych, populacja kultury, w której jest to akceptowalne, załamie się. Kraje, w których to się <a href="https://www.bbc.com/news/magazine-24614830">już dzieje</a>, mają najgorsze wskaźniki zastępowalności pokoleń na świecie. Zagraża to tkance, która pozwoliła ludzkiemu społeczeństwu przetrwać. Z tego samego powodu możemy jako gatunek odnieść korzyść z posiadania małych skupisk ludzi, którzy nie używają AI ani technologii. Mogliby oni przetrwać, gdyby większość ludzi została odizolowana, i ostrzegać przed niebezpieczeństwami antropomorfizacji. Choć czuję, że tysiące lat biologicznego okablowania w naszych mózgach czynią to mniej prawdopodobnym. <a href="#footnote-ref-12" data-footnote-backref aria-label="Back to reference 12">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
+            });
+        })();
+    </script>
+</body>
+</html>
+

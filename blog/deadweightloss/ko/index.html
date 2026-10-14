@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="d05407899e4628aa"/>
+    <title>AI의 사중손실</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'ko'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 2.25em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">AI의 사중손실</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-10-14">2026년 10월 14일</time>
+        </div>
+        <a href="/" class="back-button">← 뒤로</a>
+    </div>
+    
+    <article id="post-content"><p>1학년 봄 학기 동안, 저는 버클리의 미시경제학 강의인 ECON 100A를 청강하기 위해 샌프란시스코에서 버클리까지 매주 두 번씩 통학했습니다. 친구의 초대로 방문했다가 잠시 어느 홀에 남겨지게 되었죠. 당시에는 경제학을 공부하고 싶다고 생각했었기에, 그 홀의 강의 중 하나가 100A라는 것을 알고 반가운 마음에 강의가 진행되는 동안 슬쩍 들어갔습니다<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>.</p>
+<p>아이러니하게도 경제학을 공부하면 할수록 사회과학으로서의 경제학에 대해 회의감이 들었습니다. 경제학의 이론들이 비현실적인 가정들에 의해 너무 제약되고 한정되어 있다고 느꼈기 때문입니다.</p>
+<p>그럼에도 불구하고 경제학은 공부하기 즐거운 주제였습니다. 저는 커다란 드로잉 태블릿에 수백 개의 노트를 필기했는데, 그 홀에서 누구보다도 우스꽝스러운 모습이었을 겁니다.</p>
+<p><a id="dwl-primer"></a></p>
+<p>수업에서 얻은 가장 좋아하는 개념은 사중손실(deadweight loss), 줄여서 DWL입니다. 이미 익숙하시다면 이 섹션은 건너뛰셔도 좋습니다 (<a href="#after-dwl">여기 클릭</a>).</p>
+<p>판매자 - 예를 들어 기업 - 가 있고, 그 판매자로부터 제품을 사고 싶어 하는 많은 구매자가 있다고 상상해 보세요. 판매자는 가능한 한 많은 돈을 벌고 싶어 하며, 서로 다른 가격대에 제품을 구매할 여력이 있는 많은 구매자가 있다고 가정합니다.</p>
+<p>그 제품의 가격은 어떻게 결정될까요? 어떤 구매자들은 다른 사람들보다 더 많은 돈을 지불할 의사가 있을 수 있으므로, 판매자는 가격을 높게 책정할 수 있습니다. 이는 합리적으로 보이지만, 만약 8명의 구매자가 각각 $12를 낼 수 있고 2명이 $40를 낼 수 있다면, 가격을 $40로 책정하는 것은 총 $80로 <em>순</em> 손실입니다. 가격을 $12로 책정하면 $96를 벌 수 있어 $16+ 이상의 차액을 놓치게 되기 때문입니다. 더 많은 사람에게 제품을 제공함으로써 얻을 수 있는 사회적 효과는 말할 것도 없고요<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
+<p>이를 공식화해 봅시다:</p>
+<ul>
+<li>판매자는 1-100 범위의 어떤 가격으로든 제품 가격을 책정할 수 있습니다. 이를 <em>공급 곡선</em>이라고 합니다.</li>
+<li>정해진 가격에 제품을 구매할 여력이 있는 구매자의 수입니다. 이를 <em>수요 곡선</em>이라고 합니다. 총 10명의 구매자가 있으며, 각자 다른 가격을 지불할 여력이 있다고 가정하겠습니다.</li>
+</ul>
+<p>이 곡선들을 서로 대조하여 그래프로 그릴 수 있습니다. 이는 판매자가 제품을 판매할 최적의 가격을 찾는 데 도움이 됩니다.</p>
+<p><img src="/blog/assets/figures/ko/supply-demand-curves.png" data-light-src="/blog/assets/figures/ko/supply-demand-curves-light.png" alt="가격 대비 수량으로 표시된 공급 및 수요 곡선." title="공급 및 수요 곡선"></p>
+<p>가격이 0일 때는 10명 모두가 제품 한 단위를 구매할 수 있습니다. 하지만 판매자는 $10 미만으로는 제공할 수 없습니다 (이것이 손익분기점일 수 있습니다). 판매자는 가격을 높게 책정해야 할까요, 아니면 낮게 책정해야 할까요?</p>
+<p>최적의 가격은 두 곡선의 교차점에 있습니다. 직관적으로 말하면, 판매자가 가장 높은 가격에 판매할 수 있는 최대 단위 수입니다. 5단위를 각각 $50에 판매하면 $250를 법니다. 이는 2단위를 $80에 팔아 $160를 버는 것보다 훨씬 높고, 많은 단위를 $20에 팔아 총 $160를 버는 것보다도 높습니다. 이를 시각화할 수 있습니다.</p>
+<p><img src="/blog/assets/figures/ko/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/ko/supply-demand-equilibrium-light.png" alt="균형점과 두 개의 대안 가격 지점이 표시된 공급 및 수요 곡선." title="균형점 및 대안 가격 지점"></p>
+<p>이것은 <em>가장 많이 제공</em>되고 <em>가장 많이 지불</em>되는 시나리오이며, 균형 상태라고 불립니다. 이제 DWL에 대해 이야기해 볼 수 있습니다.</p>
+<p>DWL은 제품이 너무 비싸거나 쌀 때, 판매자가 제품 가격을 균형 가격에 더 가깝게 책정했더라면 벌 수 있었을 이익입니다.</p>
+<p>우리는 이를 1) 균형점, 2) 제품 가격이 책정된 수요 곡선 상의 지점, 3) 수요 곡선의 가격과 평행한 공급 곡선 상의 지점 사이의 모서리로 형성되는 삼각형 면적으로 시각화합니다. 제품이 $80에 판매될 때를 시각화해 봅시다.</p>
+<p><img src="/blog/assets/figures/ko/supply-demand-dwl.png" data-light-src="/blog/assets/figures/ko/supply-demand-dwl-light.png" alt="제품이 $80에 판매될 때 공급 및 수요 곡선 사이의 사중손실 삼각형." title="$80 가격에서의 사중손실"></p>
+<p>삼각형의 면적은 판매자가 가격을 균형에 더 가깝게 책정했더라면 판매하여 더 높은 이익을 얻을 수 있었을 상품들을 나타냅니다.</p>
+<p>그래프의 오른쪽에 있는 DWL은 가격을 너무 낮게 책정하여 판매자가 놓치고 있는 이익입니다. 이는 제품 가격이 더 높았을 때 기업이 벌 수 있었을 돈을 희생하여 소비자가 혜택을 보고 있는 상황입니다.</p>
+<p><img src="/blog/assets/figures/ko/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/ko/supply-demand-dwl-low-price-light.png" alt="제품이 $20에 판매될 때 공급 및 수요 곡선 사이의 사중손실 삼각형." title="$20 가격에서의 사중손실"></p>
+<p>축하합니다! 이제 학부 미시경제학 지식을 조금 알게 되셨습니다. &quot;왜 애플은 구형 재고의 가치가 떨어지고 여전히 누군가는 살 텐데도 가격을 더 낮게 책정하지 않을까? 그게 DWL을 최소화하는 거 아닌가?&quot;라고 질문해 보세요. 그리고 실제 세상이 이 모델만큼 단순하고 해석 가능하지 않다는 것을 깨닫게 될 것입니다<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>.</p>
+<p><a id="after-dwl"></a></p>
+<p>자, 그럼 왜 DWL에 대해 쓰고 있을까요? (앞부분을 건너뛰셨나요? <a href="#dwl-primer">뒤로 가기</a>.) 저는 DWL 연구의 아이디어와 현재의 코딩 에이전트 패러다임 사이에 몇 가지 유사점을 봅니다.</p>
+<p>저는 코딩 에이전트를 광범위하게 사용합니다. 거의 매일 프롬프트를 작성하고, 코드를 리뷰하는 등의 일을 하죠<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>.</p>
+<p>저는 사람이 작업을 완수하는 데 필요한 기술과 모델의 성능 사이에 역관계가 있음을 관찰했습니다.</p>
+<p>프론티어 모델로 작업할 때는 일반적으로 원하는 것을 요청하는 것으로 충분합니다. &quot;이 버그 수정해 줘&quot;, &quot;X 기능 추가해 줘&quot; 등이죠. 반면에 작은 모델들은 길고 구체적인 프롬프트가 필요합니다. 그렇지 않으면 부정확하거나, 의도를 놓치거나, 시간이 지나면서 작업의 흐름을 잃어버립니다.</p>
+<p>다시 말해, 모델이 작업에 서투르거나 한계가 있을 때, 인간은 자신의 기술과 스티어링(steering)으로 그 부족함을 보충합니다.</p>
+<p>이는 현재 프론티어 모델이 잘하지 못하는 작업이나 작은 모델을 사용할 때 모두 해당됩니다. 오픈 웨이트(open-weight) 모델이 사이버 보안이나 생물학 분야에서 생각만큼 큰 위협이 되지 않는 이유 중 하나이기도 합니다. 적어도 지금으로서는 이를 최대한 활용하려면 여전히 지식 있는 인간이 필요합니다.</p>
+<p>이 관계는 또한 숙련되지 않은 노동자들도 강력한 모델을 사용하여 이전에는 광범위한 교육과 경험이 필요했던 작업을 수행할 수 있음을 의미합니다.</p>
+<p>AI로 인해 해고된 개발자가 작성한 <a href="https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html">이 블로그 포스트</a>는 회사가 왜 해고를 선택했는지 설명합니다. *&quot;AI 지원이 열정이 적고, 경험이 부족하며, 비용이 적게 드는 인력의 업무 능력을 높여주었기 때문&quot;*이라는 것이죠.</p>
+<p>이는 새로운 현상이 아닙니다. 재봉틀의 등장이 전통적으로 수작업으로 이루어지던 일을 조작법만 알면 어디서나 누구나 할 수 있게 만들어 60년대의 오프쇼어링(offshoring)을 가능하게 했던 것과 비슷합니다.</p>
+<p>이것이 엔지니어링 채용이 기술 중심에서 전통적으로 저평가되었던 기술들을 강조하는 방향으로 바뀌고 있는 이유이며, 이 포스트의 끝부분에서 논의할 내용입니다.</p>
+<p>수요 곡선을 Human effort(인간의 노력)로, 공급 곡선을 Model cost(모델 비용)로 바꾸면 이 관계를 첫 번째 그래프에 대입할 수 있습니다. 성능이 뛰어난 모델일수록 더 비싸다고 가정하겠습니다<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>.</p>
+<p>x축은 작업 대비 모델이 얼마나 유능한지를 나타냅니다. 왼쪽은 모델이 너무 약하고 저렴한 경우입니다. 오른쪽은 과도하게 유능하고 비싼 경우입니다. y축은 지불하는 대가입니다. 인간 노력 선의 높이는 모델이 당신에게 요구하는 스티어링 노력의 양이며, 모델 선의 높이는 모델 비용입니다. 모델이 더 유능할수록 스티어링은 덜 필요하고 비용은 더 많이 듭니다.</p>
+<p><img src="/blog/assets/figures/ko/human-model-curves.png" data-light-src="/blog/assets/figures/ko/human-model-curves-light.png" alt="작업 대비 모델의 성능에 따른 인간의 노력과 모델 비용의 그래프." title="인간의 노력과 모델 비용"></p>
+<p>이 그래프에서 DWL을 설명하는 간단한 예는 더 작은 모델도 할 수 있는 사소한 작업에 프론티어 모델을 사용하는 경우입니다. 예를 들어, 페이지의 텍스트를 바꾸거나 사소한 git 명령어를 실행하는 것(마지막으로 &#39;yes, push it&#39;이라고 프롬프트를 보낸 게 언제인가요?) 같은 일입니다.</p>
+<p><img src="/blog/assets/figures/ko/human-model-overreliance.png" data-light-src="/blog/assets/figures/ko/human-model-overreliance-light.png" alt="프론티어 모델이 사소한 작업에 사용되는 경우, 인간의 노력과 모델 비용 그래프의 오른쪽 사중손실." title="과도한 성능의 모델로 인한 사중손실"></p>
+<p>이에 대한 경제적 논거는 명백합니다. 사소한 작업에 프론티어 토큰을 낭비하고 있다는 것입니다. 이상적으로는 비용을 절약하고 싶을 것입니다.</p>
+<p>실제적인 논거는 토큰 소비가 문제가 되지 않더라도 작은 모델을 사용하는 것이 아마도 더 빠를 것이라는 점입니다. 마치 Cursor의 Composer가 6초 만에 해낼 일을 Astra가 60초 동안 생각하게 하는 것보다 낫듯이 말이죠.</p>
+<p>비록 똑똑한 모델이 초고속이라 할지라도 지금은 매우 비싸기 때문에 경제적 논거는 여전히 유효합니다. 맥락을 효율적으로 즉석에서 전달할 수 있는 시스템만 있다면 다른 모델이 똑같은 일을 저렴하고 빠르게 해낼 수 <em>있기</em> 때문입니다. 불필요하게 돈을 태우고 있는 셈이죠.</p>
+<p>저는 오른쪽 DWL이 단기 및 중기적으로는 중요하겠지만 장기적으로는 그렇지 않을 것이라고 봅니다.</p>
+<p>단기 및 중기적으로는 AI가 모델 선택을 최적화해야 할 만큼 충분히 비쌉니다. 특히 토큰 보조금이 중단된다면 AI 네이티브 기업들에게 이는 매우 뼈아픈 문제가 될 것입니다<sup><a id="footnote-ref-6" href="#footnote-6" data-footnote-ref aria-describedby="footnote-label">6</a></sup>. 젠슨 황이 <a href="https://www.cnbc.com/2026/03/20/nvidia-ai-agents-tokens-human-workers-engineer-jobs-unemployment-jensen-huang.html">지적했듯이</a>, 엔지니어들은 월급 외에 토큰 예산을 받게 될지도 모릅니다.</p>
+<p>장기적으로는 프론티어 지능이 측정하기 어려울 정도로 저렴해지고 매우 빨라질 것으로 예상합니다. 저는 이를 모델의 &#39;terminal(터미널)&#39; 클래스라고 부릅니다. 대부분의 작업에 잘 작동하고, 실행 비용이 거의 무료이며 (전화기나 컴퓨터를 사용할 가능성이 높기 때문), 속도도 빠른 맥가이버 칼 같은 모델이죠. 남은 10%는 모델이 할 수 없는 작업이 아니라, 스스로 정렬하거나 핵무기를 제어하는 것과 같이 우리가 모델에게 단독으로 맡기지 않을 작업들일 것입니다. 이러한 분야에서는 여전히 인간이 필요할 것입니다.</p>
+<p>경험적으로 우리는 랩(lab)들이 프론티어 모델의 작은 버전(Mythos의 Fable, Astra의 GPT 6.1 Sol 등)을 출시하여 더 저렴하면서도 비슷한 성능을 내는 방향으로 발전하는 것을 보아왔습니다<sup><a id="footnote-ref-7" href="#footnote-7" data-footnote-ref aria-describedby="footnote-label">7</a></sup>.</p>
+<p>당분간 프론티어 모델은 일반적인 신뢰도가 더 높고 실제 비용만큼 가격이 책정되지 않았기 때문에 간단한 작업에도 계속 사용될 것입니다. 똑같이 훌륭하면서 더 저렴한 (아마도 결정론적인?) 대안을 찾을 유인이 없습니다. 터미널 모델에 도달할 때까지 토큰 보조금이 지속된다면 굳이 그럴 필요가 없을지도 모릅니다.</p>
+<p>그래프의 왼쪽 DWL은 어떨까요?</p>
+<p>최근에 Ollama를 사용하여 제 컴퓨터에서 Qwen 모델 제품군을 로컬로 실행하며 실험해 보았습니다. 실망스러웠습니다. 작은 모델치고는 많이 알고 인상적인 묘기를 보여줄 수 있지만, 실제 작업을 던져주자마자 불필요한 세부 사항에 과도하게 몰입하며 맥락 예산을 다 써버렸습니다.</p>
+<p><img src="/blog/assets/figures/ko/human-model-underreliance.png" data-light-src="/blog/assets/figures/ko/human-model-underreliance-light.png" alt="작은 모델이 과도한 인간의 지도를 필요로 하는 경우, 인간의 노력과 모델 비용 그래프의 왼쪽 사중손실." title="성능 부족 모델로 인한 사중손실"></p>
+<p>정확히 어떤 줄의 코드를 봐야 하는지 짚어주어야만 제가 원하는 일을 하게 할 수 있었습니다. 심지어 수차례 반복해서 변경을 실행하라고 말해도 그저 생각하고 또 생각하다가 맥락이 넘쳐버리는 바람에, 일부 코드는 제가 직접 손으로 수정해야만 했습니다.</p>
+<p>또한 Qwen은 너무 많은 보살핌이 필요했기에 프로젝트를 끝내는 데 훨씬 더 오랜 시간이 걸렸습니다. 프론티어 모델이었다면 단 한 번의 프롬프트로 해결했을 작업임을 알고 있었습니다. 정신적 피로도 더 컸습니다. 프론티어 모델로 프롬프트를 밀어붙이는 것이 훨씬 간단합니다. 정말 생각할 필요가 없거든요<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>.</p>
+<p>물론 제 경우에는 실험을 위해 작은 모델을 사용했습니다. 현실 세계에서 왼쪽의 DWL은 모델이 <em>아직</em> 잘하지 못하는 작업들에서 나타납니다. 특이한 금융 및 ML 연구 벤치마크나 일부 컴퓨터 사용 작업들이 그렇죠. 여전히 모델의 출력을 검토하고 조종할 사람들이 필요합니다.</p>
+<p>정확도를 수량화할 수 있고 그 작업이 경제적으로 가치가 있다면, 결국 정복될 것이며 아마도 프론티어에서 먼저 시작되어 오른쪽으로 이동할 것입니다. 이는 랩과 스타트업이 자동화를 도입하는 데 관심이 있는 작업들에 해당합니다. 이것이 확산 과정의 일부입니다.</p>
+<p>균형점은 작업에 적합한 수준의 지능과 최적의 가격을 갖춘 모델입니다. 프론티어 모델과 동일한 결과를 얻으면서도 더 저렴하고 아마도 더 빠를 것입니다.</p>
+<p>유능하다고 알려진 더 작은 모델을 사용하거나, 아직 존재하지 않는다면 커스텀 데이터셋과 평가를 통해 직접 만듦으로써 균형에 도달할 수 있습니다. 이는 고정되어 있지만 (현재로서는) 비싸고 시간이 많이 드는 비용입니다. 균형점을 넘어서 절약되는 인간의 노력은 현재 토큰 보조금으로 충당되고 있으며, 그렇지 않다면 비용이 많이 들 것입니다.</p>
+<p>프론티어 토큰 비용이 균형 모델을 찾는 비용보다 낮은지는 사례마다 다르겠지만, 최적화가 고정 비용임을 감안할 때 대규모 애플리케이션에서는 의미 있는 순이익이 될 가능성이 높습니다.</p>
+<p><img src="/blog/assets/figures/ko/human-model-equilibrium.png" data-light-src="/blog/assets/figures/ko/human-model-equilibrium-light.png" alt="모델이 작업에 딱 적합한 인간의 노력과 모델 비용 사이의 균형." title="인간의 노력과 모델 비용 사이의 균형"></p>
+<p>우리가 터미널 모델을 달성하기 전까지는 경제 전반에 걸쳐 토큰 사용량이 증가함에 따라 균형 최적화된 모델 하네스(harness), 모델 라우터, 학습 환경이 유용할 것입니다. 또는 정부가 터미널 모델 개발을 지연시키는 규제를 도입하여 현 상태에 안주하게 된다면 무기한으로 유용할 수도 있습니다.</p>
+<p>이들은 인간의 노력을 대가로 대부분의 작업을 거의 무료이고 빠르게, 에지(edge) 하드웨어에서 실행 가능하게<sup><a id="footnote-ref-9" href="#footnote-9" data-footnote-ref aria-describedby="footnote-label">9</a></sup> 만들고 필요할 때 클라우드로 라우팅할 수 있게 할 것입니다. 저는 그 과정에 세 가지 기술적 과제가 있다고 봅니다:</p>
+<ul>
+<li>맥락 전달: 맥락을 전달할 적절한 모델을 선택하고, 이를 지연 시간과 비용이 거의 제로에 가깝게 수행하는 것. 이는 모델 하네스와 라우터 같은 개별 작업 및 스레드에서 중요합니다.</li>
+<li>병렬성: 인프라 제공업체가 사용할 수 있는 모든 전력이 연중무휴 활용되도록 GPU 활용도와 KV 캐시 / 모델 가중치의 오프로딩 및 리로딩 속도를 극대화하는 방법.</li>
+<li>모델 프로파일링: 누구나 작업에 적합한 이미 유능한 모델을 찾거나 학습시킬 수 있도록, 즉 균형에 도달할 수 있도록 돕는 사용하기 쉬운 도구.</li>
+</ul>
+<p>Budget-conscious(예산에 민감하고) 기술력이 있는 조직들은 이미 이러한 문제들에 도전하고 있습니다. 작은 모델을 <a href="https://x.com/RampLabs/status/2052447438795833506">RL(강화 학습)</a>하기 위한 커스텀 환경을 만들고 자체 <a href="https://router.com">모델 라우터</a>를 구축하고 있죠.</p>
+<p>하지만 현재 가격의 AI를 더 넓은 경제로 확산시키려면, 중소규모 조직이 개인 차원에서나 특정 작업 차원에서 토큰 소비를 절약하는 데 사용할 수 있는 간단한 최적화 도구들에 대해 많은 작업이 이루어져야 합니다.</p>
+<p>Jev는 매우 저렴할지 모르지만, 일반 상점 점원이나 비영리 단체 직원이 API 키를 가져와서 Astra보다 분류 작업을 더 잘하는지 확인하기 위해 평가(eval)를 하지는 않을 것입니다. 그들은 버튼을 누르거나 에이전트에게 물어보고 선택할 수 있는 결과를 보고 싶어 할 것입니다. 이상적으로는 에이전트로부터 더 나은 옵션이 있다는 것을 선제적으로 배우는 것이 좋겠죠.</p>
+<p>저는 모델 제공업체들이 가장 먼저 해결책에 도달할 수도 있다고 생각합니다. 마치 자동 변속기 자동차가 적절한 타이밍에 기어를 변속해 주듯이, 제 요청이 간단할 때 Claude Code가 자동으로 모델을 전환해 준다면 근사할 것입니다 (비록 실제로는 캐싱 때문에 아직 더 효율적이지는 않지만요).</p>
+<p>종합해 보면, 이 그래프는 익숙한 이야기를 들려줍니다. 프론티어는 가장 힘든 도전을 위한 토대를 마련하고, 확산은 이를 경제적으로 실현 가능하고 접근 가능하게 만듭니다<sup><a id="footnote-ref-10" href="#footnote-10" data-footnote-ref aria-describedby="footnote-label">10</a></sup>.</p>
+<p>이를 통해 미래의 업무에 두 가지 경로가 있다는 결론에 도달했습니다:</p>
+<ul>
+<li>컴퓨터로 최적화할 수 없는(아직은) 기술이 점점 더 가치 있게 될 것입니다. 예를 들어, 대인 커뮤니케이션, 관계 구축, 높은 기준, 고통 감내력 등입니다.</li>
+<li>만약 최적화 가능한 모든 것을 최적화한다면 - 비록 오랜 시간이 걸릴 것으로 예상하지만 - 우리는 최적화가 무의미한 다른 문제들을 스스로 만들어낼 것입니다 (<a href="https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other">이 에세이</a>를 참조하세요).</li>
+</ul>
+<p>어느 쪽이든 우리는 더 나아질 것입니다. 이는 수백만 명의 소외 계층에게 의료 서비스와 개선된 삶의 질을 제공하고, 대규모 사회적 이동을 가능하게 할 것입니다. 물론, 우리가 이를 정렬(align)한다는 전제 하에 말이죠.</p>
+<p>그래프에 포함되지 않는 업무는 어떨까요? 즉, 예술과 같이 &#39;옳은&#39; 결과가 없는 업무나, 새로운 제품이나 미디어처럼 비교 대상이 없어 무엇이 옳은지 정의할 수 없는 완전히 새로운 업무 말입니다.</p>
+<p>모델이 당신이 요청하는 무엇이든 할 수 있다면<sup><a id="footnote-ref-11" href="#footnote-11" data-footnote-ref aria-describedby="footnote-label">11</a></sup>, 창의적인 추구에서 &#39;옳음&#39;은 전적으로 당신에게 달려 있습니다. 모델이 터미널 모델이라고 가정하면, 당신이 원하는 모든 것에 완벽하게 맞춰질 것이므로 오직 당신만이 어디서 멈춰야 할지 알 것입니다.</p>
+<p>이를 설명하자면: 프랑스의 조각가 오귀스트 로댕에게 원하는 무엇이든 조각할 수 있는 기계가 있었다 하더라도, 그는 여전히 자신의 작품을 미세하게 조정하고 그것이 전달하고자 하는 바를 정하는 데 많은 시간을 보냈을 것입니다. 각 작품은 작가가 당시 겪었던 일이나 타인을 묘사하기 위해 <em>선택한</em> 방식에 의해 특징지어집니다.</p>
+<p>로댕의 <em>발자크 기념비</em>가 좋은 예입니다.</p>
+<p><img src="/blog/assets/monument-to-balzac-the-met.jpg" alt="오귀스트 로댕의 발자크 기념비를 위한 최종 습작의 세부 사항: 무거운 망토를 두르고 머리를 뒤로 젖힌 청동 인물상." title="오귀스트 로댕, 발자크 기념비를 위한 최종 습작. 메트로폴리탄 미술관."></p>
+<p>로댕이 프랑스의 저명한 작가인 발자크를 위한 기념비를 만들기 시작했을 때, 그는 &quot;심장과 정신으로 유명한 사람은 그의 몸으로 [표현되어서는] 안 된다&quot;고 말했습니다 (<a href="https://www.metmuseum.org/art/collection/search/207498">참조</a> 확인). 우리는 이 조각상에서 질감, 윤곽, 발자크의 얼굴의 불분명한 형태 등 이상화되거나 미화된 것과는 거리가 먼 모습을 볼 수 있습니다.</p>
+<p>이것이 조각상을 아이코닉하게 만듭니다. 왜 작가가 그를 그렇게 묘사하기로 선택했는지 궁금하게 만들죠. 다른 조각가들이라면 그를 영웅적이거나 더 웅장한 방식으로 묘사하기로 선택했을 수도 있지만, 그것은 로댕이 아니었을 것입니다.</p>
+<p>다시 말해, 작품을 만드는 과정과 작가가 내린 선택이 곧 업무입니다. 최종 결과물은 그 반영일 뿐입니다. 이제 소프트웨어와 디지털 미디어 제작 과정의 상당 부분이 상품화되었으므로, 의도적인 선택이 작품들을 서로 차별화할 것입니다.</p>
+<p>예를 들어, 월-E는 아름다우면서도 디스토피아적이고, 비참하면서도 희망적이며, 감성적이면서도 엄숙합니다. 당신이 터미널 모델에게 &quot;아름다우면서도 디스토피아적이고, 비참하면서도 희망적이며, 감성적이면서도 엄숙한 영화를 만들어 줘&quot;라고 프롬프트를 입력하면, 모델은 많은 영화를 만들겠지만 정확히 월-E를 만들지는 못할 것입니다.</p>
+<p>월-E를 만드는 것 - 폭넓게 차별화된 결과물을 만드는 것 - 은 묘사적으로 수행될 수 없습니다. 월-E를 모르는 상태에서 월-E를 만들려면, 제작자들과 똑같은 선택의 과정을 밟아야 합니다. 하지만 어떻게 그럴 수 있을까요? 당신의 동기, 환경, 생각은 그들과 다릅니다.</p>
+<p>그럴 가능성은 극히 희박합니다. 예술 작품은 독특한 삶의 이야기와 선호도, 기억을 가진 개인들로부터 나오기 때문에 고유한 것입니다.</p>
+<p>저는 포스트 희소성 세계가 이러한 개성에 의해 정의될 것이라고 믿습니다.</p>
+<p>부분적으로는 이미 시작되었습니다. 제가 구상한 대로 이 블로그를 표시하기 위한 코드는 LLM 없이는 만들기가 훨씬 더 어려웠을 것입니다.</p>
+<p>이 모든 것이 AI가 이미 아름다운 예술과 의미 있는 성과를 내고 있지 않다는 말은 아닙니다. 포스트 희소성 시대의 인간은 최종 결과물보다 그 이면의 사람과 그들의 동기에 대해 작품을 더 높게 평가하는 경향을 보일 것이라는 말입니다. 만약 우리가 AI에게 몸과 정체성을 부여하고 인간과 똑같이 대우함으로써 의인화한다면, &#39;사람&#39;은 휴머노이드도 의미할 수 있을 것입니다.</p>
+<p>창작에 AI를 사용한다는 것은 또한 당신을 위해 일부 단계를 수행하는 도구와 마찬가지로, 우리의 창의적 선택을 간접적으로 희석시킨다는 것을 의미합니다. 따라서 독특한 동기, 영감, 목표가 가장 중요해질 것입니다. 제가 DWL에 대해 배우고 모델 성능과 인간의 노력 사이의 유사점을 발견한 것처럼 말이죠.</p>
+<p>또한 도파민은 고충(struggle)과 함께할 때 가장 의미가 있기 때문에, 우리는 뇌 반응(예를 들어, 미디어에 대한 fMRI 뇌 활동을 예측하는 모델인 Meta의 <a href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/">TRIBE v2</a> 사용)에 맞춰 생성적 창의 업무를 최적화하지는 않을 것이라고 생각합니다. 지루해질 테니까요. 아이스크림을 너무 많이 먹으면 오랫동안 먹고 싶지 않아지는 것과 같습니다. 물론, 고충과 도파민의 루프를 최적화하는 시나리오가 있다면 파멸적일 수도 있겠지만요<sup><a id="footnote-ref-12" href="#footnote-12" data-footnote-ref aria-describedby="footnote-label">12</a></sup>.</p>
+<p>인류의 새로운 고충은 영감을 얻고, 독특한 삶을 살며, 더욱 창의적인 작품을 만드는 일이 될 것입니다. 적어도 저는 그렇게 희망합니다.</p>
+<p>마지막으로, 저는 더 많은 경제학자가 AI를 바라보고, 더 많은 컴퓨터 과학자가 경제학을 공부해야 한다고 생각합니다. 경제학자들은 제가 DWL을 대입해 본 것처럼 일부 개념이 AI와 잘 맞아떨어진다는 것을 알게 될 것입니다. 컴퓨터 과학자들은 경제학의 유추적 사고를 사용하여 이 분야를 더 잘 분석할 수 있습니다.</p>
+<p>예를 들어, DWL 삼각형의 면적은 균형에서 멀어질수록 훨씬 더 빠르게 커집니다. 이는 균형에서 약간 벗어나면 손실이 적지만, 어느 한쪽 극단에 있다면 거대한 손실이 발생한다는 것을 의미합니다.</p>
+<p>모델 라우터를 구축하는 사람은 균형 근처에서의 손실이 적기 때문에 어느 정도의 오차를 수용하는 대신, (Fable에게 git push를 시키는 것과 같은) 최악의 위반 사례를 피하는 쪽으로 최적화할 수 있습니다. 이는 저조차도 몰랐던 도움이 되는 생각의 틀이었습니다. 제가 포스트와 연결될 수 있는 DWL 분석 방식 몇 가지를 물어보았을 때 Claude가 알려준 것이죠.</p>
+<p>점들을 연결하려면 AI에 관심 있는 경제학자나 경제학을 공부하는 컴퓨터 과학자가 필요했을 것입니다. 또한 저는 복잡한 공급 및 수요 곡선에 대해 DWL을 최소화하는 데 들어가는 복잡한 미적분과 대수에 대해서는 언급하지 않았습니다. 그중 일부는 연산 자원 할당에 전용될 수 있을 것입니다. 어서 읽어보세요!</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>홀은 보통 절반쯤 비어 있었기 때문에, 조용히 앉아 강의를 보는 것이 사중손실(의도적인 언어유희입니다)을 최소화하는 방법이라고 생각했습니다. <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>이상적으로는 각 고객에게 그들이 지불할 수 있는 최대 금액을 청구하는 것입니다. 이를 1급 가격 차별이라고 합니다. 하지만 판매자는 흔히 그 최대 가격이 얼마인지 모르기 때문에 대신 여러 등급(예: 일등석, 프리미엄 이코노미, 일반석)의 옵션을 제공하여 구매자가 스스로 선택하게 합니다. 이를 2급 가격 차별이라고 합니다. 3급 가격 차별은 옵션 간의 품질 격차를 크게 벌리거나 특정 등급(예: 학생 할인)을 강제함으로써 고객을 세분화합니다. 이 모든 것은 고객이 제품에 대해 지불할 수 있는 금액 중 최대한을 추출하는 것을 목표로 하며, 이를 고객의 잉여라고 합니다. <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>비록 비슷한 규칙을 따르긴 하지만요. 경제학을 더 공부하신다면 &quot;보이지 않는 손&quot;이라는 개념에 대해 배워보시길 권합니다. 요약하자면, 비효율적인 배열은 경쟁자에 의해 도태되거나 가격 경쟁에서 밀려나기 때문에 시장은 스스로 DWL을 최소화합니다. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+<li id="footnote-4">
+<p>하루에 10억 개의 토큰이면 의사가 필요 없습니다. <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+</li>
+<li id="footnote-5">
+<p>제가 &quot;비용&quot;이라고 쓸 때는 모델의 인스턴스를 실행하는 데 필요한 연산 자원을 말합니다. 더 큰 모델은 일반적으로 더 성능이 좋고 실행하는 데 더 많은 연산 자원이 필요합니다. 블로그에서 이를 &quot;비용&quot;이라고 부르는 이유는 우리가 궁극적으로 다루는 것이 비용이기 때문입니다. 랩들이 토큰 보조금을 중단하면 연산 자원과 금전적 비용이 일대일로 대응하게 될 것임을 유의하세요. 그래프는 이들이 일대일로 대응한다고 가정합니다. 보조금이 중단되면 승차 공유 앱들이 보조금을 중단하고 실제 가격이 소비자에게 전가되었을 때와 비슷한 상황이 벌어질 것으로 예상합니다. 사람들은 서비스를 이용할 때 더 신중해질 것이며, 자신의 기술과 더 저렴한 대안으로 이를 보완할 것입니다. <a href="#footnote-ref-5" data-footnote-backref aria-label="Back to reference 5">↩</a></p>
+</li>
+<li id="footnote-6">
+<p>만약 오늘 랩들이 토큰 보조금을 없앤다면 얼마나 많은 스타트업이 허둥댈까요? 대부분은 엔지니어당 매달 최소 5자릿수 달러의 토큰 비용(API 비용)을 쓰고 있습니다. 소규모 스타트업에게는 괜찮을지 모르지만, 대기업이나 AI 네이티브 조직 규모에서는 거대한 재무 문제가 될 것입니다. 아제야 코트라(Ajeya Cotra)가 <a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">여기</a>서 이에 대해 이야기했습니다. 모델에 더 이상 프롬프트가 필요하지 않게 되면, 돈은 인간에게 지불하는 대신 API 크레딧이나 GPU를 직접 구매하는 데 사용될 것입니다. 여전히 고용된 사람들은 아마도 모델에 의해 실행될 설계 문서를 작성하는 데 대부분의 시간을 보낼 것입니다. <a href="#footnote-ref-6" data-footnote-backref aria-label="Back to reference 6">↩</a></p>
+</li>
+<li id="footnote-7">
+<p>비록 스케일링 법칙 - 특히 테스트 시간 연산 스케일링 - 은 기존 아키텍처가 지능을 위해 속도를 희생하기 때문에 제가 정의한 터미널 모델에 도달하기에 충분하지 않을 것임을 시사하지만요. <a href="#footnote-ref-7" data-footnote-backref aria-label="Back to reference 7">↩</a></p>
+</li>
+<li id="footnote-8">
+<p>나발(Naval)이 <a href="https://www.youtube.com/shorts/x-P119dx8xM">말했듯이</a>, &#39;시간을 아끼기 위해 토큰을 낭비하라&#39;는 것입니다. <a href="#footnote-ref-8" data-footnote-backref aria-label="Back to reference 8">↩</a></p>
+</li>
+<li id="footnote-9">
+<p>앤스로픽(Anthropic)이 최근 <a href="https://www.anthropic.com/research/self-replicating-ai">이 보고서</a>에서 상세히 설명했듯이, 에지에서의 추론에 대한 초기 징후들이 나타나기 시작했습니다. 저는 이번 10년 이내에 휴대폰과 노트북이 대부분의 추론을 수행할 것으로 예상합니다. <a href="#footnote-ref-9" data-footnote-backref aria-label="Back to reference 9">↩</a></p>
+</li>
+<li id="footnote-10">
+<p>이러한 패턴은 역사의 많은 부분에서 반복됩니다. 제1차 세계 대전 중 흉터가 남은 군인들을 치료하기 위해 안면 재건술이 발명된 방식이나, 테슬라가 고급 자동차를 판매한 후 일반 소비자들로 내려온 방식처럼 말이죠. 새로운 좋은 기술은 처음에는 아주 적은 수의 사용자를 위해 큰 비용을 들여 개발되지만, 나중에는 주류가 됩니다. <a href="#footnote-ref-10" data-footnote-backref aria-label="Back to reference 10">↩</a></p>
+</li>
+<li id="footnote-11">
+<p>일부 영역에서는 이미 사실이지만, 아직 노력이 전혀 들지 않는 수준은 아닙니다. <a href="#footnote-ref-11" data-footnote-backref aria-label="Back to reference 11">↩</a></p>
+</li>
+<li id="footnote-12">
+<p>스포츠와 비디오 게임은 이미 고충과 도파민의 주기를 최적화하고 있습니다. 이들의 공통점은 대개 멀티플레이어 경험이라는 것입니다. 저는 AI 기반 경험도 그럴 것이라고 예상합니다. 정말 해로운 것은 인간관계가 AI와의 관계로 대체되는 것입니다. 즉, 사람들이 인간과의 상호작용을 기계와의 상호작용으로 바꿀 수 있게 되는 경우죠. 적나라하게 말해서, AI 여자친구/남자친구와 싸우고 화해하는 것이 실제 연인과 싸우고 화해할 때의 감정적 욕구를 충족해주고 신체적 욕구까지 대체할 방법이 생긴다면, 그것이 용인되는 문화의 인구는 급감할 것입니다. <a href="https://www.bbc.com/news/magazine-24614830">이미 이런 일이 일어나고 있는</a> 국가들은 세계에서 가장 낮은 출산율을 기록하고 있습니다. 이는 인류 사회를 지속시켜온 근간을 위협합니다. 같은 이유로, AI나 기술을 사용하지 않는 소수의 사람들이 있는 것이 종으로서 유익할 수도 있습니다. 그들은 대부분의 인간이 고립될 때 그 삶을 이어가며 의인화의 위험성을 경고할 것입니다. 하지만 수천 년 동안 우리 뇌에 새겨진 생물학적 배선이 이런 일이 일어날 가능성을 낮게 만들 것이라고 느낍니다. <a href="#footnote-ref-12" data-footnote-backref aria-label="Back to reference 12">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
+            });
+        })();
+    </script>
+</body>
+</html>
+

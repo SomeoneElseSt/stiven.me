@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="d05407899e4628aa"/>
+    <title>AI 中的无谓损失</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'zh'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 2.25em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">AI 中的无谓损失</h1>
+            <time id="post-date" class="post-date" data-iso-date="2026-10-14">2026年10月14日</time>
+        </div>
+        <a href="/" class="back-button">← 返回</a>
+    </div>
+    
+    <article id="post-content"><p>在大一那年的春天，我每周两次往返于旧金山和伯克利之间，旁听伯克利的微观经济学课程 ECON 100A。一位朋友邀请我去参观，并把我留在其中一个大厅里呆了一会儿。我当时以为自己想学经济学，所以很高兴发现那个大厅里的讲座之一正是 100A，并决定在讲座进行时顺便旁听<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>。</p>
+<p>讽刺的是，我对经济学研究得越深，就越对它作为一门社会科学感到怀疑。我发现它的理论过于受限，且被不切实际的假设所束缚。</p>
+<p>尽管如此，这依然是一个有趣的学科。我用一个超大的绘图板记了数百页笔记，在那间大厅里，那肯定算得上是所有人中最傻的装备了。</p>
+<p><a id="dwl-primer"></a></p>
+<p>我从这门课中学到的最喜欢的概念是无谓损失（Deadweight Loss），简称 DWL。如果你已经熟悉这个概念，可以跳过这一部分（<a href="#after-dwl">点击这里</a>）。</p>
+<p>想象一下你有一个卖家 - 比如一家企业 - 和许多想从该卖家那里购买商品的买家。我们假设卖家想要赚取尽可能多的钱，并且有许多买家，每个买家在不同的价位都能负担得起该产品。</p>
+<p>该商品如何定价？有些买家可能愿意比其他人支付更多的钱，因此卖家可以将价格定得很高。这看起来很合理，但如果 8 个买家每个能支付 $12，而 2 个买家每个能支付 $40，那么将商品价格定为 $40 的<em>净</em>收益是 $80，这是一种损失，因为定价为 $12 将净赚 $96，白白留下了 $16+ 的差额。更不用说让更多人能够获得该商品可能产生的社会影响了<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>。</p>
+<p>让我们将其形式化：</p>
+<ul>
+<li>卖家可以在 1-100 的范围内以任何价格为商品定价。这被称为<em>供给曲线</em>。</li>
+<li>一定数量的买家在给定价格下能负担得起该商品。这被称为<em>需求曲线</em>。我们将总共考虑 10 个买家，每个买家在不同的价格下都有购买能力。</li>
+</ul>
+<p>我们可以将这些曲线相互绘制出来。这对于寻找卖家出售其产品的最佳价格很有帮助。</p>
+<p><img src="/blog/assets/figures/zh/supply-demand-curves.png" data-light-src="/blog/assets/figures/zh/supply-demand-curves-light.png" alt="供给与需求曲线图，纵轴为价格，横轴为数量。" title="供给与需求曲线"></p>
+<p>当价格为零时，所有 10 个人都能负担得起一个单位呈现的商品。然而，卖家的报价不能低于 $10（这可能是他们的盈亏平衡价）。他们应该把价格定得高还是低？</p>
+<p>最佳价格位于两条曲线的交点处。直观地说，这是卖家在最高价格下能卖出的最大单位数量。5 个单位，每个 $50，净赚 $250。这远高于以 $80 出售两个单位所得的 $160，也高于以 $20 出售大量单位所得的 $160。我们可以将其可视化。</p>
+<p><img src="/blog/assets/figures/zh/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/zh/supply-demand-equilibrium-light.png" alt="带有均衡点和两个备选价位的供给与需求曲线。" title="均衡与备选价位"></p>
+<p>这是<em>给予最多</em>与<em>支付最多</em>的情景，被称为均衡状态。现在我们可以谈谈 DWL 了。</p>
+<p>DWL 是指当产品价格过高或过低时，如果卖家将产品定价调整得更接近均衡点，本可以获得的利润。</p>
+<p>我们将其可视化为以下三个点之间的区域：1) 均衡点，2) 商品定价所在的需求曲线上的点，以及 3) 供给曲线上与需求曲线价格平行的点，从而形成一个三角形。让我们看看当商品以 $80 出售时的可视化效果。</p>
+<p><img src="/blog/assets/figures/zh/supply-demand-dwl.png" data-light-src="/blog/assets/figures/zh/supply-demand-dwl-light.png" alt="当商品以 $80 出售时，供给与需求曲线之间的无谓损失三角形。" title="$80 价格下的无谓损失"></p>
+<p>三角形的面积代表了如果卖家将产品定价更接近均衡点，原本可以卖出的商品，从而让他们获得更高的利润。</p>
+<p>图表右侧的 DWL 是指由于商品定价过低，卖家错失的利润。这是指消费者受益，但以企业本可以赚取的钱为代价，如果商品定价更高的话。</p>
+<p><img src="/blog/assets/figures/zh/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/zh/supply-demand-dwl-low-price-light.png" alt="当商品以 $20 出售时，供给与需求曲线之间的无谓损失三角形。" title="$20 价格下的无谓损失"></p>
+<p>恭喜！你现在了解了一些本科微观经济学。试着问问：“既然旧库存价值较低，而且有些人可能仍然会买，为什么苹果不降低旧库存的价格？这难道不会最小化 DWL 吗？”然后意识到现实世界并不像这个模型那样简单且易于解释<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>。</p>
+<p><a id="after-dwl"></a></p>
+<p>好了，那我为什么要写 DWL 呢？（跳过前面的部分了吗？<a href="#dwl-primer">点此返回</a>。）我看到 DWL 研究中的想法与当前的编程智能体范式之间存在一些相似之处。</p>
+<p>我广泛地使用编程智能体工作。几乎每天我都在进行提示词编写、代码审查等<sup><a id="footnote-ref-4" href="#footnote-4" data-footnote-ref aria-describedby="footnote-label">4</a></sup>。</p>
+<p>我观察到，人类完成任务所需的技能与模型的好坏之间存在反比关系。</p>
+<p>当使用前沿模型时，通常只需提出你的要求即可。“修复这个 bug”，“添加 X 功能”等等。另一方面，小模型需要冗长、极其具体的提示词。否则，它们会不准确、误解你的意图，或者在一段时间后忘记任务。</p>
+<p>换句话说：当模型在某项任务上表现不佳或受限时，人类会用自己的技能和引导来补充其不足。</p>
+<p>目前，对于前沿模型不擅长的任何任务，或者在使用小模型时，这都是事实。这也是为什么开放权重模型在网络安全和生物学领域并不像看起来那样具有威胁性的部分原因。你仍然需要知识渊博的人类来充分发挥它们的作用，至少目前是这样。</p>
+<p>这种关系也意味着技能水平较低的工人可以使用强大的模型来完成以前需要大量培训和经验的工作。</p>
+<p>一位因 AI 被解雇的开发者的<a href="https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html">这篇</a>博客文章描述了他们的公司如何选择裁员，因为*“AI 辅助提高了那些热情较低、经验较少且成本较低的员工的工作能力”*。</p>
+<p>这并不是什么新现象。这类似于缝纫机械如何让传统上手工完成的工作变得对任何地方懂得操作它的人都触手可及，从而允许在 60 年代进行离岸外包。</p>
+<p>这就是为什么工程职位的招聘重点正在从关注技术转向强调传统上被低估的技能，正如我在文章末尾所讨论的那样。</p>
+<p>如果我们将需求曲线换成人类努力，将供给曲线换成模型成本，我们就可以将这种关系映射到第一张图表上。我假设功能更强大的模型更昂贵<sup><a id="footnote-ref-5" href="#footnote-5" data-footnote-ref aria-describedby="footnote-label">5</a></sup>。</p>
+<p>x 轴代表模型相对于任务的能力：在左侧，模型对于任务来说太弱且便宜。在右侧，它是大材小用且昂贵。y 轴代表你支付的代价。人类努力线的高度是模型需要你进行的引导工作量，而模型线的高度是模型的成本。模型功能越强，需要的引导越少，成本越高。</p>
+<p><img src="/blog/assets/figures/zh/human-model-curves.png" data-light-src="/blog/assets/figures/zh/human-model-curves-light.png" alt="人类努力和模型成本相对于模型对任务能力的函数图。" title="人类努力与模型成本"></p>
+<p>在这个图表中说明 DWL 的一个简单例子是，当前沿模型被用于较小模型就能完成的琐碎工作时。例如，更改页面上的文本或运行琐碎的 git 命令（你最后一次提示“是的，推送它”是什么时候？）。</p>
+<p><img src="/blog/assets/figures/zh/human-model-overreliance.png" data-light-src="/blog/assets/figures/zh/human-model-overreliance-light.png" alt="人类努力与模型成本图表右侧的无谓损失，其中前沿模型被用于琐碎任务。" title="由于过度依赖强大模型而产生的无谓损失"></p>
+<p>反对此举的经济论点是显而易见的：你正在将前沿 Token 用于琐碎的任务。理想情况下，你会希望节省成本。</p>
+<p>实际的论点是，如果 Token 花费不是问题，使用较小的模型可能会更快。比如 Cursor 的 Composer 在 6 秒内完成，而不是让 Astra 思考 60 秒。</p>
+<p>即使你的智能模型速度极快，目前这也是非常昂贵的，所以经济论点仍然成立：如果我们有能够高效、即时传输上下文的系统，其他人<em>可以</em>用更便宜的价格同样快地完成同样的事情。你正在不必要地浪费金钱。</p>
+<p>我认为右侧的 DWL 在短期到中期很重要，但从长期来看则不然。</p>
+<p>在短期到中期，AI 的成本高到足以证明优化模型选择的必要性。如果 Token 补贴停止，这对于 AI 原生公司来说将尤为突出<sup><a id="footnote-ref-6" href="#footnote-6" data-footnote-ref aria-describedby="footnote-label">6</a></sup>。正如黄仁勋<a href="https://www.cnbc.com/2026/03/20/nvidia-ai-agents-tokens-human-workers-engineer-jobs-unemployment-jensen-huang.html">所指出</a>的，工程师可能会在薪水之外获得 Token 预算。</p>
+<p>长期来看，我预期前沿智能将变得便宜到无需计量的地步，且速度极快。我称之为“终极”类模型。像瑞士军刀一样，能很好地处理 90% 的任务，运行成本几乎为零（极有可能是因为它们使用你的手机或电脑）而且速度快。剩下的 10% 将不是模型无法完成的任务，而是我们不会让它单独完成的任务，比如自我对齐或控制核武器。这些领域仍然需要人类。</p>
+<p>从经验上看，我们已经看到了这方面的进展，实验室发布了其前沿模型的较小版本（来自 Mythos 的 Fable，来自 Astra 的 GPT 6.1 Sol），这些版本功能相似但更便宜<sup><a id="footnote-ref-7" href="#footnote-7" data-footnote-ref aria-describedby="footnote-label">7</a></sup>。</p>
+<p>目前，前沿模型仍将用于简单任务，因为它们通常更可靠，且定价并未反映其真实成本。没有动力去寻找同样好且更便宜（也许是确定性的？）的替代方案。如果 Token 补贴能持续到我们拥有终极模型，我们可能就不需要这样做。</p>
+<p>那么图表左侧的 DWL 呢？</p>
+<p>我最近在尝试 Qwen 系列模型，用 Ollama 在我的电脑上本地运行它们。结果令人失望。它们知识渊博，能为一个小模型变出令人印象深刻的戏法，但一旦你给它们布置一个真正的任务，它们就会因为过度思考不必要的细节而耗尽上下文预算。</p>
+<p><img src="/blog/assets/figures/zh/human-model-underreliance.png" data-light-src="/blog/assets/figures/zh/human-model-underreliance-light.png" alt="人类努力与模型成本图表左侧的无谓损失，其中小型模型需要沉重的人类引导。" title="由于模型能力不足而产生的无谓损失"></p>
+<p>我只能通过指出它必须查看的确切代码行来让它做我想做的事情。我甚至不得不亲自动手修改一些代码，因为即使我连续多次告诉它执行更改，它只是想啊想，直到上下文溢出。</p>
+<p>由于需要如此多的“手把手”教导，我也花了相当长的时间才完成我的 Qwen 项目。我知道前沿模型只需一个提示词就能完成任务。我的心理负担也更重：使用前沿模型提示完成任务要简单得多。你真的不需要动脑筋<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>。</p>
+<p>虽然，在我的案例中，我是为了实验而使用小模型。在现实世界中，左侧的 DWL 在模型<em>尚未</em>擅长的任务中是可见的。比如那些古怪的金融和机器学习研究基准测试，或者一些电脑使用任务。你仍然需要有人审查模型的输出并引导它们。</p>
+<p>如果准确性可以被量化且任务具有经济价值，它最终会被攻克，最有可能首先在前沿领域实现，然后向右偏移。对于实验室和初创公司有兴趣引入自动化的任务来说，情况确实如此。这是扩散过程的一部分。</p>
+<p>均衡点是对于某项任务具有最佳价格和适当智能水平的模型。它能获得与前沿模型相同的结果，因为它在处理该任务时同样出色，但它更便宜，而且可能更快。</p>
+<p>你可以通过针对该任务使用已知胜任的小模型，或者在不存在这种模型的情况下通过自定义数据集和评估来创建自己的模型，从而达到均衡。这是一个固定但昂贵且耗时的成本（目前）。你在均衡点之外节省的人类努力目前是由 Token 补贴支付的，否则将会代价高昂。</p>
+<p>前沿 Token 的成本是否低于寻找均衡模型的成本取决于具体情况，但考虑到优化是一项固定成本，对于大规模应用来说，它很可能是一项有意义的净收益。</p>
+<p><img src="/blog/assets/figures/zh/human-model-equilibrium.png" data-light-src="/blog/assets/figures/zh/human-model-equilibrium-light.png" alt="人类努力与模型成本之间的均衡，此时模型刚好适合该任务。" title="人类努力与模型成本之间的均衡"></p>
+<p>在我们实现终极模型之前，随着 Token 使用量在整个经济中的增长，均衡优化的模型框架、模型路由和训练环境将非常有用。或者，如果政府引入监管阻碍终极模型的开发，使我们陷入现状，它们将无限期有用。</p>
+<p>它们将使大多数任务几乎免费、快速、可在边缘硬件上运行<sup><a id="footnote-ref-9" href="#footnote-9" data-footnote-ref aria-describedby="footnote-label">9</a></sup>，并在必要时可路由到云端，代价是人类的努力。我看到了阻碍这一进程的三个技术挑战：</p>
+<ul>
+<li>上下文传输：选择正确的模型来传输上下文，并以尽可能接近零成本和零延迟的方式进行。这对于单个任务和线程非常重要，例如在模型框架和路由中。</li>
+<li>并行性：如何最大化 GPU 利用率以及 KV 缓存 / 模型权重卸载和重载速度，以便基础设施提供商可用的每一瓦算力都能 24/7 全天候得到利用。</li>
+<li>模型性能剖析（Model Profiling）：任何人都可以使用的易于操作的工具，用以寻找已胜任某项任务的模型或训练一个模型，即达到均衡。</li>
+</ul>
+<p>注重预算、技术能力强的组织如 Ramp 已经在尝试解决这些问题，制作自定义环境来<a href="https://x.com/RampLabs/status/2052447438795833506">在小模型上进行 RL</a>上，并构建自己的<a href="https://router.com">模型路由</a>。</p>
+<p>但要将 AI 以当前价格扩散到更广泛的经济领域，在简单易用的优化器上还有很多工作要做，以便中小型组织可以节省 Token 开支，无论是对于组织内的个人还是特定任务。</p>
+<p>Jev 可能非常便宜，但你普通的商店店员或非营利组织工作人员不会去获取 API 密钥并进行评估，看看它在分类任务上是否击败了 Astra。他们宁愿按下一个按钮或询问他们的智能体，然后查看结果供选择。理想情况下，他们会主动从智能体那里获知有更好的选择可用。</p>
+<p>我认为模型提供商可能是最先达成解决方案的。如果 Claude Code 能在我的要求很简单时自动切换模型，那就太棒了（虽然在实践中，由于缓存原因，这还不够高效），就像自动挡汽车会在合适的时间为你换挡一样。</p>
+<p>总的来说，图表描绘了一个熟悉的故事：前沿将为应对最严峻的挑战奠定基础，而扩散则使其在经济上可行且可普及<sup><a id="footnote-ref-10" href="#footnote-10" data-footnote-ref aria-describedby="footnote-label">10</a></sup>。</p>
+<p>通过思考这些问题，我得出了未来工作的两条路径：</p>
+<ul>
+<li>那些无法（目前）用计算机优化的技能将变得越来越有价值。例如，人际沟通、建立关系、高标准、耐受力。</li>
+<li>如果我们真的优化了一切可优化的东西 - 尽管我预计这需要很长时间 - 我们将为自己制造出优化变得毫无意义的不同问题（参见<a href="https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other">这篇</a>论文）。</li>
+</ul>
+<p>在任何一种情况下，我们都会因此变得更好。它将为数百万弱势群体提供医疗保健并改善生活质量，实现大规模的社会流动 - 諸如此类。前提是，如果我们将它对齐的话。</p>
+<p>那些不属于图表部分的工作呢？也就是说，那些没有“正确”结果的工作，比如艺术，以及那些完全全新且没有比较点来定义正确与否的工作，例如新产品和新媒体。</p>
+<p>如果模型可以完成你要求的任何事情<sup><a id="footnote-ref-11" href="#footnote-11" data-footnote-ref aria-describedby="footnote-label">11</a></sup>，那么创意追求中的“正确”完全取决于你。假设模型是终极的，它将完美匹配你想要它做的任何事情，所以只有你知道该在哪里停止。</p>
+<p>为了说明这一点：如果法国雕塑家奥古斯特·罗丹（Auguste Rodin）能使用一台可以雕刻任何他想要的物体的机器，他仍然会花费大量时间调整他的作品，并确定它们想要表达的内容。每一件作品的特点都取决于作者当时的经历，或者他<em>选择</em>描绘他人的方式。</p>
+<p>罗丹的《巴尔扎克纪念像》就是一个很好的例子。</p>
+<p><img src="/blog/assets/monument-to-balzac-the-met.jpg" alt="奥古斯特·罗丹《巴尔扎克纪念像》最终研究稿细节：一个青铜人像，裹着厚厚的斗篷，头向后仰。" title="奥古斯特·罗丹，《巴尔扎克纪念像最终研究稿》。大都会艺术博物馆。"></p>
+<p>当罗丹着手为法国著名作家巴尔扎克创作纪念像时，他宣称“一个以心灵和思想著称的人不应[由]他的身体来表现”（见<a href="https://www.metmuseum.org/art/collection/search/207498">参考资料</a>）。我们在雕塑中看到了这一点，它的纹理、轮廓以及巴尔扎克面部模糊的形状，都远非理想化或美化。</p>
+<p>这使得这座雕塑成为了经典。它让人思考为什么作者选择那样描绘他。其他雕塑家可能会选择以英雄主义或更宏大的方式突出他，但那不是罗丹。</p>
+<p>换句话说：创作作品的过程和作者做出的选择就是作品本身。最终结果是这一过程的反映。既然软件和数字媒体的许多创作过程已经被商品化，有意识的选择将使作品彼此区分开来。</p>
+<p>例如，《机器人总动员》（Wall-E）既美丽又带有反乌托邦色彩，既凄凉又充满希望，既感人又庄重。你可以向终极模型发送提示词，“制作一部既美丽又反乌托邦、既凄凉又充满希望、既感人又庄重的电影”，它会制作出许多电影，但绝不是完全一样的《机器人总动员》。</p>
+<p>制作《机器人总动员》 - 广义上的差异化作品 - 是无法通过描述性方式完成的。要在不知道《机器人总动员》的情况下制作它，你必须走与其作者相同的选择路径。但如何做呢？你的动力、环境和思想都是不同的。</p>
+<p>你极不可能做到。艺术作品之所以独特，是因为它们源自具有独特人生故事、偏好和记忆的个体。</p>
+<p>我相信后稀缺世界将由这种个性所定义。</p>
+<p>它已经部分实现了。如果没有 LLM，要按照我的设想编写显示这个博客的代码将会困难得多。</p>
+<p>这一切并不是说 AI 还没有创作出美丽的艺术和有意义的作品。它是说后稀缺时代的人类将倾向于更多地因为作品背后的个人及其动机而非最终结果来欣赏作品。如果我们拟人化 AI，例如通过给它们身体、身份以及与人类相同的待遇，“人”可能也意味着类人机器人。</p>
+<p>使用 AI 进行创作也意味着它会间接地稀释我们的创意选择，就像任何替你完成某些步骤的工具一样。因此，独特的动机、灵感和目标将是最重要的。就像我学习 DWL 并看到它与模型能力和人类努力之间的相似之处一样。</p>
+<p>我也不认为我们会针对大脑反应优化生成式创意作品（例如使用 Meta 的 <a href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/">TRIBE v2</a>，一个预测 fMRI 大脑活动对媒体反应的模型），因为多巴胺在奋斗中才最有意义。我想我们会感到无聊。就像吃太多冰淇淋会让你在很长一段时间内都不想吃它一样。虽然，在某些情况下，我们优化“奋斗-多巴胺”循环的情景可能会是灾难性的<sup><a id="footnote-ref-12" href="#footnote-12" data-footnote-ref aria-describedby="footnote-label">12</a></sup>。</p>
+<p>人类新的奋斗将是获取灵感、过独特的生活并创作出更具创意的作品。我希望如此。</p>
+<p>作为结束语，我认为应该有更多的经济学家关注 AI，更多的计算机科学家关注经济学。经济学家可能会发现某些概念能很好地映射到 AI，正如我尝试映射 DWL 那样。计算机科学家可以使用经济学的类比思维来更好地分析该领域。</p>
+<p>例如：DWL 三角形的面积随着你偏离均衡点越远，增长速度就越快。这意味着如果你稍微偏离均衡点，损失很小，但如果你处于任何一个极端，损失将是巨大的。</p>
+<p>构建模型路由的人可能会选择接受远离均衡点的一些误差，因为附近的损失很小，而是优化以避免最严重的偏差（比如让 Fable 执行 git push）。这是一个很有帮助的思想框架，我以前也不知道 - 当我向 Claude 询问一些可以与文章联系起来的 DWL 分析方法时，它告诉了我这一点。</p>
+<p>你需要一个对 AI 感兴趣的经济学家，或者一个阅读经济学读物的计算机科学家来建立这种联系。另外，我没有谈到为复杂的供给和需求曲线最小化 DWL 所涉及的复杂微积分和代数。其中一些可能是可以转移到算力分配上的。去阅读吧！</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>大厅通常是半空的，所以我认为静静地坐着听课可以最小化无谓损失（双关语）。 <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>理想情况下，每个客户都将被收取他们能支付的最高价格。这被称为一级定价。但通常卖家不知道最高价格是多少，而是提供不同级别的多种选项（例如头等舱、高级经济舱、经济舱），以便买家自己做出选择。这被称为二级定价。三级定价通过扩大选项之间的质量差距或实施分层（例如学生折扣）来迫使客户进行细分。它们的目的都是从客户身上榨取尽可能多的他们愿意为商品支付的费用，这被称为他们的盈余。 <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>虽然它遵循类似的规则。如果你进一步学习经济学，我鼓励你了解“看不见的手”这一概念。简而言之：市场会自行最小化 DWL，因为效率低下的安排将被竞争对手以更优的竞争或价格所击败。 <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+<li id="footnote-4">
+<p>每天 10 亿个 Token，医生远离我。 <a href="#footnote-ref-4" data-footnote-backref aria-label="Back to reference 4">↩</a></p>
+</li>
+<li id="footnote-5">
+<p>当我写“成本”时，我指的是运行模型实例所需的算力。更大的模型通常更好，需要更多的算力来运行。我在博客中称之为“成本”，因为这是我们最终要处理的问题。请注意，当实验室停止补贴 Token 时，算力成本和货币成本将一一对应。图表假设它们是一一对应的。当补贴停止时，我预期这种“撤梯子”的行为将类似于打车应用停止补贴行程并将真实价格转嫁给消费者时发生的情况。人们将更加挑剔何时选择使用该服务，并用自己的技能和更便宜的替代方案来补充它。 <a href="#footnote-ref-5" data-footnote-backref aria-label="Back to reference 5">↩</a></p>
+</li>
+<li id="footnote-6">
+<p>如果实验室今天取消 Token 补贴，有多少初创公司会陷入困境？大多数公司每个工程师每月至少要花费 5 位数的 Token（API 成本）。对于一家小型初创公司来说这可能还好，但在大型公司或 AI 原生组织的规模下，这将是一个巨大的融资问题。Ajeya Cotra 在<a href="https://www.youtube.com/watch?v=Z19UEZHJzAg">这里</a>谈到了这一点。当模型不再需要提示词时，资金将直接流向购买 API 额度或 GPU，而不是支付给人类。仍然受雇的人可能会把大部分时间花在编写设计文档上，由模型来执行。 <a href="#footnote-ref-6" data-footnote-backref aria-label="Back to reference 6">↩</a></p>
+</li>
+<li id="footnote-7">
+<p>虽然扩展定律 - 尤其是推理时间计算扩展 - 表明现有的架构不足以达到我对终极模型的定义，因为它们以速度换取智能。 <a href="#footnote-ref-7" data-footnote-backref aria-label="Back to reference 7">↩</a></p>
+</li>
+<li id="footnote-8">
+<p>正如 Naval <a href="https://www.youtube.com/shorts/x-P119dx8xM">所说</a>：“浪费 Token 以节省时间”。 <a href="#footnote-ref-8" data-footnote-backref aria-label="Back to reference 8">↩</a></p>
+</li>
+<li id="footnote-9">
+<p>边缘推理的一些早期迹象已经开始显现，正如 Anthropic 在最近的<a href="https://www.anthropic.com/research/self-replicating-ai">这份</a>报告中所详细描述的那样。我预计手机和笔记本电脑将在本十年内完成大部分推理。 <a href="#footnote-ref-9" data-footnote-backref aria-label="Back to reference 9">↩</a></p>
+</li>
+<li id="footnote-10">
+<p>这种模式实际上在历史的大部分时间里都在重复，比如在一战期间为了治疗受伤士兵而发明了面部重建，或者特斯拉如何从销售豪华车开始，然后向下渗透到普通消费者。新的优秀技术以巨大的成本被开发出来，通常只针对极少数用户，后来才成为主流。 <a href="#footnote-ref-10" data-footnote-backref aria-label="Back to reference 10">↩</a></p>
+</li>
+<li id="footnote-11">
+<p>这在某些领域已经是事实，只是还不够省力。 <a href="#footnote-ref-11" data-footnote-backref aria-label="Back to reference 11">↩</a></p>
+</li>
+<li id="footnote-12">
+<p>体育和电子游戏已经优化了“奋斗后产生多巴胺”的循环。它们的共同点是，通常它们都是多人体验。我预计 AI 支持的体验也将如此。极其有害的是，如果它们用与 AI 的连接取代人类的连接。也就是说，如果人们可以用机器交互代替人类交互。粗略地说，如果与你的 AI 女友/男友吵架并和好能满足你与真实女友/男友吵架并和好的任何情感需求，并且还有办法补充身体需求，那么这种被接受的文化下的人口将会崩溃。这种情况<a href="https://www.bbc.com/news/magazine-24614830">已经在发生</a>的国家，其替代率是世界上最差的。它威胁到了使人类社会持久的结构。出于同样的原因，作为一个物种，我们可能会从拥有不使用 AI 或技术的一小群人中受益。如果大多数人类变得孤立，他们将继续存在并警告拟人化的危险。虽然，我觉得大脑中数千年的生物进化布线使这不太可能发生。 <a href="#footnote-ref-12" data-footnote-backref aria-label="Back to reference 12">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
+            });
+        })();
+    </script>
+</body>
+</html>
+
