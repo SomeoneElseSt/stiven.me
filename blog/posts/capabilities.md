@@ -58,7 +58,7 @@ This relationship also means less-skilled individuals can use the models to do w
 
 [This](https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html) blog post by a developer laid off due to AI describes how their company chose to do layoffs because *"AI assistance raised the capability of work for the less passionate, less experienced, and less costly workforce"*. 
 
-This isn't a new phenomenon. It's similar to how sewing machinery made jobs traditionally done by hand accessible to anyone, anywhere, who knew how to operate it, permitting offshoring in the '60s. 
+This isn't a new phenomenon. It's similar to how sewing machinery made jobs traditionally done by hand accessible to anyone anywhere who knew how to operate it, permitting offshoring in the '60s. 
 
 It's the reason why hiring for engineering jobs is shifting from being technically focused to highlighting traditionally undervalued skills, as I discuss toward the end of the post.
 
@@ -66,7 +66,7 @@ We can map these concepts onto the first graph if we swap the Demand curve with 
 
 When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. 
 
-I'll call it "cost" in the blog because it's easier to digest. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens[^4]. The plots assume they map one-to-one. 
+I'll call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens[^4]. The plots assume they map one-to-one. 
 
 The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it and cheap. At the right, it's overkill and expensive. The y-axis represents what you pay. The height of the human line is how much steering the model needs from you, as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
@@ -80,23 +80,23 @@ The economic argument against this is obvious: you're using frontier tokens for 
 
 The practical argument is that if token spend wasn't a concern, it would probably be faster if you used a smaller model. Like if Cursor's Composer did it in 10 seconds rather than have Astra think for a minute. 
 
-Even if your smart model was ultra fast, that is very expensive right now, so the economic argument still holds: others *could* do the same thing just as fast for cheaper if we had the systems to transfer context efficiently and on the spot. It's irrational not to save the cost (unfortunately, humans are *very* irrational).
+Even if your smart model was ultra fast, that is very expensive right now, so the economic argument still holds: others *could* do the same thing just as fast for cheaper if we had the systems to transfer context efficiently and on the spot. 
 
-I see this mattering in the short to medium term but not the long term. 
+I see this mattering in the short to medium term but not long term. 
 
-When token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
+In the short to medium term, when token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
 
-Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' model. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' class of models. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
 
 In that scenario, everyone might as well use the same model for everything a model can legally do, discounting for differences in style and presentation. This is my definition of AGI. 
 
 Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
 
-I still think a "DWL-optimized harness" will be useful as intelligence diffuses to the economy and token usage grows by many orders of magnitude, especially if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo. 
+A "DWL-optimized harness" will be useful until we have terminal models, as costly intelligence diffuses to the economy and token usage grows by many orders of magnitude. Or indefinitely if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo.
 
 It will make most tasks near free, fast, runnable on edge hardware[^7], and routable to the cloud when necessary. I see three technical challenges in the way:
 
-- Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This is important for individual tasks and threads.
+- Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.
 - Parallelism: if many models are doing many tasks, how can inference engines maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly?
 - Model Profiling: you don't need to route requests each time if you already know what models sit at equilibria. To my knowledge, there isn't an all-purpose toolkit to do this yet. 
 
