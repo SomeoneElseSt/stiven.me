@@ -183,7 +183,7 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^3]: Though, it follows similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by a competitor. 
 
-[^4]: 1 Billion tokens a day keeps the doctor away.  
+[^4]: 1 billion tokens a day keeps the doctor away.  
 
 [^5]: When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. I call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens. The plots assume they map one-to-one. When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. People will be more selective about when they choose to use the service and supplement it with their own skills and cheaper alternatives.
 
