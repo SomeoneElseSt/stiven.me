@@ -316,6 +316,7 @@ Rules:
 - In LaTeX math, translate ONLY the text inside \\text{...} commands into the target language; preserve all other LaTeX commands and math symbols exactly
 - DO translate text inside <summary> tags — these are user-facing labels that should be in the target language
 - Keep currency amounts exactly as written in the original, with the $ sign directly before the number (e.g. $12, $250). Do NOT move the $ after the number: a $ followed by a space or punctuation is parsed as LaTeX math and breaks the page
+- Keep every spaced hyphen used as a dash exactly as written: a plain - with a space on each side (e.g. "a seller - say, a business - and"). Do NOT replace it with an em dash (—) or en dash (–), and do NOT remove the spaces around it
 - Do NOT add ANY text before or after the output — no greetings, no sign-offs, no "ready for next task", no closing remarks of any kind
 - Your response must end with the last line of the translated markdown and nothing else
 

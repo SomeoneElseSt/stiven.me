@@ -24,7 +24,7 @@ The optimal price lies in the intersection of the two curves. Intuitively, it's 
 
 ![Supply and demand curves with the equilibrium and two alternative price points marked.](/blog/assets/figures/en/supply-demand-equilibrium.png "Equilibrium and Alternative Price Points")
 
-This is the scenario with the *most given* for the *most paid*, and is called a state of equilibrium. We can now talk about deadweight loss (DWL). 
+This is the scenario with the *most given* for the *most paid*, and is called a state of equilibrium. We can now talk about DWL. 
 
 DWL is the profit the seller could've made had they priced their product closer to equilibrium when the product is too expensive or cheap. 
 
@@ -42,7 +42,7 @@ Congrats! You now know some undergraduate microeconomics. Try asking: "Why doesn
 
 <a id="after-dwl"></a>
 
-Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find points of equilibria for different supply and demand curves) and the current paradigms of coding agents. 
+Ok, so why am I writing about DWL? I see some parallels between ideas in the study of DWL and the current paradigms of coding agents. 
 
 I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^4]. 
 
@@ -54,7 +54,7 @@ In other words: when a model is bad/limited at a task, humans supplement its def
 
 This is currently true for any task that frontier models aren't good at or when using small models. It's part of why open-weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  
 
-This relationship also means less-skilled individuals can use the models to do work that previously required extensive training and experience, in the cases where human input is minimal or closer to supervision than steering. 
+This relationship also means unskilled workers can use powerful models to do work that previously required extensive training and experience.
 
 [This](https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html) blog post by a developer laid off due to AI describes how their company chose to do layoffs because *"AI assistance raised the capability of work for the less passionate, less experienced, and less costly workforce"*. 
 
@@ -62,11 +62,7 @@ This isn't a new phenomenon. It's similar to how sewing machinery made jobs trad
 
 It's the reason why hiring for engineering jobs is shifting from being technically focused to highlighting traditionally undervalued skills, as I discuss toward the end of the post.
 
-We can map these concepts onto the first graph if we swap the Demand curve with Human effort and the Supply curve with Model cost. I assume more capable models are more expensive.
-
-When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. 
-
-I'll call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens[^5]. The plots assume they map one-to-one. 
+We can map these concepts onto the first graph if we swap the Demand curve with Human effort and the Supply curve with Model cost. I assume more capable models are more expensive[^5].
 
 The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it and cheap. At the right, it's overkill and expensive. The y-axis represents what you pay. The height of the human line is how much steering effort the model needs from you, as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
@@ -90,9 +86,7 @@ Long-term, I expect frontier intelligence to become too cheap to meter and very 
 
 Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^7]. 
 
-For now, overkill models will remain in use for simple tasks because they are generally more reliable. 
-
-It's better to have it and not need it than to need it and not have it, and you might as well if you're not paying for most of it. There is no incentive yet to find equally good, cheaper, and perhaps deterministic alternatives. And there might not be one if the token subsidies last until we reach terminal models.
+For now, frontier models will remain in use for simple tasks because they are generally more reliable and not priced to their true cost. There is no incentive yet to find equally good and cheaper (perhaps deterministic?) alternatives. We might not need to if the token subsidies last until we reach terminal models.
 
 What about DWL on the left side of the graph?
 
@@ -100,29 +94,27 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 ![Deadweight loss on the left side of the human effort and model cost graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From an Underpowered Model")
 
-I could only get it to do what I wanted by pointing out the exact lines of code it had to look at. I even had to change some code by hand because even though I'd tell it five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
+I could only get it to do what I wanted by pointing out the exact lines of code it had to look at. I even had to change some code by hand because even though I'd tell it many times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
 It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've done the task with a single prompt[^8]. My mental load was heavier too: it is so much simpler to prompt your way through with a frontier model. You don't really need to think. 
 
-Though, in my case, I was using a small model for the sake of experimentation. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. Like the odd finance and ML research benchmarks or some computer use tasks. You still need people reviewing the models' outputs and steering them.
+Though, in my case, I used a small model for the sake of experimentation. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. Like the odd finance and ML research benchmarks or some computer use tasks. You still need people reviewing the models' outputs and steering them.
 
 If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
 
-In the graph, the equilibrium makes sense if you think about it as the model with the right price and intelligence for the task. 
+The point of equilibrium is the model with the best price and right level of intelligence for a task. It obtains the same outcome a frontier model would because it's just as capable for that task, except it's cheaper and possibly faster. Human effort past the point of equilibrium is friction or time you save by always using the overall most capable model. 
 
-A model you could've given the same prompt as a frontier model and obtained the same outcome because it's just as capable for that task. In this definition, human effort past the point of equilibrium is friction you save by always using the overall most capable model. 
-
-You can get to equilibrium by using an already-capable smaller model for the task, or making your own through custom datasets and evaluations if one doesn't exist yet.
+You get to equilibrium by using a smaller model for the task that's known to be capable, or making your own through custom datasets and evaluations if one doesn't exist yet.
 
 ![Equilibrium between human effort and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Effort and Model Cost")
 
-Until we achieve terminal models, equilibrium-optimized model harnesses, model routers and training environments will be useful as token usage grows across the economy. Or indefinitely if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo.
+Until we achieve terminal models, equilibrium-optimized model harnesses, model routers, and training environments will be useful as token usage grows across the economy. Or indefinitely if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo.
 
 These will make most tasks near free, fast, runnable on edge hardware[^9], and routable to the cloud when necessary. I see three technical challenges in the way:
 
-- Transferring context efficiently: for model harnesses, how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.
-- Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
-- Model Profiling: for training environment companies, making easy-to-use tools anyone can use to find an already-capable model for a task or to train one. 
+- Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads, e.g., in model harnesses and routers.
+- Parallelism: how to maximize GPU utilization and KV Cache / model weights offloading and reloading speed so every watt of compute available to infrastructure providers is utilized 24/7.
+- Model Profiling: making easy-to-use tools anyone can use to find an already-capable model for a task or to train one.
 
 Budget-conscious, technically able organizations like [Ramp](https://x.com/RampLabs/status/2052447438795833506) are already trying their hand at these problems, making custom datasets to RL small models on and building their own [model routers](https://router.com).
 
@@ -132,9 +124,9 @@ Paraphrased: Jev might be very cheap but your average store clerk or non-profit 
 
 Though, it's nice that this is a defined engineering effort: if we get it right once, everyone benefits.
 
-I reckon model providers might be the first to arrive at a solution. It would be neat if Claude Code routed small tasks to Haiku while I talked with Opus. Subagents try to do this but aren't frictionless. Plus, I've never met a non-coder using subagents. It should be automatic. 
+I reckon model providers might be the first to arrive at a solution. It would be neat if Claude Code automatically switched models when my asks were simple (though practically this isn't more efficient yet due to caching), like how automatic cars shift gears at the right time for you.
 
-Altogether, the graph paints a familiar story: the frontier will lay the groundwork for the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast[^10]. 
+Altogether, the graph paints a familiar story: the frontier will lay the groundwork for the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable, accessible, and fast[^10]. 
 
 Thinking through this made me conclude there are two paths for the future of work:
 - Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
@@ -159,7 +151,7 @@ This makes the sculpture iconic. It makes one wonder why the author chose to por
 
 In other words: the process of making the piece and the choices taken by the author are the work. The end result is a reflection of that. Now that much of the process of creation of software and digital media has been commodified, intentional choices will differentiate works from each other. 
 
-For example, Wall-E is beautiful yet dystopic, dire yet hopeful, emotional yet solemn. You could prompt a terminal model, "make a movie that's beautiful yet dystopic, dire yet hopeful, and emotional yet solemn", and it would make many movies but not Wall-E exactly. 
+For example, Wall-E is beautiful yet dystopic, dire yet hopeful, emotional yet solemn. You could prompt a terminal model, "make a movie that's beautiful yet dystopic, dire yet hopeful, and emotional yet solemn", and it will make many movies but not Wall-E exactly. 
 
 Making Wall-E - unique work broadly - can't be done descriptively. To make Wall-E without knowing about it (I assume you do :)), you would have to walk the same choices as its authors. But how? Your motivations, environment, and thoughts are different.
 
@@ -171,13 +163,13 @@ Everyone will have limitless possibility, so we'll appreciate the ways each one 
 
 It's already here, partially, as making this blog would have been considerably harder without LLMs. Now I get to write about how DWL has to do with AI - how esoteric!
 
-This is not to say AI isn't already making beautiful art and meaningful work. It is to say that in a post-scarcity world, I believe humans will lean toward appreciating a piece of work more for the person behind it than the end result. If we anthropomorphize AI (e.g. by giving them bodies, identities, and the same treatment as humans), "person" might mean humanoid too. 
+This is not to say AI isn't already making beautiful art and meaningful work. It is to say that I believe post-scarcity humans will lean toward appreciating a piece of work more for the person behind it than the end result. If we anthropomorphize AI (e.g. by giving them bodies, identities, and the same treatment as humans), "person" might mean humanoid too at some point.
 
-Using AI for creation also means it will indirectly morph the outcomes of our creative choices (as with any tool that does some of the steps for you). Motivations, inspiration, and circumstances that lead to unique, specific work will therefore be most scarce. Like me learning about DWL and seeing parallels to model capabilities and human effort. 
+Using AI for creation also means it will indirectly morph the outcomes of our creative choices (as with any tool that does some of the steps for you). Motivations, inspiration, and circumstances that lead to unique work will therefore be most scarce. Like me learning about DWL and seeing parallels to model capabilities and human effort. 
 
-I'm choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than addicts pressing a button to get dopamine. Ah, wait, that's just TikTok. 
+I'm choosing not to talk about optimizing generative creative work against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than addicts pressing a button to get dopamine. Ah, wait, that's just TikTok. 
 
-I don't think it'll come to that because dopamine is most meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. 
+Joking aside, I don't think it'll come to that because dopamine is most meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time[^12].
 
 Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
 
@@ -197,7 +189,7 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^4]: 1 Billion tokens a day keeps the doctor away.  
 
-[^5]: When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. It wasn't pretty. 
+[^5]: When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. I call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens. The plots assume they map one-to-one. When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. People will be more selective about when they choose to use the service and supplement it with their own skills and cheaper alternatives.
 
 [^6]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 
@@ -210,3 +202,5 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 [^10]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
 
 [^11]: This is already true in some domains, just not effortless yet.
+
+[^12]: Sports and video games already optimize the cycle of struggle then dopamine. They share in common that, usually, they're multiplayer experiences. I expect AI-enabled experiences will be too. What would be terribly detrimental is if they replace human connection with connection to AIs. I.e., if everyone supplants human interaction with machine interaction. Countries where this is already happening have the worst replacement rates in the world. It threatens the fabric that made human society last. For the same reason, we might benefit as a species from having small clusters of people who do not use AI or technology. They would carry on if most humans become isolated and warn about the dangers of anthropomorphization.
