@@ -54,7 +54,7 @@ LOCALE_LABELS = {
         'point': '(Costs {price} and {quantity} buy it. Net = {net})',
         'sold': '({quantity} sold at {price}. Net = {net})',
         'equilibrium_net': 'Equilibrium: {net}',
-        'equilibrium_model': 'Equilibrium: the model is just\nright for the task',
+        'equilibrium_model': 'Equilibrium: when the model is\njust right for the task',
         'steers_cheap': '(Human steers {steering}% of the way.\nModel is cheap)',
         'steers_costly': '(Human steers {steering}% of the way.\nModel is costly)',
         'dwl': 'DWL',
