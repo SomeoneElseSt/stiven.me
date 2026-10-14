@@ -80,7 +80,7 @@ The practical argument is that if token spend wasn't a concern, it would probabl
 
 Even if your smart model was ultra fast, that is very expensive right now, so the economic argument still holds: others *could* do the same thing just as fast for cheaper if we had the systems to transfer context efficiently and on the spot. You would be burning money unnecessarily. 
 
-I see this mattering in the short to medium term but not long term. 
+I see right-sided DWL mattering in the short to medium term but not long term. 
 
 In the short to medium term, AI is expensive enough to warrant optimizing model choice. This will be especially salient for AI-native companies if the token subsidies stop[^6]. Engineers might get token budgets on top of their salary, as Jensen Huang [pointed out](https://www.cnbc.com/2026/03/20/nvidia-ai-agents-tokens-human-workers-engineer-jobs-unemployment-jensen-huang.html).
 
@@ -104,9 +104,11 @@ Though, in my case, I used a small model for the sake of experimentation. In the
 
 If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
 
-The point of equilibrium is the model with the best price and right level of intelligence for a task. It obtains the same outcome a frontier model would because it's just as capable for that task, except it's cheaper and possibly faster. The human effort you save beyond the point of equilibrium is currently paid for by token subsidies and would otherwise be costly.
+The point of equilibrium is the model with the best price and right level of intelligence for a task. It obtains the same outcome a frontier model would because it's just as capable for that task, except it's cheaper and possibly faster. 
 
-You get to equilibrium by using a smaller model for the task that's known to be capable, or making your own through custom datasets and evaluations if one doesn't exist yet. This is a fixed but expensive and time-consuming cost. 
+You get to equilibrium by using a smaller model for the task that's known to be capable, or making your own through custom datasets and evaluations if one doesn't exist yet. This is a fixed but expensive and time-consuming cost (right now). The human effort you save beyond the point of equilibrium is currently paid for by token subsidies and would otherwise be costly.
+
+Whether the cost of frontier tokens is lower than the cost of finding an equilibrium model depends case by case, yet knowing the optimization is a fixed cost, it likely is a meaningful net gain for applications at scale.
 
 ![Equilibrium between human effort and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Effort and Model Cost")
 
@@ -129,15 +131,14 @@ I reckon model providers might be the first to arrive at a solution. It would be
 Altogether, the graph paints a familiar story: the frontier will lay the groundwork for the toughest challenges while diffusion makes them economically viable and accessible[^10]. 
 
 Thinking through this made me conclude there are two paths for the future of work:
-- Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
-- If we do optimize everything optimizable (though I expect this to take a long time), we'll make different problems for ourselves that 
-require skills outside the scope of optimization (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
+- Skills that cannot be optimized against with a computer (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building, high standards, pain tolerance.
+- If we do optimize everything optimizable - though I expect this to take a long time - we'll make different problems for ourselves where optimization is pointless (see [this](https://asteriskmag.com/issues/15/after-work-we-ll-have-each-other) essay).
 
 In either case, we'll be better off from it. It will provide healthcare and improved quality of life for millions of underprivileged people, enable massive social mobility - the works. That is, if we align it. 
 
 What about work that is not part of the graph? That is, work that doesn't have a "right" result, such as the arts, and work that is completely new and doesn't have a point of comparison to define right from, e.g., new products and media.
 
-If the model can do anything you ask[^11], "right" in a creative pursuit is entirely up to you. The model is perfectly matched to what you want it to do, so only you will know where to stop (assuming the model is terminal).
+If the model can do anything you ask[^11], "right" in a creative pursuit is entirely up to you. Assuming the model is terminal, it will be perfectly matched to anything you want it to do, so only you will know where to stop.
 
 To illustrate this: had French sculptor Auguste Rodin had access to a machine that could sculpt anything he wanted, he would've still spent a large amount of time tweaking his pieces and dialing in what they're meant to convey. Each is characterized by what the author was going through at the time, or the way he *chose* to portray other people.
 
@@ -161,15 +162,15 @@ I believe a post-scarcity world will be defined by this individuality.
 
 It's already here, partially. The code to display this blog as I envisioned it would have been considerably harder to make without LLMs. 
 
-None of this is to say AI isn't already making beautiful art and meaningful work. It is to say that post-scarcity humans will lean toward appreciating a piece of work more for the person behind it and their motives than the end result. If we anthropomorphize AI (e.g. by giving them bodies, identities, and the same treatment as humans), "person" might mean humanoid too.
+None of this is to say AI isn't already making beautiful art and meaningful work. It is to say that post-scarcity humans will lean toward appreciating a piece of work more for the person behind it and their motives than the end result. If we anthropomorphize AI, e.g., by giving them bodies, identities, and the same treatment as humans, "person" might mean humanoid too.
 
-Using AI to create also means it will indirectly dilute our creative choices, as with any tool that does some of the steps for you. Unique motivations, inspiration, and goals will therefore be most important. Like me learning about DWL and seeing parallels to model capabilities and human effort. 
+Using AI to create also means it will indirectly dilute our creative choices, as with any tool that does some of the steps for you. Distinct motivations, inspiration, and goals will therefore be most important. Like me learning about DWL and seeing parallels to model capabilities and human effort. 
 
 I also don't think we'll optimize generative creative work against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because dopamine is most meaningful with struggle. I think we'd get bored. Like how eating too much ice cream makes you not want to eat it for a long time. Though, there are scenarios where we optimize the struggle-to-dopamine loop that could be catastrophic[^12]. 
 
-Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
+Humanity's new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
 
-As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well to AI, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
+As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well to AI, as I tried to map DWL. Computer scientists can use analogous thinking from economics to analyze the field better.
 
 For example: the DWL triangle's area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
 
@@ -187,16 +188,16 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^5]: When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. I call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens. The plots assume they map one-to-one. When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. People will be more selective about when they choose to use the service and supplement it with their own skills and cheaper alternatives.
 
-[^6]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
+[^6]: How many startups would be scrambling if the labs took away token subsidies today? Most are spending at least 5 figures in tokens (in API costs) every month per engineer. For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). When the models don't need prompting anymore, money will be directed towards buying API credits or GPUs directly instead of paying humans. People who are still employed will likely spend most of their time writing design documents to be executed on by the models.
 
-[^7]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
+[^7]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach my definition of a terminal model, because they trade off speed for intelligence.
 
 [^8]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
 
 [^9]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
 
-[^10]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
+[^10]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
 
 [^11]: This is already true in some domains, just not effortless yet.
 
-[^12]: Sports and video games already optimize the cycle of struggle then dopamine. They share in common that, usually, they're multiplayer experiences. I expect AI-enabled experiences will be too. What would be terribly detrimental is if they replace human connection with connection to AIs. I.e., if people can supplant human interaction with machine interaction. Countries where this is [already happening](https://www.bbc.com/news/magazine-24614830) have the worst replacement rates in the world. It threatens the fabric that made human society last. For the same reason, we might benefit as a species from having small clusters of people who do not use AI or technology. They would carry on if most humans become isolated and warn about the dangers of anthropomorphization.
+[^12]: Sports and video games already optimize the cycle of struggle then dopamine. They share in common that, usually, they're multiplayer experiences. I expect AI-enabled experiences will be too. What would be terribly detrimental is if they replace human connection with connection to AIs. I.e., if people can swap human interaction for machine interaction. To put it crudely, if fighting and making up with your AI girlfriend/boyfriend satisfies any emotional need you would have for fighting and making up with a real one, and there are ways to supplant physical needs too, the population of a culture where that's acceptable will crash. Countries where this is [already happening](https://www.bbc.com/news/magazine-24614830) have the worst replacement rates in the world. It threatens the fabric that made human society last. For the same reason, we might benefit as a species from having small clusters of people who do not use AI or technology. They would carry on if most humans become isolated and warn about the dangers of anthropomorphization. Though, I feel the thousands of years of biological wiring in our brains make this less likely to happen. 
