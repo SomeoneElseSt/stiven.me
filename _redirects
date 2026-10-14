@@ -1,0 +1,2 @@
+/blog/capabilities /blog/deadweightloss/ 301
+/blog/capabilities/* /blog/deadweightloss/:splat 301
