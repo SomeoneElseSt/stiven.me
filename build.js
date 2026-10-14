@@ -37,6 +37,28 @@ function addLightImageSources(html) {
   });
 }
 
+// Reading rates from Trauzettel-Klosinski & Dietz (2012), "Standardized Assessment of Reading
+// Performance: The New International Reading Speed Texts IReST", IOVS 53(9), table of mean
+// reading speeds per language. Japanese and Chinese are written without spaces between words,
+// so they are measured in characters per minute instead of words per minute.
+const WORDS_PER_MINUTE = { en: 228, es: 218, fr: 195, pt: 181, de: 179, pl: 166 };
+const CHARACTERS_PER_MINUTE = { ja: 357, zh: 255 };
+// IReST mean across its 17 languages; used for locales it does not cover (hi, ko).
+const DEFAULT_WORDS_PER_MINUTE = 184;
+const MINIMUM_READING_MINUTES = 1;
+
+const POST_CONTENT_OPEN_TAG = '<article id="post-content">';
+const POST_CONTENT_CLOSE_TAG = '</article>';
+const MATH_OPEN_TAG = '<span class="katex">';
+const CODE_BLOCK_REGEX = /<pre[\s>][\s\S]*?<\/pre>/g;
+const FOOTNOTE_MARKER_REGEX = /<sup>[\s\S]*?<\/sup>/g;
+const HTML_TAG_REGEX = /<[^>]+>/g;
+const HTML_ENTITY_REGEX = /&(?:[a-z]+|#\d+|#x[0-9a-f]+);/gi;
+const SPAN_TAG_REGEX = /<(\/?)span\b/g;
+const WORD_REGEX = /\S*[\p{L}\p{N}]\S*/gu;
+// One unit per CJK character; an embedded run of Latin letters or digits reads as one unit.
+const UNSPACED_SCRIPT_UNIT_REGEX = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]|[\p{Script=Latin}\p{N}]+/gu;
+
 marked.use(markedFootnote());
 marked.use(markedKatex({
   throwOnError: false,
@@ -203,6 +225,69 @@ const BACK_LABELS = {
   zh: '返回',
 };
 
+// Keyed by Intl.PluralRules category; "other" is the fallback for every locale.
+const READING_TIME_LABELS = {
+  en: { one: '%d minute to read', other: '%d minutes to read' },
+  es: { one: '%d minuto de lectura', other: '%d minutos de lectura' },
+  ja: { other: '%d分で読めます' },
+  hi: { other: 'पढ़ने में %d मिनट' },
+  de: { one: '%d Minute Lesezeit', other: '%d Minuten Lesezeit' },
+  fr: { one: '%d minute de lecture', other: '%d minutes de lecture' },
+  ko: { other: '읽는 데 %d분' },
+  pt: { one: '%d minuto de leitura', other: '%d minutos de leitura' },
+  pl: { one: '%d minuta czytania', few: '%d minuty czytania', many: '%d minut czytania', other: '%d minuty czytania' },
+  zh: { other: '阅读需 %d 分钟' },
+};
+
+function findSpanElementEnd(html, elementStart) {
+  const spanTagRegex = new RegExp(SPAN_TAG_REGEX);
+  spanTagRegex.lastIndex = elementStart;
+  let depth = 0;
+  for (let tag = spanTagRegex.exec(html); tag; tag = spanTagRegex.exec(html)) {
+    depth += tag[1] ? -1 : 1;
+    if (depth === 0) {
+      return html.indexOf('>', tag.index) + 1;
+    }
+  }
+  return html.length;
+}
+
+function removeMathMarkup(html) {
+  let remaining = html;
+  for (let start = remaining.indexOf(MATH_OPEN_TAG); start !== -1; start = remaining.indexOf(MATH_OPEN_TAG)) {
+    remaining = `${remaining.slice(0, start)} ${remaining.slice(findSpanElementEnd(remaining, start))}`;
+  }
+  return remaining;
+}
+
+// Prose only: code blocks, rendered math, footnote reference markers and all markup
+// (including image paths and link URLs, which live in attributes) are left out.
+function extractReadableText(htmlContent) {
+  return removeMathMarkup(htmlContent.replace(CODE_BLOCK_REGEX, ' '))
+    .replace(FOOTNOTE_MARKER_REGEX, '')
+    .replace(HTML_TAG_REGEX, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(HTML_ENTITY_REGEX, '');
+}
+
+function computeReadingMinutes(htmlContent, localeId) {
+  const readableText = extractReadableText(htmlContent);
+  const charactersPerMinute = CHARACTERS_PER_MINUTE[localeId];
+  const unitRegex = charactersPerMinute ? UNSPACED_SCRIPT_UNIT_REGEX : WORD_REGEX;
+  const unitsPerMinute = charactersPerMinute || WORDS_PER_MINUTE[localeId] || DEFAULT_WORDS_PER_MINUTE;
+  const unitCount = (readableText.match(unitRegex) || []).length;
+  return Math.max(MINIMUM_READING_MINUTES, Math.ceil(unitCount / unitsPerMinute));
+}
+
+function formatReadingTime(minutes, localeId) {
+  const labels = READING_TIME_LABELS[localeId];
+  if (!labels) {
+    return READING_TIME_LABELS.en[minutes === 1 ? 'one' : 'other'].replace('%d', minutes);
+  }
+  const pluralCategory = new Intl.PluralRules(localeId).select(minutes);
+  return (labels[pluralCategory] || labels.other).replace('%d', minutes);
+}
+
 function parsePostDateAsUtc(dateString) {
   return new Date(`${dateString} UTC`);
 }
@@ -226,6 +311,7 @@ function fillPostTemplate(template, post, localeId, sourceHash) {
     .replaceAll('%%POST_TITLE%%', post.title)
     .replaceAll('%%POST_DATE%%', displayDate)
     .replaceAll('%%POST_ISO_DATE%%', isoDate)
+    .replaceAll('%%POST_READING_TIME%%', formatReadingTime(computeReadingMinutes(post.htmlContent, locale), locale))
     .replaceAll('%%POST_CONTENT%%', post.htmlContent)
     .replaceAll('%%POST_LOCALE%%', locale)
     .replaceAll('%%BACK_LABEL%%', BACK_LABELS[locale] || BACK_LABELS.en)
@@ -264,6 +350,49 @@ async function generatePostPages(posts) {
   } catch (error) {
     return [null, new Error(`Error generating post pages: ${error.message}`)];
   }
+}
+
+function extractStoredPost(pageHtml) {
+  const titleMatch = pageHtml.match(/<title>([^<]+)<\/title>/);
+  const hashMatch = pageHtml.match(/<meta name="source-hash" content="([^"]*)"\s*\/?>/);
+  const contentStart = pageHtml.indexOf(POST_CONTENT_OPEN_TAG);
+  const contentEnd = pageHtml.lastIndexOf(POST_CONTENT_CLOSE_TAG);
+  if (!titleMatch || !hashMatch || contentStart === -1 || contentEnd === -1) {
+    return null;
+  }
+  return {
+    title: titleMatch[1],
+    sourceHash: hashMatch[1],
+    htmlContent: pageHtml.slice(contentStart + POST_CONTENT_OPEN_TAG.length, contentEnd),
+  };
+}
+
+// Translated pages are only written by --translate. Re-fill the current template with their
+// stored translation on every build so template changes reach them without re-translating.
+async function refreshTranslatedPages(posts, TRANSLATION_LOCALES) {
+  const postTemplate = await fs.readFile(POST_TEMPLATE_PATH, 'utf-8');
+  let refreshedCount = 0;
+  for (const post of posts) {
+    for (const locale of TRANSLATION_LOCALES) {
+      const pagePath = path.join(BLOG_OUTPUT_DIR, post.id, locale.id, 'index.html');
+      const [storedHtml, readError] = await readTextFile(pagePath);
+      if (readError) {
+        continue;
+      }
+      const storedPost = extractStoredPost(storedHtml);
+      if (!storedPost) {
+        console.warn(`- Warning: could not parse ${post.id}/${locale.id}, leaving it untouched`);
+        continue;
+      }
+      const refreshedHtml = fillPostTemplate(postTemplate, { ...post, ...storedPost }, locale.id, storedPost.sourceHash);
+      if (refreshedHtml === storedHtml) {
+        continue;
+      }
+      await fs.writeFile(pagePath, refreshedHtml, 'utf-8');
+      refreshedCount += 1;
+    }
+  }
+  console.log(`Refreshed ${refreshedCount} translated blog pages.`);
 }
 
 async function runCursorAgentTranslate(prompt, post, locale) {
@@ -404,6 +533,8 @@ async function main() {
     console.error(postPagesError.message);
     process.exit(1);
   }
+
+  await refreshTranslatedPages(finalData.posts, TRANSLATION_LOCALES);
 
   if (process.argv.includes('--translate')) {
     await translateAllPosts(finalData.posts, TRANSLATION_LOCALES);

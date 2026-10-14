@@ -11,7 +11,7 @@
     <style>
         :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
         :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
-        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
         h1 { font-size: 24px; margin-bottom: 24px; }
         .blog-header { padding-top: 5px; }
         .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -22,7 +22,9 @@
         .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
         .post-header > div { flex: 1; }
         .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
-        #post-date.post-date { display: block; margin-bottom: 0; font-size: 14px; opacity: 0.7; margin-top: 22px; } /* Change margin top to modify post header height */
+        .post-meta { display: flex; flex-wrap: wrap; max-width: 616px; margin: 7px 0 0 -16px; font-size: 14px; opacity: 0.7; clip-path: inset(0 0 0 16px); } /* Change margin top to modify post header height. Sits below .post-header so it can use the full width under the back button. The -16px margin + clip-path hide the divider dot when the reading time wraps to its own line */
+        .post-meta > * { position: relative; padding-left: 16px; }
+        .post-reading-time::before { content: '\00B7'; position: absolute; left: 0; width: 16px; text-align: center; }
         .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
         article { max-width: 600px; overflow: hidden; }
         article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
@@ -76,9 +78,12 @@
     <div class="post-header">
         <div>
             <h1 id="post-title">सिक्का उछालने की ज्यामिति</h1>
-            <time id="post-date" class="post-date" data-iso-date="2026-01-29">29 जनवरी 2026</time>
         </div>
         <a href="/" class="back-button">← वापस</a>
+    </div>
+    <div class="post-meta">
+        <time id="post-date" class="post-date" data-iso-date="2026-01-29">29 जनवरी 2026</time>
+        <span id="post-reading-time" class="post-reading-time">पढ़ने में 11 मिनट</span>
     </div>
     
     <article id="post-content"><p>मैंने अतीत में कई तकनीकी ब्लॉग पढ़े हैं जिन्होंने कुछ विषयों के बारे में मेरी समझ को स्पष्ट किया है। कुछ उल्लेखनीय उल्लेख <a href="https://colah.github.io/posts/2015-09-Visual-Information/">यह</a> दृश्य सूचना सिद्धांत विश्लेषण, और मैक्सवेल के दानव (Maxwell&#39;s demon) पर <a href="https://logan-thomas.com/2021/01/23/maxwell-demon/">यह</a> पोस्ट हैं। वे दोनों बहुत विस्तृत हैं और मैं आपको उन्हें पढ़ने की सलाह देता हूँ।</p>
