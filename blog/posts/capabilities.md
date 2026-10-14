@@ -84,17 +84,33 @@ Even if your smart model was ultra fast, that is very expensive right now, so th
 
 I see this mattering in the short to medium term but not long term. 
 
-In the short to medium term, when token subsidies stop, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time. Both for employees using AI and systems within companies that are heavily token-subsidized[^5]. 
+In the short to medium term, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time, especially if the token subsidies stop. Both for people using AI and systems within companies that are heavily token-subsidized[^5]. 
 
-Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' class of models. A Swiss Army knife, if you will, that works well for >= 90% of tasks and doesn't cost anything to run (likeliest because it would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
-
-In that scenario, everyone might as well use the same model for everything a model can legally do, discounting for differences in style and presentation. This is my definition of AGI. 
+Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' class of models. Swiss Army knives that work well for >= 90% of tasks and are near free to run (likeliest because they would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
 
 Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
 
+What about DWL on the left side of the graph?
+
+I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.
+
+![Deadweight loss on the left side of the human steering and model cost graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From an Underpowered Model")
+
+I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
+
+It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've done the task with a single prompt[^7]. My mental load was heavier too: it is so much simpler to just prompt your way through with a frontier model. You don't really need to think. 
+
+Though, in my case, I was using a small model for the sake of experimentation. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. Like the odd finance and ML research benchmarks or some computer use tasks. You still need people reviewing the models' outputs and steering them.
+
+If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
+
+In the graph, the equilibrium makes sense if you think about it as the model with the best speed, price, and intelligence for the task. 
+
+![Equilibrium between human steering and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Cost")
+
 A "DWL-optimized harness" will be useful until we have terminal models, as costly intelligence diffuses to the economy and token usage grows by many orders of magnitude. Or indefinitely if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo.
 
-It will make most tasks near free, fast, runnable on edge hardware[^7], and routable to the cloud when necessary. I see three technical challenges in the way:
+It will make most tasks near free, fast, runnable on edge hardware[^8], and routable to the cloud when necessary. I see three technical challenges in the way:
 
 - Transferring context efficiently: how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.
 - Parallelism: if many models are doing many tasks, how can inference engines maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly?
@@ -106,25 +122,9 @@ But to diffuse AI into the wider economy, much work needs to be done on simple-t
 
 Paraphrased: Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. They'd rather press a button or ask their agent and see the results to choose from.
 
-In the graph, the equilibrium makes sense if you think about it as the model with the best speed, price, and intelligence for the task. Getting there takes human effort: setting up the infrastructure and evals to find that model (both pre-selecting it or changing it at runtime). Whereas using a frontier model saves you the work but costs a lot.
-
-![Equilibrium between human steering and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Steering and Model Cost")
+Getting there takes human effort: setting up the infrastructure and evals to find that model (both pre-selecting it or changing it at runtime). Whereas using a frontier model saves you the work but costs a lot.
 
 I expect this to change with harnesses that auto-route and simpler infrastructure for evaluating and training task-specific models. It is also nice that this is a defined engineering effort. If we get it right once, everyone benefits.
-
-What about DWL on the left side of the graph?
-
-I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.
-
-![Deadweight loss on the left side of the human steering and model cost graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From an Underpowered Model")
-
-I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
-
-Another dimension the graph doesn't capture is time[^8]. It took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've been done in way less time. It also doesn't capture the difference in mental load: it is so much easier to prompt your way through. You don't really need to think. 
-
-Though, in my case, I chose to work my way through it because I wanted to experiment. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. The odd finance benchmarks, ML research benchmarks, and computer use tasks. You still need people reviewing and steering the model's outputs. 
-
-If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It's part of the diffusion process. 
 
 The analogy also doesn't capture some qualitative aspects of models. Like how I'd rather use Claude for anything conversational, or Codex for computer use. It doesn't capture how people begin to trust that a model will get it right 90% of the time and use it for specific work.
 
@@ -193,8 +193,8 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^6]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
 
-[^7]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
+[^7]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
 
-[^8]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
+[^8]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
 
 [^9]: This is already true in some domains, just not frictionless yet.
