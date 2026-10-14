@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="e568ee82ac0445a5"/>
+    <meta name="source-hash" content="e485e32b1df84777"/>
     <title>Deadweight Loss in AI</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
@@ -81,10 +81,10 @@
         <a href="/" class="back-button">← Back</a>
     </div>
     
-    <article id="post-content"><p>I attended an economics class in Berkeley during my freshman year in San Francisco. A friend studying there invited me to go visit. He had to do something through the afternoon and left me in one of the halls. At the time I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley&#39;s microeconomics course, ECON 100A, and decided to attend it during the Spring.</p>
-<p>Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and based on unreasonable assumptions.</p>
-<p>It was nevertheless a fun subject to study. I have hundreds of pages of notes I took on an oversized drawing tablet plugged into my computer that must&#39;ve looked the silliest set-up of anyone in the hall. </p>
-<p>My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Feel free to skip this section if you&#39;re already familiarized (<a href="#after-dwl">click here</a>). </p>
+    <article id="post-content"><p>I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley&#39;s microeconomics course, ECON 100A, and decided to attend it during the Spring.</p>
+<p>Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and limited by impractical assumptions.</p>
+<p>Nevertheless, it was a fun subject to study. I have hundreds of notes I took on an oversized drawing tablet that must&#39;ve looked the silliest set-up of anyone in the hall. </p>
+<p>My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Skip this section if you&#39;re already familiarized (<a href="#after-dwl">click here</a>). </p>
 <p>Imagine you have a seller - say, a business - and many buyers that want to buy a good from that seller. We assume the seller wants to earn the largest amount of money possible and there are many buyers that can each afford the product at a different price point. </p>
 <p>How does that good get priced? Some buyers might be willing to pay more for it than others, so the seller could set prices high. This seems reasonable, but if 8 buyers were able to pay $12 each while 2 were able to pay $40, setting the price of the good to $40 is a <em>net</em> loss at $80, as pricing it at $12 would net $96, leaving a $16+ difference on the table. Not to mention the social effects making the good available to more people might have<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>. </p>
 <p>Let&#39;s formalize this: </p>
@@ -92,16 +92,16 @@
 <li>The seller can price the good at any price in the range 1-100. This is called the <em>supply curve</em>.</li>
 <li>Some number of buyers can afford the good at a given price. This is called the <em>demand curve</em>. We&#39;ll consider 10 buyers total, each able to afford it at a different price.</li>
 </ul>
-<p>We can plot each of these curves against each other. This will be helpful for finding the optimal price a seller should sell their product at. </p>
+<p>We can plot these curves against each other. This will be helpful for finding the optimal price a seller should sell their product at. </p>
 <p><img src="/blog/assets/figures/en/supply-demand-curves.png" data-light-src="/blog/assets/figures/en/supply-demand-curves-light.png" alt="Supply and demand curves plotted as price against quantity." title="Supply and Demand Curves"></p>
 <p>All 10 people can afford a unit of the good when the price is zero. Yet the seller can&#39;t offer it for less than $10 (this may be their break-even price). Should they price high or low?</p>
 <p>The optimal price lies in the intersection of the two curves. Intuitively, it&#39;s the maximum number of units the seller can sell at the highest price. Five units at $50 each nets $250. Much higher than the $160 from selling two units at $80, and higher than selling a lot of units at $20, also totalling $160. We can visualize this. </p>
 <p><img src="/blog/assets/figures/en/supply-demand-equilibrium.png" data-light-src="/blog/assets/figures/en/supply-demand-equilibrium-light.png" alt="Supply and demand curves with the equilibrium and two alternative price points marked." title="Equilibrium and Alternative Price Points"></p>
 <p>This is the scenario with the <em>most given</em> for the <em>most paid</em>, and is called a state of equilibrium. We can now talk about deadweight loss (DWL). </p>
 <p>DWL is the profit the seller could&#39;ve made had they priced their product closer to equilibrium when the product is too expensive or cheap. </p>
-<p>We visualize it as the area between the corners of 1) the equilibrium point, 2) the point at the demand curve the good was priced at, and 3) the point on the supply curve at the same quantity. 2 and 3 are parallel to each other, making DWL look like a triangle. Let&#39;s visualize it for when the good is sold at $80. </p>
+<p>We visualize it as the area between the corners of 1) the equilibrium point, 2) the point at the demand curve the good was priced at, and 3) the point on the supply curve parallel to the price on the demand curve, forming a triangle. Let&#39;s visualize it for when the good is sold at $80. </p>
 <p><img src="/blog/assets/figures/en/supply-demand-dwl.png" data-light-src="/blog/assets/figures/en/supply-demand-dwl-light.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $80." title="Deadweight Loss at a Price of $80"></p>
-<p>The area in the triangle represents goods the seller could&#39;ve sold had they priced their product closer to equilibrium, letting them net a higher profit. </p>
+<p>The area of the triangle represents goods the seller could&#39;ve sold had they priced their product closer to equilibrium, letting them net a higher profit. </p>
 <p>DWL on the other side of the graph is profit the seller is missing out on due to pricing the good too low. It&#39;s sometimes referred to as philanthropy - ok, no, but you get the idea. It&#39;s when consumers are benefiting at the cost of money the business could be making if the good was priced higher.</p>
 <p><img src="/blog/assets/figures/en/supply-demand-dwl-low-price.png" data-light-src="/blog/assets/figures/en/supply-demand-dwl-low-price-light.png" alt="Deadweight loss triangle between the supply and demand curves when the good is sold at $20." title="Deadweight Loss at a Price of $20"></p>
 <p>Congrats! You now know some undergraduate microeconomics. Try asking: &quot;Why doesn&#39;t Apple price their old stock lower given it&#39;s worth less and some people might still buy it? Doesn&#39;t that minimize DWL?&quot; and realize the real world isn&#39;t as simple and interpretable as this model<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>.</p>
@@ -109,8 +109,9 @@
 <p>Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find points of equilibria for different supply and demand curves) and the current paradigms of coding agents. </p>
 <p>I work extensively with coding agents. Almost every day I&#39;m prompting, reviewing code, etc<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup>. </p>
 <p>I&#39;ve observed an inverse relationship between the skill needed by a human to accomplish a task and how good a model is. </p>
-<p>For example, if you&#39;re working with a frontier model, it&#39;s generally sufficient to ask for what you want. &quot;Fix this bug&quot;, &quot;Add X feature&quot;, etc. Working with small models (in the 10-100B parameter range) requires handholding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.</p>
-<p>In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is currently true for any task that frontier models aren&#39;t good at or when using handicapped models. It&#39;s part of why open-weight models aren&#39;t as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  </p>
+<p>When working with a frontier model, it&#39;s generally sufficient to ask for what you want. &quot;Fix this bug&quot;, &quot;Add X feature&quot;, etc. On the other hand, small models need long, hyper-specific prompts. Otherwise they are inaccurate, miss your intent, or lose track of the task after some time. </p>
+<p>In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. </p>
+<p>This is currently true for any task that frontier models aren&#39;t good at or when using small models. It&#39;s part of why open-weight models aren&#39;t as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  </p>
 <p>This relationship also means less-skilled individuals can use the models to do work that previously required extensive training and experience, in the cases where human input is minimal or closer to supervision than steering. </p>
 <p><a href="https://cendyne.dev/posts/2026-10-11-fable-took-my-jorb.html">This</a> blog post by a developer laid off due to AI describes how their company chose to do layoffs because <em>&quot;AI assistance raised the capability of work for the less passionate, less experienced, and less costly workforce&quot;</em>. </p>
 <p>This isn&#39;t a new phenomenon. It&#39;s similar to how sewing machinery made jobs traditionally done by hand accessible to anyone, anywhere, who knew how to operate it, permitting offshoring in the &#39;60s. </p>
