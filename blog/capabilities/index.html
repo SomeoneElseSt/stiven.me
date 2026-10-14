@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="source-hash" content="21c1f39cfefa16f5"/>
+    <meta name="source-hash" content="414976780c82147f"/>
     <title>Deadweight Loss in AI</title>
     <script src="/dist/theme.js"></script>
     <script>try { localStorage.setItem('locale', 'en'); } catch (e) {}</script>
@@ -81,7 +81,7 @@
         <a href="/" class="back-button">← Back</a>
     </div>
     
-    <article id="post-content"><p>I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley&#39;s microeconomics course, ECON 100A, and decided to attend it during the Spring.</p>
+    <article id="post-content"><p>I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley&#39;s microeconomics course, ECON 100A, and decided to attend it during the spring.</p>
 <p>Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and limited by impractical assumptions.</p>
 <p>Nevertheless, it was a fun subject to study. I have hundreds of notes I took on an oversized drawing tablet that must&#39;ve looked the silliest set-up of anyone in the hall. </p>
 <p>My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Skip this section if you&#39;re already familiarized (<a href="#after-dwl">click here</a>). </p>
@@ -135,7 +135,7 @@
 <p>What about DWL on the left side of the graph?</p>
 <p>I was recently experimenting with the Qwen family of models, running them locally on my computer with Ollama. It was disappointing. They know a lot and can pull off impressive tricks for a small model, but as soon as you throw a real task at them, they blow their context budgets overthinking unnecessary details.</p>
 <p><img src="/blog/assets/figures/en/human-model-underreliance.png" data-light-src="/blog/assets/figures/en/human-model-underreliance-light.png" alt="Deadweight loss on the left side of the human effort and model cost graph, where a small model needs heavy human guidance." title="Deadweight Loss From an Underpowered Model"></p>
-<p>I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I&#39;d tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. </p>
+<p>I could only get it to do what I wanted by pointing out the exact lines of code it had to look at. I even had to change some code by hand because even though I&#39;d tell it five times in a row to execute the change, it just thought, and thought, until its context overflowed. </p>
 <p>It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would&#39;ve done the task with a single prompt<sup><a id="footnote-ref-7" href="#footnote-7" data-footnote-ref aria-describedby="footnote-label">7</a></sup>. My mental load was heavier too: it is so much simpler to prompt your way through with a frontier model. You don&#39;t really need to think. </p>
 <p>Though, in my case, I was using a small model for the sake of experimentation. In the real world, DWL on the left is visible on tasks that the models aren&#39;t good at <em>yet</em>. Like the odd finance and ML research benchmarks or some computer use tasks. You still need people reviewing the models&#39; outputs and steering them.</p>
 <p>If accuracy can be quantified and the task is economically valuable, it will be conquered eventually, likeliest first at the frontier, shifting to the right. This is true of tasks where labs and startups have an interest in introducing automation. It&#39;s part of the diffusion process. </p>
@@ -147,7 +147,7 @@
 <p>These will make most tasks near free, fast, runnable on edge hardware<sup><a id="footnote-ref-8" href="#footnote-8" data-footnote-ref aria-describedby="footnote-label">8</a></sup>, and routable to the cloud when necessary. I see three technical challenges in the way:</p>
 <ul>
 <li>Transferring context efficiently: for model harnesses, how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.</li>
-<li>Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly?</li>
+<li>Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.</li>
 <li>Model Profiling: for training environment companies, making easy-to-use tools anyone can use to find an already-capable model for a task or to train one.</li>
 </ul>
 <p>Budget-conscious, technically able organizations like <a href="https://x.com/RampLabs/status/2052447438795833506">Ramp</a> are already trying their hand at these problems, making custom datasets to RL small models on and building their own <a href="https://router.com">model routers</a>.</p>
@@ -177,13 +177,15 @@ require skills outside the scope of optimization (see <a href="https://asteriskm
 <p>I believe a post-scarcity world will be defined by this individuality.</p>
 <p>Everyone will have limitless possibility, so we&#39;ll appreciate the ways each one of us is unique and chooses to work on specific things. More people will live to create, a luxury not many could afford until now. I&#39;m excited for this future. </p>
 <p>It&#39;s already here, partially, as making this blog would have been considerably harder without LLMs. Now I get to write about how DWL has to do with AI - how esoteric!</p>
+<p>This is not to say AI isn&#39;t already making beautiful art and meaningful work. It is to say that in a post-scarcity world, I believe humans will lean toward appreciating a piece of work more for the person behind it than the end result. If we anthropomorphize AI (e.g. by giving them bodies, identities, and the same treatment as humans), &quot;person&quot; might mean humanoid too. </p>
+<p>Using AI for creation also means it will indirectly morph the outcomes of our creative choices (as with any tool that does some of the steps for you). Motivations, inspiration, and circumstances that lead to unique, specific work will therefore be most scarce. Like me learning about DWL and seeing parallels to model capabilities and human effort. </p>
 <p>I&#39;m choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta&#39;s <a href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/">TRIBE v2</a>, a model that predicts fMRI brain activity in response to media) because at that point, we&#39;d be no better than addicts pressing a button to get dopamine. Ah, wait, that&#39;s just TikTok. </p>
 <p>I don&#39;t think it&#39;ll come to that because dopamine is most meaningful with struggle. I think we&#39;d just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. </p>
 <p>Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.</p>
-<p>As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well in the field, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.</p>
+<p>As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well to AI, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.</p>
 <p>For example: the DWL triangle&#39;s area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you&#39;re at either extreme. </p>
 <p>Someone building a model router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn&#39;t know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.</p>
-<p>You&#39;d have needed an economist that&#39;s into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn&#39;t talk about the calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!</p>
+<p>You&#39;d have needed an economist that&#39;s into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn&#39;t talk about the complex calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!</p>
 <section class="footnotes" data-footnotes>
 <h2 id="footnote-label" class="sr-only">Footnotes</h2>
 <ol>
@@ -215,7 +217,7 @@ require skills outside the scope of optimization (see <a href="https://asteriskm
 <p>This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream. <a href="#footnote-ref-9" data-footnote-backref aria-label="Back to reference 9">↩</a></p>
 </li>
 <li id="footnote-10">
-<p>This is already true in some domains, just not frictionless yet. <a href="#footnote-ref-10" data-footnote-backref aria-label="Back to reference 10">↩</a></p>
+<p>This is already true in some domains, just not effortless yet. <a href="#footnote-ref-10" data-footnote-backref aria-label="Back to reference 10">↩</a></p>
 </li>
 </ol>
 </section>
