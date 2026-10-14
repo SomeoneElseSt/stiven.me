@@ -48,7 +48,7 @@ LOCALE_LABELS = {
         'quantity': 'Quantity', 'price': 'Price',
         'demand_curve': 'Demand curve', 'supply_curve': 'Supply curve',
         'capability': 'Model capability relative to the task', 'cost': 'Cost',
-        'human_steering': 'Human steering', 'model_cost': 'Model cost',
+        'human_steering': 'Human effort', 'model_cost': 'Model cost',
         'too_weak': 'Too weak', 'just_right': 'Just right', 'overkill': 'Overkill',
         'cheap': 'Cheap', 'costly': 'Costly',
         'point': '(Costs {price} and {quantity} buy it. Net = {net})',
