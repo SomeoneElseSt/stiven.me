@@ -1,4 +1,4 @@
-I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley's microeconomics course, ECON 100A, and decided to attend it during the spring.
+During spring of freshman year, I commuted twice every week from San Francisco to Berkeley so I could sit in on ECON 100A, Berkeley's microeconomics course. A friend had invited me to visit and left me in one of the halls for a while. I thought I wanted to do economics at the time, so I was glad to find out one of the lectures in that hall was 100A and decided to drop in while it was running[^1].
 
 Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and limited by impractical assumptions.
 
@@ -8,7 +8,7 @@ My favorite concept I learned in that class is deadweight loss, or DWL for brevi
 
 Imagine you have a seller - say, a business - and many buyers that want to buy a good from that seller. We assume the seller wants to earn the largest amount of money possible and there are many buyers that can each afford the product at a different price point. 
 
-How does that good get priced? Some buyers might be willing to pay more for it than others, so the seller could set prices high. This seems reasonable, but if 8 buyers were able to pay $12 each while 2 were able to pay $40, setting the price of the good to $40 is a *net* loss at $80, as pricing it at $12 would net $96, leaving a $16+ difference on the table. Not to mention the social effects making the good available to more people might have[^1]. 
+How does that good get priced? Some buyers might be willing to pay more for it than others, so the seller could set prices high. This seems reasonable, but if 8 buyers were able to pay $12 each while 2 were able to pay $40, setting the price of the good to $40 is a *net* loss at $80, as pricing it at $12 would net $96, leaving a $16+ difference on the table. Not to mention the social effects making the good available to more people might have[^2]. 
 
 Let's formalize this: 
 - The seller can price the good at any price in the range 1-100. This is called the *supply curve*.
@@ -38,13 +38,13 @@ DWL on the other side of the graph is profit the seller is missing out on due to
 
 ![Deadweight loss triangle between the supply and demand curves when the good is sold at $20.](/blog/assets/figures/en/supply-demand-dwl-low-price.png "Deadweight Loss at a Price of $20")
 
-Congrats! You now know some undergraduate microeconomics. Try asking: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it? Doesn't that minimize DWL?" and realize the real world isn't as simple and interpretable as this model[^2].
+Congrats! You now know some undergraduate microeconomics. Try asking: "Why doesn't Apple price their old stock lower given it's worth less and some people might still buy it? Doesn't that minimize DWL?" and realize the real world isn't as simple and interpretable as this model[^3].
 
 <a id="after-dwl"></a>
 
 Ok, so why am I writing about DWL? I see some parallels between ideas in DWL Minimization (the use of calculus to find points of equilibria for different supply and demand curves) and the current paradigms of coding agents. 
 
-I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^3]. 
+I work extensively with coding agents. Almost every day I'm prompting, reviewing code, etc[^4]. 
 
 I've observed an inverse relationship between the skill needed by a human to accomplish a task and how good a model is. 
 
@@ -66,7 +66,7 @@ We can map these concepts onto the first graph if we swap the Demand curve with 
 
 When I write "cost," I'm talking about the compute needed to run an instance of a model. Bigger models are generally better and require more compute to run. 
 
-I'll call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens[^4]. The plots assume they map one-to-one. 
+I'll call it "cost" in the blog because it's what we ultimately deal with. Do note that compute and monetary cost will map one-to-one when the labs stop subsidizing tokens[^5]. The plots assume they map one-to-one. 
 
 The x-axis represents how capable a model is relative to the task: at the left, the model is too weak for it and cheap. At the right, it's overkill and expensive. The y-axis represents what you pay. The height of the human line is how much steering effort the model needs from you, as the height of the model line is what the model costs. The more capable the model, the less steering it needs and the more it costs.  
 
@@ -84,11 +84,11 @@ Even if your smart model was ultra fast, that is very expensive right now, so th
 
 I see this mattering in the short to medium term but not long term. 
 
-In the short to medium term, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time, especially if the token subsidies stop. Both for people using AI and systems within companies that are heavily token-subsidized[^5]. 
+In the short to medium term, a system to auto-route prompts and tasks will become valuable to save unnecessary spending and time, especially if the token subsidies stop. Both for people using AI and systems within companies that are heavily token-subsidized[^6]. 
 
 Long-term, I expect frontier intelligence to become too cheap to meter and very fast. I call this a 'terminal' class of models. Swiss Army knives that work well for >= 90% of tasks and are near free to run (likeliest because they would use your phone or computer). The remaining 10% won't be tasks the model can't do, but tasks we wouldn't let it do alone, like aligning itself or controlling nuclear weapons. These fields will still need humans.
 
-Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^6]. 
+Empirically, we've seen progress in this direction when labs release smaller versions of their frontier models (Fable from Mythos, GPT 6.1 Sol from Astra) that are similarly capable for cheaper[^7]. 
 
 For now, overkill models will remain in use for simple tasks because they are generally more reliable. 
 
@@ -102,7 +102,7 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 I could only get it to do what I wanted by pointing out the exact lines of code it had to look at. I even had to change some code by hand because even though I'd tell it five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
-It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've done the task with a single prompt[^7]. My mental load was heavier too: it is so much simpler to prompt your way through with a frontier model. You don't really need to think. 
+It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've done the task with a single prompt[^8]. My mental load was heavier too: it is so much simpler to prompt your way through with a frontier model. You don't really need to think. 
 
 Though, in my case, I was using a small model for the sake of experimentation. In the real world, DWL on the left is visible on tasks that the models aren't good at *yet*. Like the odd finance and ML research benchmarks or some computer use tasks. You still need people reviewing the models' outputs and steering them.
 
@@ -118,7 +118,7 @@ You can get to equilibrium by using an already-capable smaller model for the tas
 
 Until we achieve terminal models, equilibrium-optimized model harnesses, model routers and training environments will be useful as token usage grows across the economy. Or indefinitely if governments introduce regulation that stalls the development of a terminal model and we settle into a status quo.
 
-These will make most tasks near free, fast, runnable on edge hardware[^8], and routable to the cloud when necessary. I see three technical challenges in the way:
+These will make most tasks near free, fast, runnable on edge hardware[^9], and routable to the cloud when necessary. I see three technical challenges in the way:
 
 - Transferring context efficiently: for model harnesses, how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.
 - Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
@@ -134,7 +134,7 @@ Though, it's nice that this is a defined engineering effort: if we get it right 
 
 I reckon model providers might be the first to arrive at a solution. It would be neat if Claude Code routed small tasks to Haiku while I talked with Opus. Subagents try to do this but aren't frictionless. Plus, I've never met a non-coder using subagents. It should be automatic. 
 
-Altogether, the graph paints a familiar story: the frontier will lay the groundwork for the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast.[^9] 
+Altogether, the graph paints a familiar story: the frontier will lay the groundwork for the toughest challenges in an expensive, inefficient way, while diffusion makes them economically viable and fast[^10]. 
 
 Thinking through this made me conclude there are two paths for the future of work:
 - Skills that cannot be optimized against (yet) will become increasingly valuable. E.g., interpersonal communication, relationship building.
@@ -145,7 +145,7 @@ In either case, we'll be better off from it. It will provide healthcare and educ
 
 What about work that is not part of the graph? That is, work that doesn't have a "right" result, such as the arts, and work (e.g., products, media) that is completely new and doesn't have a point of comparison to define right from.
 
-If the model you're working with can do anything you ask[^10], "right" in a creative pursuit is entirely up to you. The model is perfectly matched to what you want it to do, so only you know where to stop (assuming the model is terminal).
+If the model you're working with can do anything you ask[^11], "right" in a creative pursuit is entirely up to you. The model is perfectly matched to what you want it to do, so only you know where to stop (assuming the model is terminal).
 
 To illustrate this: had French sculptor Auguste Rodin had access to a machine that could sculpt anything he wanted, he would've still spent a large amount of time tweaking his pieces and dialing in what they're meant to convey. Each is characterized by what the author was going through at the time, or the way he *chose* to portray other people.
 
@@ -189,22 +189,24 @@ Someone building a model router might choose to accept some error away from equi
 
 You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the complex calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
 
-[^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (e.g. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (e.g. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
+[^1]: The hall was usually half-empty, so I figured it would minimize deadweight loss (pun intended) to sit quietly and watch the lectures. 
 
-[^2]: Though, it follows similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by a competitor. But I won't spoil it for you. 
+[^2]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (e.g. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (e.g. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
-[^3]: 1 Billion tokens a day keeps the doctor away.  
+[^3]: Though, it follows similar rules. If you study economics further, I encourage you to learn about the concept of the "invisible hand". TLDR: markets minimize DWL on their own because inefficient arrangements will get outcompeted or outpriced by a competitor. But I won't spoil it for you. 
 
-[^4]: When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. It wasn't pretty. 
+[^4]: 1 Billion tokens a day keeps the doctor away.  
 
-[^5]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
+[^5]: When the subsidies stop, I expect the rug pull to be similar to what happened when ridesharing apps stopped subsidizing rides and the true price was passed on to consumers. It wasn't pretty. 
 
-[^6]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
+[^6]: How many startups would be scrambling if the labs took away token subsidies today? Seriously. I was spending 6 figures in tokens at a previous startup (in API costs) every month. Had those been billed, it would've been like getting my salary paid twice! For a small startup this might be OK, but at the scale of large companies or AI-native organizations, this'd be a huge financing issue. Ajeya Cotra talked about this [here](https://www.youtube.com/watch?v=Z19UEZHJzAg). In the future, some money will be directed towards buying API credits or GPUs instead of paying humans because intelligence will be cheaper and faster.
 
-[^7]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
+[^7]: Though the scaling laws - especially test-time compute scaling - would suggest existing architectures won't suffice to reach a terminal model, because they trade off speed for intelligence.
 
-[^8]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
+[^8]: As Naval [said](https://www.youtube.com/shorts/x-P119dx8xM): 'waste tokens to save time'.
 
-[^9]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
+[^9]: Some early glimpses of inference at the edge are starting to show, as Anthropic detailed in [this](https://www.anthropic.com/research/self-replicating-ai) recent report. I expect phones and laptops to do most inference within this decade.
 
-[^10]: This is already true in some domains, just not effortless yet.
+[^10]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
+
+[^11]: This is already true in some domains, just not effortless yet.
