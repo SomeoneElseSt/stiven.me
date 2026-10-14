@@ -106,9 +106,9 @@ If accuracy can be quantified and the task is economically valuable, it will be 
 
 The point of equilibrium is the model with the best price and right level of intelligence for a task. It obtains the same outcome a frontier model would because it's just as capable for that task, except it's cheaper and possibly faster. 
 
-You get to equilibrium by using a smaller model for the task that's known to be capable, or making your own through custom datasets and evaluations if one doesn't exist yet. This is a fixed but expensive and time-consuming cost (right now). The human effort you save beyond the point of equilibrium is currently paid for by token subsidies and would otherwise be costly.
+You get to equilibrium by using a smaller model for the task that's known to be capable, making your own through custom datasets and evaluations, or having a frontier model do the task once and write instructions a smaller model can follow. This is a fixed but time-consuming and sometimes expensive cost. The human effort you save beyond the point of equilibrium is currently paid for by token subsidies and would otherwise be costly.
 
-Whether the cost of frontier tokens is lower than the cost of finding an equilibrium model depends case by case, yet knowing the optimization is a fixed cost, it likely is a meaningful net gain for applications at scale.
+Whether the cost of frontier tokens is lower than the cost of finding an equilibrium model depends case by case, yet knowing the optimization is a fixed cost, it likely is a meaningful net saving for applications at scale.
 
 ![Equilibrium between human effort and model cost, where the model is just right for the task.](/blog/assets/figures/en/human-model-equilibrium.png "Equilibrium Between Human Effort and Model Cost")
 
