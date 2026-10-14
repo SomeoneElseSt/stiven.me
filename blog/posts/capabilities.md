@@ -1,4 +1,4 @@
-I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley's microeconomics course, ECON 100A, and decided to attend it during the Spring.
+I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley's microeconomics course, ECON 100A, and decided to attend it during the spring.
 
 Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and limited by impractical assumptions.
 
@@ -100,7 +100,7 @@ I was recently experimenting with the Qwen family of models, running them locall
 
 ![Deadweight loss on the left side of the human effort and model cost graph, where a small model needs heavy human guidance.](/blog/assets/figures/en/human-model-underreliance.png "Deadweight Loss From an Underpowered Model")
 
-I could only get them to do what I wanted by pointing out the exact lines of code they had to look at. I even had to change some code by hand because even though I'd tell them five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
+I could only get it to do what I wanted by pointing out the exact lines of code it had to look at. I even had to change some code by hand because even though I'd tell it five times in a row to execute the change, it just thought, and thought, until its context overflowed. 
 
 It also took me considerably longer to finish my project with Qwen because it needed so much handholding. I knew frontier models would've done the task with a single prompt[^7]. My mental load was heavier too: it is so much simpler to prompt your way through with a frontier model. You don't really need to think. 
 
@@ -121,7 +121,7 @@ Until we achieve terminal models, equilibrium-optimized model harnesses, model r
 These will make most tasks near free, fast, runnable on edge hardware[^8], and routable to the cloud when necessary. I see three technical challenges in the way:
 
 - Transferring context efficiently: for model harnesses, how to transfer context between models at as close to zero cost and latency as possible. This matters for individual tasks and threads.
-- Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly?
+- Parallelism: for model routers and infrastructure providers, how to maximize GPU utilization and KV Cache / model weights offloading and reloading so every watt of compute is utilized constantly.
 - Model Profiling: for training environment companies, making easy-to-use tools anyone can use to find an already-capable model for a task or to train one. 
 
 Budget-conscious, technically able organizations like [Ramp](https://x.com/RampLabs/status/2052447438795833506) are already trying their hand at these problems, making custom datasets to RL small models on and building their own [model routers](https://router.com).
@@ -171,19 +171,23 @@ Everyone will have limitless possibility, so we'll appreciate the ways each one 
 
 It's already here, partially, as making this blog would have been considerably harder without LLMs. Now I get to write about how DWL has to do with AI - how esoteric!
 
+This is not to say AI isn't already making beautiful art and meaningful work. It is to say that in a post-scarcity world, I believe humans will lean toward appreciating a piece of work more for the person behind it than the end result. If we anthropomorphize AI (e.g. by giving them bodies, identities, and the same treatment as humans), "person" might mean humanoid too. 
+
+Using AI for creation also means it will indirectly morph the outcomes of our creative choices (as with any tool that does some of the steps for you). Motivations, inspiration, and circumstances that lead to unique, specific work will therefore be most scarce. Like me learning about DWL and seeing parallels to model capabilities and human effort. 
+
 I'm choosing not to talk about optimizing generic descriptions against brain responses (e.g. using Meta's [TRIBE v2](https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/), a model that predicts fMRI brain activity in response to media) because at that point, we'd be no better than addicts pressing a button to get dopamine. Ah, wait, that's just TikTok. 
 
 I don't think it'll come to that because dopamine is most meaningful with struggle. I think we'd just get bored. Like how we play video games to get fake challenges that feel nice when beaten. Or how eating too much ice cream makes you not want to eat it for a long time. 
 
 Our new struggle will be acquiring inspiration, living unique lives, and making ever-more creative works. Or so I hope.
 
-As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well in the field, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
+As a closing note, I think more economists should be looking at AI and more computer scientists looking at economics. Economists may find that some concepts map well to AI, as I tried to map DWL. Computer scientists can use analogous thinking from economics to better understand the direction of the field.
 
 For example: the DWL triangle's area grows much faster the further you get from equilibrium. This means there is a small amount of loss if you over/undershoot the equilibrium by a bit, and a huge one if you're at either extreme. 
 
 Someone building a model router might choose to accept some error away from equilibrium because the loss nearby is small, and instead optimize for avoiding the worst offenders (like having Fable do git push). This is a helpful mental frame I myself didn't know - Claude told me when I asked it for some ways DWL is analyzed that could connect to the post.
 
-You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
+You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the complex calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
 
 [^1]: Ideally, each customer would be charged the maximum they can pay. This is referred to as first degree pricing. But often sellers don't know what that maximum price is, and instead offer many options at different tiers (e.g. 1st class, premium economy, economy) so the buyer chooses for themselves. This is referred to as second degree pricing. Third degree pricing forces customers to segment by making the quality gap between the options large or enforcing tiers (e.g. student discounts). They all aim to extract as much of what the customer can pay for a good from them, which is referred to as their surplus.
 
@@ -203,4 +207,4 @@ You'd have needed an economist that's into AI or a computer scientist that reads
 
 [^9]: This pattern actually repeats through much of history, like how facial reconstruction was invented to treat scarred soldiers during WWI or how Tesla began by selling a luxury car, then funneling down to average consumers. New, good technologies are developed at great cost, often for a very small number of users, to later become mainstream.
 
-[^10]: This is already true in some domains, just not frictionless yet.
+[^10]: This is already true in some domains, just not effortless yet.
