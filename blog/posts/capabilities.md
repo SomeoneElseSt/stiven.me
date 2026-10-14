@@ -1,10 +1,10 @@
-I attended an economics class in Berkeley during my freshman year in San Francisco. A friend studying there invited me to go visit. He had to do something through the afternoon and left me in one of the halls. At the time I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley's microeconomics course, ECON 100A, and decided to attend it during the Spring.
+I attended an economics class in Berkeley during freshman year. A friend studying there invited me to visit. He had to do something for a while and left me in one of the halls. At the time, I thought I wanted to do economics, so I was glad to find out one of the lectures in that hall was Berkeley's microeconomics course, ECON 100A, and decided to attend it during the Spring.
 
-Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and based on unreasonable assumptions.
+Ironically, the more I studied economics, the more skeptical I felt about it as a social science. I found its theories too constrained and limited by impractical assumptions.
 
-It was nevertheless a fun subject to study. I have hundreds of pages of notes I took on an oversized drawing tablet plugged into my computer that must've looked the silliest set-up of anyone in the hall. 
+Nevertheless, it was a fun subject to study. I have hundreds of notes I took on an oversized drawing tablet that must've looked the silliest set-up of anyone in the hall. 
 
-My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Feel free to skip this section if you're already familiarized ([click here](#after-dwl)). 
+My favorite concept I learned in that class is deadweight loss, or DWL for brevity. Skip this section if you're already familiarized ([click here](#after-dwl)). 
 
 Imagine you have a seller - say, a business - and many buyers that want to buy a good from that seller. We assume the seller wants to earn the largest amount of money possible and there are many buyers that can each afford the product at a different price point. 
 
@@ -14,7 +14,7 @@ Let's formalize this:
 - The seller can price the good at any price in the range 1-100. This is called the *supply curve*.
 - Some number of buyers can afford the good at a given price. This is called the *demand curve*. We'll consider 10 buyers total, each able to afford it at a different price.
 
-We can plot each of these curves against each other. This will be helpful for finding the optimal price a seller should sell their product at. 
+We can plot these curves against each other. This will be helpful for finding the optimal price a seller should sell their product at. 
 
 ![Supply and demand curves plotted as price against quantity.](/blog/assets/figures/en/supply-demand-curves.png "Supply and Demand Curves")
 
@@ -28,11 +28,11 @@ This is the scenario with the *most given* for the *most paid*, and is called a 
 
 DWL is the profit the seller could've made had they priced their product closer to equilibrium when the product is too expensive or cheap. 
 
-We visualize it as the area between the corners of 1) the equilibrium point, 2) the point at the demand curve the good was priced at, and 3) the point on the supply curve at the same quantity. 2 and 3 are parallel to each other, making DWL look like a triangle. Let's visualize it for when the good is sold at $80. 
+We visualize it as the area between the corners of 1) the equilibrium point, 2) the point at the demand curve the good was priced at, and 3) the point on the supply curve parallel to the price on the demand curve, forming a triangle. Let's visualize it for when the good is sold at $80. 
 
 ![Deadweight loss triangle between the supply and demand curves when the good is sold at $80.](/blog/assets/figures/en/supply-demand-dwl.png "Deadweight Loss at a Price of $80")
 
-The area in the triangle represents goods the seller could've sold had they priced their product closer to equilibrium, letting them net a higher profit. 
+The area of the triangle represents goods the seller could've sold had they priced their product closer to equilibrium, letting them net a higher profit. 
 
 DWL on the other side of the graph is profit the seller is missing out on due to pricing the good too low. It's sometimes referred to as philanthropy - ok, no, but you get the idea. It's when consumers are benefiting at the cost of money the business could be making if the good was priced higher.
 
@@ -48,9 +48,11 @@ I work extensively with coding agents. Almost every day I'm prompting, reviewing
 
 I've observed an inverse relationship between the skill needed by a human to accomplish a task and how good a model is. 
 
-For example, if you're working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. Working with small models (in the 10-100B parameter range) requires handholding. Prompts need to be longer and specific because otherwise the models get lost in thought and churn their context windows before doing anything useful.
+When working with a frontier model, it's generally sufficient to ask for what you want. "Fix this bug", "Add X feature", etc. On the other hand, small models need long, hyper-specific prompts. Otherwise they are inaccurate, miss your intent, or lose track of the task after some time. 
 
-In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. This is currently true for any task that frontier models aren't good at or when using handicapped models. It's part of why open-weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  
+In other words: when a model is bad/limited at a task, humans supplement its deficiency with their own skills and steering. 
+
+This is currently true for any task that frontier models aren't good at or when using small models. It's part of why open-weight models aren't as big of a threat as they may seem in cybersecurity and biology. You still need knowledgeable humans to get the most out of them, at least for now.  
 
 This relationship also means less-skilled individuals can use the models to do work that previously required extensive training and experience, in the cases where human input is minimal or closer to supervision than steering. 
 
