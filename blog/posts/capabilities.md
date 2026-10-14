@@ -122,7 +122,7 @@ Budget-conscious, technically able organizations like Ramp are already trying th
 
 But to diffuse AI into the wider economy at its current price, much work needs to be done on simple-to-use optimizers that small and medium-sized organizations can use to save on their token spend, both for individuals within an organization and for specific tasks. 
 
-Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. They'd rather press a button or ask their agent and see results to choose from. Ideally they proactively learn a better option is available from their agent.
+Jev might be very cheap but your average store clerk or non-profit worker isn't gonna get an API key and make an eval to see if it beats Astra at their classification task. They'd rather press a button or ask their agent and see results to choose from. Ideally they learn from their agent proactively that a better option is available.
 
 I reckon model providers might be the first to arrive at a solution. It would be neat if Claude Code automatically switched models when my asks were simple (though in practice this isn't more efficient yet due to caching), like how automatic cars shift gears at the right time for you.
 
