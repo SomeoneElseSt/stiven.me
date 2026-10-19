@@ -180,6 +180,8 @@ Someone building a model router might choose to accept some error away from equi
 
 You'd have needed an economist that's into AI or a computer scientist that reads up on economics to connect the dots. Also, I didn't talk about the complex calculus and algebra that go into minimizing DWL for complex supply and demand curves. Some might be transferable to compute allocation. Go read!
 
+Thank you Professor Alexandra Digby for reading the DWL explainer and providing feedback on some technical inconsistencies.
+
 [^1]: The hall was usually half-empty, so I figured it would minimize deadweight loss (pun intended) to sit quietly and watch the lectures. 
 
 [^2]: Economists normally assume a seller maximizes profit (sales - costs) rather than total revenue. The example considers total revenue because it's more accurate to how AI labs operate right now and builds intuition for the core of the essay.
