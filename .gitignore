@@ -17,3 +17,10 @@ generated-icon.png
 
 # Agents
 CLAUDE.md
+
+# LaTeX build artifacts
+resume/*.aux
+resume/*.log
+resume/*.out
+resume/*.fls
+resume/*.fdb_latexmk
