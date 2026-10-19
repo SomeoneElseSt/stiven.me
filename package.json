@@ -7,7 +7,7 @@
     "compile": "pnpm exec tsc && pnpm exec tsx build.js",
     "dev": "pnpm exec tsc --watch",
     "check": "pnpm exec tsc --noEmit",
-    "resume": "pdflatex -interaction=nonstopmode -halt-on-error -output-directory=resume resume/resume.tex && rm -f resume/resume.aux resume/resume.log resume/resume.out resume/resume.fls resume/resume.fdb_latexmk"
+    "resume": "pdflatex -interaction=nonstopmode -halt-on-error -output-directory=resume resume/resume.tex && mv resume/resume.pdf resume.pdf && rm -f resume/resume.aux resume/resume.log resume/resume.out resume/resume.fls resume/resume.fdb_latexmk"
   },
   "author": "",
   "license": "ISC",
