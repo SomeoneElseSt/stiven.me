@@ -1,5 +1,11 @@
 [
   {
+    "id": "new-york-style",
+    "title": "New York Style",
+    "date": "November 22, 2026",
+    "file": "new-york-style.md"
+  },
+  {
     "id": "deadweightloss",
     "title": "Deadweight Loss in AI",
     "date": "October 14, 2026",

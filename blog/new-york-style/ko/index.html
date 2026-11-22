@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="source-hash" content="24a07840ec38b782"/>
+    <title>뉴욕 스타일</title>
+    <script src="/dist/theme.js"></script>
+    <script>try { localStorage.setItem('locale', 'ko'); } catch (e) {}</script>
+    <link rel="stylesheet" href="/theme.css">
+    <style>
+        :root { --code-bg: #000; --code-border: #333; --code-track: #111; --code-thumb: #444; --copy-bg: #000; --copy-border: #333; --copy-fg: #555; --copy-active: #111; --bq-border: rgba(255,255,255,0.65); }
+        :root.light-mode { --code-bg: #fff; --code-border: #ccc; --code-track: #eee; --code-thumb: #bbb; --copy-bg: #fff; --copy-border: #ccc; --copy-fg: #999; --copy-active: #eee; --bq-border: rgba(0,0,0,0.35); }
+        body { background: var(--bg); color: var(--fg); font-family: Inter, 'Inter Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 100px; padding-top: 60px; } /* padding-top overrides the 100px shorthand to vertically align the post header with the main page title */
+        h1 { font-size: 24px; margin-bottom: 24px; }
+        .blog-header { padding-top: 5px; }
+        .blog-post-item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .blog-post-link { text-decoration: none; display: flex; justify-content: space-between; align-items: center; }
+        .blog-post-title { display: block; font-weight: normal; font-size: 16px; line-height: 1.6; color: var(--fg); }
+        .blog-post-date { font-size: 14px; opacity: 0.6; margin-left: 16px; color: var(--fg); }
+        .social-links { margin-top: 16px; display: flex; gap: 24px; min-height: 20px; align-items: center; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; max-width: 600px; margin-top: 26px; } /* Change margin-top to move the entire header (title + date + back) up/down on desktop */
+        .post-header > div { flex: 1; }
+        .post-header h1 { margin: 0; margin-bottom: 15px; font-size: 24px; font-weight: bold; line-height: 1.4; position: relative; top: 12px; } 
+        .post-meta { display: flex; flex-wrap: wrap; max-width: 616px; margin: 7px 0 0 -16px; font-size: 14px; opacity: 0.7; clip-path: inset(0 0 0 16px); } /* Change margin top to modify post header height. Sits below .post-header so it can use the full width under the back button. The -16px margin + clip-path hide the divider dot when the reading time wraps to its own line */
+        .post-meta > * { position: relative; padding-left: 16px; }
+        .post-reading-time::before { content: '\00B7'; position: absolute; left: 0; width: 16px; text-align: center; }
+        .back-button { display: inline-block; font-size: 16px; text-decoration: none; white-space: nowrap; margin-left: 16px; margin-right: 6px; color: var(--fg); line-height: 1.2; position: relative; top: 22px; } /* margin-right aligns the text's right edge with the theme icon's visible right edge on the main page */
+        article { max-width: 600px; overflow: hidden; }
+        article a { color: var(--fg); text-decoration: underline; text-underline-offset: 4px; }
+        article p { margin: 16px 0; }
+        article blockquote { margin: 24px 0; padding: 4px 0 4px 16px; border-left: 2px solid var(--bq-border); }
+        article blockquote p { margin: 8px 0; }
+        article h2 { font-size: 24px; margin-top: 32px; margin-bottom: 16px; }
+        article h3 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+        article img { max-width: 100%; height: auto; margin: 24px 0; }
+        article details { margin: 0px 0; }
+        article summary { cursor: pointer; }
+        .code-wrapper { position: relative; }
+        .code-wrapper pre { margin: 2px 0 0; overflow-x: auto; border: 1px solid var(--code-border); border-radius: 4px; padding: 12px; padding-top: 36px; box-sizing: border-box; }
+        .code-wrapper pre::-webkit-scrollbar { height: 6px; }
+        .code-wrapper pre::-webkit-scrollbar-track { background: var(--code-track); }
+        .code-wrapper pre::-webkit-scrollbar-thumb { background: var(--code-thumb); border-radius: 3px; }
+        .copy-btn { position: absolute; top: 6px; right: 5px; background: var(--copy-bg); border: 1px solid var(--copy-border); border-radius: 4px; color: var(--copy-fg); cursor: pointer; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; padding: 0; z-index: 1; line-height: 0; }
+        .copy-check { opacity: 0; transition: opacity 320ms ease; } /* Opacity ms controls checkmark ease-in and out speed in copy -> copied icon  */
+        .copy-btn:active { background: var(--copy-active); }
+        .copy-btn svg { width: 14px; height: 14px; }
+        @media (max-width: 768px) {
+            .code-wrapper pre { scrollbar-width: none; padding-bottom: 12px; }
+            .code-wrapper pre::-webkit-scrollbar { height: 0; }
+            .code-scrollbar { position: absolute; bottom: 4px; left: 4px; right: 1px; height: 3px; background: var(--code-track); overflow: hidden; }
+            .code-scrollbar-thumb { position: absolute; top: 0; height: 100%; background: var(--code-thumb); }
+        }
+        .footnotes { font-size: 0.83em; margin-top: 32px; }
+        .footnotes h2 { display: none; }
+        .footnotes ol { padding-left: 2.25em; }
+        .footnotes li { margin-bottom: 8px; }
+        #nprogress .bar { background: var(--fg) !important; height: 2px !important; }
+        #nprogress .peg { box-shadow: 0 0 10px var(--fg), 0 0 5px var(--fg); }
+        #nprogress .spinner { display: none !important; }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            .social-links { margin-bottom: 150px; } /* Change margin bottom to add/reduce whitespace between the links and the footer */
+        }
+    </style>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZFhiI2B.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script type="module" src="/dist/init.js?v=1.2" defer></script>
+</head>
+<body>
+    <div class="post-header">
+        <div>
+            <h1 id="post-title">뉴욕 스타일</h1>
+        </div>
+        <a href="/" class="back-button">← 뒤로</a>
+    </div>
+    <div class="post-meta">
+        <time id="post-date" class="post-date" data-iso-date="2026-11-22">2026년 11월 22일</time>
+        <span id="post-reading-time" class="post-reading-time">읽는 데 3분</span>
+    </div>
+    
+    <article id="post-content"><p>나는 15살 때부터 달려왔다. 처음 실연을 당했을 때, 그것을 잊기 위한 방법으로 달리기를 시작했다. 힘들었다. 비염을 달고 살았기에 제대로 숨을 쉬기가 힘들었고, 몸 상태도 엉망이었다. 하지만 그 고군분투에는 무언가 만족스러운 것이 있었다. 견딜 만한 가치가 있다고 느껴졌다. 고결했다.</p>
+<p>그래서 계속 달렸다. 그 이후로 달리기는 세상을 탐험하는 나의 방식이 되었다. 도쿄에서는 이른 아침 아름다운 시부야를 달렸다. 샌프란시스코에서는 마리나를 가로질러 달렸다. 뉴욕에서는 윌리엄스버그 다리를 건너 달렸다. 유일한 예외는 거리가 너무 붐볐던 인도뿐이었다.</p>
+<p>최근에 샌프란시스코에서 처음으로 뉴욕 스타일로 달렸다. 상의를 탈의하고 반바지만 입은 채로 말이다<sup><a id="footnote-ref-1" href="#footnote-1" data-footnote-ref aria-describedby="footnote-label">1</a></sup>. 그렇게 달릴 때 쏟아지는 시선을 지나치게 의식하게 되는 것 외에도, 이번 달리기는 좀 이상하게 느껴졌다. 계획했던 경로를 너무 빨리 달려서 무엇을 해야 할지 몰랐기 때문이다.</p>
+<p>그래서 스스로에게 물었다. 적당한 거리에서 돌아갈까, 아니면 이전에 가보지 못한 도시의 다른 구역으로 계속 갈까? 날씨는 점점 추워지고 있었고, 상의 없이 달리면 한기가 느껴질 것이라는 걸 알고 있었다. 그 순간, 계속 가기로 결정한 것은 나의 의식적인 자아가 아니었다고 생각한다.</p>
+<p>우리 인간에게는 계속 나아가고 싶어 하는 부분이 있다<sup><a id="footnote-ref-2" href="#footnote-2" data-footnote-ref aria-describedby="footnote-label">2</a></sup>. 행사에서 낯선 사람에게 말을 걸거나, 친구에게 무언가를 살 때 가격을 협상하게 만드는 바로 그 부분이다. 우리가 가보지 않은 곳으로 스스로를 밀어붙일 때 우리는 살아있음을 느낀다. 정말이지 동물적이다.</p>
+<p>그날 나의 그 부분이 선택을 내렸다. 나는 그 결과를 잘 알고 있었다. 곧 어두워질 것이라는 것. 금세 추위에 떨게 될 것이라는 것. 어느 시점에는 무릎이 아프기 시작해 속도가 느려지고 좀 우스꽝스러워 보일 것이라는 것. 그리고 끝까지 해내지 못하면 집으로 돌아가는 택시비로 돈을 써야 할지도 모른다는 것을 말이다.</p>
+<p>정신분석학을 공부했다면, 내가 설명하는 이 &quot;부분&quot;이 융이 말하는 그림자(shadow)라는 것을 알 것이다. 현실의 제약이나 스스로의 인식에 완전히 부합하지 않는, 당신이 하고 싶은 일들과 되고 싶은 모습들을 말한다.</p>
+<p>하지만 이번 달리기에서처럼 그것이 옳을 때가 많다. 그것을 따라간 덕분에 지금은 골든 게이트 비치라고 알고 있는 아름다운 해변들을 볼 수 있었다. 나는 약 1시간 동안 5마일 — 대략 8km — 을 달렸고, 어두워지기 전에 집에 도착했다.</p>
+<p><img src="/blog/assets/golden-gate-beach.jpeg" alt="해 질 녘 해변에서 바라본 골든 게이트 브릿지, 전경에는 어두운 모래사장." title="골든 게이트 비치"></p>
+<p>이런 경험들은 나의 그림자에 대해 의문을 갖게 한다. 이는 직관에 어긋난다. 나를 아프게 할 수 있다는 것을 아는 무언가가 왜 나를 더 잘 살게 만드는 걸까? 대화를 나누고 싶지만 두려워하는 집들이 파티의 수줍음 많은 사람처럼, 나는 가끔 그것의(나의?) 충동을 가늠해 본다.</p>
+<p>나는 아직 답을 찾지 못했다. 아마도 나의 생존 본능일 것이라 생각한다. 내가 이것을 가장 잘 받아들인 문구는 영화 노 타임 투 다이(2021)에 나오는 대사다. &quot;인간의 적절한 기능은 사는 것이지, 존재하는 것이 아니다. 나는 삶을 연장하려 애쓰며 나의 나날을 낭비하지 않을 것이다. 나는 나의 시간을 사용할 것이다.&quot;</p>
+<p>물론 나의 충동이 덜 성공적이었던 때도 있다. 비 오는 날 예쁜 장면을 사진에 담으려고 브레이크를 너무 세게 잡았다가 스쿠터가 인도 쪽으로 미끄러졌을 때처럼 말이다. 그런 때는 나의 그림자가 두려워진다.</p>
+<p>하지만 대부분의 경우, 그것은 해를 끼치기보다는 도움이 된다. 궁극적으로 나는 그것이 있음에 감사한다. 그것을 따르지 않았다면 내가 아끼는 많은 사람을 만나지 못했을 것이다. 위에서 설명한 것과 같은 멋진 달리기도 하지 못했을 것이다.<sup><a id="footnote-ref-3" href="#footnote-3" data-footnote-ref aria-describedby="footnote-label">3</a></sup></p>
+<p>그러므로 나는 자신의 잠재력을 실현하는 것을 자신의 그림자를 쫓는 것과 연관 짓는다. 가끔 그러고 싶을 때도 있겠지만, 우리의 본성을 부정하는 것은 불가능하다고 생각한다. 우리는 더 멀리 달리고 싶어 하고, 그 끝에 무엇이 있는지 보고 싶어 한다. 항상 잘 풀리는 것은 아니지만, 우리가 살아있다면 살아있는 것처럼 행동하는 것이 좋지 않겠는가!</p>
+<section class="footnotes" data-footnotes>
+<h2 id="footnote-label" class="sr-only">Footnotes</h2>
+<ol>
+<li id="footnote-1">
+<p>왜 내가 이것을 뉴욕 스타일이라고 부르는지 이해하고 싶다면, 여름철 허드슨강의 공원들을 훑어보는 것만으로 충분하다. 돌이켜보면, 꽤 공기역학적이다.  <a href="#footnote-ref-1" data-footnote-backref aria-label="Back to reference 1">↩</a></p>
+</li>
+<li id="footnote-2">
+<p>비록 지금은 이것을 읽는 것이 인간뿐만이 아니겠지만 말이다.  <a href="#footnote-ref-2" data-footnote-backref aria-label="Back to reference 2">↩</a></p>
+</li>
+<li id="footnote-3">
+<p>최근 한 친구가 나에게 말했듯이, 당신은 인간이니 그것을 온전히 경험하는 것이 좋다. <a href="#footnote-ref-3" data-footnote-backref aria-label="Back to reference 3">↩</a></p>
+</li>
+</ol>
+</section>
+</article>
+
+    <script>
+        function isSafari() {
+            return typeof safari !== 'undefined';
+        }
+
+        function isPhone() {
+            const isMobileSize = window.matchMedia("(max-width: 768px)").matches;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            return isMobileSize && isTouchDevice;
+        }
+
+        function shouldDisableNProgress() {
+            return isSafari() || isPhone();
+        }
+
+        function finishProgress() {
+            if (shouldDisableNProgress() || typeof NProgress === 'undefined') return;
+            NProgress.configure({ showSpinner: false, minimum: 0.1, speed: 200, trickleSpeed: 50 });
+            NProgress.set(0.7);
+            setTimeout(function() { NProgress.done(); }, 100);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', finishProgress);
+        } else {
+            finishProgress();
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function initCopyButtons() {
+            var btnSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><polyline class="copy-check" points="9 13 11 15 15 11"/></svg>';
+
+            document.querySelectorAll('article details').forEach(function(details) {
+                details.addEventListener('toggle', function() {
+                    if (!details.open || details.querySelector('.code-wrapper')) return;
+                    var pre = details.querySelector('pre');
+                    if (!pre) return;
+
+                    var wrapper = document.createElement('div');
+                    wrapper.className = 'code-wrapper';
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(pre);
+
+                    var btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = btnSvg;
+                    var check = btn.querySelector('.copy-check');
+                    var canReset = false;
+                    var hovering = false;
+
+                    btn.addEventListener('click', function() {
+                        var code = pre.querySelector('code');
+                        copyToClipboard((code || pre).textContent);
+                        check.style.opacity = '1';
+                        canReset = false;
+                        setTimeout(function() {
+                            if (isPhone()) {
+                                check.style.opacity = '0';
+                            } else {
+                                canReset = true;
+                                if (!hovering) {
+                                    check.style.opacity = '0';
+                                    canReset = false;
+                                }
+                            }
+                        }, 1200); // 1.2 second minimum for checkmark to display
+                    });
+
+                    btn.addEventListener('mouseenter', function() { hovering = true; });
+                    btn.addEventListener('mouseleave', function() {
+                        hovering = false;
+                        if (canReset) {
+                            check.style.opacity = '0';
+                            canReset = false;
+                        }
+                    });
+
+                    wrapper.appendChild(btn);
+
+                    if (isPhone()) {
+                        var track = document.createElement('div');
+                        track.className = 'code-scrollbar';
+                        var thumb = document.createElement('div');
+                        thumb.className = 'code-scrollbar-thumb';
+                        track.appendChild(thumb);
+                        wrapper.appendChild(track);
+
+                        function updateThumb() {
+                            if (pre.scrollWidth <= pre.clientWidth) {
+                                track.style.display = 'none';
+                                return;
+                            }
+                            track.style.display = '';
+                            var ratio = pre.clientWidth / pre.scrollWidth;
+                            var thumbPct = ratio * 100;
+                            var maxScroll = pre.scrollWidth - pre.clientWidth;
+                            var leftPct = maxScroll > 0 ? (pre.scrollLeft / maxScroll) * (100 - thumbPct) : 0;
+                            thumb.style.width = thumbPct + '%';
+                            thumb.style.left = leftPct + '%';
+                        }
+
+                        updateThumb();
+                        pre.addEventListener('scroll', updateThumb);
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCopyButtons);
+        } else {
+            initCopyButtons();
+        }
+    </script>
+    <script>
+        (function() {
+            if (!document.documentElement.classList.contains('light-mode')) return;
+            // The build sets data-light-src only on images that have a light copy on disk
+            document.querySelectorAll('article img[data-light-src]').forEach(function(img) {
+                img.setAttribute('src', img.getAttribute('data-light-src'));
+            });
+        })();
+    </script>
+</body>
+</html>
+
